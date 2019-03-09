@@ -13,7 +13,7 @@ Commentaires: '/*' (.*?) '*/' | '//' .*? '\r'? '\n';
 Entier: ('-')? (Chiffre)+;
 Chiffre: [0-9] ;
 String: '"'( [\\,\r\n])+'"' ;
-Character: '(Chiffre | Lettre | : | . | & | { | z z | ;)*' ;
+Character: '\'' (Chiffre | Lettre | ':' | '.' | '&' | '/' | '\\' | ';')* '\'' ;
 
 //Identificateurs
 Id: Lettre (Chiffre | Lettre)+ ;
@@ -21,13 +21,12 @@ Lettre: [A-Za-z];
 
 // Type de donées
 Type: Scalar | Structures;
-Scalar: 'bool' | Entier | Character;
+Scalar: 'bool' | 'int' | 'char';
 Structures: 'struct' (Id)? '{' (ListVarName)? '}';
 Arrays: '['(Chiffre)+ (',' (Chiffre)+)? ']';
 StructDecl: Structures;
 
 ListVarName: (Type Id (Arrays)? (',' Id (Arrays)? ';'))* ;
-
 
 // Expression droite
 ExprD: ExprEnt
@@ -35,7 +34,7 @@ ExprD: ExprEnt
 | Character
 | ExprBool
 | ExprG
-| Id'(' (ExprD (','ExprD)*)? ')'
+| Id( (ExprD (','ExprD)*)? )
 | '('ExprD')';
 
 //Expression Entières
@@ -66,7 +65,7 @@ ExprG: Id
 
 // Variables
 VarDecl: Type Id (Arrays)? (('=' InitVariable))? (',' Id (Arrays)? ('=' InitVariable))? ;
-InitVariable: 'true' | 'false' | Entier | String | Character |/* ExprEnt | ExprBool |*/ InitArrays | InitStruct | '(' InitVariable')';
+InitVariable: 'true' | 'false' | Entier | String | Character | ExprEnt | ExprBool | InitArrays | InitStruct | '(' InitVariable')';
 InitArrays: '{' (InitVariable (',' InitVariable)*)? '}' ;
 InitStruct: '{' (Id ':' InitVariable (',' Id ':' InitVariable)*)? '}';
 
