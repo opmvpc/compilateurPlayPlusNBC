@@ -1,0 +1,32 @@
+/*
+
+    A blockComment TO check if it works */
+
+
+    // another comment test in line
+
+#import "salut.map" ;
+
+int toto;
+bool salut;
+const int cool = 4;
+
+void main(){
+    x = 1+2;
+
+    toto = 8;
+
+
+    if ( 2 + 3 ) { if (2+4) { "coucou";} }
+
+
+    repeat(3){"coucou";}
+
+
+
+    dig();
+    return void;
+
+}
+
+
