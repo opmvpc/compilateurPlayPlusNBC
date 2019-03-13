@@ -1,79 +1,94 @@
 lexer grammar PlayPlusWords;
 
-// Whitespaces -> ignored
+/**********
+LEXER RULES
+***********/
 
-NEWLINE: '\r'? '\n'  -> skip ;
-WS: [ \t]+ -> skip ;
-//-----------------------------------------------------
+/** **/
 
-// Commentaire
-Commentaires: '/*' (.*?) '*/' | '//' .*? '\r'? '\n';
+/** RESERVED WORDS **/
+VOID : 'void';
+IF : 'if';
+ELSE : 'else';
+THEN : 'then';
+REPEAT : 'repeat';
+WHILE : 'while';
+TRUE : 'true';
+FALSE : 'false';
+IMPORT : '#import';
 
-// Type de données
-Entier: ('-')? (Chiffre)+;
-Chiffre: [0-9] ;
-String: '"'( [\\,\r\n])+'"' ;
-Character: '\'' (Chiffre | Lettre | ':' | '.' | '&' | '/' | '\\' | ';')* '\'' ;
+/** ACTION TYPES **/
+LEFT : 'left';
+RIGHT : 'right';
+UP : 'up';
+DOWN : 'down';
+JUMP : 'jump';
+FIGHT : 'fight';
+DIG : 'dig';
 
-//Identificateurs
-Id: Lettre (Chiffre | Lettre)+ ;
-Lettre: [A-Za-z];
+/** TYPES **/
+BOOL : 'bool';
+INT : 'int';
+CHAR : 'char';
+STRUCT : 'struct';
+CONST : 'const';
+ENUM : 'enum';
+TYPEDEF : 'typedef';
+ENTIER : (MINUS)? (CHIFFRE)+ ;
+STRING : DOUBLEQUOTE (~[\\,\r\n])+ DOUBLEQUOTE ;
+CHARACTER : SINGLEQUOTE ( CHIFFRE | LETTRE | COLON | DOT | AMPERSAND  | DIV | BACKSLASH | SEMICOLON )* SINGLEQUOTE  ;
 
-// Type de donées
-Type: Scalar | Structures;
-Scalar: 'bool' | 'int' | 'char';
-Structures: 'struct' (Id)? '{' (ListVarName)? '}';
-Arrays: '['(Chiffre)+ (',' (Chiffre)+)? ']';
-StructDecl: Structures;
+/** OPERATORS **/
+PLUS : '+';
+MINUS : '-';
+MUL : '*';
+DIV : '/';
+POW : '^';
+EQUAL: '==';
+AFFECT: '=';
+NOT : '!';
+NOTEQUAL: '!=';
+SMALLER : '<';
+GREATER : '>';
+EGREATER : '>=';
+ESMALLER : '<=';
 
-ListVarName: (Type Id (Arrays)? (',' Id (Arrays)? ';'))* ;
+/** BLOCKS AND ENCLOSURES **/
+LPAREN : '(';
+RPAREN : ')';
+LBRACE : '{';
+RBRACE : '}';
+LBRACKET : '[';
+RBRACKET : ']';
 
-// Expression droite
-ExprD: ExprEnt
-| String
-| Character
-| ExprBool
-| ExprG
-| Id( (ExprD (','ExprD)*)? )
-| '('ExprD')';
+/** KEY SYMBOLS **/
+DOUBLEQUOTE : '"';
+SINGLEQUOTE : '\'';
+BACKSLASH : '\\';
+SEMICOLON: ';';
+COLON : ':';
+COMMA : ',';
+DOT : '.';
+AND : '&&';
+OR : '||';
+AMPERSAND : '&';
 
-//Expression Entières
-ExprEnt: Entier
-| ExprD '+' ExprD
-| ExprD '-' ExprD
-| ExprD '*' ExprD
-| ExprD '/' ExprD
-| ExprD '%' ExprD
-| '-' ExprD ;
+/** COMMENTS **/
+COMMENTAIRES : (BLOCK_COMMENT | LINE_COMMENT) -> channel(HIDDEN);
+BLOCK_COMMENT : DIV MUL .*? MUL DIV -> channel(HIDDEN) ;
+LINE_COMMENT : DIV DIV ~[\r\n]* -> channel(HIDDEN) ;
 
-// Expressions booléenes
-ExprBool: 'true' | 'false'
-| ExprD '&&' ExprD
-| ExprD '||' ExprD
-| '!' ExprD
-| ExprD '<' ExprD
-| ExprD '>' ExprD
-| ExprD '==' ExprD
-| ExprD '<=' ExprD
-| ExprD '>=' ExprD
-| ExprD '!=' ExprD ;
+/** NEWLINES AND WHITESPACE **/
+NEWLINE : '\r'? '\n' -> skip;
+WS : (' '| '\t')+ -> skip;
 
-// Expression gauche
-ExprG: Id
-      | Id '['ExprD (',' ExprD)? ']'
-      | ExprG.Id;
+/********
+FRAGMENTS
+********/
 
-// Variables
-VarDecl: Type Id (Arrays)? (('=' InitVariable))? (',' Id (Arrays)? ('=' InitVariable))? ;
-InitVariable: 'true' | 'false' | Entier | String | Character | ExprEnt | ExprBool | InitArrays | InitStruct | '(' InitVariable')';
-InitArrays: '{' (InitVariable (',' InitVariable)*)? '}' ;
-InitStruct: '{' (Id ':' InitVariable (',' Id ':' InitVariable)*)? '}';
 
-// Constants
-ConstDecl: 'const' Type Id (Arrays)? (('=' InitVariable))? (',' Id (Arrays)? ('=' InitVariable))? ;
-
-//Enumerations
-EnumDecl: 'enum' (Id)? '{' Id (',' Id)*? '}' ;
-
-// Typedef
-TypedefDecl: 'typedef' Type Id;
+ID : LETTRE (CHIFFRE| LETTRE)*;
+fragment LETTRE: LOWER | UPPER;
+fragment LOWER: 'a'..'z';
+fragment UPPER: 'A'..'Z';
+fragment CHIFFRE: '0'..'9';
