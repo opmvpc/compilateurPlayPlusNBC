@@ -31,10 +31,10 @@ public class NBCVisitor extends PlayPlusBaseVisitor<Object> {
 
     @Override
     public Object visitAffectInstr(PlayPlusParser.AffectInstrContext ctx) {
-        String var = ctx.ID().getText();
+        String var = ctx.exprG().ID().getText();
         /* Here you need to print the instructions  */
         printer.printLoadAdress(var, 0);
-        ctx.expression().accept(this); // Compute expression
+        ctx.exprD().accept(this); // Compute expression
         return null;
     }
 

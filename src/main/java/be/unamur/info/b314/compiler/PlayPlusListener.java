@@ -1,4 +1,5 @@
-package be.unamur.info.b314.compiler;// Generated from /home/ben/IdeaProjects/CompilerProject/src/main/antlr4/tmp/PlayPlus.g4 by ANTLR 4.7.2
+// Generated from tmp\PlayPlus.g4 by ANTLR 4.6
+package be.unamur.info.b314.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -36,6 +37,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStatement(PlayPlusParser.StatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#affectInstr}.
+	 * @param ctx the parse tree
+	 */
+	void enterAffectInstr(PlayPlusParser.AffectInstrContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#affectInstr}.
+	 * @param ctx the parse tree
+	 */
+	void exitAffectInstr(PlayPlusParser.AffectInstrContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#implDecl}.
 	 * @param ctx the parse tree
