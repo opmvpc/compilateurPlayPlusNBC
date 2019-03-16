@@ -16,12 +16,22 @@ root : implDecl
 statements : statement+;
 
 statement :
-    ( exprG AFFECT exprD ) SEMICOLON
+    affectInstr
+    | constantExpr
     | (actionType) SEMICOLON
     | (conditionalStmt) | (repeatStmt) | (whileStmt) ;
 
+affectInstr :
+   ( exprG AFFECT exprD ) SEMICOLON
+   ;
 
+constantExpr :
+    ID SEMICOLON
+    ;
 
+variableExpr :
+    ID SEMICOLON
+    ;
 
 /** **/
 implDecl : IMPORT DOUBLEQUOTE fileDecl DOUBLEQUOTE SEMICOLON;

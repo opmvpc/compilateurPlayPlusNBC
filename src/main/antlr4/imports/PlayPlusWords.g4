@@ -1,28 +1,94 @@
 lexer grammar PlayPlusWords;
 
-// Words
+/**********
+LEXER RULES
+***********/
 
-AFFECT: 'affect';
-LPAR: '(';
-RPAR: ')';
-COMMA: ',';
-PLUS: '+';
-MINUS: '-';
+/** **/
 
-// Identifiers
+/** RESERVED WORDS **/
+VOID : 'void';
+IF : 'if';
+ELSE : 'else';
+THEN : 'then';
+REPEAT : 'repeat';
+WHILE : 'while';
+TRUE : 'true';
+FALSE : 'false';
+IMPORT : '#import';
 
-ID: LETTER (LETTER | DIGIT)* ;
+/** ACTION TYPES **/
+LEFT : 'left';
+RIGHT : 'right';
+UP : 'up';
+DOWN : 'down';
+JUMP : 'jump';
+FIGHT : 'fight';
+DIG : 'dig';
 
-NUMBER: (DIGIT)+;
+/** TYPES **/
+BOOL : 'bool';
+INT : 'int';
+CHAR : 'char';
+STRUCT : 'struct';
+CONST : 'const';
+ENUM : 'enum';
+TYPEDEF : 'typedef';
+ENTIER : (MINUS)? (CHIFFRE)+ ;
+STRING : DOUBLEQUOTE (~[\\,\r\n])+ DOUBLEQUOTE ;
+CHARACTER : SINGLEQUOTE ( CHIFFRE | LETTRE | COLON | DOT | AMPERSAND  | DIV | BACKSLASH | SEMICOLON )* SINGLEQUOTE  ;
 
-fragment LETTER: 'A'..'Z' | 'a'..'z' ;
-fragment DIGIT: '0'..'9' ;
+/** OPERATORS **/
+PLUS : '+';
+MINUS : '-';
+MUL : '*';
+DIV : '/';
+POW : '^';
+EQUAL: '==';
+AFFECT: '=';
+NOT : '!';
+NOTEQUAL: '!=';
+SMALLER : '<';
+GREATER : '>';
+EGREATER : '>=';
+ESMALLER : '<=';
 
-// Comments -> ignored
+/** BLOCKS AND ENCLOSURES **/
+LPAREN : '(';
+RPAREN : ')';
+LBRACE : '{';
+RBRACE : '}';
+LBRACKET : '[';
+RBRACKET : ']';
 
-COMMENT: '/*' .*? '*/' -> skip;
+/** KEY SYMBOLS **/
+DOUBLEQUOTE : '"';
+SINGLEQUOTE : '\'';
+BACKSLASH : '\\';
+SEMICOLON: ';';
+COLON : ':';
+COMMA : ',';
+DOT : '.';
+AND : '&&';
+OR : '||';
+AMPERSAND : '&';
 
-// Whitespaces -> ignored
+/** COMMENTS **/
+COMMENTAIRES : (BLOCK_COMMENT | LINE_COMMENT) -> channel(HIDDEN);
+BLOCK_COMMENT : DIV MUL .*? MUL DIV -> channel(HIDDEN) ;
+LINE_COMMENT : DIV DIV ~[\r\n]* -> channel(HIDDEN) ;
 
-NEWLINE: '\r'? '\n'  -> skip ;
-WS: [ \t]+ -> skip ;
+/** NEWLINES AND WHITESPACE **/
+NEWLINE : '\r'? '\n' -> skip;
+WS : (' '| '\t')+ -> skip;
+
+/********
+FRAGMENTS
+********/
+
+
+ID : LETTRE (CHIFFRE| LETTRE)*;
+fragment LETTRE: LOWER | UPPER;
+fragment LOWER: 'a'..'z';
+fragment UPPER: 'A'..'Z';
+fragment CHIFFRE: '0'..'9';
