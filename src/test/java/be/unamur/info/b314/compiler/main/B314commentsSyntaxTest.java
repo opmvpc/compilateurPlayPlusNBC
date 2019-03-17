@@ -27,39 +27,34 @@ public class B314commentsSyntaxTest {
     };
 
     //
-    // Serie variables OK
+    // Serie comments OK
     //
     @Test
-    public void testcomments_comments_everywhere_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/comments_everywhere.b314", testFolder.newFile(), true, "variables: comments_everywhere");
+    public void testcomments_testcomments_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcomments.b314", testFolder.newFile(), true, "comments: testcomments");
     }
 
     @Test
-    public void testcomments_empty_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/empty.b314", testFolder.newFile(), true, "variables: empty");
-    }
-
-    @Test
-    public void testcomments_empty_multiple_lines_and_tab_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/empty_multiple_lines_and_tab.b314", testFolder.newFile(), true, "variables: empty_multiple_lines_and_tab");
+    public void testcomments_testruleprogramme01_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testruleprogramme01.b314", testFolder.newFile(), true, "comments: testruleprogramme01");
     }
 
     //
-    // Serie variables KO
+    // Serie comments KO
     //
     @Test
     public void testcomments_at_least_one_instruction_in_default_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/at_least_one_instruction_in_default.b314", testFolder.newFile(), false, "variables: at_least_one_instruction_in_default");
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/at_least_one_instruction_in_default.b314", testFolder.newFile(), false, "comments: at_least_one_instruction_in_default");
     }
 
     @Test
     public void testcomments_missing_declare_bloc_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/missing_declare_bloc.b314", testFolder.newFile(), false, "variables: missing_declare_bloc");
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/missing_declare_bloc.b314", testFolder.newFile(), false, "comments: missing_declare_bloc");
     }
 
     @Test
     public void testcomments_missing_default_bloc_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/missing_default_bloc.b314", testFolder.newFile(), false, "variables: missing_default_bloc");
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/missing_default_bloc.b314", testFolder.newFile(), false, "comments: missing_default_bloc");
     }
 
 }

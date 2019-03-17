@@ -1,0 +1,18 @@
+/*
+
+    A blockComment TO check if it works */
+
+
+    // another comment test in line
+
+#import "salut.map" ;
+
+
+void main(){
+
+    dig();
+    return void;
+
+}
+
+

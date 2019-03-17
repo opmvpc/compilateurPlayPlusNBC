@@ -35,6 +35,13 @@ import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
 /**
  *
  * @author James Ortiz - james.ortizvega@unamur.be
@@ -89,7 +96,7 @@ public class Main {
     /**
      * The input B314 file.
      */
-    private File inputFile;
+    private static File inputFile;
 
     /**
      * The output PCode file.
@@ -164,7 +171,9 @@ public class Main {
 
         // Get abstract syntax tree
         LOG.debug("Parsing input");
+        printSourceFile(inputFile);
         PlayPlusParser.RootContext tree = parse(new ANTLRInputStream(new FileInputStream(inputFile)));
+        new FileInputStream(inputFile);
         LOG.debug("Parsing input: done");
         LOG.debug("AST is {}", tree.toStringTree(parser));
         // Build symbol table
@@ -221,6 +230,27 @@ public class Main {
         tree.accept(visitor);
         printer.flush();
         printer.close();
+    }
+
+    private static void printSourceFile(File file) {
+        System.out.println("\n\n==================================================================");
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                new FileInputStream(file), StandardCharsets.UTF_8));) {
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("==================================================================\n\n");
     }
 
 }

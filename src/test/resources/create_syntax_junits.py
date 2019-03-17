@@ -9,7 +9,7 @@
 import os
 
 filePath=os.path.dirname(os.path.realpath(__file__))
-syntaxDir=os.path.join(filePath, 'syntax') 
+syntaxDir=os.path.join(filePath, 'syntax')
 
 for serie in [x for x in os.listdir(syntaxDir) if not x.startswith('.')]:
     junitName = 'B314{}SyntaxTest'.format(serie)
