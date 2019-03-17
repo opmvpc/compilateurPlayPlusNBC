@@ -6,7 +6,7 @@ LEXER RULES
 
 /** RESERVED WORDS **/
 VOID : 'void';
-MAIN: 'main()';
+MAIN: 'main(';
 IF : 'if';
 ELSE : 'else';
 THEN : 'then';

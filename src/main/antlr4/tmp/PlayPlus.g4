@@ -23,7 +23,7 @@ program:
 mapfile: MAPSTART NATUREL NATUREL monde EOF;
 
 monde:
-    ( ROBOT| TRESOR| PELOUSE| PALMIER | PONT | BUISSON | TONNEAU | PUIT | VIDE | SQUELLETTE )*
+    ( ROBOT| TRESOR| PELOUSE| PALMIER | PONT | BUISSON | TONNEAU | PUIT | VIDE | SQUELLETTE )+
       ;
 
 minimalProgram :
@@ -43,7 +43,7 @@ mainDecl :
     (mainStart) (mainInst);
 
 mainStart :
-    VOID MAIN LBRACE
+    VOID MAIN RPAREN LBRACE
     ;
 
 mainEND :
