@@ -43,7 +43,7 @@ mainDecl :
     (mainStart) (mainInst);
 
 mainStart :
-    MAIN LBRACE
+    VOID MAIN LBRACE
     ;
 
 mainEND :
@@ -110,10 +110,10 @@ exprD :
     | exprD NOTEQUAL exprD
     | exprD MOD exprD
     | exprD(MUL | DIV) exprD
+    //| MINUS exprD
     | exprD (PLUS | MINUS) exprD;
 
 exprEnt : MINUS exprEnt
-    | ENTIER
     | NATUREL
     ;
 
@@ -161,7 +161,7 @@ initVariable : TRUE | FALSE | ENTIER | STRING | CHARACTER | exprD | initArrays |
 
 initArrays : LBRACE (initVariable)(COMMA initVariable)*? RBRACE ;
 
-initStruct : LBRACE (ID COLON initVariable (COMMA ID COLON initVariable)*)? RBRACE ;
+initStruct : structDecl ;//LBRACE (ID COLON initVariable (COMMA ID COLON initVariable)*)? RBRACE ;
 
 
 constDecl : CONST mytype ID (arrays?) ((AFFECT initVariable))? (COMMA ID (arrays))? SEMICOLON ;
