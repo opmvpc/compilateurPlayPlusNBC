@@ -6,6 +6,7 @@ LEXER RULES
 
 /** RESERVED WORDS **/
 VOID : 'void';
+MAIN: 'main()';
 IF : 'if';
 ELSE : 'else';
 THEN : 'then';
@@ -86,7 +87,6 @@ WS : (' '| '\t')+ -> skip;
 /** UTILS **/
 MAPSTART: 'map' COLON ;
 HASHTAG: '#';
-MAIN: VOID 'main' LPAREN  WS* ')';
 RETURN: 'return';
 MAP : DOT 'map';
 

@@ -43,7 +43,7 @@ mainDecl :
     (mainStart) (mainInst);
 
 mainStart :
-    MAIN LBRACE
+    VOID MAIN LBRACE
     ;
 
 mainEND :
