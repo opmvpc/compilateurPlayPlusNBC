@@ -5,7 +5,11 @@ import PlayPlusWords;
 PARSER RULES
 ************/
 
-root :
+root :fichier;
+
+fichier: program | mapfile ;
+
+program:
     implDecl
     minimalProgram
 //        impDecl
@@ -15,6 +19,12 @@ root :
 //        RBRACE
     EOF
     ;
+
+mapfile: MAPSTART NATUREL NATUREL monde EOF;
+
+monde:
+    ( ROBOT| TRESOR| PELOUSE| PALMIER | PONT | BUISSON | TONNEAU | PUIT | VIDE | SQUELLETTE )*
+      ;
 
 minimalProgram :
 //   globalImport
@@ -130,6 +140,7 @@ actionType :
     | UP LPAREN (exprD)? RPAREN
     | DOWN LPAREN (exprD)? RPAREN
     | FIGHT LPAREN RPAREN
+    | JUMP LPAREN (exprD)? RPAREN
 //    | DIG LPAREN RPAREN
     ;
 // type pose probleme en python

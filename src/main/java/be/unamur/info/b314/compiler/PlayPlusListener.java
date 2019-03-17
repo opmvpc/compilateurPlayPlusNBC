@@ -1,4 +1,4 @@
-// Generated from tmp/PlayPlus.g4 by ANTLR 4.6
+// Generated from tmp\PlayPlus.g4 by ANTLR 4.6
 package be.unamur.info.b314.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -17,6 +17,46 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRoot(PlayPlusParser.RootContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#fichier}.
+	 * @param ctx the parse tree
+	 */
+	void enterFichier(PlayPlusParser.FichierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#fichier}.
+	 * @param ctx the parse tree
+	 */
+	void exitFichier(PlayPlusParser.FichierContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#program}.
+	 * @param ctx the parse tree
+	 */
+	void enterProgram(PlayPlusParser.ProgramContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#program}.
+	 * @param ctx the parse tree
+	 */
+	void exitProgram(PlayPlusParser.ProgramContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#mapfile}.
+	 * @param ctx the parse tree
+	 */
+	void enterMapfile(PlayPlusParser.MapfileContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#mapfile}.
+	 * @param ctx the parse tree
+	 */
+	void exitMapfile(PlayPlusParser.MapfileContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#monde}.
+	 * @param ctx the parse tree
+	 */
+	void enterMonde(PlayPlusParser.MondeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#monde}.
+	 * @param ctx the parse tree
+	 */
+	void exitMonde(PlayPlusParser.MondeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#minimalProgram}.
 	 * @param ctx the parse tree

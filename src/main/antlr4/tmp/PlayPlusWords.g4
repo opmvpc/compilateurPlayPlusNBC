@@ -84,11 +84,23 @@ NEWLINE : '\r'? '\n' -> skip;
 WS : (' '| '\t')+ -> skip;
 
 /** UTILS **/
+MAPSTART: 'map' COLON ;
 HASHTAG: '#';
-MAIN: 'void' WS+ 'main(' WS* ')';
+MAIN: VOID 'main' LPAREN  WS* ')';
 RETURN: 'return';
 MAP : DOT 'map';
 
+/** Map */
+ROBOT :'@';
+TRESOR: 'X';
+PELOUSE: 'G';
+PALMIER: 'P';
+PONT:'A';
+BUISSON:'B';
+TONNEAU:'T';
+PUIT:'S';
+VIDE:'_';
+SQUELLETTE:'Q';
 /********
 FRAGMENTS
 ********/
