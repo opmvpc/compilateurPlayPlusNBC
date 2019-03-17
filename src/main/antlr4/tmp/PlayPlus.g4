@@ -93,7 +93,9 @@ exprD :
 exprEnt : MINUS exprEnt
     | exprEnt (MUL | DIV) exprEnt
     | exprEnt (PLUS | MINUS) exprEnt
-    | ENTIER;
+    | ENTIER
+    | NATUREL
+    ;
 
 exprBool : TRUE | FALSE
     | exprBool AND exprBool
