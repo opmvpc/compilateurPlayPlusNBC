@@ -4,8 +4,6 @@ lexer grammar PlayPlusWords;
 LEXER RULES
 ***********/
 
-/** **/
-
 /** RESERVED WORDS **/
 VOID : 'void';
 IF : 'if';
@@ -15,7 +13,7 @@ REPEAT : 'repeat';
 WHILE : 'while';
 TRUE : 'true';
 FALSE : 'false';
-IMPORT : '#import';
+IMPORT : 'import';
 
 /** ACTION TYPES **/
 LEFT : 'left';
@@ -35,7 +33,8 @@ CONST : 'const';
 ENUM : 'enum';
 TYPEDEF : 'typedef';
 ENTIER : (MINUS)? (CHIFFRE)+ ;
-STRING : DOUBLEQUOTE (~[\\,\r\n])+ DOUBLEQUOTE ;
+FILE : DOUBLEQUOTE ID '.map' DOUBLEQUOTE ;
+STRING : DOUBLEQUOTE (~["\\,\r\n])+ DOUBLEQUOTE ;
 CHARACTER : SINGLEQUOTE ( CHIFFRE | LETTRE | COLON | DOT | AMPERSAND  | DIV | BACKSLASH | SEMICOLON )* SINGLEQUOTE  ;
 
 /** OPERATORS **/
@@ -62,7 +61,7 @@ LBRACKET : '[';
 RBRACKET : ']';
 
 /** KEY SYMBOLS **/
-DOUBLEQUOTE : '"';
+
 SINGLEQUOTE : '\'';
 BACKSLASH : '\\';
 SEMICOLON: ';';
@@ -82,11 +81,17 @@ LINE_COMMENT : DIV DIV ~[\r\n]* -> channel(HIDDEN) ;
 NEWLINE : '\r'? '\n' -> skip;
 WS : (' '| '\t')+ -> skip;
 
+/** UTILS **/
+HASHTAG: '#';
+MAIN: 'void' WS+ 'main(' WS* ')';
+RETURN: 'return';
+MAP : DOT 'map';
+
 /********
 FRAGMENTS
 ********/
-
 ID : LETTRE (CHIFFRE| LETTRE)*;
+fragment DOUBLEQUOTE : '"';
 fragment LETTRE: LOWER | UPPER;
 fragment LOWER: 'a'..'z';
 fragment UPPER: 'A'..'Z';

@@ -1,24 +1,67 @@
 grammar PlayPlus;
 import PlayPlusWords;
+
 /************
 PARSER RULES
 ************/
 
-root : implDecl
-            (varDecl | constDecl | structDecl | enumDecl | typedefDecl)*
-            'void main()' LBRACE
-            statements
-            DIG LPAREN RPAREN SEMICOLON
-            'return void;'
-            RBRACE
-            EOF;
+root :
+    implDecl
+    minimalProgram
+//        impDecl
+//        (varDecl | constDecl | structDecl | enumDecl | typedefDecl)*
+//        MAIN WS* LBRACE
+//        statements
+//        RBRACE
+    EOF
+    ;
+
+minimalProgram :
+//   globalImport
+   globalVars
+   mainDecl
+   ;
+//
+//globalImport :
+//
+
+globalVars :
+    (varDecl | constDecl | structDecl | enumDecl | typedefDecl)*
+    ;
+
+mainDecl :
+    (mainStart) (mainInst);
+
+mainStart :
+    MAIN LBRACE
+    ;
+
+mainEND :
+    mainDig mainRet RBRACE
+    ;
+
+mainInst : ( statements )? mainEND;
+
+mainDig : (digInstr) (SEMICOLON) ;
+
+mainRet : (returnInstr) (SEMICOLON);
+
+implDecl : impKeyWord (DOUBLEQUOTE fileDecl DOUBLEQUOTE | FILE);
+impKeyWord : HASHTAG IMPORT;
+fileDecl : fileName MAP;
+fileName: ID;
 
 statements : statement+;
 
+returnVoid : (RETURN) (VOID);
+
+returnInstr : (RETURN) (ID|VOID);
+
 statement :
-    affectInstr
+    (returnInstr) (SEMICOLON)
+    | affectInstr
     | constantExpr
-    | (actionType) SEMICOLON
+    | (actionType) (SEMICOLON)
     | (conditionalStmt) | (repeatStmt) | (whileStmt) ;
 
 affectInstr :
@@ -37,12 +80,6 @@ constantExpr :
 variableExpr :
     ID SEMICOLON
     ;
-
-/** **/
-implDecl : IMPORT DOUBLEQUOTE fileDecl DOUBLEQUOTE SEMICOLON;
-fileDecl :  LETTRE (LETTRE)* '.map'  ;
-///fileName : ;
-
 
 exprD :
     exprEnt
@@ -81,13 +118,20 @@ conditionalStmt : IF LPAREN exprD RPAREN LBRACE statement+ RBRACE (ELSE LBRACE s
 repeatStmt : REPEAT LPAREN exprD RPAREN LBRACE statement+ RBRACE ;
 whileStmt : WHILE LPAREN exprD RPAREN LBRACE statement+ RBRACE ;
 
-actionType : LEFT LPAREN (exprD)? RPAREN
+digInstr :
+    DIG LPAREN RPAREN
+    ;
+
+actionType :
+    digInstr
+    | LEFT LPAREN (exprD)? RPAREN
     | LEFT LPAREN (exprD)? RPAREN
     | RIGHT LPAREN (exprD)? RPAREN
     | UP LPAREN (exprD)? RPAREN
     | DOWN LPAREN (exprD)? RPAREN
     | FIGHT LPAREN RPAREN
-    | DIG LPAREN RPAREN;
+//    | DIG LPAREN RPAREN
+    ;
 // type pose probleme en python
 
 mytype : scalar | structures;
@@ -95,6 +139,7 @@ scalar : BOOL | INT | CHAR;
 structures : STRUCT (ID)? LBRACE (listVarName)? RBRACE;
 arrays : LBRACKET (CHIFFRE)+ (COMMA (CHIFFRE)+)? RBRACKET;
 structDecl : structures;
+
 
 listVarName : (mytype ID (arrays)? (COMMA  ID (arrays)? ))*;
 
@@ -113,3 +158,4 @@ constDecl : CONST mytype ID (arrays?) ((AFFECT initVariable))? (COMMA ID (arrays
 enumDecl: ENUM (ID)? LBRACE ID (COMMA ID)*? RBRACE SEMICOLON  ;
 
 typedefDecl: TYPEDEF mytype ID SEMICOLON ;
+

@@ -5,7 +5,7 @@
 
     // another comment test in line
 
-#import "salut.map" ;
+#import "salut.map"
 
 int toto;
 bool salut;
