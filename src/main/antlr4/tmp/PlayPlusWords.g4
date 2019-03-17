@@ -6,7 +6,7 @@ LEXER RULES
 
 /** RESERVED WORDS **/
 VOID : 'void';
-MAIN : 'main()';
+MAIN: 'main()';
 IF : 'if';
 ELSE : 'else';
 THEN : 'then';
@@ -34,7 +34,7 @@ CONST : 'const';
 ENUM : 'enum';
 TYPEDEF : 'typedef';
 NATUREL : (CHIFFRE)+ ;
-//ENTIER : (MINUS)? (CHIFFRE)+ ;
+ENTIER : (MINUS)? (CHIFFRE)+ ;
 FILE : DOUBLEQUOTE ID '.map' DOUBLEQUOTE ;
 STRING : DOUBLEQUOTE (~["\\,\r\n])+ DOUBLEQUOTE ;
 CHARACTER : SINGLEQUOTE ( CHIFFRE | LETTRE | COLON | DOT | AMPERSAND  | DIV | BACKSLASH | SEMICOLON )* SINGLEQUOTE  ;
@@ -87,7 +87,6 @@ WS : (' '| '\t')+ -> skip;
 /** UTILS **/
 MAPSTART: 'map' COLON ;
 HASHTAG: '#';
-//MAIN: VOID 'main' LPAREN  WS* ')';
 RETURN: 'return';
 MAP : DOT 'map';
 
