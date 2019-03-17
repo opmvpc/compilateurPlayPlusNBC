@@ -43,6 +43,7 @@ PLUS : '+';
 MINUS : '-';
 MUL : '*';
 DIV : '/';
+MOD : '%';
 POW : '^';
 EQUAL: '==';
 AFFECT: '=';
