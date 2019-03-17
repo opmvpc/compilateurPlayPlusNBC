@@ -27,11 +27,10 @@ public class PlayPlusParser extends Parser {
 		POW=34, EQUAL=35, AFFECT=36, NOT=37, NOTEQUAL=38, SMALLER=39, GREATER=40, 
 		EGREATER=41, ESMALLER=42, LPAREN=43, RPAREN=44, LBRACE=45, RBRACE=46, 
 		LBRACKET=47, RBRACKET=48, SINGLEQUOTE=49, BACKSLASH=50, SEMICOLON=51, 
-		COLON=52, COMMA=53, DOT=54, AND=55, OR=56, AMPERSAND=57, COMMENTAIRES=58, 
-		BLOCK_COMMENT=59, LINE_COMMENT=60, NEWLINE=61, WS=62, MAPSTART=63, HASHTAG=64, 
-		RETURN=65, MAP=66, ROBOT=67, TRESOR=68, PELOUSE=69, PALMIER=70, PONT=71, 
-		BUISSON=72, TONNEAU=73, PUIT=74, VIDE=75, SQUELLETTE=76, ID=77, DOUBLEQUOTE=78, 
-		ENTIER=79;
+		COLON=52, COMMA=53, DOT=54, AND=55, OR=56, COMMENTAIRES=57, BLOCK_COMMENT=58, 
+		LINE_COMMENT=59, NEWLINE=60, WS=61, MAPSTART=62, HASHTAG=63, RETURN=64, 
+		MAP=65, ROBOT=66, TRESOR=67, PELOUSE=68, PALMIER=69, PONT=70, BUISSON=71, 
+		TONNEAU=72, PUIT=73, VIDE=74, SQUELLETTE=75, ID=76, DOUBLEQUOTE=77, ENTIER=78;
 	public static final int
 		RULE_root = 0, RULE_fichier = 1, RULE_program = 2, RULE_mapfile = 3, RULE_monde = 4, 
 		RULE_minimalProgram = 5, RULE_globalVars = 6, RULE_mainDecl = 7, RULE_mainStart = 8, 
@@ -63,9 +62,9 @@ public class PlayPlusParser extends Parser {
 		"'const'", "'enum'", "'typedef'", null, null, null, null, "'+'", "'-'", 
 		"'*'", "'/'", "'%'", "'^'", "'=='", "'='", "'!'", "'!='", "'<'", "'>'", 
 		"'>='", "'<='", "'('", "')'", "'{'", "'}'", "'['", "']'", "'''", "'\\'", 
-		"';'", "':'", "','", "'.'", "'&&'", "'||'", "'&'", null, null, null, null, 
-		null, null, "'#'", "'return'", null, "'@'", "'X'", "'G'", "'P'", "'A'", 
-		"'B'", "'T'", "'S'", "'_'", "'Q'"
+		"';'", "':'", "','", "'.'", "'&&'", "'||'", null, null, null, null, null, 
+		null, "'#'", "'return'", null, "'@'", "'X'", "'G'", "'P'", "'A'", "'B'", 
+		"'T'", "'S'", "'_'", "'Q'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "VOID", "MAIN", "IF", "ELSE", "THEN", "REPEAT", "WHILE", "TRUE", 
@@ -75,8 +74,8 @@ public class PlayPlusParser extends Parser {
 		"EQUAL", "AFFECT", "NOT", "NOTEQUAL", "SMALLER", "GREATER", "EGREATER", 
 		"ESMALLER", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACKET", "RBRACKET", 
 		"SINGLEQUOTE", "BACKSLASH", "SEMICOLON", "COLON", "COMMA", "DOT", "AND", 
-		"OR", "AMPERSAND", "COMMENTAIRES", "BLOCK_COMMENT", "LINE_COMMENT", "NEWLINE", 
-		"WS", "MAPSTART", "HASHTAG", "RETURN", "MAP", "ROBOT", "TRESOR", "PELOUSE", 
+		"OR", "COMMENTAIRES", "BLOCK_COMMENT", "LINE_COMMENT", "NEWLINE", "WS", 
+		"MAPSTART", "HASHTAG", "RETURN", "MAP", "ROBOT", "TRESOR", "PELOUSE", 
 		"PALMIER", "PONT", "BUISSON", "TONNEAU", "PUIT", "VIDE", "SQUELLETTE", 
 		"ID", "DOUBLEQUOTE", "ENTIER"
 	};
@@ -395,7 +394,7 @@ public class PlayPlusParser extends Parser {
 				{
 				setState(110);
 				_la = _input.LA(1);
-				if ( !(((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (ROBOT - 67)) | (1L << (TRESOR - 67)) | (1L << (PELOUSE - 67)) | (1L << (PALMIER - 67)) | (1L << (PONT - 67)) | (1L << (BUISSON - 67)) | (1L << (TONNEAU - 67)) | (1L << (PUIT - 67)) | (1L << (VIDE - 67)) | (1L << (SQUELLETTE - 67)))) != 0)) ) {
+				if ( !(((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (ROBOT - 66)) | (1L << (TRESOR - 66)) | (1L << (PELOUSE - 66)) | (1L << (PALMIER - 66)) | (1L << (PONT - 66)) | (1L << (BUISSON - 66)) | (1L << (TONNEAU - 66)) | (1L << (PUIT - 66)) | (1L << (VIDE - 66)) | (1L << (SQUELLETTE - 66)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -408,7 +407,7 @@ public class PlayPlusParser extends Parser {
 				setState(113);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (ROBOT - 67)) | (1L << (TRESOR - 67)) | (1L << (PELOUSE - 67)) | (1L << (PALMIER - 67)) | (1L << (PONT - 67)) | (1L << (BUISSON - 67)) | (1L << (TONNEAU - 67)) | (1L << (PUIT - 67)) | (1L << (VIDE - 67)) | (1L << (SQUELLETTE - 67)))) != 0) );
+			} while ( ((((_la - 66)) & ~0x3f) == 0 && ((1L << (_la - 66)) & ((1L << (ROBOT - 66)) | (1L << (TRESOR - 66)) | (1L << (PELOUSE - 66)) | (1L << (PALMIER - 66)) | (1L << (PONT - 66)) | (1L << (BUISSON - 66)) | (1L << (TONNEAU - 66)) | (1L << (PUIT - 66)) | (1L << (VIDE - 66)) | (1L << (SQUELLETTE - 66)))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -2456,6 +2455,9 @@ public class PlayPlusParser extends Parser {
 		public TerminalNode DOWN() { return getToken(PlayPlusParser.DOWN, 0); }
 		public TerminalNode FIGHT() { return getToken(PlayPlusParser.FIGHT, 0); }
 		public TerminalNode JUMP() { return getToken(PlayPlusParser.JUMP, 0); }
+		public ExprEntContext exprEnt() {
+			return getRuleContext(ExprEntContext.class,0);
+		}
 		public ActionTypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2590,10 +2592,10 @@ public class PlayPlusParser extends Parser {
 				setState(392);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TRUE) | (1L << FALSE) | (1L << NATUREL) | (1L << STRING) | (1L << CHARACTER) | (1L << MINUS) | (1L << NOT) | (1L << LPAREN))) != 0) || _la==ID) {
+				if (_la==NATUREL || _la==MINUS) {
 					{
 					setState(391);
-					exprD(0);
+					exprEnt();
 					}
 				}
 
@@ -3657,7 +3659,7 @@ public class PlayPlusParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3Q\u021b\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3P\u021b\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -3696,7 +3698,7 @@ public class PlayPlusParser extends Parser {
 		"\n.\3.\3.\3.\5.\u0202\n.\3.\3.\3/\3/\5/\u0208\n/\3/\3/\3/\3/\7/\u020e"+
 		"\n/\f/\16/\u0211\13/\3/\3/\3/\3\60\3\60\3\60\3\60\3\60\3\60\4\u01ed\u020f"+
 		"\4\64:\61\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\66"+
-		"8:<>@BDFHJLNPRTVXZ\\^\2\b\3\2EN\4\2\3\3OO\3\2\37 \3\2!\"\3\2\n\13\3\2"+
+		"8:<>@BDFHJLNPRTVXZ\\^\2\b\3\2DM\4\2\3\3NN\3\2\37 \3\2!\"\3\2\n\13\3\2"+
 		"\24\26\u0242\2`\3\2\2\2\4d\3\2\2\2\6f\3\2\2\2\bj\3\2\2\2\nq\3\2\2\2\f"+
 		"u\3\2\2\2\16\177\3\2\2\2\20\u0082\3\2\2\2\22\u0085\3\2\2\2\24\u008b\3"+
 		"\2\2\2\26\u0091\3\2\2\2\30\u0097\3\2\2\2\32\u009a\3\2\2\2\34\u009d\3\2"+
@@ -3708,7 +3710,7 @@ public class PlayPlusParser extends Parser {
 		"\2\2L\u019f\3\2\2\2N\u01af\3\2\2\2P\u01bd\3\2\2\2R\u01c0\3\2\2\2T\u01e5"+
 		"\3\2\2\2V\u01e7\3\2\2\2X\u01f2\3\2\2\2Z\u01f4\3\2\2\2\\\u0205\3\2\2\2"+
 		"^\u0215\3\2\2\2`a\5\4\3\2a\3\3\2\2\2be\5\6\4\2ce\5\b\5\2db\3\2\2\2dc\3"+
-		"\2\2\2e\5\3\2\2\2fg\5\34\17\2gh\5\f\7\2hi\7\2\2\3i\7\3\2\2\2jk\7A\2\2"+
+		"\2\2\2e\5\3\2\2\2fg\5\34\17\2gh\5\f\7\2hi\7\2\2\3i\7\3\2\2\2jk\7@\2\2"+
 		"kl\7\33\2\2lm\7\33\2\2mn\5\n\6\2no\7\2\2\3o\t\3\2\2\2pr\t\2\2\2qp\3\2"+
 		"\2\2rs\3\2\2\2sq\3\2\2\2st\3\2\2\2t\13\3\2\2\2uv\5\16\b\2vw\5\20\t\2w"+
 		"\r\3\2\2\2x~\5R*\2y~\5Z.\2z~\5N(\2{~\5\\/\2|~\5^\60\2}x\3\2\2\2}y\3\2"+
@@ -3722,14 +3724,14 @@ public class PlayPlusParser extends Parser {
 		"\u0095\5\24\13\2\u0094\u0096\5$\23\2\u0095\u0094\3\2\2\2\u0095\u0096\3"+
 		"\2\2\2\u0096\27\3\2\2\2\u0097\u0098\5B\"\2\u0098\u0099\7\65\2\2\u0099"+
 		"\31\3\2\2\2\u009a\u009b\5(\25\2\u009b\u009c\7\65\2\2\u009c\33\3\2\2\2"+
-		"\u009d\u00a3\5\36\20\2\u009e\u009f\7P\2\2\u009f\u00a0\5 \21\2\u00a0\u00a1"+
-		"\7P\2\2\u00a1\u00a4\3\2\2\2\u00a2\u00a4\7\34\2\2\u00a3\u009e\3\2\2\2\u00a3"+
-		"\u00a2\3\2\2\2\u00a4\35\3\2\2\2\u00a5\u00a6\7B\2\2\u00a6\u00a7\7\f\2\2"+
-		"\u00a7\37\3\2\2\2\u00a8\u00a9\5\"\22\2\u00a9\u00aa\7D\2\2\u00aa!\3\2\2"+
-		"\2\u00ab\u00ac\7O\2\2\u00ac#\3\2\2\2\u00ad\u00af\5*\26\2\u00ae\u00ad\3"+
+		"\u009d\u00a3\5\36\20\2\u009e\u009f\7O\2\2\u009f\u00a0\5 \21\2\u00a0\u00a1"+
+		"\7O\2\2\u00a1\u00a4\3\2\2\2\u00a2\u00a4\7\34\2\2\u00a3\u009e\3\2\2\2\u00a3"+
+		"\u00a2\3\2\2\2\u00a4\35\3\2\2\2\u00a5\u00a6\7A\2\2\u00a6\u00a7\7\f\2\2"+
+		"\u00a7\37\3\2\2\2\u00a8\u00a9\5\"\22\2\u00a9\u00aa\7C\2\2\u00aa!\3\2\2"+
+		"\2\u00ab\u00ac\7N\2\2\u00ac#\3\2\2\2\u00ad\u00af\5*\26\2\u00ae\u00ad\3"+
 		"\2\2\2\u00af\u00b0\3\2\2\2\u00b0\u00ae\3\2\2\2\u00b0\u00b1\3\2\2\2\u00b1"+
-		"%\3\2\2\2\u00b2\u00b3\7C\2\2\u00b3\u00b4\7\3\2\2\u00b4\'\3\2\2\2\u00b5"+
-		"\u00b6\7C\2\2\u00b6\u00b7\t\3\2\2\u00b7)\3\2\2\2\u00b8\u00b9\5(\25\2\u00b9"+
+		"%\3\2\2\2\u00b2\u00b3\7B\2\2\u00b3\u00b4\7\3\2\2\u00b4\'\3\2\2\2\u00b5"+
+		"\u00b6\7B\2\2\u00b6\u00b7\t\3\2\2\u00b7)\3\2\2\2\u00b8\u00b9\5(\25\2\u00b9"+
 		"\u00ba\7\65\2\2\u00ba\u00c4\3\2\2\2\u00bb\u00c4\5,\27\2\u00bc\u00c4\5"+
 		"\60\31\2\u00bd\u00be\5D#\2\u00be\u00bf\7\65\2\2\u00bf\u00c4\3\2\2\2\u00c0"+
 		"\u00c4\5<\37\2\u00c1\u00c4\5> \2\u00c2\u00c4\5@!\2\u00c3\u00b8\3\2\2\2"+
@@ -3740,11 +3742,11 @@ public class PlayPlusParser extends Parser {
 		"\u00c5\3\2\2\2\u00cc\u00c6\3\2\2\2\u00cd-\3\2\2\2\u00ce\u00cf\5:\36\2"+
 		"\u00cf\u00d0\7&\2\2\u00d0\u00d1\5\66\34\2\u00d1\u00d2\t\4\2\2\u00d2\u00d3"+
 		"\5\66\34\2\u00d3\u00d4\3\2\2\2\u00d4\u00d5\7\65\2\2\u00d5/\3\2\2\2\u00d6"+
-		"\u00d7\5Z.\2\u00d7\u00d8\7\65\2\2\u00d8\61\3\2\2\2\u00d9\u00da\7O\2\2"+
+		"\u00d7\5Z.\2\u00d7\u00d8\7\65\2\2\u00d8\61\3\2\2\2\u00d9\u00da\7N\2\2"+
 		"\u00da\u00db\7\65\2\2\u00db\63\3\2\2\2\u00dc\u00dd\b\33\1\2\u00dd\u00f6"+
 		"\5\66\34\2\u00de\u00f6\58\35\2\u00df\u00f6\7\35\2\2\u00e0\u00f6\7\36\2"+
 		"\2\u00e1\u00f6\5:\36\2\u00e2\u00e3\7\'\2\2\u00e3\u00f6\5\64\33\20\u00e4"+
-		"\u00e5\7O\2\2\u00e5\u00ee\7-\2\2\u00e6\u00eb\5\64\33\2\u00e7\u00e8\7\67"+
+		"\u00e5\7N\2\2\u00e5\u00ee\7-\2\2\u00e6\u00eb\5\64\33\2\u00e7\u00e8\7\67"+
 		"\2\2\u00e8\u00ea\5\64\33\2\u00e9\u00e7\3\2\2\2\u00ea\u00ed\3\2\2\2\u00eb"+
 		"\u00e9\3\2\2\2\u00eb\u00ec\3\2\2\2\u00ec\u00ef\3\2\2\2\u00ed\u00eb\3\2"+
 		"\2\2\u00ee\u00e6\3\2\2\2\u00ee\u00ef\3\2\2\2\u00ef\u00f0\3\2\2\2\u00f0"+
@@ -3768,12 +3770,12 @@ public class PlayPlusParser extends Parser {
 		"\u0118\3\2\2\2\u011a\u011b\3\2\2\2\u011b\65\3\2\2\2\u011c\u011a\3\2\2"+
 		"\2\u011d\u011e\7 \2\2\u011e\u0121\5\66\34\2\u011f\u0121\7\33\2\2\u0120"+
 		"\u011d\3\2\2\2\u0120\u011f\3\2\2\2\u0121\67\3\2\2\2\u0122\u0123\t\6\2"+
-		"\2\u01239\3\2\2\2\u0124\u0125\b\36\1\2\u0125\u0130\7O\2\2\u0126\u0127"+
-		"\7O\2\2\u0127\u0128\7\61\2\2\u0128\u012b\5\64\33\2\u0129\u012a\7\67\2"+
+		"\2\u01239\3\2\2\2\u0124\u0125\b\36\1\2\u0125\u0130\7N\2\2\u0126\u0127"+
+		"\7N\2\2\u0127\u0128\7\61\2\2\u0128\u012b\5\64\33\2\u0129\u012a\7\67\2"+
 		"\2\u012a\u012c\5\64\33\2\u012b\u0129\3\2\2\2\u012b\u012c\3\2\2\2\u012c"+
 		"\u012d\3\2\2\2\u012d\u012e\7\62\2\2\u012e\u0130\3\2\2\2\u012f\u0124\3"+
 		"\2\2\2\u012f\u0126\3\2\2\2\u0130\u0136\3\2\2\2\u0131\u0132\f\3\2\2\u0132"+
-		"\u0133\13\2\2\2\u0133\u0135\7O\2\2\u0134\u0131\3\2\2\2\u0135\u0138\3\2"+
+		"\u0133\13\2\2\2\u0133\u0135\7N\2\2\u0134\u0131\3\2\2\2\u0135\u0138\3\2"+
 		"\2\2\u0136\u0134\3\2\2\2\u0136\u0137\3\2\2\2\u0137;\3\2\2\2\u0138\u0136"+
 		"\3\2\2\2\u0139\u013a\7\5\2\2\u013a\u013b\7-\2\2\u013b\u013c\5\64\33\2"+
 		"\u013c\u013d\7.\2\2\u013d\u013f\7/\2\2\u013e\u0140\5*\26\2\u013f\u013e"+
@@ -3800,12 +3802,12 @@ public class PlayPlusParser extends Parser {
 		"\7-\2\2\u0180\u0182\5\64\33\2\u0181\u0180\3\2\2\2\u0181\u0182\3\2\2\2"+
 		"\u0182\u0183\3\2\2\2\u0183\u018e\7.\2\2\u0184\u0185\7\22\2\2\u0185\u0186"+
 		"\7-\2\2\u0186\u018e\7.\2\2\u0187\u0188\7\21\2\2\u0188\u018a\7-\2\2\u0189"+
-		"\u018b\5\64\33\2\u018a\u0189\3\2\2\2\u018a\u018b\3\2\2\2\u018b\u018c\3"+
+		"\u018b\5\66\34\2\u018a\u0189\3\2\2\2\u018a\u018b\3\2\2\2\u018b\u018c\3"+
 		"\2\2\2\u018c\u018e\7.\2\2\u018d\u016b\3\2\2\2\u018d\u016c\3\2\2\2\u018d"+
 		"\u0172\3\2\2\2\u018d\u0178\3\2\2\2\u018d\u017e\3\2\2\2\u018d\u0184\3\2"+
 		"\2\2\u018d\u0187\3\2\2\2\u018eE\3\2\2\2\u018f\u0192\5H%\2\u0190\u0192"+
 		"\5J&\2\u0191\u018f\3\2\2\2\u0191\u0190\3\2\2\2\u0192G\3\2\2\2\u0193\u0194"+
-		"\t\7\2\2\u0194I\3\2\2\2\u0195\u0197\7\27\2\2\u0196\u0198\7O\2\2\u0197"+
+		"\t\7\2\2\u0194I\3\2\2\2\u0195\u0197\7\27\2\2\u0196\u0198\7N\2\2\u0197"+
 		"\u0196\3\2\2\2\u0197\u0198\3\2\2\2\u0198\u0199\3\2\2\2\u0199\u019b\7/"+
 		"\2\2\u019a\u019c\5P)\2\u019b\u019a\3\2\2\2\u019b\u019c\3\2\2\2\u019c\u019d"+
 		"\3\2\2\2\u019d\u019e\7\60\2\2\u019eK\3\2\2\2\u019f\u01a1\7\61\2\2\u01a0"+
@@ -3814,21 +3816,21 @@ public class PlayPlusParser extends Parser {
 		"\u01a8\7\33\2\2\u01a7\u01a6\3\2\2\2\u01a8\u01a9\3\2\2\2\u01a9\u01a7\3"+
 		"\2\2\2\u01a9\u01aa\3\2\2\2\u01aa\u01ac\3\2\2\2\u01ab\u01a5\3\2\2\2\u01ab"+
 		"\u01ac\3\2\2\2\u01ac\u01ad\3\2\2\2\u01ad\u01ae\7\62\2\2\u01aeM\3\2\2\2"+
-		"\u01af\u01b0\5J&\2\u01b0O\3\2\2\2\u01b1\u01b2\5F$\2\u01b2\u01b4\7O\2\2"+
+		"\u01af\u01b0\5J&\2\u01b0O\3\2\2\2\u01b1\u01b2\5F$\2\u01b2\u01b4\7N\2\2"+
 		"\u01b3\u01b5\5L\'\2\u01b4\u01b3\3\2\2\2\u01b4\u01b5\3\2\2\2\u01b5\u01b6"+
-		"\3\2\2\2\u01b6\u01b7\7\67\2\2\u01b7\u01b9\7O\2\2\u01b8\u01ba\5L\'\2\u01b9"+
+		"\3\2\2\2\u01b6\u01b7\7\67\2\2\u01b7\u01b9\7N\2\2\u01b8\u01ba\5L\'\2\u01b9"+
 		"\u01b8\3\2\2\2\u01b9\u01ba\3\2\2\2\u01ba\u01bc\3\2\2\2\u01bb\u01b1\3\2"+
 		"\2\2\u01bc\u01bf\3\2\2\2\u01bd\u01bb\3\2\2\2\u01bd\u01be\3\2\2\2\u01be"+
-		"Q\3\2\2\2\u01bf\u01bd\3\2\2\2\u01c0\u01c1\5F$\2\u01c1\u01c3\7O\2\2\u01c2"+
+		"Q\3\2\2\2\u01bf\u01bd\3\2\2\2\u01c0\u01c1\5F$\2\u01c1\u01c3\7N\2\2\u01c2"+
 		"\u01c4\5L\'\2\u01c3\u01c2\3\2\2\2\u01c3\u01c4\3\2\2\2\u01c4\u01c7\3\2"+
 		"\2\2\u01c5\u01c6\7&\2\2\u01c6\u01c8\5T+\2\u01c7\u01c5\3\2\2\2\u01c7\u01c8"+
-		"\3\2\2\2\u01c8\u01d4\3\2\2\2\u01c9\u01ca\7\67\2\2\u01ca\u01cc\7O\2\2\u01cb"+
+		"\3\2\2\2\u01c8\u01d4\3\2\2\2\u01c9\u01ca\7\67\2\2\u01ca\u01cc\7N\2\2\u01cb"+
 		"\u01cd\5L\'\2\u01cc\u01cb\3\2\2\2\u01cc\u01cd\3\2\2\2\u01cd\u01d0\3\2"+
 		"\2\2\u01ce\u01cf\7&\2\2\u01cf\u01d1\5T+\2\u01d0\u01ce\3\2\2\2\u01d0\u01d1"+
 		"\3\2\2\2\u01d1\u01d3\3\2\2\2\u01d2\u01c9\3\2\2\2\u01d3\u01d6\3\2\2\2\u01d4"+
 		"\u01d2\3\2\2\2\u01d4\u01d5\3\2\2\2\u01d5\u01d7\3\2\2\2\u01d6\u01d4\3\2"+
 		"\2\2\u01d7\u01d8\7\65\2\2\u01d8S\3\2\2\2\u01d9\u01e6\7\n\2\2\u01da\u01e6"+
-		"\7\13\2\2\u01db\u01e6\7Q\2\2\u01dc\u01e6\7\35\2\2\u01dd\u01e6\7\36\2\2"+
+		"\7\13\2\2\u01db\u01e6\7P\2\2\u01dc\u01e6\7\35\2\2\u01dd\u01e6\7\36\2\2"+
 		"\u01de\u01e6\5\64\33\2\u01df\u01e6\5V,\2\u01e0\u01e6\5X-\2\u01e1\u01e2"+
 		"\7-\2\2\u01e2\u01e3\5T+\2\u01e3\u01e4\7.\2\2\u01e4\u01e6\3\2\2\2\u01e5"+
 		"\u01d9\3\2\2\2\u01e5\u01da\3\2\2\2\u01e5\u01db\3\2\2\2\u01e5\u01dc\3\2"+
@@ -3838,17 +3840,17 @@ public class PlayPlusParser extends Parser {
 		"\2\u01ec\u01ef\3\2\2\2\u01ed\u01ee\3\2\2\2\u01ed\u01eb\3\2\2\2\u01ee\u01f0"+
 		"\3\2\2\2\u01ef\u01ed\3\2\2\2\u01f0\u01f1\7\60\2\2\u01f1W\3\2\2\2\u01f2"+
 		"\u01f3\5N(\2\u01f3Y\3\2\2\2\u01f4\u01f5\7\30\2\2\u01f5\u01f6\5F$\2\u01f6"+
-		"\u01f8\7O\2\2\u01f7\u01f9\5L\'\2\u01f8\u01f7\3\2\2\2\u01f8\u01f9\3\2\2"+
+		"\u01f8\7N\2\2\u01f7\u01f9\5L\'\2\u01f8\u01f7\3\2\2\2\u01f8\u01f9\3\2\2"+
 		"\2\u01f9\u01fc\3\2\2\2\u01fa\u01fb\7&\2\2\u01fb\u01fd\5T+\2\u01fc\u01fa"+
 		"\3\2\2\2\u01fc\u01fd\3\2\2\2\u01fd\u0201\3\2\2\2\u01fe\u01ff\7\67\2\2"+
-		"\u01ff\u0200\7O\2\2\u0200\u0202\5L\'\2\u0201\u01fe\3\2\2\2\u0201\u0202"+
+		"\u01ff\u0200\7N\2\2\u0200\u0202\5L\'\2\u0201\u01fe\3\2\2\2\u0201\u0202"+
 		"\3\2\2\2\u0202\u0203\3\2\2\2\u0203\u0204\7\65\2\2\u0204[\3\2\2\2\u0205"+
-		"\u0207\7\31\2\2\u0206\u0208\7O\2\2\u0207\u0206\3\2\2\2\u0207\u0208\3\2"+
-		"\2\2\u0208\u0209\3\2\2\2\u0209\u020a\7/\2\2\u020a\u020f\7O\2\2\u020b\u020c"+
-		"\7\67\2\2\u020c\u020e\7O\2\2\u020d\u020b\3\2\2\2\u020e\u0211\3\2\2\2\u020f"+
+		"\u0207\7\31\2\2\u0206\u0208\7N\2\2\u0207\u0206\3\2\2\2\u0207\u0208\3\2"+
+		"\2\2\u0208\u0209\3\2\2\2\u0209\u020a\7/\2\2\u020a\u020f\7N\2\2\u020b\u020c"+
+		"\7\67\2\2\u020c\u020e\7N\2\2\u020d\u020b\3\2\2\2\u020e\u0211\3\2\2\2\u020f"+
 		"\u0210\3\2\2\2\u020f\u020d\3\2\2\2\u0210\u0212\3\2\2\2\u0211\u020f\3\2"+
 		"\2\2\u0212\u0213\7\60\2\2\u0213\u0214\7\65\2\2\u0214]\3\2\2\2\u0215\u0216"+
-		"\7\32\2\2\u0216\u0217\5F$\2\u0217\u0218\7O\2\2\u0218\u0219\7\65\2\2\u0219"+
+		"\7\32\2\2\u0216\u0217\5F$\2\u0217\u0218\7N\2\2\u0218\u0219\7\65\2\2\u0219"+
 		"_\3\2\2\2\66ds}\177\u008b\u0091\u0095\u00a3\u00b0\u00c3\u00cc\u00eb\u00ee"+
 		"\u00f5\u0118\u011a\u0120\u012b\u012f\u0136\u0141\u0149\u014d\u0157\u0163"+
 		"\u016f\u0175\u017b\u0181\u018a\u018d\u0191\u0197\u019b\u01a3\u01a9\u01ab"+

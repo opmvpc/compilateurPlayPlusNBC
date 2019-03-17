@@ -140,7 +140,7 @@ actionType :
     | UP LPAREN (exprD)? RPAREN
     | DOWN LPAREN (exprD)? RPAREN
     | FIGHT LPAREN RPAREN
-    | JUMP LPAREN (exprD)? RPAREN
+    | JUMP LPAREN (exprEnt)? RPAREN
 //    | DIG LPAREN RPAREN
     ;
 // type pose probleme en python
