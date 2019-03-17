@@ -111,9 +111,6 @@ exprG : ID
         | exprG.ID;
 
 
-
-
-
 conditionalStmt : IF LPAREN exprD RPAREN LBRACE statement+ RBRACE (ELSE LBRACE statement* RBRACE)? ;
 repeatStmt : REPEAT LPAREN exprD RPAREN LBRACE statement+ RBRACE ;
 whileStmt : WHILE LPAREN exprD RPAREN LBRACE statement+ RBRACE ;
@@ -137,19 +134,19 @@ actionType :
 mytype : scalar | structures;
 scalar : BOOL | INT | CHAR;
 structures : STRUCT (ID)? LBRACE (listVarName)? RBRACE;
-arrays : LBRACKET (CHIFFRE)+ (COMMA (CHIFFRE)+)? RBRACKET;
+arrays : LBRACKET (NATUREL)+ (COMMA (NATUREL)+)? RBRACKET;
+
 structDecl : structures;
 
 
 listVarName : (mytype ID (arrays)? (COMMA  ID (arrays)? ))*;
 
-
 varDecl : mytype ID (arrays)? (AFFECT initVariable)? (COMMA ID(arrays)?(AFFECT initVariable)?)* SEMICOLON ;
 
 initVariable : TRUE | FALSE | ENTIER | STRING | CHARACTER | exprD | initArrays | initStruct | LPAREN initVariable RPAREN;
 
-
 initArrays : LBRACE (initVariable)(COMMA initVariable)*? RBRACE ;
+
 initStruct : LBRACE (ID COLON initVariable (COMMA ID COLON initVariable)*)? RBRACE ;
 
 

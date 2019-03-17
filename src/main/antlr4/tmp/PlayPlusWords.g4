@@ -32,6 +32,7 @@ STRUCT : 'struct';
 CONST : 'const';
 ENUM : 'enum';
 TYPEDEF : 'typedef';
+NATUREL : (CHIFFRE)+ ;
 ENTIER : (MINUS)? (CHIFFRE)+ ;
 FILE : DOUBLEQUOTE ID '.map' DOUBLEQUOTE ;
 STRING : DOUBLEQUOTE (~["\\,\r\n])+ DOUBLEQUOTE ;
