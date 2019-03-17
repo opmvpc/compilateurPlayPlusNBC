@@ -29,7 +29,7 @@ public class PlayPlusParser extends Parser {
 		RBRACKET=46, SINGLEQUOTE=47, BACKSLASH=48, SEMICOLON=49, COLON=50, COMMA=51, 
 		DOT=52, AND=53, OR=54, AMPERSAND=55, COMMENTAIRES=56, BLOCK_COMMENT=57, 
 		LINE_COMMENT=58, NEWLINE=59, WS=60, HASHTAG=61, MAIN=62, RETURN=63, MAP=64, 
-		ID=65, DOUBLEQUOTE=66, CHIFFRE=67;
+		ID=65, DOUBLEQUOTE=66, NATUREL=67;
 	public static final int
 		RULE_root = 0, RULE_minimalProgram = 1, RULE_globalVars = 2, RULE_mainDecl = 3, 
 		RULE_mainStart = 4, RULE_mainEND = 5, RULE_mainInst = 6, RULE_mainDig = 7, 
@@ -72,7 +72,7 @@ public class PlayPlusParser extends Parser {
 		"LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACKET", "RBRACKET", "SINGLEQUOTE", 
 		"BACKSLASH", "SEMICOLON", "COLON", "COMMA", "DOT", "AND", "OR", "AMPERSAND", 
 		"COMMENTAIRES", "BLOCK_COMMENT", "LINE_COMMENT", "NEWLINE", "WS", "HASHTAG", 
-		"MAIN", "RETURN", "MAP", "ID", "DOUBLEQUOTE", "CHIFFRE"
+		"MAIN", "RETURN", "MAP", "ID", "DOUBLEQUOTE", "NATUREL"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -2545,9 +2545,9 @@ public class PlayPlusParser extends Parser {
 	public static class ArraysContext extends ParserRuleContext {
 		public TerminalNode LBRACKET() { return getToken(PlayPlusParser.LBRACKET, 0); }
 		public TerminalNode RBRACKET() { return getToken(PlayPlusParser.RBRACKET, 0); }
-		public List<TerminalNode> CHIFFRE() { return getTokens(PlayPlusParser.CHIFFRE); }
-		public TerminalNode CHIFFRE(int i) {
-			return getToken(PlayPlusParser.CHIFFRE, i);
+		public List<TerminalNode> NATUREL() { return getTokens(PlayPlusParser.NATUREL); }
+		public TerminalNode NATUREL(int i) {
+			return getToken(PlayPlusParser.NATUREL, i);
 		}
 		public TerminalNode COMMA() { return getToken(PlayPlusParser.COMMA, 0); }
 		public ArraysContext(ParserRuleContext parent, int invokingState) {
@@ -2580,13 +2580,13 @@ public class PlayPlusParser extends Parser {
 				{
 				{
 				setState(388);
-				match(CHIFFRE);
+				match(NATUREL);
 				}
 				}
 				setState(391);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( _la==CHIFFRE );
+			} while ( _la==NATUREL );
 			setState(399);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -2601,13 +2601,13 @@ public class PlayPlusParser extends Parser {
 					{
 					{
 					setState(394);
-					match(CHIFFRE);
+					match(NATUREL);
 					}
 					}
 					setState(397);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-				} while ( _la==CHIFFRE );
+				} while ( _la==NATUREL );
 				}
 			}
 
