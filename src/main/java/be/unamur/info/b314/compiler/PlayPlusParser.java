@@ -29,7 +29,7 @@ public class PlayPlusParser extends Parser {
 		RBRACE=46, LBRACKET=47, RBRACKET=48, DOUBLEQUOTE=49, SINGLEQUOTE=50, BACKSLASH=51, 
 		SEMICOLON=52, COLON=53, COMMA=54, DOT=55, AND=56, OR=57, AMPERSAND=58, 
 		COMMENTAIRES=59, BLOCK_COMMENT=60, LINE_COMMENT=61, NEWLINE=62, WS=63, 
-		ID=64, CONSTID=65, LETTRE=66, CHIFFRE=67;
+		ID=64, LETTRE=65, CHIFFRE=66;
 	public static final int
 		RULE_root = 0, RULE_statements = 1, RULE_statement = 2, RULE_affectInstr = 3, 
 		RULE_plusMinusExpr = 4, RULE_constantExpr = 5, RULE_variableExpr = 6, 
@@ -65,7 +65,7 @@ public class PlayPlusParser extends Parser {
 		"LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACKET", "RBRACKET", "DOUBLEQUOTE", 
 		"SINGLEQUOTE", "BACKSLASH", "SEMICOLON", "COLON", "COMMA", "DOT", "AND", 
 		"OR", "AMPERSAND", "COMMENTAIRES", "BLOCK_COMMENT", "LINE_COMMENT", "NEWLINE", 
-		"WS", "ID", "CONSTID", "LETTRE", "CHIFFRE"
+		"WS", "ID", "LETTRE", "CHIFFRE"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -369,7 +369,7 @@ public class PlayPlusParser extends Parser {
 				affectInstr();
 				}
 				break;
-			case CONSTID:
+			case CONST:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(88);
@@ -573,7 +573,9 @@ public class PlayPlusParser extends Parser {
 	}
 
 	public static class ConstantExprContext extends ParserRuleContext {
-		public TerminalNode CONSTID() { return getToken(PlayPlusParser.CONSTID, 0); }
+		public ConstDeclContext constDecl() {
+			return getRuleContext(ConstDeclContext.class,0);
+		}
 		public TerminalNode SEMICOLON() { return getToken(PlayPlusParser.SEMICOLON, 0); }
 		public ConstantExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -596,7 +598,7 @@ public class PlayPlusParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(114);
-			match(CONSTID);
+			constDecl();
 			setState(115);
 			match(SEMICOLON);
 			}
@@ -1422,7 +1424,7 @@ public class PlayPlusParser extends Parser {
 				setState(241);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((((_la - 5)) & ~0x3f) == 0 && ((1L << (_la - 5)) & ((1L << (IF - 5)) | (1L << (REPEAT - 5)) | (1L << (WHILE - 5)) | (1L << (LEFT - 5)) | (1L << (RIGHT - 5)) | (1L << (UP - 5)) | (1L << (DOWN - 5)) | (1L << (FIGHT - 5)) | (1L << (DIG - 5)) | (1L << (ID - 5)) | (1L << (CONSTID - 5)))) != 0) );
+			} while ( ((((_la - 5)) & ~0x3f) == 0 && ((1L << (_la - 5)) & ((1L << (IF - 5)) | (1L << (REPEAT - 5)) | (1L << (WHILE - 5)) | (1L << (LEFT - 5)) | (1L << (RIGHT - 5)) | (1L << (UP - 5)) | (1L << (DOWN - 5)) | (1L << (FIGHT - 5)) | (1L << (DIG - 5)) | (1L << (CONST - 5)) | (1L << (ID - 5)))) != 0) );
 			setState(243);
 			match(RBRACE);
 			setState(253);
@@ -1437,7 +1439,7 @@ public class PlayPlusParser extends Parser {
 				setState(249);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (((((_la - 5)) & ~0x3f) == 0 && ((1L << (_la - 5)) & ((1L << (IF - 5)) | (1L << (REPEAT - 5)) | (1L << (WHILE - 5)) | (1L << (LEFT - 5)) | (1L << (RIGHT - 5)) | (1L << (UP - 5)) | (1L << (DOWN - 5)) | (1L << (FIGHT - 5)) | (1L << (DIG - 5)) | (1L << (ID - 5)) | (1L << (CONSTID - 5)))) != 0)) {
+				while (((((_la - 5)) & ~0x3f) == 0 && ((1L << (_la - 5)) & ((1L << (IF - 5)) | (1L << (REPEAT - 5)) | (1L << (WHILE - 5)) | (1L << (LEFT - 5)) | (1L << (RIGHT - 5)) | (1L << (UP - 5)) | (1L << (DOWN - 5)) | (1L << (FIGHT - 5)) | (1L << (DIG - 5)) | (1L << (CONST - 5)) | (1L << (ID - 5)))) != 0)) {
 					{
 					{
 					setState(246);
@@ -1525,7 +1527,7 @@ public class PlayPlusParser extends Parser {
 				setState(263);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((((_la - 5)) & ~0x3f) == 0 && ((1L << (_la - 5)) & ((1L << (IF - 5)) | (1L << (REPEAT - 5)) | (1L << (WHILE - 5)) | (1L << (LEFT - 5)) | (1L << (RIGHT - 5)) | (1L << (UP - 5)) | (1L << (DOWN - 5)) | (1L << (FIGHT - 5)) | (1L << (DIG - 5)) | (1L << (ID - 5)) | (1L << (CONSTID - 5)))) != 0) );
+			} while ( ((((_la - 5)) & ~0x3f) == 0 && ((1L << (_la - 5)) & ((1L << (IF - 5)) | (1L << (REPEAT - 5)) | (1L << (WHILE - 5)) | (1L << (LEFT - 5)) | (1L << (RIGHT - 5)) | (1L << (UP - 5)) | (1L << (DOWN - 5)) | (1L << (FIGHT - 5)) | (1L << (DIG - 5)) | (1L << (CONST - 5)) | (1L << (ID - 5)))) != 0) );
 			setState(265);
 			match(RBRACE);
 			}
@@ -1600,7 +1602,7 @@ public class PlayPlusParser extends Parser {
 				setState(275);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((((_la - 5)) & ~0x3f) == 0 && ((1L << (_la - 5)) & ((1L << (IF - 5)) | (1L << (REPEAT - 5)) | (1L << (WHILE - 5)) | (1L << (LEFT - 5)) | (1L << (RIGHT - 5)) | (1L << (UP - 5)) | (1L << (DOWN - 5)) | (1L << (FIGHT - 5)) | (1L << (DIG - 5)) | (1L << (ID - 5)) | (1L << (CONSTID - 5)))) != 0) );
+			} while ( ((((_la - 5)) & ~0x3f) == 0 && ((1L << (_la - 5)) & ((1L << (IF - 5)) | (1L << (REPEAT - 5)) | (1L << (WHILE - 5)) | (1L << (LEFT - 5)) | (1L << (RIGHT - 5)) | (1L << (UP - 5)) | (1L << (DOWN - 5)) | (1L << (FIGHT - 5)) | (1L << (DIG - 5)) | (1L << (CONST - 5)) | (1L << (ID - 5)))) != 0) );
 			setState(277);
 			match(RBRACE);
 			}
@@ -2606,10 +2608,12 @@ public class PlayPlusParser extends Parser {
 		public MytypeContext mytype() {
 			return getRuleContext(MytypeContext.class,0);
 		}
-		public TerminalNode CONSTID() { return getToken(PlayPlusParser.CONSTID, 0); }
+		public List<TerminalNode> ID() { return getTokens(PlayPlusParser.ID); }
+		public TerminalNode ID(int i) {
+			return getToken(PlayPlusParser.ID, i);
+		}
 		public TerminalNode SEMICOLON() { return getToken(PlayPlusParser.SEMICOLON, 0); }
 		public TerminalNode COMMA() { return getToken(PlayPlusParser.COMMA, 0); }
-		public TerminalNode ID() { return getToken(PlayPlusParser.ID, 0); }
 		public List<ArraysContext> arrays() {
 			return getRuleContexts(ArraysContext.class);
 		}
@@ -2646,7 +2650,7 @@ public class PlayPlusParser extends Parser {
 			setState(434);
 			mytype();
 			setState(435);
-			match(CONSTID);
+			match(ID);
 			{
 			setState(437);
 			_errHandler.sync(this);
@@ -2888,7 +2892,7 @@ public class PlayPlusParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3E\u01da\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3D\u01da\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -2944,9 +2948,9 @@ public class PlayPlusParser extends Parser {
 		"\2\2\2b\7\3\2\2\2ck\5\n\6\2de\5\32\16\2ef\7&\2\2fg\5\24\13\2gh\3\2\2\2"+
 		"hi\7\66\2\2ik\3\2\2\2jc\3\2\2\2jd\3\2\2\2k\t\3\2\2\2lm\5\32\16\2mn\7&"+
 		"\2\2no\5\26\f\2op\t\2\2\2pq\5\26\f\2qr\3\2\2\2rs\7\66\2\2s\13\3\2\2\2"+
-		"tu\7C\2\2uv\7\66\2\2v\r\3\2\2\2wx\7B\2\2xy\7\66\2\2y\17\3\2\2\2z{\7\16"+
+		"tu\58\35\2uv\7\66\2\2v\r\3\2\2\2wx\7B\2\2xy\7\66\2\2y\17\3\2\2\2z{\7\16"+
 		"\2\2{|\7\63\2\2|}\5\22\n\2}~\7\63\2\2~\177\7\66\2\2\177\21\3\2\2\2\u0080"+
-		"\u0084\7D\2\2\u0081\u0083\7D\2\2\u0082\u0081\3\2\2\2\u0083\u0086\3\2\2"+
+		"\u0084\7C\2\2\u0081\u0083\7C\2\2\u0082\u0081\3\2\2\2\u0083\u0086\3\2\2"+
 		"\2\u0084\u0082\3\2\2\2\u0084\u0085\3\2\2\2\u0085\u0087\3\2\2\2\u0086\u0084"+
 		"\3\2\2\2\u0087\u0088\7\5\2\2\u0088\23\3\2\2\2\u0089\u00a0\5\26\f\2\u008a"+
 		"\u00a0\5\30\r\2\u008b\u00a0\7\36\2\2\u008c\u00a0\7\37\2\2\u008d\u00a0"+
@@ -3016,9 +3020,9 @@ public class PlayPlusParser extends Parser {
 		"\2\u0145\u0147\7\31\2\2\u0146\u0148\7B\2\2\u0147\u0146\3\2\2\2\u0147\u0148"+
 		"\3\2\2\2\u0148\u0149\3\2\2\2\u0149\u014b\7/\2\2\u014a\u014c\5.\30\2\u014b"+
 		"\u014a\3\2\2\2\u014b\u014c\3\2\2\2\u014c\u014d\3\2\2\2\u014d\u014e\7\60"+
-		"\2\2\u014e)\3\2\2\2\u014f\u0151\7\61\2\2\u0150\u0152\7E\2\2\u0151\u0150"+
+		"\2\2\u014e)\3\2\2\2\u014f\u0151\7\61\2\2\u0150\u0152\7D\2\2\u0151\u0150"+
 		"\3\2\2\2\u0152\u0153\3\2\2\2\u0153\u0151\3\2\2\2\u0153\u0154\3\2\2\2\u0154"+
-		"\u015b\3\2\2\2\u0155\u0157\78\2\2\u0156\u0158\7E\2\2\u0157\u0156\3\2\2"+
+		"\u015b\3\2\2\2\u0155\u0157\78\2\2\u0156\u0158\7D\2\2\u0157\u0156\3\2\2"+
 		"\2\u0158\u0159\3\2\2\2\u0159\u0157\3\2\2\2\u0159\u015a\3\2\2\2\u015a\u015c"+
 		"\3\2\2\2\u015b\u0155\3\2\2\2\u015b\u015c\3\2\2\2\u015c\u015d\3\2\2\2\u015d"+
 		"\u015e\7\62\2\2\u015e+\3\2\2\2\u015f\u0160\5(\25\2\u0160-\3\2\2\2\u0161"+
@@ -3051,7 +3055,7 @@ public class PlayPlusParser extends Parser {
 		"\2\u01ac\u01aa\3\2\2\2\u01ac\u01ad\3\2\2\2\u01ad\u01b0\3\2\2\2\u01ae\u01ac"+
 		"\3\2\2\2\u01af\u01a3\3\2\2\2\u01af\u01b0\3\2\2\2\u01b0\u01b1\3\2\2\2\u01b1"+
 		"\u01b2\7\60\2\2\u01b2\67\3\2\2\2\u01b3\u01b4\7\32\2\2\u01b4\u01b5\5$\23"+
-		"\2\u01b5\u01b7\7C\2\2\u01b6\u01b8\5*\26\2\u01b7\u01b6\3\2\2\2\u01b7\u01b8"+
+		"\2\u01b5\u01b7\7B\2\2\u01b6\u01b8\5*\26\2\u01b7\u01b6\3\2\2\2\u01b7\u01b8"+
 		"\3\2\2\2\u01b8\u01bb\3\2\2\2\u01b9\u01ba\7&\2\2\u01ba\u01bc\5\62\32\2"+
 		"\u01bb\u01b9\3\2\2\2\u01bb\u01bc\3\2\2\2\u01bc\u01c0\3\2\2\2\u01bd\u01be"+
 		"\78\2\2\u01be\u01bf\7B\2\2\u01bf\u01c1\5*\26\2\u01c0\u01bd\3\2\2\2\u01c0"+
