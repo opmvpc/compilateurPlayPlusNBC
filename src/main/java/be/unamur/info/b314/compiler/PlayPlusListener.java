@@ -48,6 +48,36 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitAffectInstr(PlayPlusParser.AffectInstrContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#plusMinusExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterPlusMinusExpr(PlayPlusParser.PlusMinusExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#plusMinusExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitPlusMinusExpr(PlayPlusParser.PlusMinusExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#constantExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterConstantExpr(PlayPlusParser.ConstantExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#constantExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitConstantExpr(PlayPlusParser.ConstantExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#variableExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableExpr(PlayPlusParser.VariableExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#variableExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableExpr(PlayPlusParser.VariableExprContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#implDecl}.
 	 * @param ctx the parse tree
 	 */

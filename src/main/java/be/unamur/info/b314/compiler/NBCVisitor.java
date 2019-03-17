@@ -29,7 +29,7 @@ public class NBCVisitor extends PlayPlusBaseVisitor<Object> {
         return null;
     }
 
-    @Override
+   // @Override
     public Object visitAffectInstr(PlayPlusParser.AffectInstrContext ctx) {
         String var = ctx.exprG().ID().getText();
         /* Here you need to print the instructions  */
@@ -38,14 +38,14 @@ public class NBCVisitor extends PlayPlusBaseVisitor<Object> {
         return null;
     }
 
-    @Override
+  //  @Override
     public Object visitConstantExpr(PlayPlusParser.ConstantExprContext ctx) {
-        int value = Integer.parseInt(ctx.NUMBER().getText()); // Get value
-        printer.printLoadConstant(NBCCodeTypes.Int, value); // Load constant value
+     //   int value = Integer.parseInt(ctx.NUMBER().getText()); // Get value
+       // printer.printLoadConstant(NBCCodeTypes.Int, value); // Load constant value
         return null;
     }
 
-    @Override
+   // @Override
     public Object visitVariableExpr(PlayPlusParser.VariableExprContext ctx) {
         String var = ctx.ID().getText();
         printer.printLoad(NBCCodeTypes.Int, var);
@@ -55,7 +55,7 @@ public class NBCVisitor extends PlayPlusBaseVisitor<Object> {
 
  //   @Override
     public Integer visitPlusMinusExpr(PlayPlusParser.PlusMinusExprContext ctx) {
-        String nLeft = ctx.left.getText();
+  /*      String nLeft = ctx.left.getText();
         String nRight = ctx.right.getText();
         String operator = ctx.op.getText();
         PlayPlusParser.AffectInstrContext instr = (PlayPlusParser.AffectInstrContext) ctx.parent;
@@ -67,7 +67,7 @@ public class NBCVisitor extends PlayPlusBaseVisitor<Object> {
         } else {
             value = Integer.parseInt(nLeft) - Integer.parseInt(nRight); // Get value
             printer.printSub(NBCCodeTypes.Int, var, value);
-        }
+        }*/
         return null;
     }
 

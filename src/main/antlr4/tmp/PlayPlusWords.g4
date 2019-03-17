@@ -86,7 +86,6 @@ WS : (' '| '\t')+ -> skip;
 FRAGMENTS
 ********/
 
-
 ID : LETTRE (CHIFFRE| LETTRE)*;
 fragment LETTRE: LOWER | UPPER;
 fragment LOWER: 'a'..'z';

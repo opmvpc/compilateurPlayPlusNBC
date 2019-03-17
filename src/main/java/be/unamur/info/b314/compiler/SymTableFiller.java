@@ -20,7 +20,7 @@ public class SymTableFiller extends PlayPlusBaseListener {
 
     @Override
     public void enterAffectInstr(PlayPlusParser.AffectInstrContext ctx) {
-        addVariable(ctx.ID().getText());
+        //addVariable(ctx.ID().getText());
     }
 
     private void addVariable(String var) {

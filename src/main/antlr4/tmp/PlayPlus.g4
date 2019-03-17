@@ -22,11 +22,16 @@ statement :
     | (conditionalStmt) | (repeatStmt) | (whileStmt) ;
 
 affectInstr :
-   ( exprG AFFECT exprD ) SEMICOLON
+    plusMinusExpr
+    |( exprG AFFECT exprD ) SEMICOLON
    ;
 
+plusMinusExpr:
+    ( exprG AFFECT  exprEnt (PLUS | MINUS) exprEnt ) SEMICOLON
+    ;
+
 constantExpr :
-    ID SEMICOLON
+    constDecl SEMICOLON
     ;
 
 variableExpr :
