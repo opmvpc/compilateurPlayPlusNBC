@@ -1,11 +1,15 @@
-/*                       Comments             */
+/* My comments */
 
-#            import                    "world.map"
+#import "world.map"
 
-void                  main(                      )             {
+    bool b;
+    int i;
+    bool s[2, 5];
 
-dig(        )      ;
+void main(){
 
-return                 void     ;
+  fight();
+  dig();
 
-          }
+return void;
+}

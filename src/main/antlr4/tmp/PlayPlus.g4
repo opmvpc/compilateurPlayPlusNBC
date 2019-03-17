@@ -37,10 +37,10 @@ mainStart :
     ;
 
 mainEND :
-    mainDig mainRet RBRACE
+    mainDig? mainRet RBRACE
     ;
 
-mainInst : ( statements )? mainEND;
+mainInst : ( statements )? mainEND ( statements )?;
 
 mainDig : (digInstr) (SEMICOLON) ;
 
@@ -123,7 +123,6 @@ digInstr :
 
 actionType :
     digInstr
-    | LEFT LPAREN (exprD)? RPAREN
     | LEFT LPAREN (exprD)? RPAREN
     | RIGHT LPAREN (exprD)? RPAREN
     | UP LPAREN (exprD)? RPAREN
