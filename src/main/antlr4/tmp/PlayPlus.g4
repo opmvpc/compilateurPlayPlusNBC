@@ -47,7 +47,7 @@ mainStart :
     ;
 
 mainEND :
-    mainDig? mainRet RBRACE
+    (mainDig+)? mainRet RBRACE
     ;
 
 mainInst :  statements  mainEND ( statements )?;
@@ -72,7 +72,7 @@ statement :
     | affectInstr
     | constantExpr
     | (actionType) (SEMICOLON)
-    | digInstr
+    | digInstr (SEMICOLON)
     | (conditionalStmt) | (repeatStmt) | (whileStmt) ;
 
 affectInstr :
