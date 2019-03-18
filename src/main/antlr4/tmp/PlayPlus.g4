@@ -147,11 +147,12 @@ actionType :
 
 mytype : scalar | structures;
 scalar : BOOL | INT | CHAR;
-structures : STRUCT (ID)? LBRACE (listVarName)? RBRACE;
+structures : STRUCT (ID)? LBRACE (listStrucName)? RBRACE SEMICOLON;
 arrays : LBRACKET (NATUREL)+ (COMMA (NATUREL)+)? RBRACKET;
 
 structDecl : structures;
 
+listStrucName : (mytype ID (arrays)? (COMMA  ID (arrays)? )* SEMICOLON)*;
 
 listVarName : (mytype ID (arrays)? (COMMA  ID (arrays)? ))*;
 

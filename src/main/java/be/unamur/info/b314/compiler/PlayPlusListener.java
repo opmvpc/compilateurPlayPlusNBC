@@ -1,4 +1,4 @@
-// Generated from tmp/PlayPlus.g4 by ANTLR 4.6
+// Generated from tmp\PlayPlus.g4 by ANTLR 4.6
 package be.unamur.info.b314.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -397,6 +397,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStructDecl(PlayPlusParser.StructDeclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#listStrucName}.
+	 * @param ctx the parse tree
+	 */
+	void enterListStrucName(PlayPlusParser.ListStrucNameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#listStrucName}.
+	 * @param ctx the parse tree
+	 */
+	void exitListStrucName(PlayPlusParser.ListStrucNameContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#listVarName}.
 	 * @param ctx the parse tree

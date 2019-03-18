@@ -1,4 +1,4 @@
-// Generated from tmp/PlayPlus.g4 by ANTLR 4.6
+// Generated from tmp\PlayPlus.g4 by ANTLR 4.6
 package be.unamur.info.b314.compiler;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -479,6 +479,18 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStructDecl(PlayPlusParser.StructDeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterListStrucName(PlayPlusParser.ListStrucNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitListStrucName(PlayPlusParser.ListStrucNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
