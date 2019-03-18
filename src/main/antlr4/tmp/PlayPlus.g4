@@ -93,33 +93,39 @@ variableExpr :
     ;
 
 
+
 exprD :
     exprEnt
     | exprBool
     | STRING
     | CHARACTER
     | exprG
-    | NOT exprD
-    | exprD SMALLER exprD
-    | exprD GREATER exprD
     | ID LPAREN (exprD (COMMA exprD)*)? RPAREN
-    | LPAREN exprD RPAREN
-    | exprD AND exprD
-    | exprD OR exprD
-    | exprD EQUAL exprD
-    | exprD EGREATER exprD
-    | exprD ESMALLER exprD
-    | exprD NOTEQUAL exprD
-    | exprD MOD exprD
-    | exprD(MUL | DIV) exprD
-    //| MINUS exprD
-    | exprD (PLUS | MINUS) exprD;
+	;
 
 exprEnt : MINUS exprEnt
+    | exprG
     | NATUREL
+	| exprEnt MOD exprEnt
+    | exprEnt (MUL | DIV) exprEnt
+    | exprEnt (PLUS | MINUS) exprEnt
+	| LPAREN exprEnt RPAREN
     ;
 
-exprBool : TRUE | FALSE;
+exprBool : TRUE | FALSE
+    | exprG
+	| exprEnt SMALLER exprEnt
+    | exprEnt GREATER exprEnt
+	| exprEnt EGREATER exprEnt
+    | exprEnt ESMALLER exprEnt
+	| exprEnt EQUAL exprEnt
+	| STRING EQUAL STRING
+	| CHARACTER EQUAL CHARACTER
+	| exprBool AND exprBool
+    | exprBool OR exprBool
+	| NOT exprBool
+	| LPAREN exprBool RPAREN
+	;
 
 
 exprG : ID
@@ -159,7 +165,7 @@ listVarName : (mytype ID (arrays)? (COMMA  ID (arrays)? ))*;
 
 varDecl : mytype ID (arrays)? (AFFECT initVariable)? (COMMA ID(arrays)?(AFFECT initVariable)?)* SEMICOLON ;
 
-initVariable : TRUE | FALSE | ENTIER | STRING | CHARACTER | exprD | initArrays | initStruct | LPAREN initVariable RPAREN;
+initVariable : TRUE | FALSE | ENTIER | STRING | CHARACTER | exprEnt | exprBool | initArrays | initStruct | LPAREN initVariable RPAREN;
 
 initArrays : LBRACE (initVariable)(COMMA initVariable)*? RBRACE ;
 
