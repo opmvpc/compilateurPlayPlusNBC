@@ -50,7 +50,7 @@ mainEND :
     mainDig? mainRet RBRACE
     ;
 
-mainInst : ( statements )? mainEND ( statements )?;
+mainInst :  statements  mainEND ( statements )?;
 
 mainDig : (digInstr) (SEMICOLON) ;
 
@@ -72,6 +72,7 @@ statement :
     | affectInstr
     | constantExpr
     | (actionType) (SEMICOLON)
+    | digInstr
     | (conditionalStmt) | (repeatStmt) | (whileStmt) ;
 
 affectInstr :
@@ -134,8 +135,7 @@ digInstr :
     ;
 
 actionType :
-    digInstr
-    | LEFT LPAREN (exprD)? RPAREN
+    LEFT LPAREN (exprD)? RPAREN
     | RIGHT LPAREN (exprD)? RPAREN
     | UP LPAREN (exprD)? RPAREN
     | DOWN LPAREN (exprD)? RPAREN
