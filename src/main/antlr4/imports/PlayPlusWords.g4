@@ -74,7 +74,7 @@ DOT : '.';
 AND : '&&';
 OR : '||';
 //AMPERSAND : '&';
-USELESSTOKEN : '$';
+DOLLAR : '$';
 
 /** COMMENTS **/
 COMMENTAIRES : (BLOCK_COMMENT | LINE_COMMENT) -> channel(HIDDEN);

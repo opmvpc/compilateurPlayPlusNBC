@@ -99,30 +99,28 @@ exprD :
     | STRING
     | CHARACTER
     | exprG
+    | NOT exprD
+    | exprD SMALLER exprD
+    | exprD GREATER exprD
     | ID LPAREN (exprD (COMMA exprD)*)? RPAREN
-	;
+    | LPAREN exprD RPAREN
+    | exprD AND exprD
+    | exprD OR exprD
+    | exprD EQUAL exprD
+    | exprD EGREATER exprD
+    | exprD ESMALLER exprD
+    | exprD NOTEQUAL exprD
+    | exprD MOD exprD
+    | exprD(MUL | DIV) exprD
+    //| MINUS exprD
+    | exprD (PLUS | MINUS) exprD;
 
 exprEnt : MINUS exprEnt
     | NATUREL
-	| exprEnt MOD exprEnt
-    | exprEnt (MUL | DIV) exprEnt
-    | exprEnt (PLUS | MINUS) exprEnt
-	| LPAREN exprEnt RPAREN
-	| ID
     ;
 
-exprBool : TRUE | FALSE
-	| exprEnt SMALLER exprEnt
-    | exprEnt GREATER exprEnt
-	| exprEnt EGREATER exprEnt
-    | exprEnt ESMALLER exprEnt
-	| exprEnt EQUAL exprEnt
-	| exprBool AND exprBool
-    | exprBool OR exprBool
-	| NOT exprBool
-	| LPAREN exprBool RPAREN
-	| ID
-	;
+exprBool : TRUE | FALSE;
+
 
 exprG : ID
         | ID LBRACKET exprD (COMMA exprD)? RBRACKET
