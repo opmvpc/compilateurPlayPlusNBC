@@ -83,7 +83,7 @@ returnInstr : RETURN (ID|VOID);
 
 
 affectInstr :
-     ID AFFECT exprD SEMICOLON
+     exprG AFFECT exprD SEMICOLON
    ;
 
 funcDecl :
