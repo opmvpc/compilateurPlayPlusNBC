@@ -1,0 +1,35 @@
+// Comments
+
+/* Input map */
+
+#import"worldExample.map"
+
+//Global Context
+
+    // Test Decl Variables
+    int x = 3;
+
+    // Test Decl Function
+    void test(int x){
+
+        y = 4;
+        while(x<3){
+               x = y + 3;
+        }
+
+        return void;
+    }
+
+// Main context
+
+    void main(){
+
+        y = test(4);
+        move(test(8));
+        dig();
+
+        return void;
+
+    }
+
+

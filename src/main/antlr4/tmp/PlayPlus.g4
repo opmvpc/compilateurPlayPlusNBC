@@ -5,102 +5,108 @@ import PlayPlusWords;
 PARSER RULES
 ************/
 
-root :fichier;
+root : program | mapfile ;
 
-fichier: program | mapfile ;
 
-program:
-    implDecl
-    minimalProgram
-//        impDecl
-//        (varDecl | constDecl | structDecl | enumDecl | typedefDecl)*
-//        MAIN WS* LBRACE
-//        statements
-//        RBRACE
-    EOF
-    ;
+// Parsing Map
 
 mapfile: MAPSTART NATUREL NATUREL monde EOF;
 
-monde:
-    ( ROBOT| TRESOR| PELOUSE| PALMIER | PONT | BUISSON | TONNEAU | PUIT | VIDE | SQUELLETTE )+
-      ;
+    monde:
+        ( ROBOT| TRESOR| PELOUSE| PALMIER | PONT | BUISSON | TONNEAU | PUIT | VIDE | SQUELLETTE )+
+          ;
 
-minimalProgram :
-//   globalImport
-   globalVars
-   mainDecl
-   ;
-//
-//globalImport :
-//
 
-globalVars :
-    (varDecl | constDecl | structDecl | enumDecl | typedefDecl)*
+// Parsing PlayPlus Code
+
+program:
+    implDecl
+    globalDecl?
+    mainProgram
+    EOF
     ;
 
-mainDecl :
-    (mainStart) (mainInst);
+    // Import *.map file
 
-mainStart :
-    VOID MAIN RPAREN LBRACE
-    ;
+    implDecl : impKeyWord (DOUBLEQUOTE fileDecl DOUBLEQUOTE | FILE);
+    impKeyWord : HASHTAG IMPORT;
+    fileDecl : fileName MAP;
+    fileName: ID;
 
-mainEND :
-    (mainDig+)? mainRet RBRACE
-    ;
 
-mainInst :  statements  mainEND ( statements )?;
+    // Declarations of variables,functions,... ( 2 rules for convinience )
 
-mainDig : (digInstr) (SEMICOLON) ;
+    globalDecl :
+        (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl)*
+        ;
 
-mainRet : (returnInstr) (SEMICOLON);
+    localDecl :
+        (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl)*
+        ;
 
-implDecl : impKeyWord (DOUBLEQUOTE fileDecl DOUBLEQUOTE | FILE);
-impKeyWord : HASHTAG IMPORT;
-fileDecl : fileName MAP;
-fileName: ID;
+    // Main Function/Program
 
+    mainProgram :
+        mainStart
+        statements
+        mainEnd
+
+
+        ;
+
+        // at least one dig() instruction and a return in main.
+        mainStart : VOID MAIN LPAREN RPAREN LBRACE;
+
+        mainEnd : (mainDig+)? mainRet statements? RBRACE;
+
+        mainDig : digInstr SEMICOLON ;
+
+        mainRet : returnInstr SEMICOLON;
+
+
+// At least one statement
 statements : statement+;
 
-returnVoid : (RETURN) (VOID);
+    statement :
+        returnInstr SEMICOLON
+        | affectInstr
+        | exprD SEMICOLON
+        | constantExpr
+        | (actionType) SEMICOLON
+        | digInstr SEMICOLON
+        | conditionalStmt | repeatStmt | whileStmt
+        ;
 
-returnInstr : (RETURN) (ID|VOID);
 
-statement :
-    (returnInstr) (SEMICOLON)
-    | affectInstr
-    | constantExpr
-    | (actionType) (SEMICOLON)
-    | digInstr (SEMICOLON)
-    | (conditionalStmt) | (repeatStmt) | (whileStmt) ;
+// return in functions and main
+returnInstr : RETURN (ID|VOID);
+
 
 affectInstr :
-    plusMinusExpr
-    |( exprG AFFECT exprD ) SEMICOLON
+     ID AFFECT exprD SEMICOLON
    ;
 
-plusMinusExpr:
-    ( exprG AFFECT  exprEnt (PLUS | MINUS) exprEnt ) SEMICOLON
-    ;
+funcDecl :
+     (mytype | VOID) ID LPAREN (mytype exprG (COMMA mytype exprG)*)? RPAREN LBRACE localDecl? statements? returnInstr SEMICOLON RBRACE
+     ;
 
+funcCall :
+    ID LPAREN (exprD (COMMA exprD)*)? RPAREN
+    ;
 constantExpr :
     constDecl SEMICOLON
     ;
 
-variableExpr :
-    ID SEMICOLON
-    ;
-
-
 
 exprD :
-    exprEnt
+    funcCall
+    | exprG
+    | exprEnt
     | exprBool
     | STRING
     | CHARACTER
-    | exprG
-    | ID LPAREN (exprD (COMMA exprD)*)? RPAREN
+
+
 	;
 
 exprEnt : MINUS exprEnt
@@ -128,14 +134,15 @@ exprBool : TRUE | FALSE
 	;
 
 
-exprG : ID
+exprG : funcCall
+        |ID
         | ID LBRACKET exprD (COMMA exprD)? RBRACKET
         | exprG.ID;
 
 
-conditionalStmt : IF LPAREN exprD RPAREN LBRACE statement+ RBRACE (ELSE LBRACE statement* RBRACE)? ;
-repeatStmt : REPEAT LPAREN exprD RPAREN LBRACE statement+ RBRACE ;
-whileStmt : WHILE LPAREN exprD RPAREN LBRACE statement+ RBRACE ;
+conditionalStmt : IF LPAREN exprBool RPAREN LBRACE statement* RBRACE (ELSE LBRACE statement* RBRACE)? ;
+repeatStmt : REPEAT LPAREN exprEnt RPAREN LBRACE statement* RBRACE ;
+whileStmt : WHILE LPAREN exprBool RPAREN LBRACE statement* RBRACE ;
 
 digInstr :
     DIG LPAREN RPAREN
@@ -165,7 +172,7 @@ listVarName : (mytype ID (arrays)? (COMMA  ID (arrays)? ))*;
 
 varDecl : mytype ID (arrays)? (AFFECT initVariable)? (COMMA ID(arrays)?(AFFECT initVariable)?)* SEMICOLON ;
 
-initVariable : TRUE | FALSE | ENTIER | STRING | CHARACTER | exprEnt | exprBool | initArrays | initStruct | LPAREN initVariable RPAREN;
+initVariable : TRUE | FALSE | STRING | CHARACTER | exprEnt | exprBool | initArrays | initStruct | LPAREN initVariable RPAREN;
 
 initArrays : LBRACE (initVariable)(COMMA initVariable)*? RBRACE ;
 

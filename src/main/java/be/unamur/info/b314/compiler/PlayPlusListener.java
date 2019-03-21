@@ -18,26 +18,6 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitRoot(PlayPlusParser.RootContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#fichier}.
-	 * @param ctx the parse tree
-	 */
-	void enterFichier(PlayPlusParser.FichierContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#fichier}.
-	 * @param ctx the parse tree
-	 */
-	void exitFichier(PlayPlusParser.FichierContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#program}.
-	 * @param ctx the parse tree
-	 */
-	void enterProgram(PlayPlusParser.ProgramContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#program}.
-	 * @param ctx the parse tree
-	 */
-	void exitProgram(PlayPlusParser.ProgramContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#mapfile}.
 	 * @param ctx the parse tree
 	 */
@@ -58,85 +38,15 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitMonde(PlayPlusParser.MondeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#minimalProgram}.
+	 * Enter a parse tree produced by {@link PlayPlusParser#program}.
 	 * @param ctx the parse tree
 	 */
-	void enterMinimalProgram(PlayPlusParser.MinimalProgramContext ctx);
+	void enterProgram(PlayPlusParser.ProgramContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#minimalProgram}.
+	 * Exit a parse tree produced by {@link PlayPlusParser#program}.
 	 * @param ctx the parse tree
 	 */
-	void exitMinimalProgram(PlayPlusParser.MinimalProgramContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#globalVars}.
-	 * @param ctx the parse tree
-	 */
-	void enterGlobalVars(PlayPlusParser.GlobalVarsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#globalVars}.
-	 * @param ctx the parse tree
-	 */
-	void exitGlobalVars(PlayPlusParser.GlobalVarsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#mainDecl}.
-	 * @param ctx the parse tree
-	 */
-	void enterMainDecl(PlayPlusParser.MainDeclContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#mainDecl}.
-	 * @param ctx the parse tree
-	 */
-	void exitMainDecl(PlayPlusParser.MainDeclContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#mainStart}.
-	 * @param ctx the parse tree
-	 */
-	void enterMainStart(PlayPlusParser.MainStartContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#mainStart}.
-	 * @param ctx the parse tree
-	 */
-	void exitMainStart(PlayPlusParser.MainStartContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#mainEND}.
-	 * @param ctx the parse tree
-	 */
-	void enterMainEND(PlayPlusParser.MainENDContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#mainEND}.
-	 * @param ctx the parse tree
-	 */
-	void exitMainEND(PlayPlusParser.MainENDContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#mainInst}.
-	 * @param ctx the parse tree
-	 */
-	void enterMainInst(PlayPlusParser.MainInstContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#mainInst}.
-	 * @param ctx the parse tree
-	 */
-	void exitMainInst(PlayPlusParser.MainInstContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#mainDig}.
-	 * @param ctx the parse tree
-	 */
-	void enterMainDig(PlayPlusParser.MainDigContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#mainDig}.
-	 * @param ctx the parse tree
-	 */
-	void exitMainDig(PlayPlusParser.MainDigContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#mainRet}.
-	 * @param ctx the parse tree
-	 */
-	void enterMainRet(PlayPlusParser.MainRetContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#mainRet}.
-	 * @param ctx the parse tree
-	 */
-	void exitMainRet(PlayPlusParser.MainRetContext ctx);
+	void exitProgram(PlayPlusParser.ProgramContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#implDecl}.
 	 * @param ctx the parse tree
@@ -178,6 +88,76 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitFileName(PlayPlusParser.FileNameContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#globalDecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterGlobalDecl(PlayPlusParser.GlobalDeclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#globalDecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitGlobalDecl(PlayPlusParser.GlobalDeclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#localDecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterLocalDecl(PlayPlusParser.LocalDeclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#localDecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitLocalDecl(PlayPlusParser.LocalDeclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#mainProgram}.
+	 * @param ctx the parse tree
+	 */
+	void enterMainProgram(PlayPlusParser.MainProgramContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#mainProgram}.
+	 * @param ctx the parse tree
+	 */
+	void exitMainProgram(PlayPlusParser.MainProgramContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#mainStart}.
+	 * @param ctx the parse tree
+	 */
+	void enterMainStart(PlayPlusParser.MainStartContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#mainStart}.
+	 * @param ctx the parse tree
+	 */
+	void exitMainStart(PlayPlusParser.MainStartContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#mainEnd}.
+	 * @param ctx the parse tree
+	 */
+	void enterMainEnd(PlayPlusParser.MainEndContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#mainEnd}.
+	 * @param ctx the parse tree
+	 */
+	void exitMainEnd(PlayPlusParser.MainEndContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#mainDig}.
+	 * @param ctx the parse tree
+	 */
+	void enterMainDig(PlayPlusParser.MainDigContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#mainDig}.
+	 * @param ctx the parse tree
+	 */
+	void exitMainDig(PlayPlusParser.MainDigContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#mainRet}.
+	 * @param ctx the parse tree
+	 */
+	void enterMainRet(PlayPlusParser.MainRetContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#mainRet}.
+	 * @param ctx the parse tree
+	 */
+	void exitMainRet(PlayPlusParser.MainRetContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#statements}.
 	 * @param ctx the parse tree
 	 */
@@ -187,26 +167,6 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStatements(PlayPlusParser.StatementsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#returnVoid}.
-	 * @param ctx the parse tree
-	 */
-	void enterReturnVoid(PlayPlusParser.ReturnVoidContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#returnVoid}.
-	 * @param ctx the parse tree
-	 */
-	void exitReturnVoid(PlayPlusParser.ReturnVoidContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#returnInstr}.
-	 * @param ctx the parse tree
-	 */
-	void enterReturnInstr(PlayPlusParser.ReturnInstrContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#returnInstr}.
-	 * @param ctx the parse tree
-	 */
-	void exitReturnInstr(PlayPlusParser.ReturnInstrContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#statement}.
 	 * @param ctx the parse tree
@@ -218,6 +178,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitStatement(PlayPlusParser.StatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#returnInstr}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnInstr(PlayPlusParser.ReturnInstrContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#returnInstr}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnInstr(PlayPlusParser.ReturnInstrContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#affectInstr}.
 	 * @param ctx the parse tree
 	 */
@@ -228,15 +198,25 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitAffectInstr(PlayPlusParser.AffectInstrContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#plusMinusExpr}.
+	 * Enter a parse tree produced by {@link PlayPlusParser#funcDecl}.
 	 * @param ctx the parse tree
 	 */
-	void enterPlusMinusExpr(PlayPlusParser.PlusMinusExprContext ctx);
+	void enterFuncDecl(PlayPlusParser.FuncDeclContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#plusMinusExpr}.
+	 * Exit a parse tree produced by {@link PlayPlusParser#funcDecl}.
 	 * @param ctx the parse tree
 	 */
-	void exitPlusMinusExpr(PlayPlusParser.PlusMinusExprContext ctx);
+	void exitFuncDecl(PlayPlusParser.FuncDeclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#funcCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncCall(PlayPlusParser.FuncCallContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#funcCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncCall(PlayPlusParser.FuncCallContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#constantExpr}.
 	 * @param ctx the parse tree
@@ -247,16 +227,6 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitConstantExpr(PlayPlusParser.ConstantExprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#variableExpr}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariableExpr(PlayPlusParser.VariableExprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#variableExpr}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariableExpr(PlayPlusParser.VariableExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#exprD}.
 	 * @param ctx the parse tree

@@ -5,8 +5,8 @@ LEXER RULES
 ***********/
 
 /** RESERVED WORDS **/
+MAIN: 'main';
 VOID : 'void';
-MAIN: 'main(';
 IF : 'if';
 ELSE : 'else';
 THEN : 'then';

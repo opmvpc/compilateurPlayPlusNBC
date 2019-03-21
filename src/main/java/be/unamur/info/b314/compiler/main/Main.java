@@ -6,8 +6,8 @@ import be.unamur.info.b314.compiler.PlayPlusLexer;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 
 
-import be.unamur.info.b314.compiler.NBCPrinter;
-import be.unamur.info.b314.compiler.NBCVisitor;
+//import be.unamur.info.b314.compiler.NBCPrinter;
+//import be.unamur.info.b314.compiler.NBCVisitor;
 import be.unamur.info.b314.compiler.SymTableFiller;
 import be.unamur.info.b314.compiler.exception.ParsingException;
 
@@ -182,7 +182,7 @@ public class Main {
         LOG.debug("Building symbol table: done");
         // Print NBC Code
         LOG.debug("Printing NBC Code");
-        printNBCCode(tree, symTable);
+       // printNBCCode(tree, symTable);
         LOG.debug("Printing NBC Code: done");
 
     }
@@ -222,7 +222,7 @@ public class Main {
         return filler.getSymTable();
     }
 
-
+/*
     private void printNBCCode(PlayPlusParser.RootContext tree, Map<String, Integer> symTable) throws FileNotFoundException {
 
         NBCPrinter printer = new NBCPrinter("nbcCode.nbc");
@@ -231,7 +231,7 @@ public class Main {
         printer.flush();
         printer.close();
     }
-
+*/
     private static void printSourceFile(File file) {
         System.out.println("\n\n==================================================================");
 
