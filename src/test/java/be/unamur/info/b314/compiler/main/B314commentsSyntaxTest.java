@@ -30,6 +30,11 @@ public class B314commentsSyntaxTest {
     // Serie comments OK
     //
     @Test
+    public void testcomments_testarrays_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testarrays.b314", testFolder.newFile(), true, "comments: testarrays");
+    }
+
+    @Test
     public void testcomments_testcomments_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcomments.b314", testFolder.newFile(), true, "comments: testcomments");
     }

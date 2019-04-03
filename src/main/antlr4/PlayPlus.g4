@@ -166,7 +166,7 @@ actionType :
 mytype : scalar | structures;
 scalar : BOOL | INT | CHAR;
 structures : STRUCT (ID)? LBRACE (listStrucName)? RBRACE SEMICOLON;
-arrays : LBRACKET (NATUREL)+ (COMMA (NATUREL)+)? RBRACKET;
+arrays : LBRACKET (NATUREL)+ (COMMA (NATUREL+))* RBRACKET;
 
 structDecl : structures;
 
