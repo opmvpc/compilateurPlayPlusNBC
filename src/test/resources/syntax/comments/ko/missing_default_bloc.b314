@@ -1,3 +1,16 @@
-/* Comments */
+/*
 
-affect()
+    A blockComment TO check if it works */
+
+
+    // another comment test in line
+
+
+void main(){
+
+    dig();
+    return void;
+
+}
+
+

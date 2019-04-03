@@ -1,2 +1,16 @@
-/* Programme */
-affect(x,5 + 2)
+/*
+
+    A blockComment TO check if it works */
+
+
+    // another comment test in line
+
+
+void main(){
+
+    dig();
+    return void;
+
+}
+
+

@@ -1,7 +1,11 @@
 package be.unamur.info.b314.compiler.main;
 
-import org.junit.Rule;
+import java.io.File;
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
+import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
@@ -26,22 +30,13 @@ public class B314variablesSemanticsTest {
     ;
     };
 
-    //
-    // Serie variables OK
-    //
-    @Test
-    public void testvariables_id_operationAdd_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/semantics/variables/ok/id_operationAdd.b314", testFolder.newFile(), true, "variables: id_operationAdd");
-    }
-
-
-    //
-    // Serie variables KO
-    //
-    @Test
-    public void testvariables_id_operationAdd_mistake_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/semantics/variables/ko/id_operationAdd_mistake.b314", testFolder.newFile(), false, "variables: id_operationAdd_mistake");
-    }
-
-
+//    @Test
+//    public void testvariables_ko() throws Exception {
+//        File pcodeFile = testFolder.newFile();
+//        CompilerTestHelper.launchCompilation("/semantics/variables/ko", pcodeFile, true, "variables: ko");
+//        LOG.debug("PCode is: {{}", FileUtils.readFileToString(pcodeFile));
+//        InterpreterResult result;
+//        // Turns: 1
+//        LOG.debug("Starting interpretation with 1 turn");
+//    }
 }

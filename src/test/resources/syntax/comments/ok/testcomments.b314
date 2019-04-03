@@ -1,15 +1,14 @@
-/* My comments */
+/*
 
-#import "world.map"
+    A blockComment TO check if it works */
 
-    bool b;
-    int i;
-    bool s[2, 5];
+
+    // another comment test in line
+#import "test.map"
 
 void main(){
 
-  fight();
-  dig();
+    dig();
+    return void;
 
-return void;
 }

@@ -1,3 +1,15 @@
-/* Comments */
+/*
 
-affect(, 2+4)
+    A blockComment TO check if it works */
+
+
+    // another comment test in line
+
+
+void main(){
+
+    return void;
+
+}
+
+

@@ -1,4 +1,7 @@
-package be.unamur.info.b314.compiler;// Generated from /home/ben/IdeaProjects/CompilerProject/src/main/antlr4/tmp/PlayPlus.g4 by ANTLR 4.7.2
+// Generated from PlayPlus.g4 by ANTLR 4.6
+
+    package be.unamur.info.b314.compiler;
+
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -16,6 +19,90 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRoot(PlayPlusParser.RootContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#mapfile}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMapfile(PlayPlusParser.MapfileContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#monde}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMonde(PlayPlusParser.MondeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#program}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProgram(PlayPlusParser.ProgramContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#implDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImplDecl(PlayPlusParser.ImplDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#impKeyWord}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImpKeyWord(PlayPlusParser.ImpKeyWordContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#fileDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFileDecl(PlayPlusParser.FileDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#fileName}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFileName(PlayPlusParser.FileNameContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#globalDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGlobalDecl(PlayPlusParser.GlobalDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#localDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLocalDecl(PlayPlusParser.LocalDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#mainProgram}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMainProgram(PlayPlusParser.MainProgramContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#mainStart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMainStart(PlayPlusParser.MainStartContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#mainEnd}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMainEnd(PlayPlusParser.MainEndContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#mainDig}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMainDig(PlayPlusParser.MainDigContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#mainRet}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMainRet(PlayPlusParser.MainRetContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#statements}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -28,17 +115,35 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(PlayPlusParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#implDecl}.
+	 * Visit a parse tree produced by {@link PlayPlusParser#returnInstr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitImplDecl(PlayPlusParser.ImplDeclContext ctx);
+	T visitReturnInstr(PlayPlusParser.ReturnInstrContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#fileDecl}.
+	 * Visit a parse tree produced by {@link PlayPlusParser#affectInstr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFileDecl(PlayPlusParser.FileDeclContext ctx);
+	T visitAffectInstr(PlayPlusParser.AffectInstrContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#funcDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncDecl(PlayPlusParser.FuncDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#funcCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncCall(PlayPlusParser.FuncCallContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#constantExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstantExpr(PlayPlusParser.ConstantExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#exprD}.
 	 * @param ctx the parse tree
@@ -82,6 +187,12 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWhileStmt(PlayPlusParser.WhileStmtContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#digInstr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDigInstr(PlayPlusParser.DigInstrContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#actionType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -117,6 +228,12 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStructDecl(PlayPlusParser.StructDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#listStrucName}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListStrucName(PlayPlusParser.ListStrucNameContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#listVarName}.
 	 * @param ctx the parse tree

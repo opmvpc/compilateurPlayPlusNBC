@@ -1,16 +1,15 @@
-// Generated from tmp/PlayPlus.g4 by ANTLR 4.6
-package be.unamur.info.b314.compiler;
+// Generated from PlayPlus.g4 by ANTLR 4.6
 
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.ATN;
-import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.antlr.v4.runtime.atn.ParserATNSimulator;
-import org.antlr.v4.runtime.atn.PredictionContextCache;
+    package be.unamur.info.b314.compiler;
+
+import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
-import org.antlr.v4.runtime.tree.TerminalNode;
-
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
+import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class PlayPlusParser extends Parser {
@@ -140,11 +139,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_root; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterRoot(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterRoot(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitRoot(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitRoot(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitRoot(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -200,11 +204,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_mapfile; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterMapfile(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterMapfile(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitMapfile(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitMapfile(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitMapfile(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -284,11 +293,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_monde; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterMonde(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterMonde(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitMonde(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitMonde(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitMonde(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -299,7 +313,7 @@ public class PlayPlusParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(101);
+			setState(101); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
@@ -317,7 +331,7 @@ public class PlayPlusParser extends Parser {
 				}
 				}
 				}
-				setState(103);
+				setState(103); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (ROBOT - 67)) | (1L << (TRESOR - 67)) | (1L << (PELOUSE - 67)) | (1L << (PALMIER - 67)) | (1L << (PONT - 67)) | (1L << (BUISSON - 67)) | (1L << (TONNEAU - 67)) | (1L << (PUIT - 67)) | (1L << (VIDE - 67)) | (1L << (SQUELLETTE - 67)))) != 0) );
@@ -351,11 +365,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_program; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterProgram(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterProgram(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitProgram(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitProgram(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitProgram(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -412,11 +431,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_implDecl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterImplDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterImplDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitImplDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitImplDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitImplDecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -472,11 +496,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_impKeyWord; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterImpKeyWord(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterImpKeyWord(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitImpKeyWord(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitImpKeyWord(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitImpKeyWord(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -514,11 +543,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_fileDecl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterFileDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterFileDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitFileDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitFileDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitFileDecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -553,11 +587,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_fileName; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterFileName(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterFileName(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitFileName(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitFileName(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitFileName(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -625,11 +664,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_globalDecl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterGlobalDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterGlobalDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitGlobalDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitGlobalDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitGlobalDecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -643,7 +687,7 @@ public class PlayPlusParser extends Parser {
 			setState(136);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					setState(134);
@@ -686,7 +730,7 @@ public class PlayPlusParser extends Parser {
 						}
 						break;
 					}
-					}
+					} 
 				}
 				setState(138);
 				_errHandler.sync(this);
@@ -748,11 +792,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_localDecl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterLocalDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterLocalDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitLocalDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitLocalDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitLocalDecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -766,7 +815,7 @@ public class PlayPlusParser extends Parser {
 			setState(147);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					setState(145);
@@ -809,7 +858,7 @@ public class PlayPlusParser extends Parser {
 						}
 						break;
 					}
-					}
+					} 
 				}
 				setState(149);
 				_errHandler.sync(this);
@@ -844,11 +893,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_mainProgram; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterMainProgram(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterMainProgram(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitMainProgram(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitMainProgram(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitMainProgram(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -889,11 +943,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_mainStart; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterMainStart(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterMainStart(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitMainStart(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitMainStart(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitMainStart(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -946,11 +1005,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_mainEnd; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterMainEnd(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterMainEnd(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitMainEnd(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitMainEnd(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitMainEnd(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -966,7 +1030,7 @@ public class PlayPlusParser extends Parser {
 			_la = _input.LA(1);
 			if (_la==DIG) {
 				{
-				setState(161);
+				setState(161); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
@@ -976,7 +1040,7 @@ public class PlayPlusParser extends Parser {
 					mainDig();
 					}
 					}
-					setState(163);
+					setState(163); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( _la==DIG );
@@ -1021,11 +1085,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_mainDig; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterMainDig(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterMainDig(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitMainDig(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitMainDig(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitMainDig(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1063,11 +1132,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_mainRet; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterMainRet(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterMainRet(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitMainRet(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitMainRet(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitMainRet(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1107,11 +1181,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_statements; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterStatements(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterStatements(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitStatements(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitStatements(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitStatements(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1122,7 +1201,7 @@ public class PlayPlusParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(180);
+			setState(180); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -1138,10 +1217,10 @@ public class PlayPlusParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(182);
+				setState(182); 
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,11,_ctx);
-			} while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER );
+			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 			}
 		}
 		catch (RecognitionException re) {
@@ -1190,11 +1269,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_statement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterStatement(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitStatement(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitStatement(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1301,11 +1385,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_returnInstr; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterReturnInstr(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterReturnInstr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitReturnInstr(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitReturnInstr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitReturnInstr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1356,11 +1445,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_affectInstr; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterAffectInstr(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterAffectInstr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitAffectInstr(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitAffectInstr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitAffectInstr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1430,11 +1524,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_funcDecl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterFuncDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterFuncDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitFuncDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitFuncDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitFuncDecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1563,11 +1662,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_funcCall; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterFuncCall(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterFuncCall(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitFuncCall(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitFuncCall(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitFuncCall(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1634,11 +1738,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_constantExpr; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterConstantExpr(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterConstantExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitConstantExpr(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitConstantExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitConstantExpr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1686,11 +1795,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_exprD; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterExprD(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterExprD(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitExprD(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitExprD(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitExprD(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1780,11 +1894,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_exprEnt; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterExprEnt(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterExprEnt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitExprEnt(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitExprEnt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitExprEnt(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1844,7 +1963,7 @@ public class PlayPlusParser extends Parser {
 			setState(289);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
@@ -1905,7 +2024,7 @@ public class PlayPlusParser extends Parser {
 						}
 						break;
 					}
-					}
+					} 
 				}
 				setState(291);
 				_errHandler.sync(this);
@@ -1966,11 +2085,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_exprBool; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterExprBool(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterExprBool(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitExprBool(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitExprBool(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitExprBool(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2103,7 +2227,7 @@ public class PlayPlusParser extends Parser {
 			setState(338);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,26,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
@@ -2136,7 +2260,7 @@ public class PlayPlusParser extends Parser {
 						}
 						break;
 					}
-					}
+					} 
 				}
 				setState(340);
 				_errHandler.sync(this);
@@ -2178,11 +2302,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_exprG; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterExprG(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterExprG(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitExprG(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitExprG(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitExprG(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2246,7 +2375,7 @@ public class PlayPlusParser extends Parser {
 			setState(360);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,29,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
@@ -2261,7 +2390,7 @@ public class PlayPlusParser extends Parser {
 					setState(357);
 					match(ID);
 					}
-					}
+					} 
 				}
 				setState(362);
 				_errHandler.sync(this);
@@ -2308,11 +2437,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_conditionalStmt; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterConditionalStmt(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterConditionalStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitConditionalStmt(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitConditionalStmt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitConditionalStmt(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2411,11 +2545,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_repeatStmt; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterRepeatStmt(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterRepeatStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitRepeatStmt(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitRepeatStmt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitRepeatStmt(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2486,11 +2625,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_whileStmt; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterWhileStmt(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterWhileStmt(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitWhileStmt(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitWhileStmt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitWhileStmt(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2550,11 +2694,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_digInstr; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterDigInstr(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterDigInstr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitDigInstr(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitDigInstr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitDigInstr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2604,11 +2753,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_actionType; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterActionType(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterActionType(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitActionType(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitActionType(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitActionType(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2764,11 +2918,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_mytype; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterMytype(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterMytype(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitMytype(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitMytype(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitMytype(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2820,11 +2979,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_scalar; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterScalar(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterScalar(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitScalar(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitScalar(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitScalar(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2873,11 +3037,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_structures; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterStructures(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterStructures(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitStructures(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitStructures(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitStructures(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2943,11 +3112,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_arrays; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterArrays(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterArrays(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitArrays(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitArrays(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitArrays(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -2960,7 +3134,7 @@ public class PlayPlusParser extends Parser {
 			{
 			setState(468);
 			match(LBRACKET);
-			setState(470);
+			setState(470); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
@@ -2970,7 +3144,7 @@ public class PlayPlusParser extends Parser {
 				match(NATUREL);
 				}
 				}
-				setState(472);
+				setState(472); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==NATUREL );
@@ -2981,7 +3155,7 @@ public class PlayPlusParser extends Parser {
 				{
 				setState(474);
 				match(COMMA);
-				setState(476);
+				setState(476); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
@@ -2991,7 +3165,7 @@ public class PlayPlusParser extends Parser {
 					match(NATUREL);
 					}
 					}
-					setState(478);
+					setState(478); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( _la==NATUREL );
@@ -3023,11 +3197,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_structDecl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterStructDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterStructDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitStructDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitStructDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitStructDecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3083,11 +3262,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_listStrucName; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterListStrucName(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterListStrucName(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitListStrucName(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitListStrucName(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitListStrucName(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3192,11 +3376,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_listVarName; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterListVarName(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterListVarName(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitListVarName(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitListVarName(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitListVarName(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3297,11 +3486,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_varDecl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterVarDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterVarDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitVarDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitVarDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitVarDecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3419,11 +3613,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_initVariable; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterInitVariable(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterInitVariable(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitInitVariable(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitInitVariable(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitInitVariable(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3533,11 +3732,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_initArrays; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterInitArrays(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterInitArrays(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitInitArrays(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitInitArrays(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitInitArrays(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3557,7 +3761,7 @@ public class PlayPlusParser extends Parser {
 			setState(568);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,60,_ctx);
-			while ( _alt!=1 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+			while ( _alt!=1 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1+1 ) {
 					{
 					{
@@ -3566,7 +3770,7 @@ public class PlayPlusParser extends Parser {
 					setState(565);
 					initVariable();
 					}
-					}
+					} 
 				}
 				setState(570);
 				_errHandler.sync(this);
@@ -3597,11 +3801,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_initStruct; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterInitStruct(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterInitStruct(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitInitStruct(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitInitStruct(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitInitStruct(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3653,11 +3862,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_constDecl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterConstDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterConstDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitConstDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitConstDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitConstDecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3750,11 +3964,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_enumDecl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterEnumDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterEnumDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitEnumDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitEnumDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitEnumDecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -3785,7 +4004,7 @@ public class PlayPlusParser extends Parser {
 			setState(602);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,65,_ctx);
-			while ( _alt!=1 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+			while ( _alt!=1 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1+1 ) {
 					{
 					{
@@ -3794,7 +4013,7 @@ public class PlayPlusParser extends Parser {
 					setState(599);
 					match(ID);
 					}
-					}
+					} 
 				}
 				setState(604);
 				_errHandler.sync(this);
@@ -3830,11 +4049,16 @@ public class PlayPlusParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_typedefDecl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).enterTypedefDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterTypedefDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener) ((PlayPlusListener)listener).exitTypedefDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitTypedefDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitTypedefDecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 

@@ -1,5 +1,7 @@
-// Generated from tmp/PlayPlus.g4 by ANTLR 4.6
-package be.unamur.info.b314.compiler;
+// Generated from PlayPlus.g4 by ANTLR 4.6
+
+    package be.unamur.info.b314.compiler;
+
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

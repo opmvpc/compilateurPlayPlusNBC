@@ -17,7 +17,7 @@ void main(){
     toto = 8;
 
 
-    if ( 2 + 3 ) { if (2+4) { "coucou";} }
+    //if ( 2 + 3 ) { if (2+4) { "coucou";} }
 
 
     repeat(3){"coucou";}
