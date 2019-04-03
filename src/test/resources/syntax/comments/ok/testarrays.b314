@@ -1,0 +1,27 @@
+/*
+
+    A blockComment TO check if it works */
+
+
+    // another comment test in line
+
+#import "salut.map"
+
+int toto;
+bool salut;
+const int cool = 4;
+int tab[3, 5, 6];
+
+void main(){
+    x = 1+2;
+
+    toto = 8;
+
+
+
+    dig();
+    return void;
+
+}
+
+
