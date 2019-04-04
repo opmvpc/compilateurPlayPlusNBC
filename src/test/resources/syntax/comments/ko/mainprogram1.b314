@@ -1,0 +1,15 @@
+/*
+
+    BlockComment
+
+*/
+
+        // another comment test in line
+
+void main(){
+
+    dig();
+
+    return void;
+
+}

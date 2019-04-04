@@ -32,8 +32,7 @@ program:
 
     // Import *.map file
 
-//    implDecl : impKeyWord (DOUBLEQUOTE fileDecl DOUBLEQUOTE | FILE);
-    implDecl : impKeyWord (DOUBLEQUOTE fileDecl DOUBLEQUOTE);
+    implDecl : impKeyWord (DOUBLEQUOTE fileDecl DOUBLEQUOTE | FILE);
     impKeyWord : HASHTAG IMPORT;
     fileDecl : fileName MAP;
     fileName: ID;

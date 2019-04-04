@@ -1,0 +1,21 @@
+/* My comments */
+
+#import "hello.map"
+
+    bool estVrai;
+    int i;
+
+void main(){
+    estVrai = true;
+    down();
+    i = 3;
+    up(i);
+    right(2*2);
+    dig();
+    left(1);
+    jump();
+
+    dig();
+
+    return void;
+}

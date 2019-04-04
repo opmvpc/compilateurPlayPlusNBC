@@ -1,0 +1,26 @@
+/*
+
+    BlockComment
+
+*/
+
+        // another comment test in line
+
+#import "hello.map"
+
+void main(){
+
+    dig();
+    dig();
+    dig();
+    dig();
+    jump();
+    dig();
+    dig();
+    left();
+
+    dig();
+
+    return void;
+
+}

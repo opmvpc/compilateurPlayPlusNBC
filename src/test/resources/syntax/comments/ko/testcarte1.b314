@@ -1,0 +1,10 @@
+// Carte de Jeu
+// Exemple
+// map: number, number
+
+map:
+ A P G G _
+ G G G B G
+ G @ G X G
+ G T S G G
+ A G G G _
