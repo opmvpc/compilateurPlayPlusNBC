@@ -105,6 +105,28 @@
     </dependencies>
     <build>
         <plugins>
+            <!-- execute python script -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <executable>python</executable>
+                            <workingDirectory>src/test/resources/</workingDirectory>
+                            <arguments>
+                                <argument>create_syntax_junits.py</argument>
+                            </arguments>
+                        </configuration>
+                        <id>python_build</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- ANTLR files generation -->
             <plugin>
                 <groupId>org.antlr</groupId>
