@@ -30,6 +30,36 @@ public class B314commentsSyntaxTest {
     // Serie comments OK
     //
     @Test
+    public void testcomments_affectation1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/affectation1.b314", testFolder.newFile(), true, "comments: affectation1");
+    }
+
+    @Test
+    public void testcomments_enums1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/enums1.b314", testFolder.newFile(), true, "comments: enums1");
+    }
+
+    @Test
+    public void testcomments_globalvardeclaration1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/globalvardeclaration1.b314", testFolder.newFile(), true, "comments: globalvardeclaration1");
+    }
+
+    @Test
+    public void testcomments_import1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/import1.b314", testFolder.newFile(), true, "comments: import1");
+    }
+
+    @Test
+    public void testcomments_import2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/import2.b314", testFolder.newFile(), true, "comments: import2");
+    }
+
+    @Test
+    public void testcomments_import3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/import3.b314", testFolder.newFile(), true, "comments: import3");
+    }
+
+    @Test
     public void testcomments_mainprogram1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram1.b314", testFolder.newFile(), true, "comments: mainprogram1");
     }
@@ -55,13 +85,28 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_structure1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/structure1.b314", testFolder.newFile(), true, "comments: structure1");
+    }
+
+    @Test
     public void testcomments_testactions_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/testactions.b314", testFolder.newFile(), true, "comments: testactions");
     }
 
     @Test
-    public void testcomments_testarrays_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testarrays.b314", testFolder.newFile(), true, "comments: testarrays");
+    public void testcomments_testarrays1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testarrays1.b314", testFolder.newFile(), true, "comments: testarrays1");
+    }
+
+    @Test
+    public void testcomments_testarrays2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testarrays2.b314", testFolder.newFile(), true, "comments: testarrays2");
+    }
+
+    @Test
+    public void testcomments_testarrays3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testarrays3.b314", testFolder.newFile(), true, "comments: testarrays3");
     }
 
     @Test
@@ -90,8 +135,18 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_testcomments_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcomments.b314", testFolder.newFile(), true, "comments: testcomments");
+    public void testcomments_testcomments1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcomments1.b314", testFolder.newFile(), true, "comments: testcomments1");
+    }
+
+    @Test
+    public void testcomments_testcomments2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcomments2.b314", testFolder.newFile(), true, "comments: testcomments2");
+    }
+
+    @Test
+    public void testcomments_testcomments3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcomments3.b314", testFolder.newFile(), true, "comments: testcomments3");
     }
 
     @Test
@@ -99,9 +154,39 @@ public class B314commentsSyntaxTest {
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/testruleprogramme01.b314", testFolder.newFile(), true, "comments: testruleprogramme01");
     }
 
+    @Test
+    public void testcomments_typedef_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/typedef.b314", testFolder.newFile(), true, "comments: typedef");
+    }
+
+    @Test
+    public void testcomments_vardeclaration1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/vardeclaration1.b314", testFolder.newFile(), true, "comments: vardeclaration1");
+    }
+
     //
     // Serie comments KO
     //
+    @Test
+    public void testcomments_import1_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/import1.b314", testFolder.newFile(), false, "comments: import1");
+    }
+
+    @Test
+    public void testcomments_import2_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/import2.b314", testFolder.newFile(), false, "comments: import2");
+    }
+
+    @Test
+    public void testcomments_import3_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/import3.b314", testFolder.newFile(), false, "comments: import3");
+    }
+
+    @Test
+    public void testcomments_import4_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/import4.b314", testFolder.newFile(), false, "comments: import4");
+    }
+
     @Test
     public void testcomments_mainprogram1_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/mainprogram1.b314", testFolder.newFile(), false, "comments: mainprogram1");
@@ -165,6 +250,21 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_testcarte6_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcarte6.b314", testFolder.newFile(), false, "comments: testcarte6");
+    }
+
+    @Test
+    public void testcomments_testcomments1_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcomments1.b314", testFolder.newFile(), false, "comments: testcomments1");
+    }
+
+    @Test
+    public void testcomments_testcomments2_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcomments2.b314", testFolder.newFile(), false, "comments: testcomments2");
+    }
+
+    @Test
+    public void testcomments_testcomments3_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcomments3.b314", testFolder.newFile(), false, "comments: testcomments3");
     }
 
 }
