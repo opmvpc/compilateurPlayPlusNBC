@@ -222,14 +222,14 @@ public class PlayPlusBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDigInstr(PlayPlusParser.DigInstrContext ctx) { return visitChildren(ctx); }
+	@Override public T visitActionType(PlayPlusParser.ActionTypeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitActionType(PlayPlusParser.ActionTypeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDig(PlayPlusParser.DigContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

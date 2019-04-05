@@ -366,18 +366,6 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDigInstr(PlayPlusParser.DigInstrContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDigInstr(PlayPlusParser.DigInstrContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterActionType(PlayPlusParser.ActionTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -385,6 +373,18 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitActionType(PlayPlusParser.ActionTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDig(PlayPlusParser.DigContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDig(PlayPlusParser.DigContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

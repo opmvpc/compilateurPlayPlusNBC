@@ -16,9 +16,9 @@ root : program | mapfile ;
 
 mapfile: MAPSTART NATUREL NATUREL monde EOF;
 
-    monde:
-        ( ROBOT| TRESOR| PELOUSE| PALMIER | PONT | BUISSON | TONNEAU | PUIT | VIDE | SQUELLETTE )+
-          ;
+monde:
+    ( ROBOT| TRESOR| PELOUSE| PALMIER | PONT | BUISSON | TONNEAU | PUIT | VIDE | SQUELLETTE )+
+      ;
 
 
 // Parsing PlayPlus Code
@@ -30,56 +30,54 @@ program:
     EOF
     ;
 
-    // Import *.map file
+// Import *.map file
 
-    implDecl : impKeyWord (DOUBLEQUOTE fileDecl DOUBLEQUOTE | FILE);
-    impKeyWord : HASHTAG IMPORT;
-    fileDecl : fileName MAP;
-    fileName: ID;
-
-
-    // Declarations of variables,functions,... ( 2 rules for convinience )
-
-    globalDecl :
-        (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl)*
-        ;
-
-    localDecl :
-        (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl)*
-        ;
-
-    // Main Function/Program
-
-    mainProgram :
-        mainStart
-        statements
-        mainEnd
+implDecl : impKeyWord (DOUBLEQUOTE fileDecl DOUBLEQUOTE | FILE);
+impKeyWord : HASHTAG IMPORT;
+fileDecl : fileName MAP;
+fileName: ID;
 
 
-        ;
+// Declarations of variables,functions,... ( 2 rules for convinience )
 
-        // at least one dig() instruction and a return in main.
-        mainStart : VOID MAIN LPAREN RPAREN LBRACE;
+globalDecl :
+    (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl)*
+    ;
 
-        mainEnd : (mainDig+)? mainRet statements? RBRACE;
+localDecl :
+    (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl)*
+    ;
 
-        mainDig : digInstr SEMICOLON ;
+// Main Function/Program
 
-        mainRet : returnInstr SEMICOLON;
+mainProgram :
+    mainStart
+    statements
+    mainEnd
+    ;
+
+    // at least one dig() instruction and a return in main.
+    mainStart : VOID MAIN LPAREN RPAREN LBRACE;
+
+    mainEnd : (mainDig+)? mainRet statements? RBRACE;
+
+    mainDig : dig SEMICOLON ;
+
+    mainRet : returnInstr SEMICOLON;
 
 
 // At least one statement
 statements : statement+;
 
-    statement :
-        returnInstr SEMICOLON
-        | affectInstr
-        | exprD SEMICOLON
-        | constantExpr
-        | (actionType) SEMICOLON
-        | digInstr SEMICOLON
-        | conditionalStmt | repeatStmt | whileStmt
-        ;
+statement :
+    returnInstr SEMICOLON
+    | affectInstr
+    | exprD SEMICOLON
+    | constantExpr
+    | (actionType) SEMICOLON
+    | dig SEMICOLON
+    | conditionalStmt | repeatStmt | whileStmt
+    ;
 
 
 // return in functions and main
@@ -148,10 +146,6 @@ conditionalStmt : IF LPAREN exprBool RPAREN LBRACE statement* RBRACE (ELSE LBRAC
 repeatStmt : REPEAT LPAREN exprEnt RPAREN LBRACE statement* RBRACE ;
 whileStmt : WHILE LPAREN exprBool RPAREN LBRACE statement* RBRACE ;
 
-digInstr :
-    DIG LPAREN RPAREN
-    ;
-
 actionType :
     LEFT LPAREN (exprD)? RPAREN
     | RIGHT LPAREN (exprD)? RPAREN
@@ -159,9 +153,12 @@ actionType :
     | DOWN LPAREN (exprD)? RPAREN
     | FIGHT LPAREN RPAREN
     | JUMP LPAREN (exprEnt)? RPAREN
-//    | DIG LPAREN RPAREN
+    | dig
     ;
-// type pose probleme en python
+
+dig :
+    DIG LPAREN RPAREN
+    ;
 
 mytype : scalar | structures;
 scalar : BOOL | INT | CHAR;

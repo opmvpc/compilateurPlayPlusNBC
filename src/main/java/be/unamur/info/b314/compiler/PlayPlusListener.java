@@ -300,16 +300,6 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitWhileStmt(PlayPlusParser.WhileStmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#digInstr}.
-	 * @param ctx the parse tree
-	 */
-	void enterDigInstr(PlayPlusParser.DigInstrContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#digInstr}.
-	 * @param ctx the parse tree
-	 */
-	void exitDigInstr(PlayPlusParser.DigInstrContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#actionType}.
 	 * @param ctx the parse tree
 	 */
@@ -319,6 +309,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitActionType(PlayPlusParser.ActionTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#dig}.
+	 * @param ctx the parse tree
+	 */
+	void enterDig(PlayPlusParser.DigContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#dig}.
+	 * @param ctx the parse tree
+	 */
+	void exitDig(PlayPlusParser.DigContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#mytype}.
 	 * @param ctx the parse tree
