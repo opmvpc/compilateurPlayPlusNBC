@@ -1,0 +1,23 @@
+/*
+/* Test */
+
+#import "world.map"
+
+    bool v1;
+    int i;
+    char s;
+
+void main()
+{
+dig();
+i = 5;
+dig();
+fight();
+dig();
+dig();
+
+dig();
+
+return void;
+
+}
