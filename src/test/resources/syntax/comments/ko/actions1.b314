@@ -2,11 +2,8 @@
 
 #import "hello.map"
 
-    bool estVrai;
-
 void main(){
-    estVrai = true;
-    down(estVrai);
+    down(
 
     dig();
 
