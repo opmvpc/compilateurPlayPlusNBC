@@ -1,0 +1,19 @@
+/*
+
+    HELLOO */
+
+
+    // coucou
+
+#import "salut.map"
+
+int tab[3, 5, 6];
+
+void main(){
+
+    dig();
+    return void;
+
+}
+
+

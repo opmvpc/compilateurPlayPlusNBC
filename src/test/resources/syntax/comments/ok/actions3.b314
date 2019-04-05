@@ -1,0 +1,17 @@
+/* My comments */
+
+#import "hello.map"
+
+void main(){
+    down();
+    up();
+    right();
+    dig();
+    left();
+    jump();
+    fight();
+
+    dig();
+
+    return void;
+}

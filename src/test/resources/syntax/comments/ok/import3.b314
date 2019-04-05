@@ -1,0 +1,17 @@
+/*
+
+    BlockComment
+
+*/
+
+        // another comment test in line
+
+#       import "hello.map"
+
+void main(){
+
+    dig();
+
+    return void;
+
+}

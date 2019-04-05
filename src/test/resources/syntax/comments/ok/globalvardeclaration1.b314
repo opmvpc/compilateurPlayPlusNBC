@@ -1,0 +1,12 @@
+#import "hello.map"
+
+bool a;
+int b;
+bool tab[2, 5];
+
+void main(){
+
+    dig();
+
+    return void;
+}

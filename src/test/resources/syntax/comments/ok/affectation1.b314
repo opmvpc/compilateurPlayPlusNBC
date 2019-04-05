@@ -1,0 +1,15 @@
+#import "hello.map"
+
+    bool b;
+    bool b2[42];
+    bool b3[42, 42];
+    int i;
+
+void main(){
+
+    b2[0] = b3[i + 2- 4 * 9 % 5, 2 + 23 * i];
+    b3[0, i + 5] = b2[i + 2 - 4 * 9 % 2 + 49 *i];
+
+    dig();
+    return void;
+}

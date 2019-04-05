@@ -1,0 +1,17 @@
+/*
+
+    BlockComment
+
+*/
+
+        // another comment test in line
+
+#import "x.map"
+
+void main(){
+
+    dig();
+
+    return void;
+
+}

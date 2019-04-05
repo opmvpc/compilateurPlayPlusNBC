@@ -1,0 +1,25 @@
+/*
+
+    HELLOO */
+
+
+    // coucou
+
+#import "salut.map"
+
+    bool b = true;
+    bool b2[5] = {true, false, true, false, true};
+    bool b3[42, 42];
+    int i = 5;
+
+void main(){
+
+    b2[0] = b && b;
+    b3[0, i + 5] = (b[0] && false) ||  false;
+
+    dig();
+    return void;
+
+}
+
+

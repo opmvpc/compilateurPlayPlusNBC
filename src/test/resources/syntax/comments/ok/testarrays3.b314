@@ -1,0 +1,28 @@
+/*
+
+    HELLOO */
+
+
+    // coucou
+
+#import "salut.map"
+
+    bool b[42];
+    bool b2[42, 42];
+    int i;
+    char s[5];
+
+void main(){
+
+   s[0] = 'c';
+   b2[0, i] = !(false && (0 > 45 + 3));
+   b[0] = false;
+   s[1] = 'b';
+   s[2] = 'f';
+
+dig();
+    return void;
+
+}
+
+

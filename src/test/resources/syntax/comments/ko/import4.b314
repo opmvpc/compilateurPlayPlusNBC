@@ -1,0 +1,17 @@
+/*
+
+    BlockComment
+
+*/
+
+        // another comment test in line
+
+#import
+
+void main(){
+
+    dig();
+
+    return void;
+
+}

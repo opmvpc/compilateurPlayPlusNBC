@@ -1,0 +1,19 @@
+/*
+
+    Salut
+
+*/
+
+        // Coucou
+
+#import "hello.map"
+
+enum colors { blue, red, green };
+
+void main(){
+
+    dig();
+
+    return void;
+
+}

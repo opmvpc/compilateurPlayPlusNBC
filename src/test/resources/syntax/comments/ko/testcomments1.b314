@@ -1,0 +1,10 @@
+
+    /  / JEZLLOOOOOEOEEE
+    /  JEZLLOOOOOEOEEE
+#import "test.map"
+
+void main(){
+    dig();
+    return void;
+
+}

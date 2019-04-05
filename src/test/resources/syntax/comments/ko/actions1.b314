@@ -1,0 +1,14 @@
+/* My comments */
+
+#import "hello.map"
+
+    bool estVrai;
+
+void main(){
+    estVrai = true;
+    down(estVrai);
+
+    dig();
+
+    return void;
+}

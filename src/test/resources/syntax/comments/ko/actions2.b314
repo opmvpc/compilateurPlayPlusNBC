@@ -1,0 +1,12 @@
+/* My comments */
+
+#import "hello.map"
+
+void main(){
+    dig(3);
+
+    dig();
+
+    return void;
+    dig();
+}
