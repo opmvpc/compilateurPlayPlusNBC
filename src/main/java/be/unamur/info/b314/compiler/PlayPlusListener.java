@@ -140,16 +140,6 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitMainEnd(PlayPlusParser.MainEndContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#mainDig}.
-	 * @param ctx the parse tree
-	 */
-	void enterMainDig(PlayPlusParser.MainDigContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#mainDig}.
-	 * @param ctx the parse tree
-	 */
-	void exitMainDig(PlayPlusParser.MainDigContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#mainRet}.
 	 * @param ctx the parse tree
 	 */

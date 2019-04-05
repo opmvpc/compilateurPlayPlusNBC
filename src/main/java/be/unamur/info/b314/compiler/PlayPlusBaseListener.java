@@ -174,18 +174,6 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMainDig(PlayPlusParser.MainDigContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMainDig(PlayPlusParser.MainDigContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterMainRet(PlayPlusParser.MainRetContext ctx) { }
 	/**
 	 * {@inheritDoc}

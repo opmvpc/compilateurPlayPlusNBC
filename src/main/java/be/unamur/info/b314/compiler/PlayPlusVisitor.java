@@ -91,12 +91,6 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMainEnd(PlayPlusParser.MainEndContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#mainDig}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMainDig(PlayPlusParser.MainDigContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#mainRet}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -56,14 +56,12 @@ mainProgram :
     mainEnd
     ;
 
-    // at least one dig() instruction and a return in main.
-    mainStart : VOID MAIN LPAREN RPAREN LBRACE;
+// at least one dig() instruction and a return in main.
+mainStart : VOID MAIN LPAREN RPAREN LBRACE;
 
-    mainEnd : (mainDig+)? mainRet statements? RBRACE;
+mainEnd : mainRet statements? RBRACE;
 
-    mainDig : dig SEMICOLON ;
-
-    mainRet : returnInstr SEMICOLON;
+mainRet : returnInstr SEMICOLON;
 
 
 // At least one statement
@@ -75,7 +73,7 @@ statement :
     | exprD SEMICOLON
     | constantExpr
     | (actionType) SEMICOLON
-    | dig SEMICOLON
+//    | dig SEMICOLON
     | conditionalStmt | repeatStmt | whileStmt
     ;
 
@@ -107,8 +105,6 @@ exprD :
     | exprBool
     | STRING
     | CHARACTER
-
-
 	;
 
 exprEnt : MINUS exprEnt
@@ -137,7 +133,7 @@ exprBool : TRUE | FALSE
 
 
 exprG : funcCall
-        |ID
+        | ID
         | ID LBRACKET exprD (COMMA exprD)? RBRACKET
         | exprG.ID;
 
