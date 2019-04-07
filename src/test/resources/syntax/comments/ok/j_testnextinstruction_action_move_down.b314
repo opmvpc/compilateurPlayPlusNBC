@@ -1,0 +1,20 @@
+//* Test */
+
+ #import "world.map"
+
+     bool v1;
+     int i;
+     char s;
+
+ void main()
+ {
+ i = 5;
+ down(i);
+ down();
+ down(5);
+
+ dig();
+
+ return void;
+
+ }
