@@ -8,8 +8,7 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 
 //import be.unamur.info.b314.compiler.NBCPrinter;
 //import be.unamur.info.b314.compiler.NBCVisitor;
-import be.unamur.info.b314.compiler.SymTableFiller;
-import be.unamur.info.b314.compiler.exception.ParsingException;
+import be.unamur.info.b314.compiler.main.symbols.SymbolTableFiller;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import java.io.File;
@@ -18,12 +17,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
-import be.unamur.info.b314.compiler.SymTableFiller;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -36,9 +33,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
@@ -215,7 +209,7 @@ public class Main {
      * Builds symbol table from AST.
      */
     private Map<String, Integer> fillSymTable(PlayPlusParser.RootContext tree) {
-        SymTableFiller filler = new SymTableFiller();
+        SymbolTableFiller filler = new SymbolTableFiller();
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(filler, tree);
         return filler.getSymTable();

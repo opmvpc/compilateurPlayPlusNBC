@@ -65,6 +65,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_globalvardeclaration2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/globalvardeclaration2.b314", testFolder.newFile(), true, "comments: globalvardeclaration2");
+    }
+
+    @Test
     public void testcomments_import1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/import1.b314", testFolder.newFile(), true, "comments: import1");
     }
@@ -295,6 +300,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_testcomments3_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcomments3.b314", testFolder.newFile(), false, "comments: testcomments3");
+    }
+
+    @Test
+    public void testcomments_tomanyparen_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/tomanyparen.b314", testFolder.newFile(), false, "comments: tomanyparen");
     }
 
 }

@@ -92,7 +92,10 @@ funcDecl :
 
 funcCall :
     ID LPAREN (exprD (COMMA exprD)*)? RPAREN
+    | ID LPAREN (exprD (COMMA exprD)*)? RPAREN RPAREN {notifyErrorListeners("Too many parentheses");}
+    | ID LPAREN (exprD (COMMA exprD)*)? {notifyErrorListeners("Missing closing ')'");}
     ;
+
 constantExpr :
     constDecl SEMICOLON
     ;

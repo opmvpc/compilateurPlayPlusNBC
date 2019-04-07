@@ -1,0 +1,11 @@
+#import "hello.map"
+
+bool a;
+int b;
+
+void main(){
+
+    dig();
+
+    return void;
+}
