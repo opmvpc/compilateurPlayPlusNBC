@@ -85,6 +85,71 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_j_testnextinstruction_actions_jump_right_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_actions_jump_right.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_actions_jump_right");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_actions_with_dig_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_actions_with_dig.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_actions_with_dig");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_actions_with_only_dig_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_actions_with_only_dig.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_actions_with_only_dig");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_fight_down_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_fight_down.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_fight_down");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_fight_left_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_fight_left.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_fight_left");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_fight_right_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_fight_right.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_fight_right");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_fight_up_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_fight_up.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_fight_up");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_move_down_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_move_down.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_move_down");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_move_down_ko_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_move_down_ko.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_move_down_ko");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_move_left_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_move_left.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_move_left");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_move_right_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_move_right.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_move_right");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_move_up_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_move_up.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_move_up");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_use_jump_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_use_jump.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_use_jump");
+    }
+
+    @Test
     public void testcomments_mainprogram1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram1.b314", testFolder.newFile(), true, "comments: mainprogram1");
     }
