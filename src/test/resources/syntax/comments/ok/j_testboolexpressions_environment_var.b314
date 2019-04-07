@@ -1,0 +1,18 @@
+// File
+
+#import "world.map"
+
+  int x;
+  bool b;
+
+void main()
+{
+  x = 42;
+  b = x > 42;
+  left();
+  right(2);
+  up(2);
+  dig();
+
+ return void;
+}

@@ -1,0 +1,17 @@
+
+// File
+
+#import "world.map"
+
+  bool b;
+
+void main()
+{
+
+  b = true;
+  b = false;
+
+ dig();
+
+ return void;
+}

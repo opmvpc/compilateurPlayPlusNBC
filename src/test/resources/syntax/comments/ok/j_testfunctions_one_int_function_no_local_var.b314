@@ -1,0 +1,20 @@
+/* My comments */
+
+#import "world.map"
+
+
+    int f1;
+    int fct1()
+    {
+       f1 = 42;
+     return f1;
+    }
+
+void main()
+{
+   if(fct1() != 42) {
+   	 left();
+   }
+   dig();
+ return void;
+}

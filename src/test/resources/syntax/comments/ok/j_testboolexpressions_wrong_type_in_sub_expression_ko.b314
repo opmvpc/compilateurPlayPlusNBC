@@ -1,0 +1,17 @@
+/* My comments */
+
+#import "world.map"
+
+    bool t1;
+    int z;
+    char w;
+    bool t1;
+
+void main(){
+
+   t1 = (!(3 == 2) && (true || z));
+
+dig();
+
+return void;
+}

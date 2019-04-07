@@ -1,0 +1,37 @@
+/* Test fonction  playPlus */
+
+#import "world.map"
+
+    int z;
+    int f;
+
+int facto(int x)
+{
+
+ if(x < 0 || x == 0)
+  {
+   f = 1;
+  }
+  else {
+   f = x * facto(x - 1);
+  }
+
+ return f;
+}
+
+
+void main(){
+
+   int x;
+
+   x = 5;
+   z = facto(x);
+
+   if (!(z == (5*4*3*2*1))) {
+       right(5);
+   }
+
+   dig();
+
+return void;
+}

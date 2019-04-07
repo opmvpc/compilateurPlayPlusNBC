@@ -1,0 +1,21 @@
+/* My comments */
+
+#import "world.map"
+
+    int x;
+    int y;
+    char z[5];
+    bool t1[5];
+
+
+
+void main(){
+
+   t1[0] = x;
+   t1[1] = y;
+
+
+dig();
+
+return void;
+}

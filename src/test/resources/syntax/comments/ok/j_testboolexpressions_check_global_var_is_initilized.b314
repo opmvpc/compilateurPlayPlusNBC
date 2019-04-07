@@ -1,0 +1,25 @@
+// File
+
+#import "world.map"
+
+  int x;
+  bool b;
+  char y;
+
+void main()
+{
+  x = 1;
+ if(!b && (x > 42))
+ {
+    x = x + 5;
+    left(x);
+ }
+ else{
+    y = 'm';
+    right(x);
+ }
+
+ dig();
+
+ return void;
+}
