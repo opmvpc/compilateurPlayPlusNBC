@@ -15,12 +15,21 @@ public class SymbolTableFiller extends PlayPlusBaseListener implements Filler {
         this.symTable = new SymbolTable();
     }
 
+    /**
+     *
+     * @return La HashMap contenue par symTable
+     */
     @Override
     public HashMap getSymTable() {
         System.out.println(this.symTable.toString());
         return this.symTable.getSymbols();
     }
 
+    /**
+     *  Ajoute un symbole lors de la déclaration d'une variable à la table des symboles
+     *
+     * @param ctx
+     */
     @Override
     public void enterVarDecl(PlayPlusParser.VarDeclContext ctx) {
         String varName = ctx.ID().get(0).getText();

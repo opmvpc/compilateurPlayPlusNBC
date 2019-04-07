@@ -2,6 +2,9 @@ package be.unamur.info.b314.compiler.main.symbols;
 
 import be.unamur.info.b314.compiler.main.symbols.interfaces.Type;
 
+/**
+ * Class Symbol
+ */
 public class Symbol {
 
     private String name;
@@ -16,22 +19,29 @@ public class Symbol {
         this.type = type;
     }
 
+    /**
+     * Renvoie le nom du symbol
+     *
+     * @return le nom du symbol
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * Renvoie le type du symbol
+     *
+     * @return Type type
+     */
     public Type getType() {
         return type;
     }
 
-    public void setType(Type type) {
-        this.type = type;
-    }
-
+    /**
+     * Représentation de l'objet
+     *
+     * @return String str
+     */
     @Override
     public String toString() {
         return "Symbol {" +
