@@ -30,6 +30,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitMapfile(PlayPlusParser.MapfileContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#mapsize}.
+	 * @param ctx the parse tree
+	 */
+	void enterMapsize(PlayPlusParser.MapsizeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#mapsize}.
+	 * @param ctx the parse tree
+	 */
+	void exitMapsize(PlayPlusParser.MapsizeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#monde}.
 	 * @param ctx the parse tree
 	 */

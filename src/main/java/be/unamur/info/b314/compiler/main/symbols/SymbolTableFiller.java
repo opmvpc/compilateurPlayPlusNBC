@@ -37,4 +37,14 @@ public class SymbolTableFiller extends PlayPlusBaseListener implements Filler {
 
         symTable.define(new VariableSymbol(varName, varType));
     }
+
+    @Override
+    public void enterFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
+        super.enterFuncDecl(ctx);
+    }
+
+    @Override
+    public void enterMapfile(PlayPlusParser.MapfileContext ctx) {
+        System.out.println(ctx.monde().getChildCount());
+    }
 }

@@ -45,8 +45,8 @@ public class Symbol {
     @Override
     public String toString() {
         return "Symbol {" +
-                "\n\t\tname='" + name + '\'' +
-                ", \n\t\ttype=" + type +
+                "\n\t\tname = '" + name + '\'' +
+                ", \n\t\ttype = " + type +
                 "\n\t}";
     }
 }

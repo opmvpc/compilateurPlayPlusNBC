@@ -14,7 +14,9 @@ root : program | mapfile ;
 
 // Parsing Map
 
-mapfile: MAPSTART NATUREL NATUREL monde EOF;
+mapfile: MAPSTART mapsize monde EOF;
+
+mapsize: NATUREL NATUREL;
 
 monde:
     ( ROBOT| TRESOR| PELOUSE| PALMIER | PONT | BUISSON | TONNEAU | PUIT | VIDE | SQUELLETTE )+
