@@ -10,7 +10,6 @@ public class Symbol {
 
     private String name;
     private Type type;
-    private Scope scope;
 
     public Symbol(String name) {
         this.name = name;
@@ -24,7 +23,6 @@ public class Symbol {
     public Symbol(String name, Type type, Scope scope) {
         this.name = name;
         this.type = type;
-        this.scope = scope;
     }
 
     /**
@@ -52,7 +50,7 @@ public class Symbol {
      */
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + " {" +
+        return "Symbol" + " {" +
             "\n\t\tname = '" + name + '\'' +
             ", \n\t\ttype = " + type +
             "\n\t}";

@@ -60,6 +60,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_function1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function1.b314", testFolder.newFile(), true, "comments: function1");
+    }
+
+    @Test
     public void testcomments_globalvardeclaration1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/globalvardeclaration1.b314", testFolder.newFile(), true, "comments: globalvardeclaration1");
     }

@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -215,7 +216,9 @@ public class Main {
         walker.walk(def, tree);
         RefPhase ref = new RefPhase();
         walker.walk(ref, tree);
-        return def.getSymTable();
+//        return def.getSymTable();
+//        en attendant
+        return new HashMap<>();
     }
 
 /*

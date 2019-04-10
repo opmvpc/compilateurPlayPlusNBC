@@ -12,15 +12,15 @@ public abstract class BaseScope implements Scope {
     private HashMap<String, Symbol> symbols;
 
     public BaseScope(Scope enclosingScope) {
-        this.name = name;
-        this.enclosingScope = null;
-        this.symbols = symbols;
+        this.name = "global";
+        this.enclosingScope = enclosingScope;
+        this.symbols = new HashMap<>();
     }
 
     public BaseScope(String name, Scope enclosingScope, HashMap<String, Symbol> symbols) {
         this.name = name;
         this.enclosingScope = enclosingScope;
-        this.symbols = symbols;
+        this.symbols = new HashMap<>();
     }
 
     @Override
@@ -35,11 +35,24 @@ public abstract class BaseScope implements Scope {
 
     @Override
     public void define(Symbol symbol) {
-
+        this.symbols.putIfAbsent(symbol.getName(), symbol);
     }
 
     @Override
     public Symbol resolve(String name) {
         return this.symbols.get(name);
+    }
+
+    public HashMap<String, Symbol> getSymbols() {
+        return symbols;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() +" {" +
+                "name='" + name + '\'' +
+                ", enclosingScope=" + enclosingScope +
+                ", symbols=" + symbols +
+                '}';
     }
 }

@@ -1,7 +1,7 @@
 package be.unamur.info.b314.compiler.main.symboltable.contracts;
 
-import java.util.HashMap;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public interface Filler {
-    public HashMap getSymTable();
+    public ParseTreeProperty getSymTable();
 }
