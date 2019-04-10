@@ -8,16 +8,4 @@ public class VariableSymbol extends Symbol {
         super(name, type);
     }
 
-    /**
-     * Représentation de l'objet
-     *
-     * @return String str
-     */
-    @Override
-    public String toString() {
-        return "VariableSymbol {" +
-                "\n\t\tname = '" + super.getName() + '\'' +
-                ", \n\t\ttype = " + super.getType().getName() +
-                "\n\t}";
-    }
 }

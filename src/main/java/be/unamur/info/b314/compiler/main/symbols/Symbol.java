@@ -44,7 +44,7 @@ public class Symbol {
      */
     @Override
     public String toString() {
-        return "Symbol {" +
+        return this.getClass().getSimpleName() + " {" +
                 "\n\t\tname = '" + name + '\'' +
                 ", \n\t\ttype = " + type +
                 "\n\t}";

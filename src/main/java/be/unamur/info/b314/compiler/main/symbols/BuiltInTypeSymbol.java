@@ -8,15 +8,5 @@ public class BuiltInTypeSymbol extends Symbol implements Type {
         super(name);
     }
 
-    /**
-     * Représentation de l'objet
-     *
-     * @return String str
-     */
-    @Override
-    public String toString() {
-        return "BuiltInTypeSymbol {" +
-                "\n\t\tname = '" + super.getName() + '\'' +
-                "\n\t}";
-    }
+
 }
