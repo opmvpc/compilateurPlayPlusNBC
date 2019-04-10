@@ -8,7 +8,8 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 
 //import be.unamur.info.b314.compiler.NBCPrinter;
 //import be.unamur.info.b314.compiler.NBCVisitor;
-import be.unamur.info.b314.compiler.main.symbols.SymbolTableFiller;
+import be.unamur.info.b314.compiler.main.symboltable.DefPhase;
+import be.unamur.info.b314.compiler.main.symboltable.RefPhase;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import java.io.File;
@@ -209,10 +210,12 @@ public class Main {
      * Builds symbol table from AST.
      */
     private Map<String, Integer> fillSymTable(PlayPlusParser.RootContext tree) {
-        SymbolTableFiller filler = new SymbolTableFiller();
         ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(filler, tree);
-        return filler.getSymTable();
+        DefPhase def = new DefPhase();
+        walker.walk(def, tree);
+        RefPhase ref = new RefPhase();
+        walker.walk(ref, tree);
+        return def.getSymTable();
     }
 
 /*

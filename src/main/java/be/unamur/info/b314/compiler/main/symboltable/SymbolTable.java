@@ -1,9 +1,10 @@
-package be.unamur.info.b314.compiler.main.symbols;
+package be.unamur.info.b314.compiler.main.symboltable;
 
-import be.unamur.info.b314.compiler.main.symbols.interfaces.Scope;
+import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.BuiltInTypeSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class SymbolTable implements Scope {
 
@@ -74,13 +75,13 @@ public class SymbolTable implements Scope {
     public String toString() {
         return "SymbolTable {" +
                 "\n\tscopeName = "+ getScopeName() +
-                "\n\tsymbols = " + symbols +
+                "\n\tsymboltable = " + symbols +
                 "\n}";
     }
 
     /**
      * Renvoie la tables des symboles
-     * @return HashMap symbols
+     * @return HashMap symboltable
      */
     public HashMap getSymbols() {
         return this.symbols;

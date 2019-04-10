@@ -1,4 +1,4 @@
-package be.unamur.info.b314.compiler.main.symbols.interfaces;
+package be.unamur.info.b314.compiler.main.symboltable.contracts;
 
 import java.util.HashMap;
 

@@ -85,6 +85,91 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_j_new_testboolexpressions_and_env_var_wrong_type_ko_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_new_testboolexpressions_and_env_var_wrong_type_ko.b314", testFolder.newFile(), true, "comments: j_new_testboolexpressions_and_env_var_wrong_type_ko");
+    }
+
+    @Test
+    public void testcomments_j_testaffectinstruction_affects_constant_wrong_var_type_ko_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testaffectinstruction_affects_constant_wrong_var_type_ko.b314", testFolder.newFile(), true, "comments: j_testaffectinstruction_affects_constant_wrong_var_type_ko");
+    }
+
+    @Test
+    public void testcomments_j_testaffectinstruction_affect_array_right_expressions_no_index_ko_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testaffectinstruction_affect_array_right_expressions_no_index_ko.b314", testFolder.newFile(), true, "comments: j_testaffectinstruction_affect_array_right_expressions_no_index_ko");
+    }
+
+    @Test
+    public void testcomments_j_testaffectinstruction_affect_bool_constant_wrong_var_type_ko_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testaffectinstruction_affect_bool_constant_wrong_var_type_ko.b314", testFolder.newFile(), true, "comments: j_testaffectinstruction_affect_bool_constant_wrong_var_type_ko");
+    }
+
+    @Test
+    public void testcomments_j_testaffectinstruction_affect_constant_wrong_var_type_ko_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testaffectinstruction_affect_constant_wrong_var_type_ko.b314", testFolder.newFile(), true, "comments: j_testaffectinstruction_affect_constant_wrong_var_type_ko");
+    }
+
+    @Test
+    public void testcomments_j_testaffectinstruction_affect_right_expressions_wrong_var_type_ko_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testaffectinstruction_affect_right_expressions_wrong_var_type_ko.b314", testFolder.newFile(), true, "comments: j_testaffectinstruction_affect_right_expressions_wrong_var_type_ko");
+    }
+
+    @Test
+    public void testcomments_j_testboolexpressions_check_global_var_is_initilized_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_check_global_var_is_initilized.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_check_global_var_is_initilized");
+    }
+
+    @Test
+    public void testcomments_j_testboolexpressions_constant_values_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_constant_values.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_constant_values");
+    }
+
+    @Test
+    public void testcomments_j_testboolexpressions_environment_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_environment_var.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_environment_var");
+    }
+
+    @Test
+    public void testcomments_j_testboolexpressions_equals_mismatching_type_ko_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_equals_mismatching_type_ko.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_equals_mismatching_type_ko");
+    }
+
+    @Test
+    public void testcomments_j_testboolexpressions_lessthan_env_var_wrong_type_ko_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_lessthan_env_var_wrong_type_ko.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_lessthan_env_var_wrong_type_ko");
+    }
+
+    @Test
+    public void testcomments_j_testboolexpressions_operations_only_env_vars_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_operations_only_env_vars.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_operations_only_env_vars");
+    }
+
+    @Test
+    public void testcomments_j_testboolexpressions_wrong_type_in_sub_expression_ko_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_wrong_type_in_sub_expression_ko.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_wrong_type_in_sub_expression_ko");
+    }
+
+    @Test
+    public void testcomments_j_testcomments_missing_numbers_size_play_card_ko_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testcomments_missing_numbers_size_play_card_ko.b314", testFolder.newFile(), true, "comments: j_testcomments_missing_numbers_size_play_card_ko");
+    }
+
+    @Test
+    public void testcomments_j_testfunctions_factorial_recursive_call_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testfunctions_factorial_recursive_call.b314", testFolder.newFile(), true, "comments: j_testfunctions_factorial_recursive_call");
+    }
+
+    @Test
+    public void testcomments_j_testfunctions_multiple_global_vars_and_functions_no_local_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testfunctions_multiple_global_vars_and_functions_no_local_var.b314", testFolder.newFile(), true, "comments: j_testfunctions_multiple_global_vars_and_functions_no_local_var");
+    }
+
+    @Test
+    public void testcomments_j_testfunctions_one_int_function_no_local_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testfunctions_one_int_function_no_local_var.b314", testFolder.newFile(), true, "comments: j_testfunctions_one_int_function_no_local_var");
+    }
+
+    @Test
     public void testcomments_j_testnextinstruction_actions_jump_right_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_actions_jump_right.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_actions_jump_right");
     }

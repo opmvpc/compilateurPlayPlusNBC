@@ -1,6 +1,6 @@
-package be.unamur.info.b314.compiler.main.symbols;
+package be.unamur.info.b314.compiler.main.symboltable.symbols;
 
-import be.unamur.info.b314.compiler.main.symbols.interfaces.Type;
+import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 
 public class VariableSymbol extends Symbol {
 

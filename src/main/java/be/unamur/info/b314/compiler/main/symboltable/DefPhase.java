@@ -1,17 +1,25 @@
-package be.unamur.info.b314.compiler.main.symbols;
+package be.unamur.info.b314.compiler.main.symboltable;
 
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
-import be.unamur.info.b314.compiler.main.symbols.interfaces.Filler;
-import be.unamur.info.b314.compiler.main.symbols.interfaces.Type;
+import be.unamur.info.b314.compiler.main.symboltable.contracts.Filler;
+import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
+import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
+import be.unamur.info.b314.compiler.main.symboltable.scopes.GlobalScope;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.BuiltInTypeSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.HashMap;
 
-public class SymbolTableFiller extends PlayPlusBaseListener implements Filler {
+public class DefPhase extends PlayPlusBaseListener implements Filler {
 
+    private ParseTreeProperty<Scope> scopes = new ParseTreeProperty<Scope>();
+    private GlobalScope globals;
+    private Scope currentScope;
     private SymbolTable symTable;
 
-    public SymbolTableFiller() {
+    public DefPhase() {
         this.symTable = new SymbolTable();
     }
 

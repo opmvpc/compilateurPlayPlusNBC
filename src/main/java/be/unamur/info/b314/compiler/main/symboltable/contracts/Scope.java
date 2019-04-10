@@ -1,6 +1,6 @@
-package be.unamur.info.b314.compiler.main.symbols.interfaces;
+package be.unamur.info.b314.compiler.main.symboltable.contracts;
 
-import be.unamur.info.b314.compiler.main.symbols.Symbol;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 
 public interface Scope {
 
