@@ -5,7 +5,6 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Filler;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
-import be.unamur.info.b314.compiler.main.symboltable.scopes.GlobalScope;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.BuiltInTypeSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.FunctionSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
@@ -32,7 +31,7 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
      */
     @Override
     public ParseTreeProperty getSymTable() {
-        System.out.println(this.symTable.getSymbols().toString());
+        System.out.println(this.symTable.getScopes().toString());
 
         return this.symTable.getSymbols();
     }
