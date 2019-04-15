@@ -85,12 +85,20 @@ returnInstr : RETURN (ID|VOID);
 
 
 affectInstr :
-     exprG AFFECT exprD SEMICOLON
-   ;
+    exprG AFFECT exprD SEMICOLON
+    ;
 
 funcDecl :
-     (mytype | VOID) ID LPAREN (mytype exprG (COMMA mytype exprG)*)? RPAREN LBRACE localDecl? statements? returnInstr SEMICOLON RBRACE
-     ;
+    (mytype | VOID) ID LPAREN funcArgs RPAREN LBRACE localDecl? statements? returnInstr SEMICOLON RBRACE
+    ;
+
+funcArgs :
+    (funcArg (COMMA funcArg)*)
+    ;
+
+funcArg :
+    mytype exprG
+    ;
 
 funcCall :
     ID LPAREN (exprD (COMMA exprD)*)? RPAREN

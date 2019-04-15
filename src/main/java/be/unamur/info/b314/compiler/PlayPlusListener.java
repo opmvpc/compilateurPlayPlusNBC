@@ -210,6 +210,26 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitFuncDecl(PlayPlusParser.FuncDeclContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#funcArgs}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncArgs(PlayPlusParser.FuncArgsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#funcArgs}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncArgs(PlayPlusParser.FuncArgsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#funcArg}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncArg(PlayPlusParser.FuncArgContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#funcArg}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncArg(PlayPlusParser.FuncArgContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#funcCall}.
 	 * @param ctx the parse tree
 	 */

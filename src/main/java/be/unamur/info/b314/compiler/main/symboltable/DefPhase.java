@@ -20,6 +20,12 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
 
     }
 
+    private void defineVar(String varName, String varTypeName)  {
+        Type varType = (BuiltInTypeSymbol) this.symTable.getGlobals().resolve(varTypeName);
+
+        this.symTable.define(new VariableSymbol(varName, varType));
+    }
+
     /**
      *
      * @return La HashMap contenue par symTable
@@ -50,27 +56,34 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
     public void enterVarDecl(PlayPlusParser.VarDeclContext ctx) {
         String varName = ctx.ID().get(0).getText();
         String varTypeName = ctx.mytype().getText();
-        Type varType = (BuiltInTypeSymbol) this.symTable.getGlobals().resolve(varTypeName);
 
-        this.symTable.define(new VariableSymbol(varName, varType));
+        defineVar(varName, varTypeName);
     }
 
     @Override
     public void enterFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
         String name = ctx.ID().getText();
-        String funcTypeName = ctx.mytype().get(0).getText();
-        System.out.println(name + " " + funcTypeName);
+        String funcTypeName = ctx.mytype().getText();
         Type functype = (BuiltInTypeSymbol) this.symTable.getType(funcTypeName);
 
         Scope currentScope = this.symTable.getCurrentScope();
         FunctionSymbol function = new FunctionSymbol(name, functype, currentScope);
         currentScope.define(function);
         this.symTable.saveScope(ctx, function);
-        this.symTable.setCurrentScope((Scope) function);
+        this.symTable.setCurrentScope(function);
+    }
+
+    @Override
+    public void exitFuncArg(PlayPlusParser.FuncArgContext ctx) {
+        String varName = ctx.exprG().ID().getText();
+        String varTypeName = ctx.mytype().getText();
+
+        defineVar(varName, varTypeName);
     }
 
     @Override
     public void exitFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
+//        System.out.println(this.symTable.getCurrentScope());
         this.symTable.setCurrentScopeToEnclosingOne();
     }
 
