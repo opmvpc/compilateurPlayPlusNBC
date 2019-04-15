@@ -5,10 +5,13 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Filler;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
+import be.unamur.info.b314.compiler.main.symboltable.scopes.GlobalScope;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.BuiltInTypeSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.FunctionSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
+
+import java.util.HashMap;
 
 
 public class DefPhase extends PlayPlusBaseListener implements Filler {
@@ -25,15 +28,25 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
         this.symTable.define(new VariableSymbol(varName, varType));
     }
 
+    private FunctionSymbol defineFunction(String name, String funcTypeName) {
+        Type functype = (BuiltInTypeSymbol) this.symTable.getType(funcTypeName);
+        Scope currentScope = this.symTable.getCurrentScope();
+        FunctionSymbol function = new FunctionSymbol(name, functype, currentScope);
+        currentScope.define(function);
+        this.symTable.setCurrentScope(function);
+
+        return function;
+    }
+
     /**
      *
      * @return La HashMap contenue par symTable
      */
     @Override
-    public ParseTreeProperty getSymTable() {
-        System.out.println(this.symTable.getScopes().toString());
+    public SymbolTable getSymTable() {
+        System.out.println(this.symTable.toString());
 
-        return this.symTable.getSymbols();
+        return this.symTable;
     }
 
     @Override
@@ -43,7 +56,8 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
 
     @Override
     public void exitProgram(PlayPlusParser.ProgramContext ctx) {
-        System.out.println(this.symTable.getGlobals().toString());
+//        System.out.println(this.symTable.getGlobals().toString());
+//        System.out.println(this.symTable.getScopes().toString());
     }
 
     /**
@@ -63,13 +77,9 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
     public void enterFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
         String name = ctx.ID().getText();
         String funcTypeName = ctx.mytype().getText();
-        Type functype = (BuiltInTypeSymbol) this.symTable.getType(funcTypeName);
+        FunctionSymbol function = defineFunction(name, funcTypeName);
 
-        Scope currentScope = this.symTable.getCurrentScope();
-        FunctionSymbol function = new FunctionSymbol(name, functype, currentScope);
-        currentScope.define(function);
         this.symTable.saveScope(ctx, function);
-        this.symTable.setCurrentScope(function);
     }
 
     @Override
@@ -88,6 +98,7 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
 
     @Override
     public void enterMapfile(PlayPlusParser.MapfileContext ctx) {
+        this.symTable = new SymbolTable();
         System.out.println(ctx.monde().getChildCount());
     }
 }

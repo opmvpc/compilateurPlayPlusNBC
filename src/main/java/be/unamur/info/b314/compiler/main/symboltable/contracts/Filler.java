@@ -1,7 +1,7 @@
 package be.unamur.info.b314.compiler.main.symboltable.contracts;
 
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
+import be.unamur.info.b314.compiler.main.symboltable.SymbolTable;
 
 public interface Filler {
-    public ParseTreeProperty getSymTable();
+    public SymbolTable getSymTable();
 }

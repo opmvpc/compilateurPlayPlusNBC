@@ -214,7 +214,7 @@ public class Main {
         ParseTreeWalker walker = new ParseTreeWalker();
         DefPhase def = new DefPhase();
         walker.walk(def, tree);
-        RefPhase ref = new RefPhase();
+        RefPhase ref = new RefPhase(def.getSymTable());
         walker.walk(ref, tree);
 //        return def.getSymTable();
 //        en attendant

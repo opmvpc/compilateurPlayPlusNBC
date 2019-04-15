@@ -13,10 +13,6 @@ public class SymbolTable {
     private GlobalScope globals;
     private Scope currentScope;
 
-    public ParseTreeProperty<Scope> getScopes() {
-        return scopes;
-    }
-
     public SymbolTable() {
         this.scopes = new ParseTreeProperty<>();
         this.globals = new GlobalScope(null);
@@ -27,7 +23,7 @@ public class SymbolTable {
      * Renvoie la tables des symboles
      * @return HashMap symboltable
      */
-    public ParseTreeProperty getSymbols() {
+    public ParseTreeProperty getScopes() {
         return this.scopes;
     }
 
