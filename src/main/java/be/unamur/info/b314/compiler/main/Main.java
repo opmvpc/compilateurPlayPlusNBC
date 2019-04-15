@@ -8,6 +8,8 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 
 //import be.unamur.info.b314.compiler.NBCPrinter;
 //import be.unamur.info.b314.compiler.NBCVisitor;
+import be.unamur.info.b314.compiler.exception.ParsingException;
+import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
 import be.unamur.info.b314.compiler.main.symboltable.DefPhase;
 import be.unamur.info.b314.compiler.main.symboltable.RefPhase;
 
@@ -161,7 +163,7 @@ public class Main {
     /**
      * Compiler Methods, this is where the MAGIC happens !!! \o/
      */
-    private void compile() throws IOException {
+    private void compile() throws IOException, SymbolNotFoundException {
 
         // Put your code here !
 
@@ -210,12 +212,27 @@ public class Main {
     /**
      * Builds symbol table from AST.
      */
-    private Map<String, Integer> fillSymTable(PlayPlusParser.RootContext tree) {
+    private Map<String, Integer> fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException {
         ParseTreeWalker walker = new ParseTreeWalker();
+
+        System.out.println("==================================================================");
+        System.out.println("\t\t\t\tDef Phase");
+        System.out.println("==================================================================\n");
+
         DefPhase def = new DefPhase();
         walker.walk(def, tree);
+
+        System.out.println("\n==================================================================");
+        System.out.println("\t\t\t\tRef Phase");
+        System.out.println("==================================================================\n");
+
         RefPhase ref = new RefPhase(def.getSymTable());
         walker.walk(ref, tree);
+
+        if (! ref.getErrors().isEmpty()) {
+            throw new SymbolNotFoundException("\n"+String.join("\n", ref.getErrors()));
+        }
+
 //        return def.getSymTable();
 //        en attendant
         return new HashMap<>();
@@ -251,5 +268,4 @@ public class Main {
 
         System.out.println("==================================================================\n\n");
     }
-
 }

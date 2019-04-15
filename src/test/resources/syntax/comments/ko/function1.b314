@@ -1,0 +1,21 @@
+/*
+
+    Salut
+
+*/
+
+        // Coucou
+
+#import "hello.map"
+
+int f(int a, int b) {
+    return a;
+}
+
+void main(){
+    x();
+    dig();
+
+    return void;
+
+}

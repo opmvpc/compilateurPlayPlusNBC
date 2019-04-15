@@ -339,6 +339,21 @@ public class B314commentsSyntaxTest {
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/vardeclaration1.b314", testFolder.newFile(), true, "comments: vardeclaration1");
     }
 
+    @Test
+    public void testcomments_varScopes1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/varScopes1.b314", testFolder.newFile(), true, "comments: varScopes1");
+    }
+
+    @Test
+    public void testcomments_varScopes2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/varScopes2.b314", testFolder.newFile(), true, "comments: varScopes2");
+    }
+
+    @Test
+    public void testcomments_varScopes3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/varScopes3.b314", testFolder.newFile(), true, "comments: varScopes3");
+    }
+
     //
     // Serie comments KO
     //
@@ -355,6 +370,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_actions3_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/actions3.b314", testFolder.newFile(), false, "comments: actions3");
+    }
+
+    @Test
+    public void testcomments_function1_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function1.b314", testFolder.newFile(), false, "comments: function1");
     }
 
     @Test
@@ -460,6 +480,16 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_tomanyparen_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/tomanyparen.b314", testFolder.newFile(), false, "comments: tomanyparen");
+    }
+
+    @Test
+    public void testcomments_varScopes1_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/varScopes1.b314", testFolder.newFile(), false, "comments: varScopes1");
+    }
+
+    @Test
+    public void testcomments_varScopes2_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/varScopes2.b314", testFolder.newFile(), false, "comments: varScopes2");
     }
 
 }

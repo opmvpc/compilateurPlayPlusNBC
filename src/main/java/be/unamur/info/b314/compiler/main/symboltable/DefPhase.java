@@ -44,8 +44,6 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
      */
     @Override
     public SymbolTable getSymTable() {
-        System.out.println(this.symTable.toString());
-
         return this.symTable;
     }
 
@@ -56,8 +54,7 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
 
     @Override
     public void exitProgram(PlayPlusParser.ProgramContext ctx) {
-//        System.out.println(this.symTable.getGlobals().toString());
-//        System.out.println(this.symTable.getScopes().toString());
+        System.out.println(this.symTable.toString());
     }
 
     /**
@@ -67,6 +64,7 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
      */
     @Override
     public void enterVarDecl(PlayPlusParser.VarDeclContext ctx) {
+
         String varName = ctx.ID().get(0).getText();
         String varTypeName = ctx.mytype().getText();
 
