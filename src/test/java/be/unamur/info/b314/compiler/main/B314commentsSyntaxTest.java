@@ -350,6 +350,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_vardeclaration2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/vardeclaration2.b314", testFolder.newFile(), true, "comments: vardeclaration2");
+    }
+
+    @Test
     public void testcomments_varScopes1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/varScopes1.b314", testFolder.newFile(), true, "comments: varScopes1");
     }

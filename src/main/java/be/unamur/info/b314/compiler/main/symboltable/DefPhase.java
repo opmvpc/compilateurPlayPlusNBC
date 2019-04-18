@@ -69,11 +69,14 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
      */
     @Override
     public void enterVarDecl(PlayPlusParser.VarDeclContext ctx) {
-
-        String varName = ctx.ID().get(0).getText();
         String varTypeName = ctx.mytype().getText();
+        Iterator vars = ctx.subvarDecl().listIterator();
 
-        defineVar(varName, varTypeName);
+        while (vars.hasNext()) {
+            Object var = vars.next();
+            String varName = ((PlayPlusParser.SubvarDeclContext) var).ID().getText();
+            defineVar(varName, varTypeName);
+        }
     }
 
     @Override

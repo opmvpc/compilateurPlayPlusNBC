@@ -183,7 +183,9 @@ structField: mytype fieldDecl (COMMA fieldDecl)* SEMICOLON;
 fieldDecl: ID (arrays)?;
 
 //ajouté les possibles var supplémentaire au scope (voir structfield)
-varDecl : mytype ID (arrays)? (AFFECT initVariable)? (COMMA ID(arrays)?(AFFECT initVariable)?)* SEMICOLON ;
+varDecl : mytype subvarDecl (COMMA subvarDecl)* SEMICOLON;
+
+subvarDecl : ID (arrays)? (AFFECT initVariable)?;
 
 initVariable : TRUE | FALSE | STRING | CHARACTER | exprEnt | exprBool | initArrays | initStruct | LPAREN initVariable RPAREN;
 

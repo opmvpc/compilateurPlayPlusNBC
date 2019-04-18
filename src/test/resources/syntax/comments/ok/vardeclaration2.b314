@@ -1,0 +1,16 @@
+#import "hello.map"
+
+bool a;
+int b;
+int c, d, y;
+
+int tab[2, 5];
+
+void main(){
+
+    // On peut pas faire de déclaration dans le main?
+
+    dig();
+
+    return void;
+}
