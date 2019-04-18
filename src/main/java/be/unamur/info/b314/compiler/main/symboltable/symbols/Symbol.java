@@ -6,7 +6,7 @@ import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 /**
  * Class Symbol
  */
-public class Symbol {
+public abstract class Symbol {
 
     private String name;
     private Type type;
@@ -52,7 +52,7 @@ public class Symbol {
     public String toString() {
         return this.getClass().getSimpleName() + " {" +
                 "\n\t\tname = '" + name + '\'' +
-                ", \n\t\ttype = " + type +
+                (type != null ? ", \n\t\ttype = " + type.getName() : "") +
                 "\n\t}";
     }
 }

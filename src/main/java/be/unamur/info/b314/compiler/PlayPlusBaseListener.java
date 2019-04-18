@@ -474,25 +474,37 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterListStrucName(PlayPlusParser.ListStrucNameContext ctx) { }
+	@Override public void enterListStructFields(PlayPlusParser.ListStructFieldsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitListStrucName(PlayPlusParser.ListStrucNameContext ctx) { }
+	@Override public void exitListStructFields(PlayPlusParser.ListStructFieldsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterListVarName(PlayPlusParser.ListVarNameContext ctx) { }
+	@Override public void enterStructField(PlayPlusParser.StructFieldContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitListVarName(PlayPlusParser.ListVarNameContext ctx) { }
+	@Override public void exitStructField(PlayPlusParser.StructFieldContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFieldDecl(PlayPlusParser.FieldDeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFieldDecl(PlayPlusParser.FieldDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

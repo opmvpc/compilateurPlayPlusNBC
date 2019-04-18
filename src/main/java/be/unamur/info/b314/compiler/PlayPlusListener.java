@@ -390,25 +390,35 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitStructDecl(PlayPlusParser.StructDeclContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#listStrucName}.
+	 * Enter a parse tree produced by {@link PlayPlusParser#listStructFields}.
 	 * @param ctx the parse tree
 	 */
-	void enterListStrucName(PlayPlusParser.ListStrucNameContext ctx);
+	void enterListStructFields(PlayPlusParser.ListStructFieldsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#listStrucName}.
+	 * Exit a parse tree produced by {@link PlayPlusParser#listStructFields}.
 	 * @param ctx the parse tree
 	 */
-	void exitListStrucName(PlayPlusParser.ListStrucNameContext ctx);
+	void exitListStructFields(PlayPlusParser.ListStructFieldsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#listVarName}.
+	 * Enter a parse tree produced by {@link PlayPlusParser#structField}.
 	 * @param ctx the parse tree
 	 */
-	void enterListVarName(PlayPlusParser.ListVarNameContext ctx);
+	void enterStructField(PlayPlusParser.StructFieldContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#listVarName}.
+	 * Exit a parse tree produced by {@link PlayPlusParser#structField}.
 	 * @param ctx the parse tree
 	 */
-	void exitListVarName(PlayPlusParser.ListVarNameContext ctx);
+	void exitStructField(PlayPlusParser.StructFieldContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#fieldDecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterFieldDecl(PlayPlusParser.FieldDeclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#fieldDecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitFieldDecl(PlayPlusParser.FieldDeclContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#varDecl}.
 	 * @param ctx the parse tree

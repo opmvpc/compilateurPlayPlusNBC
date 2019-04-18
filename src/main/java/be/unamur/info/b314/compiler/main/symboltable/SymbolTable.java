@@ -4,7 +4,9 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.scopes.GlobalScope;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.FunctionSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.ScopedSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
+import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class SymbolTable {
@@ -36,20 +38,11 @@ public class SymbolTable {
     }
 
     public void setCurrentScopeToEnclosingOne() {
-        this.getCurrentScope().getEnclosingScope();
+        this.currentScope = this.getCurrentScope().getEnclosingScope();
     }
 
     public void setCurrentScope(Scope currentScope) {
         this.currentScope = currentScope;
-    }
-
-    @Override
-    public String toString() {
-        return "SymbolTable{" +
-                "scopes=" + scopes +
-                ", globals=" + globals +
-                ", currentScope=" + currentScope +
-                '}';
     }
 
     public void define(Symbol symbol) {
@@ -60,7 +53,15 @@ public class SymbolTable {
         return this.getGlobals().resolve(name);
     }
 
-    public void saveScope(PlayPlusParser.FuncDeclContext ctx, FunctionSymbol scope) {
+    public void saveScope(RuleContext ctx, ScopedSymbol scope) {
         this.scopes.put(ctx, scope);
+    }
+
+    @Override
+    public String toString() {
+        return "SymbolTable{" +
+                "scopes=" + scopes +
+                ", globals=" + globals +
+                '}';
     }
 }

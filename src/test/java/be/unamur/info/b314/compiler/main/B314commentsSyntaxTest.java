@@ -265,6 +265,16 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_structs1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/structs1.b314", testFolder.newFile(), true, "comments: structs1");
+    }
+
+    @Test
+    public void testcomments_structs2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/structs2.b314", testFolder.newFile(), true, "comments: structs2");
+    }
+
+    @Test
     public void testcomments_structure1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/structure1.b314", testFolder.newFile(), true, "comments: structure1");
     }

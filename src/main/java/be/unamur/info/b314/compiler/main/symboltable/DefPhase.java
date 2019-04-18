@@ -5,14 +5,9 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Filler;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
-import be.unamur.info.b314.compiler.main.symboltable.scopes.GlobalScope;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.BuiltInTypeSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.FunctionSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.*;
 
-import java.util.HashMap;
-
+import java.util.Iterator;
 
 public class DefPhase extends PlayPlusBaseListener implements Filler {
 
@@ -36,6 +31,16 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
         this.symTable.setCurrentScope(function);
 
         return function;
+    }
+
+    private StructSymbol defineStruct(String name) {
+        Scope currentScope = this.symTable.getCurrentScope();
+        StructSymbol struct = new StructSymbol(name, currentScope);
+        System.out.println(struct.getEnclosingScope().getScopeName());
+        currentScope.define(struct);
+        this.symTable.setCurrentScope(struct);
+
+        return struct;
     }
 
     /**
@@ -91,6 +96,33 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
     @Override
     public void exitFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
 //        System.out.println(this.symTable.getCurrentScope());
+        this.symTable.setCurrentScopeToEnclosingOne();
+    }
+
+    @Override
+    public void enterStructDecl(PlayPlusParser.StructDeclContext ctx) {
+        String name = ctx.structures().ID().getText();
+        StructSymbol struct = defineStruct(name);
+
+        this.symTable.saveScope(ctx, struct);
+    }
+
+    @Override
+    public void exitStructField(PlayPlusParser.StructFieldContext ctx) {
+        String varTypeName = ctx.mytype().getText();
+        Iterator vars = ctx.fieldDecl().listIterator();
+
+        while (vars.hasNext()) {
+            Object var = vars.next();
+            String varName = ((PlayPlusParser.FieldDeclContext) var).ID().getText();
+
+            defineVar(varName, varTypeName);
+        }
+
+    }
+
+    @Override
+    public void exitStructDecl(PlayPlusParser.StructDeclContext ctx) {
         this.symTable.setCurrentScopeToEnclosingOne();
     }
 

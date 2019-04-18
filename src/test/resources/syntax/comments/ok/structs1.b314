@@ -1,0 +1,32 @@
+/*
+
+    Salut
+
+*/
+
+        // Coucou
+
+#import "hello.map"
+
+struct D2
+{
+    int a;
+    char b;
+    bool c[5,3];
+};
+
+struct D3
+{
+    int a;
+    char b;
+    bool c[5,3];
+};
+
+void main(){
+    D2.a = 3;
+    D2.b = 'a';
+    dig();
+
+    return void;
+
+}

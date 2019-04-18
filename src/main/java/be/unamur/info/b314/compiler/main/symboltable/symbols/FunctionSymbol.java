@@ -5,24 +5,17 @@ import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 
 import java.util.HashMap;
 
-public class FunctionSymbol extends Symbol implements Scope {
-    private Scope enclosingScope;
+public class FunctionSymbol extends ScopedSymbol implements Scope {
     private HashMap<String, Symbol> symbols;
 
     public FunctionSymbol(String name, Type type, Scope scope) {
-        super(name, type);
+        super(name, type, scope);
         this.symbols = new HashMap<>();
-        this.enclosingScope = scope;
     }
 
     @Override
     public String getScopeName() {
         return super.getName();
-    }
-
-    @Override
-    public Scope getEnclosingScope() {
-        return enclosingScope;
     }
 
     @Override
@@ -49,7 +42,7 @@ public class FunctionSymbol extends Symbol implements Scope {
     public String toString() {
         return "FunctionSymbol" + " {" +
                 "\n\t\tname = '" + super.getName() + '\'' +
-                ", \n\t\ttype = " + super.getType() +
+                ", \n\t\ttype = " + super.getType().getName() +
                 ", \n\t\tsymbols = " + this.symbols +
                 "\n\t}";
     }

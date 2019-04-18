@@ -241,17 +241,23 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStructDecl(PlayPlusParser.StructDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#listStrucName}.
+	 * Visit a parse tree produced by {@link PlayPlusParser#listStructFields}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitListStrucName(PlayPlusParser.ListStrucNameContext ctx);
+	T visitListStructFields(PlayPlusParser.ListStructFieldsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#listVarName}.
+	 * Visit a parse tree produced by {@link PlayPlusParser#structField}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitListVarName(PlayPlusParser.ListVarNameContext ctx);
+	T visitStructField(PlayPlusParser.StructFieldContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#fieldDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFieldDecl(PlayPlusParser.FieldDeclContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#varDecl}.
 	 * @param ctx the parse tree
