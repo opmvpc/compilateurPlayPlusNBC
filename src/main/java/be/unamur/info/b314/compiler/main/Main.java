@@ -65,7 +65,7 @@ public class Main {
         try {
             line = parser.parse(main.options, args);
         } catch (ParseException ex) {
-            LOG.error("Error while parsing command line!", ex);
+            LOG.error("Errors while parsing command line!", ex);
             main.printHelpMessage();
         }
         // If help is requested, print help message and exit.
@@ -201,10 +201,10 @@ public class Main {
         try {
             tree = parser.root();
         } catch (RecognitionException e) {
-            throw new IllegalArgumentException("Error while retrieving parsing tree!", e);
+            throw new IllegalArgumentException("Errors while retrieving parsing tree!", e);
         }
         if (errorListener.errorHasBeenReported()) {
-            throw new IllegalArgumentException("Error while parsing input!");
+            throw new IllegalArgumentException("Errors while parsing input!");
         }
         return tree;
     }
@@ -229,8 +229,8 @@ public class Main {
         RefPhase ref = new RefPhase(def.getSymTable());
         walker.walk(ref, tree);
 
-        if (! ref.getErrors().isEmpty()) {
-            throw new SymbolNotFoundException("\n"+String.join("\n", ref.getErrors()));
+        if (! ref.getErrors().symbolNotFound.isEmpty()) {
+            throw new SymbolNotFoundException(ref.getErrors().toString());
         }
 
 //        return def.getSymTable();

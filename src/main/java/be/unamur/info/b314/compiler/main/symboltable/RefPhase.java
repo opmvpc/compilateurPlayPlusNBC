@@ -3,6 +3,7 @@ package be.unamur.info.b314.compiler.main.symboltable;
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
+import be.unamur.info.b314.compiler.main.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.Main;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.FunctionSymbol;
@@ -13,11 +14,11 @@ import java.util.ArrayList;
 
 public class RefPhase extends PlayPlusBaseListener {
     private SymbolTable symTable;
-    private ArrayList<String> errors;
+    private Errors errors;
 
     public RefPhase(SymbolTable symTable) {
         this.symTable = symTable;
-        this.errors = new ArrayList<>();
+        this.errors = new Errors();
     }
 
     @Override
@@ -36,7 +37,7 @@ public class RefPhase extends PlayPlusBaseListener {
         try {
             resolveVar(varName);
         } catch (SymbolNotFoundException e) {
-            this.errors.add(e.getMessage());
+            this.errors.symbolNotFound.add(e.getMessage());
         }
     }
 
@@ -46,7 +47,7 @@ public class RefPhase extends PlayPlusBaseListener {
         try {
             resolveFunc(funName);
         } catch (SymbolNotFoundException e) {
-            this.errors.add(e.getMessage());
+            this.errors.symbolNotFound.add(e.getMessage());
         }
     }
 
@@ -74,7 +75,7 @@ public class RefPhase extends PlayPlusBaseListener {
         }
     }
 
-    public ArrayList<String> getErrors() {
+    public Errors getErrors() {
         return errors;
     }
 
