@@ -430,15 +430,15 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitVarDecl(PlayPlusParser.VarDeclContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#subvarDecl}.
+	 * Enter a parse tree produced by {@link PlayPlusParser#subVarDecl}.
 	 * @param ctx the parse tree
 	 */
-	void enterSubvarDecl(PlayPlusParser.SubvarDeclContext ctx);
+	void enterSubVarDecl(PlayPlusParser.SubVarDeclContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#subvarDecl}.
+	 * Exit a parse tree produced by {@link PlayPlusParser#subVarDecl}.
 	 * @param ctx the parse tree
 	 */
-	void exitSubvarDecl(PlayPlusParser.SubvarDeclContext ctx);
+	void exitSubVarDecl(PlayPlusParser.SubVarDeclContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#initVariable}.
 	 * @param ctx the parse tree

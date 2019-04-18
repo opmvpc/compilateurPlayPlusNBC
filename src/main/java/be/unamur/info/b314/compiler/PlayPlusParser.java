@@ -41,7 +41,7 @@ public class PlayPlusParser extends Parser {
 		RULE_repeatStmt = 29, RULE_whileStmt = 30, RULE_actionType = 31, RULE_dig = 32, 
 		RULE_mytype = 33, RULE_scalar = 34, RULE_structures = 35, RULE_arrays = 36, 
 		RULE_structDecl = 37, RULE_listStructFields = 38, RULE_structField = 39, 
-		RULE_fieldDecl = 40, RULE_varDecl = 41, RULE_subvarDecl = 42, RULE_initVariable = 43, 
+		RULE_fieldDecl = 40, RULE_varDecl = 41, RULE_subVarDecl = 42, RULE_initVariable = 43, 
 		RULE_initArrays = 44, RULE_initStruct = 45, RULE_constDecl = 46, RULE_enumDecl = 47, 
 		RULE_typedefDecl = 48;
 	public static final String[] ruleNames = {
@@ -51,7 +51,7 @@ public class PlayPlusParser extends Parser {
 		"funcDecl", "funcArgs", "funcArg", "funcCall", "constantExpr", "exprD", 
 		"exprEnt", "exprBool", "exprG", "conditionalStmt", "repeatStmt", "whileStmt", 
 		"actionType", "dig", "mytype", "scalar", "structures", "arrays", "structDecl", 
-		"listStructFields", "structField", "fieldDecl", "varDecl", "subvarDecl", 
+		"listStructFields", "structField", "fieldDecl", "varDecl", "subVarDecl", 
 		"initVariable", "initArrays", "initStruct", "constDecl", "enumDecl", "typedefDecl"
 	};
 
@@ -3565,11 +3565,11 @@ public class PlayPlusParser extends Parser {
 		public MytypeContext mytype() {
 			return getRuleContext(MytypeContext.class,0);
 		}
-		public List<SubvarDeclContext> subvarDecl() {
-			return getRuleContexts(SubvarDeclContext.class);
+		public List<SubVarDeclContext> subVarDecl() {
+			return getRuleContexts(SubVarDeclContext.class);
 		}
-		public SubvarDeclContext subvarDecl(int i) {
-			return getRuleContext(SubvarDeclContext.class,i);
+		public SubVarDeclContext subVarDecl(int i) {
+			return getRuleContext(SubVarDeclContext.class,i);
 		}
 		public TerminalNode SEMICOLON() { return getToken(PlayPlusParser.SEMICOLON, 0); }
 		public List<TerminalNode> COMMA() { return getTokens(PlayPlusParser.COMMA); }
@@ -3605,7 +3605,7 @@ public class PlayPlusParser extends Parser {
 			setState(534);
 			mytype();
 			setState(535);
-			subvarDecl();
+			subVarDecl();
 			setState(540);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -3615,7 +3615,7 @@ public class PlayPlusParser extends Parser {
 				setState(536);
 				match(COMMA);
 				setState(537);
-				subvarDecl();
+				subVarDecl();
 				}
 				}
 				setState(542);
@@ -3637,7 +3637,7 @@ public class PlayPlusParser extends Parser {
 		return _localctx;
 	}
 
-	public static class SubvarDeclContext extends ParserRuleContext {
+	public static class SubVarDeclContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(PlayPlusParser.ID, 0); }
 		public ArraysContext arrays() {
 			return getRuleContext(ArraysContext.class,0);
@@ -3646,28 +3646,28 @@ public class PlayPlusParser extends Parser {
 		public InitVariableContext initVariable() {
 			return getRuleContext(InitVariableContext.class,0);
 		}
-		public SubvarDeclContext(ParserRuleContext parent, int invokingState) {
+		public SubVarDeclContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_subvarDecl; }
+		@Override public int getRuleIndex() { return RULE_subVarDecl; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterSubvarDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).enterSubVarDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitSubvarDecl(this);
+			if ( listener instanceof PlayPlusListener ) ((PlayPlusListener)listener).exitSubVarDecl(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitSubvarDecl(this);
+			if ( visitor instanceof PlayPlusVisitor ) return ((PlayPlusVisitor<? extends T>)visitor).visitSubVarDecl(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final SubvarDeclContext subvarDecl() throws RecognitionException {
-		SubvarDeclContext _localctx = new SubvarDeclContext(_ctx, getState());
-		enterRule(_localctx, 84, RULE_subvarDecl);
+	public final SubVarDeclContext subVarDecl() throws RecognitionException {
+		SubVarDeclContext _localctx = new SubVarDeclContext(_ctx, getState());
+		enterRule(_localctx, 84, RULE_subVarDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);

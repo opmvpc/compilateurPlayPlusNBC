@@ -313,7 +313,7 @@ public class PlayPlusBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSubvarDecl(PlayPlusParser.SubvarDeclContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSubVarDecl(PlayPlusParser.SubVarDeclContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

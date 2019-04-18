@@ -522,13 +522,13 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSubvarDecl(PlayPlusParser.SubvarDeclContext ctx) { }
+	@Override public void enterSubVarDecl(PlayPlusParser.SubVarDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSubvarDecl(PlayPlusParser.SubvarDeclContext ctx) { }
+	@Override public void exitSubVarDecl(PlayPlusParser.SubVarDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
