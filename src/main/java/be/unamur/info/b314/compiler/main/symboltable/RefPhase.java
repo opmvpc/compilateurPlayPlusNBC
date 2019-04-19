@@ -2,15 +2,18 @@ package be.unamur.info.b314.compiler.main.symboltable;
 
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
+import be.unamur.info.b314.compiler.exception.BadNamingException;
 import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
 import be.unamur.info.b314.compiler.main.Helpers.Errors;
-import be.unamur.info.b314.compiler.main.Main;
+import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.FunctionSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.MapSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
+import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RefPhase extends PlayPlusBaseListener {
     private SymbolTable symTable;
@@ -19,6 +22,7 @@ public class RefPhase extends PlayPlusBaseListener {
     public RefPhase(SymbolTable symTable) {
         this.symTable = symTable;
         this.errors = new Errors();
+        checkNamingConvention();
     }
 
     @Override
@@ -56,6 +60,7 @@ public class RefPhase extends PlayPlusBaseListener {
 //        System.out.println("current Scope = "+ this.symTable.getCurrentScope().getScopeName() +"\t varName = "+ varName);
 //        Symbol var = this.symTable.getCurrentScope().resolve(varName);
 //        Pas encore bien test donc je garde l'ancienne
+        varName = SymbolNamesHelper.generateName("VariableSymbol", varName);
         Symbol var = resolveSymbolRec(varName, this.symTable.getCurrentScope());
         if (var == null) {
             throw new SymbolNotFoundException("Variable "+ varName +" do not exist");
@@ -98,4 +103,47 @@ public class RefPhase extends PlayPlusBaseListener {
         String name = ctx.ID().getText();
         ctx.member().listIterator();
     }
+
+    private Symbol resolveMap(String mapName, Scope currentScope) throws SymbolNotFoundException {
+        Symbol maps = resolveSymbolRec(mapName, this.symTable.getCurrentScope());
+        if (maps == null) {
+            throw new SymbolNotFoundException("Map "+ mapName +" do not valid map");
+        }
+        if (maps instanceof MapSymbol) {
+            throw new SymbolNotFoundException(mapName +" is not a valid map");
+        }
+
+        return resolveSymbolRec(mapName, this.symTable.getCurrentScope());
+    }
+
+    @Override
+    public void exitMapfile(PlayPlusParser.MapfileContext ctx) {
+        this.symTable.setCurrentScope(this.symTable.getCurrentScope().getEnclosingScope());
+    }
+    private void checkNamingConvention(){
+        checkGlobalVarNames();
+    }
+
+    private void checkGlobalVarNames() {
+        HashMap globals =  this.symTable.getGlobals().getSymbols();
+        globals.forEach((k, v) -> {
+            if(v instanceof VariableSymbol){
+                String varName =   ((Symbol) v).getName();
+                globals.forEach((k2, v2) -> {
+                    if (v2 instanceof  FunctionSymbol){
+                       if (((VariableSymbol) v).getNiceName().equals(((Symbol) v2).getNiceName())){
+                           this.errors.badNameError.add("Le nom de la variable:" + ((VariableSymbol) v).getNiceName() + " est déjà utilisé par une fonction");
+                       }
+                    }
+                });
+            }
+        });
+    }
+
+
+    @Override
+    public void exitProgram(PlayPlusParser.ProgramContext ctx) {
+        System.out.println(errors.toString());
+    }
 }
+

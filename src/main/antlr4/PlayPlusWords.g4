@@ -82,7 +82,7 @@ BLOCK_COMMENT : DIV MUL .*? MUL DIV -> channel(HIDDEN) ;
 LINE_COMMENT : DIV DIV ~[\r\n]* -> channel(HIDDEN) ;
 
 /** NEWLINES AND WHITESPACE **/
-NEWLINE : '\r'? '\n' -> skip;
+NEWLINE : ('\r'? '\n') -> skip;
 WS : (' '| '\t')+ -> skip;
 
 /** UTILS **/

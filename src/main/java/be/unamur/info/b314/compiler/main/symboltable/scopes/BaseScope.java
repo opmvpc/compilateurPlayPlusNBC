@@ -35,7 +35,8 @@ public abstract class BaseScope implements Scope {
 
     @Override
     public void define(Symbol symbol) {
-        this.symbols.putIfAbsent(symbol.getName(), symbol);
+        String name  = symbol.getName();
+        this.symbols.put(name , symbol);
     }
 
     @Override

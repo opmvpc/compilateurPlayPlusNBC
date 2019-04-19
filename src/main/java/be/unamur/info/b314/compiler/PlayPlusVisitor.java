@@ -31,11 +31,35 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMapsize(PlayPlusParser.MapsizeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#monde}.
+	 * Visit a parse tree produced by {@link PlayPlusParser#world}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMonde(PlayPlusParser.MondeContext ctx);
+	T visitWorld(PlayPlusParser.WorldContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#coordX}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCoordX(PlayPlusParser.CoordXContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#coordY}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCoordY(PlayPlusParser.CoordYContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#line}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLine(PlayPlusParser.LineContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#element}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElement(PlayPlusParser.ElementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#program}.
 	 * @param ctx the parse tree

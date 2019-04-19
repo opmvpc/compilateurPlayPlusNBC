@@ -6,10 +6,12 @@ public class Errors
 {
     public ArrayList<String> symbolNotFound;
     public ArrayList<String> mapError;
+    public ArrayList<String> badNameError;
 
     public Errors() {
         this.symbolNotFound = new ArrayList<>();
         this.mapError = new ArrayList<>();
+        this.badNameError = new ArrayList<>();
     }
 
     @Override
@@ -17,6 +19,7 @@ public class Errors
         return "Errors{" +
                 "symbolNotFound=" + symbolNotFound +
                 ", mapError=" + mapError +
+                ", badNameError=" + badNameError +
                 '}';
     }
 }

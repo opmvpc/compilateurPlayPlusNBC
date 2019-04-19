@@ -129,9 +129,33 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
         this.symTable.setCurrentScopeToEnclosingOne();
     }
 
+    private MapSymbol defineMap(String name, String mapTypeName) {
+        Type mtype= new BuiltInTypeSymbol("map");
+        MapSymbol map = new MapSymbol(name, mtype);
+        return map;
+    }
+
     @Override
     public void enterMapfile(PlayPlusParser.MapfileContext ctx) {
         this.symTable = new SymbolTable();
-        System.out.println(ctx.monde().getChildCount());
+
+        String name = ctx.getChild(0).getText();
+        String funcTypeName =ctx.getChild(1).getText();
+        MapSymbol mp = defineMap(name, funcTypeName);
+
+        //****************
+        Integer mapX = Integer.parseInt(ctx.mapsize().coordX().getText());
+        Integer mapY = Integer.parseInt(ctx.mapsize().coordY().getText());
+        String mapLine = ctx.world().getText();
+        System.out.println("mapX: " + mapX + " - mapY: " + mapY);
+        System.out.println(" mapLine =>" + mapLine);
+        mp.createCarte(mapX,mapY,mapLine);
+        //****************
+        this.symTable.define(mp);
     }
+    @Override
+    public void exitMapfile(PlayPlusParser.MapfileContext ctx) {
+        System.out.println(this.symTable.toString());
+    }
+
 }

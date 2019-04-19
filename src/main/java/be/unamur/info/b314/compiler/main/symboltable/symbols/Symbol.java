@@ -1,8 +1,9 @@
 package be.unamur.info.b314.compiler.main.symboltable.symbols;
 
+import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
-
+import org.apache.commons.lang3.StringUtils;
 /**
  * Class Symbol
  */
@@ -12,16 +13,16 @@ public abstract class Symbol {
     private Type type;
 
     public Symbol(String name) {
-        this.name = name;
+        setName(name);
     }
 
     public Symbol(String name, Type type) {
-        this.name = name;
+        setName(name);
         this.type = type;
     }
 
     public Symbol(String name, Type type, Scope scope) {
-        this.name = name;
+        setName(name);
         this.type = type;
     }
 
@@ -32,6 +33,14 @@ public abstract class Symbol {
      */
     public String getName() {
         return name;
+    }
+
+    public String getNiceName(){
+        return SymbolNamesHelper.generateNiceName(name);
+    }
+
+    public void setName(String name) {
+        this.name = SymbolNamesHelper.generateName(this.getClass().getSimpleName(),name);
     }
 
     /**

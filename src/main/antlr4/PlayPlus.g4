@@ -14,14 +14,22 @@ root : program | mapfile ;
 
 // Parsing Map
 
-mapfile: MAPSTART mapsize monde EOF;
+mapfile: MAPSTART mapsize world EOF;
 
-mapsize: NATUREL NATUREL;
+mapsize: coordX coordY;
 
-monde:
-    ( ROBOT| TRESOR| PELOUSE| PALMIER | PONT | BUISSON | TONNEAU | PUIT | VIDE | SQUELLETTE )+
+world: line+;
+
+coordX : NATUREL;
+coordY : NATUREL;
+
+line :  element (element | NEWLINE)+;
+
+element:
+    ( ROBOT| TRESOR| PELOUSE| PALMIER | PONT | BUISSON | TONNEAU | PUIT | VIDE | SQUELLETTE )
       ;
 
+//-----------
 
 // Parsing PlayPlus Code
 

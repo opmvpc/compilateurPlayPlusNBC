@@ -42,7 +42,7 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
     public String toString() {
         return "FunctionSymbol" + " {" +
                 "\n\t\tname = '" + super.getName() + '\'' +
-                ", \n\t\ttype = " + super.getType().getName() +
+                (super.getType() != null ? ", \n\t\ttype = " + super.getType().getName() : "") +
                 ", \n\t\tsymbols = " + this.symbols +
                 "\n\t}";
     }

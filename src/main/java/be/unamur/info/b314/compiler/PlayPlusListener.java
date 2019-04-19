@@ -40,15 +40,55 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitMapsize(PlayPlusParser.MapsizeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#monde}.
+	 * Enter a parse tree produced by {@link PlayPlusParser#world}.
 	 * @param ctx the parse tree
 	 */
-	void enterMonde(PlayPlusParser.MondeContext ctx);
+	void enterWorld(PlayPlusParser.WorldContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#monde}.
+	 * Exit a parse tree produced by {@link PlayPlusParser#world}.
 	 * @param ctx the parse tree
 	 */
-	void exitMonde(PlayPlusParser.MondeContext ctx);
+	void exitWorld(PlayPlusParser.WorldContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#coordX}.
+	 * @param ctx the parse tree
+	 */
+	void enterCoordX(PlayPlusParser.CoordXContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#coordX}.
+	 * @param ctx the parse tree
+	 */
+	void exitCoordX(PlayPlusParser.CoordXContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#coordY}.
+	 * @param ctx the parse tree
+	 */
+	void enterCoordY(PlayPlusParser.CoordYContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#coordY}.
+	 * @param ctx the parse tree
+	 */
+	void exitCoordY(PlayPlusParser.CoordYContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#line}.
+	 * @param ctx the parse tree
+	 */
+	void enterLine(PlayPlusParser.LineContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#line}.
+	 * @param ctx the parse tree
+	 */
+	void exitLine(PlayPlusParser.LineContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#element}.
+	 * @param ctx the parse tree
+	 */
+	void enterElement(PlayPlusParser.ElementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#element}.
+	 * @param ctx the parse tree
+	 */
+	void exitElement(PlayPlusParser.ElementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#program}.
 	 * @param ctx the parse tree
