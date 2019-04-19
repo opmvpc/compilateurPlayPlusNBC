@@ -145,10 +145,13 @@ exprBool : TRUE | FALSE
 	;
 
 
-exprG : funcCall
-        | ID
-        | ID LBRACKET exprD (COMMA exprD)? RBRACKET
-        | exprG.ID;
+exprG
+    : funcCall
+    | ID
+    | ID LBRACKET exprD (COMMA exprD)? RBRACKET
+    | exprG.ID
+    | structRef
+    ;
 
 
 conditionalStmt : IF LPAREN exprBool RPAREN LBRACE statement* RBRACE (ELSE LBRACE statement* RBRACE)? ;
@@ -167,6 +170,14 @@ actionType :
 
 dig :
     DIG LPAREN RPAREN
+    ;
+
+structRef
+    : ID member+
+    ;
+
+member
+    : . ID
     ;
 
 mytype : scalar | structures;

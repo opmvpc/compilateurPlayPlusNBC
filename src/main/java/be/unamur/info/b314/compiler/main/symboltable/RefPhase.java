@@ -92,4 +92,10 @@ public class RefPhase extends PlayPlusBaseListener {
 
         return resolveSymbolRec(name, currentScope.getEnclosingScope());
     }
+
+    @Override
+    public void exitStructRef(PlayPlusParser.StructRefContext ctx) {
+        String name = ctx.ID().getText();
+        ctx.member().listIterator();
+    }
 }

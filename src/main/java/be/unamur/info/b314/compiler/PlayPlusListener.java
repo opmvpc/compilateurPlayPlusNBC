@@ -340,6 +340,26 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitDig(PlayPlusParser.DigContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#structRef}.
+	 * @param ctx the parse tree
+	 */
+	void enterStructRef(PlayPlusParser.StructRefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#structRef}.
+	 * @param ctx the parse tree
+	 */
+	void exitStructRef(PlayPlusParser.StructRefContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#member}.
+	 * @param ctx the parse tree
+	 */
+	void enterMember(PlayPlusParser.MemberContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#member}.
+	 * @param ctx the parse tree
+	 */
+	void exitMember(PlayPlusParser.MemberContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#mytype}.
 	 * @param ctx the parse tree
 	 */
