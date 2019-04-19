@@ -1,5 +1,6 @@
 package be.unamur.info.b314.compiler.main.symboltable.symbols;
 
+import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 
@@ -48,7 +49,7 @@ public class StructSymbol extends ScopedSymbol implements Scope, Type {
     @Override
     public String toString() {
         return "StructSymbol" + " {" +
-                "\n\t\tname = '" + super.getName() + '\'' +
+                "\n\t\tname = '" + SymbolNamesHelper.generateNiceName(super.getName()) + '\'' +
                 ", \n\t\tfields = " + this.fields +
                 "\n\t}";
     }

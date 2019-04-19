@@ -2,6 +2,7 @@ package be.unamur.info.b314.compiler.main.symboltable;
 
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
+import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Filler;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
@@ -18,13 +19,23 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
     }
 
     private void defineVar(String varName, String varTypeName)  {
-        Type varType = (BuiltInTypeSymbol) this.symTable.getGlobals().resolve(varTypeName);
+        Type varType = (BuiltInTypeSymbol) resolveType(varTypeName);
 
         this.symTable.define(new VariableSymbol(varName, varType));
     }
 
+    private Object resolveType(String varTypeName) {
+        return this.symTable.getGlobals().resolve(SymbolNamesHelper.generateName("BuiltInTypeSymbol",varTypeName));
+    }
+
+    private void defineFunctArg(String varName, String varTypeName) {
+        Type varType = (BuiltInTypeSymbol) resolveType(varTypeName);
+
+        ((FunctionSymbol) this.symTable.getCurrentScope()).defineArg(new VariableSymbol(varName, varType));
+    }
+
     private FunctionSymbol defineFunction(String name, String funcTypeName) {
-        Type functype = (BuiltInTypeSymbol) this.symTable.getType(funcTypeName);
+        Type functype = (BuiltInTypeSymbol) resolveType(funcTypeName);
         Scope currentScope = this.symTable.getCurrentScope();
         FunctionSymbol function = new FunctionSymbol(name, functype, currentScope);
         currentScope.define(function);
@@ -93,7 +104,7 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
         String varName = ctx.exprG().ID().getText();
         String varTypeName = ctx.mytype().getText();
 
-        defineVar(varName, varTypeName);
+        defineFunctArg(varName, varTypeName);
     }
 
     @Override

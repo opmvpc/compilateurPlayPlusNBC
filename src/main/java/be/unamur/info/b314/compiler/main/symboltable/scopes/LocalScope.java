@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class LocalScope extends BaseScope {
 
-    public LocalScope(String name, Scope enclosingScope, HashMap<String, Symbol> symbols) {
-        super(name, enclosingScope, symbols);
+    public LocalScope(String name, Scope enclosingScope) {
+        super(name, enclosingScope);
     }
 }

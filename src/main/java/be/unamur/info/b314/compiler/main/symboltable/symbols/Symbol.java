@@ -60,8 +60,8 @@ public abstract class Symbol {
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + " {" +
-                "\n\t\tname = '" + name + '\'' +
-                (type != null ? ", \n\t\ttype = " + type.getName() : "") +
+                "\n\t\tname = '" + SymbolNamesHelper.generateNiceName(name) + '\'' +
+                (type != null ? ", \n\t\ttype = " + SymbolNamesHelper.generateNiceName(type.getName()) : "") +
                 "\n\t}";
     }
 }

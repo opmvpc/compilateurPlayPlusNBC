@@ -1,5 +1,6 @@
 package be.unamur.info.b314.compiler.main.symboltable.scopes;
 
+import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 
@@ -17,7 +18,7 @@ public abstract class BaseScope implements Scope {
         this.symbols = new HashMap<>();
     }
 
-    public BaseScope(String name, Scope enclosingScope, HashMap<String, Symbol> symbols) {
+    public BaseScope(String name, Scope enclosingScope) {
         this.name = name;
         this.enclosingScope = enclosingScope;
         this.symbols = new HashMap<>();
@@ -51,7 +52,7 @@ public abstract class BaseScope implements Scope {
     @Override
     public String toString() {
         return this.getClass().getSimpleName() +" {" +
-                "name='" + name + '\'' +
+                "name='" + SymbolNamesHelper.generateNiceName(name) + '\'' +
                 ", enclosingScope=" + enclosingScope +
                 ", symbols=" + symbols +
                 '}';

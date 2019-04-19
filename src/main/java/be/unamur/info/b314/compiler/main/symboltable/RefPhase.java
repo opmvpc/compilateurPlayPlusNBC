@@ -2,7 +2,6 @@ package be.unamur.info.b314.compiler.main.symboltable;
 
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
-import be.unamur.info.b314.compiler.exception.BadNamingException;
 import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
 import be.unamur.info.b314.compiler.main.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
@@ -11,7 +10,6 @@ import be.unamur.info.b314.compiler.main.symboltable.symbols.FunctionSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.MapSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 
