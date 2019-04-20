@@ -307,23 +307,11 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVarDecl(PlayPlusParser.VarDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#arrayDecl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayDecl(PlayPlusParser.ArrayDeclContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#subVarDecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSubVarDecl(PlayPlusParser.SubVarDeclContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#subArrayDecl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSubArrayDecl(PlayPlusParser.SubArrayDeclContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#initVariable}.
 	 * @param ctx the parse tree

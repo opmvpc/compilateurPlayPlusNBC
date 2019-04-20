@@ -213,11 +213,7 @@ fieldDecl: ID (arrays)?;
 
 varDecl : mytype subVarDecl (COMMA subVarDecl)* SEMICOLON;
 
-arrayDecl : mytype subArrayDecl (COMMA subArrayDecl)* SEMICOLON;
-
-subVarDecl : ID (AFFECT initVariable)?;
-
-subArrayDecl : ID (arrays) (AFFECT initArrays)?;
+subVarDecl : ID (arrays)? (AFFECT initVariable)?;
 
 initVariable : TRUE | FALSE | STRING | CHARACTER | exprEnt | exprBool | initArrays | initStruct | LPAREN initVariable RPAREN;
 
@@ -231,4 +227,3 @@ constDecl : CONST mytype ID (arrays?) ((AFFECT initVariable))? (COMMA ID (arrays
 enumDecl: ENUM (ID)? LBRACE ID (COMMA ID)*? RBRACE SEMICOLON  ;
 
 typedefDecl: TYPEDEF mytype ID SEMICOLON ;
-
