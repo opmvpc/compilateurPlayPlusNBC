@@ -6,10 +6,7 @@ import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
 import be.unamur.info.b314.compiler.main.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.FunctionSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.MapSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.*;
 
 import java.util.HashMap;
 
@@ -98,27 +95,38 @@ public class RefPhase extends PlayPlusBaseListener {
         ctx.member().listIterator();
     }
 
-    private Symbol resolveMap(String mapName, Scope currentScope) throws SymbolNotFoundException {
-        Symbol maps = resolveSymbolRec(mapName, this.symTable.getCurrentScope());
+    private Symbol resolveMap(String mapName){
+        mapName = SymbolNamesHelper.generateName("MapSymbol",mapName);
+        Symbol maps = resolveSymbolRec(mapName, this.symTable.getGlobals()); // soucis avec le resolve
         if (maps == null) {
-            throw new SymbolNotFoundException("Map "+ mapName +" do not valid map");
-        }
-        if (maps instanceof MapSymbol) {
-            throw new SymbolNotFoundException(mapName +" is not a valid map");
+            this.errors.mapError.add("Map is null ");
+        }else {
+            String typeErrors = ((MapSymbol) maps).isMapConfigCorrect();
+            if (typeErrors != null) {
+                this.errors.mapError.add(typeErrors);
+            }
         }
 
-        return resolveSymbolRec(mapName, this.symTable.getCurrentScope());
+        return resolveSymbolRec(mapName, this.symTable.getGlobals());
     }
 
     @Override
     public void exitMapfile(PlayPlusParser.MapfileContext ctx) {
+        String varName = ctx.getChild(0).getText();
+        resolveMap(varName);
+
         this.symTable.setCurrentScope(this.symTable.getCurrentScope().getEnclosingScope());
+
+        System.out.println(errors.toString());
+
     }
     private void checkNamingConvention(){
         checkGlobalVarNames();
         checkLocalVarNamesNotInArgs();
         checkLocalVarNameNotFunctName();
         checkArgNameNotFunctName();
+        checkConstNames();
+        checkLocalVarNames();
     }
 
     private void checkGlobalVarNames() {
@@ -126,7 +134,7 @@ public class RefPhase extends PlayPlusBaseListener {
         globals.forEach((k, v) -> {
             if(v instanceof VariableSymbol){
                 globals.forEach((k2, v2) -> {
-                    if (v2 instanceof  FunctionSymbol){
+                    if (v2 instanceof FunctionSymbol){
                        if (((VariableSymbol) v).getNiceName().equals(((Symbol) v2).getNiceName())){
                            this.errors.badNameError.add("Le nom de la variable:" +
                                    ((VariableSymbol) v).getNiceName() +
@@ -139,6 +147,65 @@ public class RefPhase extends PlayPlusBaseListener {
     }
 
     private void checkLocalVarNamesNotInArgs() {
+        HashMap globals = this.symTable.getGlobals().getSymbols();
+        globals.forEach((k, v) -> {
+            String varName = ((Symbol) v).getName();
+            globals.forEach((k2, v2) -> {
+                if (v instanceof VariableSymbol) {
+                    if (v2 instanceof ConstanteSymbol) {
+                        if (((VariableSymbol) v).getNiceName().equals(((Symbol) v2).getNiceName())) {
+                            this.errors.badNameError.add("Le nom de la constante:" + ((VariableSymbol) v).getNiceName() + " est déjà utilisé par une variable");
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+    private void checkConstNames() {
+        HashMap globals = this.symTable.getGlobals().getSymbols();
+        globals.forEach((k, v) -> {
+            String varName = ((Symbol) v).getName();
+            globals.forEach((k2, v2) -> {
+                if (v instanceof VariableSymbol) {
+                    if (v2 instanceof ConstanteSymbol) {
+                        if (((VariableSymbol) v).getNiceName().equals(((Symbol) v2).getNiceName())) {
+                            this.errors.badNameError.add("Le nom de la constante:" + ((VariableSymbol) v).getNiceName() + " est déjà utilisé par une variable");
+                        }
+                    }
+                }
+                if (v instanceof ConstanteSymbol && v2 instanceof ConstanteSymbol && k != k2) {
+                    if (((ConstanteSymbol) v).getNiceName().equals(((Symbol) v2).getNiceName())) {
+                        this.errors.badNameError.add("Le nom de la constante:" + ((ConstanteSymbol) v).getNiceName() + " est déjà utilisé par une autre constante" + ((Symbol) v2).getNiceName());
+                    }
+                }
+            });
+
+        });
+    }
+
+    private void resolveConst(String constName) throws SymbolNotFoundException {
+        constName = SymbolNamesHelper.generateName("ConstanteSymbol", constName);
+        Symbol consts = resolveSymbolRec(constName, this.symTable.getCurrentScope());
+        if (consts == null) {
+            throw new SymbolNotFoundException("Constante "+ constName +" do not exist");
+        }
+        if (consts instanceof VariableSymbol) {
+            throw new SymbolNotFoundException(constName +" is not a constante");
+        }
+    }
+
+    @Override
+    public void exitConstDecl(PlayPlusParser.ConstDeclContext ctx) {
+        String varName = ctx.ID().get(0).getText();
+        try {
+            resolveConst(varName);
+        } catch (SymbolNotFoundException e) {
+            this.errors.symbolNotFound.add(e.getMessage());
+        }
+    }
+
+    private void checkLocalVarNames() {
         HashMap globals =  this.symTable.getGlobals().getSymbols();
         globals.forEach((k, funct) -> {
             if (funct instanceof FunctionSymbol) {
@@ -186,7 +253,6 @@ public class RefPhase extends PlayPlusBaseListener {
             }
         });
     }
-
 
     @Override
     public void exitProgram(PlayPlusParser.ProgramContext ctx) {

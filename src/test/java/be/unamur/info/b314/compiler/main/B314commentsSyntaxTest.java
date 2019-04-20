@@ -110,11 +110,6 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_j_testaffectinstruction_affect_bool_constant_wrong_var_type_ko_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testaffectinstruction_affect_bool_constant_wrong_var_type_ko.b314", testFolder.newFile(), true, "comments: j_testaffectinstruction_affect_bool_constant_wrong_var_type_ko");
-    }
-
-    @Test
     public void testcomments_j_testcomments_missing_numbers_size_play_card_ko_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testcomments_missing_numbers_size_play_card_ko.b314", testFolder.newFile(), true, "comments: j_testcomments_missing_numbers_size_play_card_ko");
     }
@@ -425,6 +420,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_naming8_GlobalVarSameName_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/naming8_GlobalVarSameName.b314", testFolder.newFile(), false, "comments: naming8_GlobalVarSameName");
+    }
+
+    @Test
+    public void testcomments_test_constante_01_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/test_constante_01.b314", testFolder.newFile(), false, "comments: test_constante_01");
     }
 
     @Test
