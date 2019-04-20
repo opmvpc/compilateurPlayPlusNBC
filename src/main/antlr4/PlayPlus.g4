@@ -58,10 +58,14 @@ localDecl :
     (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl)*
     ;
 
+mainDecl :
+    (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl)
+    ;
 // Main Function/Program
 
 mainProgram :
     mainStart
+    mainDecl?
     statements
     mainEnd
     ;
@@ -75,7 +79,7 @@ mainRet : returnInstr SEMICOLON;
 
 
 // At least one statement
-statements : statement+;
+statements :  statement+ ;
 
 statement :
     returnInstr SEMICOLON
@@ -84,9 +88,8 @@ statement :
     | constantExpr
     | (actionType) SEMICOLON
 //    | dig SEMICOLON
-    | conditionalStmt | repeatStmt | whileStmt
+    | conditionalStmt | repeatStmt | whileStmt |  mainDecl
     ;
-
 
 // return in functions and main
 returnInstr : RETURN (exprG|VOID|exprD);
@@ -139,14 +142,21 @@ exprEnt : MINUS exprEnt
 
 exprBool : TRUE | FALSE
     | exprG
+    | exprG (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) exprG
+    | exprG (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) CHARACTER
 	| exprEnt SMALLER exprEnt
     | exprEnt GREATER exprEnt
 	| exprEnt EGREATER exprEnt
     | exprEnt ESMALLER exprEnt
 	| exprEnt EQUAL exprEnt
+	| exprEnt NOTEQUAL exprEnt
 	| STRING EQUAL STRING
+	| STRING NOTEQUAL STRING
 	| CHARACTER EQUAL CHARACTER
+	| CHARACTER NOTEQUAL CHARACTER
 	| exprBool AND exprBool
+	| exprBool EQUAL exprBool
+	| exprBool NOTEQUAL exprBool
     | exprBool OR exprBool
 	| NOT exprBool
 	| LPAREN exprBool RPAREN
@@ -162,9 +172,9 @@ exprG
     ;
 
 
-conditionalStmt : IF LPAREN exprBool RPAREN LBRACE statement* RBRACE (ELSE LBRACE statement* RBRACE)? ;
+conditionalStmt : IF LPAREN exprBool+ RPAREN LBRACE statement* RBRACE (ELSE LBRACE statement* RBRACE)? ;
 repeatStmt : REPEAT LPAREN exprEnt RPAREN LBRACE statement* RBRACE ;
-whileStmt : WHILE LPAREN exprBool RPAREN LBRACE statement* RBRACE ;
+whileStmt : WHILE LPAREN exprBool+ RPAREN LBRACE statement* RBRACE ;
 
 actionType :
     LEFT LPAREN (exprD)? RPAREN

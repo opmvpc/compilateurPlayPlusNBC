@@ -103,6 +103,12 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLocalDecl(PlayPlusParser.LocalDeclContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#mainDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMainDecl(PlayPlusParser.MainDeclContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#mainProgram}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

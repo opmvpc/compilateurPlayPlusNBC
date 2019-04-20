@@ -160,6 +160,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitLocalDecl(PlayPlusParser.LocalDeclContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#mainDecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterMainDecl(PlayPlusParser.MainDeclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#mainDecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitMainDecl(PlayPlusParser.MainDeclContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#mainProgram}.
 	 * @param ctx the parse tree
 	 */
