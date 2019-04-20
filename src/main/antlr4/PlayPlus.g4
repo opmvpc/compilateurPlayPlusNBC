@@ -51,15 +51,15 @@ fileName: ID;
 // Declarations of variables,functions,... ( 2 rules for convinience )
 
 globalDecl :
-    (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl | arrayDecl)*
+    (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl)*
     ;
 
 localDecl :
-    (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl | arrayDecl)*
+    (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl)*
     ;
 
 mainDecl :
-    (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl | arrayDecl)
+    (varDecl | constDecl | structDecl | enumDecl | typedefDecl | funcDecl)
     ;
 // Main Function/Program
 
@@ -166,12 +166,11 @@ exprBool : TRUE | FALSE
 exprG
     : funcCall
     | ID
-    | arrayExpr
+    | ID LBRACKET exprD (COMMA exprD)? RBRACKET
     | exprG.ID
     | structRef
     ;
 
-arrayExpr : ID LBRACKET exprD (COMMA exprD)? RBRACKET;
 
 conditionalStmt : IF LPAREN exprBool+ RPAREN LBRACE statement* RBRACE (ELSE LBRACE statement* RBRACE)? ;
 repeatStmt : REPEAT LPAREN exprEnt RPAREN LBRACE statement* RBRACE ;
@@ -220,9 +219,7 @@ subVarDecl : ID (AFFECT initVariable)?;
 
 subArrayDecl : ID (arrays) (AFFECT initArrays)?;
 
-initAll : initVariable | initArrays | initStruct;
-
-initVariable : TRUE | FALSE | STRING | CHARACTER | exprEnt | exprBool | LPAREN initVariable RPAREN;
+initVariable : TRUE | FALSE | STRING | CHARACTER | exprEnt | exprBool | initArrays | initStruct | LPAREN initVariable RPAREN;
 
 initArrays : LBRACE (initVariable)(COMMA initVariable)*? RBRACE ;
 
