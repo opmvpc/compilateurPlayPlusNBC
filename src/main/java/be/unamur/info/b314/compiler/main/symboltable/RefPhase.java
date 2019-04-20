@@ -178,6 +178,16 @@ public class RefPhase extends PlayPlusBaseListener {
         }
     }
 
+    @Override
+    public void exitConstDecl(PlayPlusParser.ConstDeclContext ctx) {
+        String varName = ctx.ID().get(0).getText();
+        try {
+            resolveConst(varName);
+        } catch (SymbolNotFoundException e) {
+            this.errors.symbolNotFound.add(e.getMessage());
+        }
+    }
+
     private void checkLocalVarNames() {
         HashMap globals =  this.symTable.getGlobals().getSymbols();
         globals.forEach((k, v) -> {
