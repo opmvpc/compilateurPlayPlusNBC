@@ -138,6 +138,15 @@ public class RefPhase extends PlayPlusBaseListener {
         });
     }
 
+    private void checkLocalVarNames() {
+        HashMap globals =  this.symTable.getGlobals().getSymbols();
+        globals.forEach((k, v) -> {
+            if (v instanceof FunctionSymbol) {
+
+            }
+        });
+    }
+
 
     @Override
     public void exitProgram(PlayPlusParser.ProgramContext ctx) {
