@@ -1,0 +1,15 @@
+#import "world.map"
+
+   const int j;
+
+    int i;
+    bool b = false;
+    const char b2[4];
+    bool j;
+
+void main(){
+
+dig();
+
+return void;
+}

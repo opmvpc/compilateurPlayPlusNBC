@@ -149,24 +149,37 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
     @Override
     public void enterMapfile(PlayPlusParser.MapfileContext ctx) {
         this.symTable = new SymbolTable();
-
         String name = ctx.getChild(0).getText();
         String funcTypeName =ctx.getChild(1).getText();
         MapSymbol mp = defineMap(name, funcTypeName);
-
         //****************
-        Integer mapX = Integer.parseInt(ctx.mapsize().coordX().getText());
-        Integer mapY = Integer.parseInt(ctx.mapsize().coordY().getText());
+        String mapX = ctx.mapsize().coordX().getText();
+        String mapY = ctx.mapsize().coordY().getText();
+
         String mapLine = ctx.world().getText();
-        System.out.println("mapX: " + mapX + " - mapY: " + mapY);
-        System.out.println(" mapLine =>" + mapLine);
-        mp.createCarte(mapX,mapY,mapLine);
+        String typeError = mp.createCarte(mapX,mapY,mapLine);
+        if (typeError != null){
+            //this.errors.mapError.add(typeError);
+            // Trouver un moyen de stocker et d'afficher les erreurs
+        }
         //****************
         this.symTable.define(mp);
     }
     @Override
     public void exitMapfile(PlayPlusParser.MapfileContext ctx) {
         System.out.println(this.symTable.toString());
+    }
+
+    private void defineConstante(String constName, String constTypeName)  {
+        Type varType = (BuiltInTypeSymbol) this.symTable.getGlobals().resolve(constTypeName);
+
+        this.symTable.define(new ConstanteSymbol(constName, varType));
+    }
+    @Override
+    public void enterConstDecl(PlayPlusParser.ConstDeclContext ctx) {
+        String constTypeName = ctx.mytype().getText();
+        String varName = ctx.ID().get(0).getText();
+        defineConstante(varName, constTypeName);
     }
 
 }

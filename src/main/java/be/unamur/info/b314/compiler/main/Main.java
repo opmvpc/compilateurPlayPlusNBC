@@ -9,6 +9,7 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 //import be.unamur.info.b314.compiler.NBCPrinter;
 //import be.unamur.info.b314.compiler.NBCVisitor;
 import be.unamur.info.b314.compiler.exception.BadNamingException;
+import be.unamur.info.b314.compiler.exception.MapConfigException;
 import be.unamur.info.b314.compiler.exception.ParsingException;
 import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
 import be.unamur.info.b314.compiler.main.symboltable.DefPhase;
@@ -164,7 +165,7 @@ public class Main {
     /**
      * Compiler Methods, this is where the MAGIC happens !!! \o/
      */
-    private void compile() throws IOException, SymbolNotFoundException,BadNamingException {
+    private void compile() throws IOException, SymbolNotFoundException,BadNamingException,MapConfigException {
 
         // Put your code here !
 
@@ -213,7 +214,7 @@ public class Main {
     /**
      * Builds symbol table from AST.
      */
-    private Map<String, Integer> fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException,BadNamingException {
+    private Map<String, Integer> fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException,BadNamingException,MapConfigException {
         ParseTreeWalker walker = new ParseTreeWalker();
 
         System.out.println("==================================================================");
@@ -235,6 +236,9 @@ public class Main {
         }
         if (! ref.getErrors().badNameError.isEmpty()) {
             throw new BadNamingException(ref.getErrors().badNameError.toString());
+        }
+        if (! ref.getErrors().mapError.isEmpty()) {
+            throw new MapConfigException(ref.getErrors().mapError.toString());
         }
 
 //        return def.getSymTable();

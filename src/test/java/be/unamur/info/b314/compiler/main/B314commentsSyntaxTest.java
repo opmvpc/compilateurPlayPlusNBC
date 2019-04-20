@@ -105,11 +105,6 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_j_testaffectinstruction_affect_bool_constant_wrong_var_type_ko_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testaffectinstruction_affect_bool_constant_wrong_var_type_ko.b314", testFolder.newFile(), true, "comments: j_testaffectinstruction_affect_bool_constant_wrong_var_type_ko");
-    }
-
-    @Test
     public void testcomments_j_testaffectinstruction_affect_constant_wrong_var_type_ko_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testaffectinstruction_affect_constant_wrong_var_type_ko.b314", testFolder.newFile(), true, "comments: j_testaffectinstruction_affect_constant_wrong_var_type_ko");
     }
@@ -340,6 +335,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_test_constante_01_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/test_constante_01.b314", testFolder.newFile(), true, "comments: test_constante_01");
+    }
+
+    @Test
     public void testcomments_typedef_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/typedef.b314", testFolder.newFile(), true, "comments: typedef");
     }
@@ -465,6 +465,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_testcarte3_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcarte3.b314", testFolder.newFile(), false, "comments: testcarte3");
+    }
+
+    @Test
+    public void testcomments_testcarte3_wrong_param_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcarte3_wrong_param.b314", testFolder.newFile(), false, "comments: testcarte3_wrong_param");
     }
 
     @Test
