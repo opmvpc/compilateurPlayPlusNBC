@@ -2,6 +2,7 @@ package be.unamur.info.b314.compiler.main.symboltable;
 
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
+import be.unamur.info.b314.compiler.main.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Filler;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
@@ -13,13 +14,27 @@ import java.util.Iterator;
 public class DefPhase extends PlayPlusBaseListener implements Filler {
 
     private SymbolTable symTable;
+    private Errors errors;
 
-    public DefPhase() {
-
+    public DefPhase(Errors errors) {
+        this.errors = errors;
     }
 
     private void defineVar(String varName, String varTypeName)  {
         Type varType = (BuiltInTypeSymbol) resolveType(varTypeName);
+
+        Scope currentScope = symTable.getCurrentScope();
+        if (currentScope.getEnclosingScope() == null) {
+            if (currentScope.resolve(SymbolNamesHelper.generateName("VariableSymbol", varName)) != null) {
+                errors.badNameError.add("Deux variables globales ne peuvent pas porter le même nom");
+            }
+        } else {
+            if (currentScope instanceof FunctionSymbol) {
+                if (((FunctionSymbol) currentScope).getBody().resolve(SymbolNamesHelper.generateName("VariableSymbol", varName)) != null) {
+                    errors.badNameError.add("Deux variables ne peuvent pas porter le même nom dans une même fonction");
+                }
+            }
+        }
 
         this.symTable.define(new VariableSymbol(varName, varType));
     }
@@ -31,12 +46,21 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
     private void defineFunctArg(String varName, String varTypeName) {
         Type varType = (BuiltInTypeSymbol) resolveType(varTypeName);
 
+        if (symTable.getCurrentScope().getSymbols().get(SymbolNamesHelper.generateName("VariableSymbol", varName)) != null) {
+            errors.badNameError.add("Deux paramètres d'une fonction ne peuvent pas porter le même nom");
+        }
+
         ((FunctionSymbol) this.symTable.getCurrentScope()).defineArg(new VariableSymbol(varName, varType));
     }
 
     private FunctionSymbol defineFunction(String name, String funcTypeName) {
         Type functype = (BuiltInTypeSymbol) resolveType(funcTypeName);
         Scope currentScope = this.symTable.getCurrentScope();
+
+        if (currentScope.resolve(SymbolNamesHelper.generateName("FunctionSymbol" ,name)) != null) {
+            errors.badNameError.add("Deux fonctions ne peuvent pas porter le même nom");
+        }
+
         FunctionSymbol function = new FunctionSymbol(name, functype, currentScope);
         currentScope.define(function);
         this.symTable.setCurrentScope(function);

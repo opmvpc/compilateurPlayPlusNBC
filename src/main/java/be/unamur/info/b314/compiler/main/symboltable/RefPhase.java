@@ -17,9 +17,9 @@ public class RefPhase extends PlayPlusBaseListener {
     private SymbolTable symTable;
     private Errors errors;
 
-    public RefPhase(SymbolTable symTable) {
+    public RefPhase(SymbolTable symTable, Errors errors) {
         this.symTable = symTable;
-        this.errors = new Errors();
+        this.errors = errors;
         checkNamingConvention();
     }
 
@@ -78,10 +78,6 @@ public class RefPhase extends PlayPlusBaseListener {
         }
     }
 
-    public Errors getErrors() {
-        return errors;
-    }
-
     private Symbol resolveSymbolRec(String name, Scope currentScope) {
         Symbol symbol = currentScope.resolve(name);
 
@@ -120,17 +116,21 @@ public class RefPhase extends PlayPlusBaseListener {
     }
     private void checkNamingConvention(){
         checkGlobalVarNames();
+        checkLocalVarNamesNotInArgs();
+        checkLocalVarNameNotFunctName();
+        checkArgNameNotFunctName();
     }
 
     private void checkGlobalVarNames() {
         HashMap globals =  this.symTable.getGlobals().getSymbols();
         globals.forEach((k, v) -> {
             if(v instanceof VariableSymbol){
-                String varName =   ((Symbol) v).getName();
                 globals.forEach((k2, v2) -> {
                     if (v2 instanceof  FunctionSymbol){
                        if (((VariableSymbol) v).getNiceName().equals(((Symbol) v2).getNiceName())){
-                           this.errors.badNameError.add("Le nom de la variable:" + ((VariableSymbol) v).getNiceName() + " est déjà utilisé par une fonction");
+                           this.errors.badNameError.add("Le nom de la variable:" +
+                                   ((VariableSymbol) v).getNiceName() +
+                                   " est déjà utilisé par une fonction");
                        }
                     }
                 });
@@ -138,11 +138,51 @@ public class RefPhase extends PlayPlusBaseListener {
         });
     }
 
-    private void checkLocalVarNames() {
+    private void checkLocalVarNamesNotInArgs() {
         HashMap globals =  this.symTable.getGlobals().getSymbols();
-        globals.forEach((k, v) -> {
-            if (v instanceof FunctionSymbol) {
+        globals.forEach((k, funct) -> {
+            if (funct instanceof FunctionSymbol) {
+                HashMap args = ((FunctionSymbol) funct).getSymbols();
+                args.forEach((k1, arg) -> {
+                    Symbol localVar = ((FunctionSymbol) funct).getBody().resolve(((Symbol) arg).getName());
+                    if (localVar != null) {
+                        this.errors.badNameError.add("La variable locale : " +
+                                ((VariableSymbol) arg).getNiceName() +
+                                " de la fonction : "+
+                                ((FunctionSymbol) funct).getNiceName() +
+                                " ne peut avoir le même nom que l'un des paramètres");
+                    }
+                });
+            }
+        });
+    }
 
+    private void checkLocalVarNameNotFunctName() {
+        HashMap globals =  this.symTable.getGlobals().getSymbols();
+        globals.forEach((k, funct) -> {
+            if (funct instanceof FunctionSymbol) {
+                String varName = SymbolNamesHelper.generateName("VariableSymbol", ((FunctionSymbol) funct).getNiceName());
+                Symbol var = ((FunctionSymbol) funct).getBody().resolve(varName);
+                if (var != null) {
+                    this.errors.badNameError.add("La variable locale : " +
+                            var.getNiceName() +
+                            " ne peut pas avoir le même nom que la fonction dans laquelle elle est déclarée");
+                }
+            }
+        });
+    }
+
+    private void checkArgNameNotFunctName() {
+        HashMap globals =  this.symTable.getGlobals().getSymbols();
+        globals.forEach((k, funct) -> {
+            if (funct instanceof FunctionSymbol) {
+                String argName = SymbolNamesHelper.generateName("VariableSymbol", ((FunctionSymbol) funct).getNiceName());
+                Symbol var = ((FunctionSymbol) funct).getSymbols().get(argName);
+                if (var != null) {
+                    this.errors.badNameError.add("L'argument : " +
+                            var.getNiceName() +
+                            " ne peut pas avoir le même nom que la fonction dans lequel il est déclaré");
+                }
             }
         });
     }

@@ -89,7 +89,7 @@ statement :
 
 
 // return in functions and main
-returnInstr : RETURN (ID|VOID);
+returnInstr : RETURN (exprG|VOID|exprD);
 
 
 affectInstr :
@@ -97,7 +97,7 @@ affectInstr :
     ;
 
 funcDecl :
-    (mytype | VOID) ID LPAREN funcArgs RPAREN LBRACE localDecl? statements? returnInstr SEMICOLON RBRACE
+    (mytype | VOID) ID LPAREN funcArgs? RPAREN LBRACE localDecl? statements? returnInstr SEMICOLON RBRACE
     ;
 
 funcArgs :

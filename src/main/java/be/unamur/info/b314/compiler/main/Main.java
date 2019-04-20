@@ -11,6 +11,7 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.exception.BadNamingException;
 import be.unamur.info.b314.compiler.exception.ParsingException;
 import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
+import be.unamur.info.b314.compiler.main.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.DefPhase;
 import be.unamur.info.b314.compiler.main.symboltable.RefPhase;
 
@@ -220,21 +221,22 @@ public class Main {
         System.out.println("\t\t\t\tDef Phase");
         System.out.println("==================================================================\n");
 
-        DefPhase def = new DefPhase();
+        Errors errors = new Errors();
+        DefPhase def = new DefPhase(errors);
         walker.walk(def, tree);
 
         System.out.println("\n==================================================================");
         System.out.println("\t\t\t\tRef Phase");
         System.out.println("==================================================================\n");
 
-        RefPhase ref = new RefPhase(def.getSymTable());
+        RefPhase ref = new RefPhase(def.getSymTable(), errors);
         walker.walk(ref, tree);
 
-        if (! ref.getErrors().symbolNotFound.isEmpty()) {
-            throw new SymbolNotFoundException(ref.getErrors().symbolNotFound.toString());
+        if (! errors.symbolNotFound.isEmpty()) {
+            throw new SymbolNotFoundException(errors.symbolNotFound.toString());
         }
-        if (! ref.getErrors().badNameError.isEmpty()) {
-            throw new BadNamingException(ref.getErrors().badNameError.toString());
+        if (! errors.badNameError.isEmpty()) {
+            throw new BadNamingException(errors.badNameError.toString());
         }
 
 //        return def.getSymTable();

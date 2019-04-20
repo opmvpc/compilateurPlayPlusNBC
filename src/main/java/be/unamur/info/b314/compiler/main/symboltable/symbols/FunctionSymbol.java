@@ -45,6 +45,10 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
         return this.symbols;
     }
 
+    public LocalScope getBody() {
+        return body;
+    }
+
     /**
      * Représentation de l'objet
      *
