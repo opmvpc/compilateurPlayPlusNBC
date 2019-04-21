@@ -1,0 +1,16 @@
+#import "world.map"
+
+    int i[42];
+    char b2[42];
+    bool b3[42, 42];
+
+
+void main(){
+
+   i[0] = 3 * i[ ];
+   i[ ] = 3 * i[0];
+
+dig();
+
+return void;
+}

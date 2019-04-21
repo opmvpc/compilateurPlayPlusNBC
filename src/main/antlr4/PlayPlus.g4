@@ -177,6 +177,10 @@ exprEnt : MINUS exprEnt
  exprBool:
     | boolVal
     | boolVal (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) boolVal
+    | boolVal (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) exprEnt
+    | exprEnt (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) boolVal
+//    | exprG
+//    | exprG (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) exprG
     | exprG (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) CHARACTER
 	| exprEnt SMALLER exprEnt
     | exprEnt GREATER exprEnt
@@ -201,7 +205,7 @@ boolVal
     | FALSE
     | funcCall
     | exprG
-    | exprEnt
+//    | exprEnt
     ;
 
 exprG

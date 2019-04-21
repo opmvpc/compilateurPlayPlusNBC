@@ -1,0 +1,14 @@
+/* My comments */
+
+#import "world.map"
+
+    bool t1;
+
+void main(){
+
+   t1 = (!(3 == 2) && (true || 7));
+
+dig();
+
+return void;
+}

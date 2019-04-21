@@ -423,6 +423,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_array1_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/array1.b314", testFolder.newFile(), false, "comments: array1");
+    }
+
+    @Test
     public void testcomments_mainprogram4_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/mainprogram4.b314", testFolder.newFile(), false, "comments: mainprogram4");
     }
@@ -508,8 +513,18 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_array3_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/array3.b314", testFolder.newFile(), false, "comments: array3");
+    }
+
+    @Test
     public void testcomments_actions1_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/actions1.b314", testFolder.newFile(), false, "comments: actions1");
+    }
+
+    @Test
+    public void testcomments_bool1_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/bool1.b314", testFolder.newFile(), false, "comments: bool1");
     }
 
     @Test
@@ -525,6 +540,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_testcomments2_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcomments2.b314", testFolder.newFile(), false, "comments: testcomments2");
+    }
+
+    @Test
+    public void testcomments_array2_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/array2.b314", testFolder.newFile(), false, "comments: array2");
     }
 
     @Test
@@ -545,6 +565,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_testcarte4_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcarte4.b314", testFolder.newFile(), false, "comments: testcarte4");
+    }
+
+    @Test
+    public void testcomments_bool2_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/bool2.b314", testFolder.newFile(), false, "comments: bool2");
     }
 
     @Test
