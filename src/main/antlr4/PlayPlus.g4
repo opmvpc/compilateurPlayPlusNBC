@@ -221,7 +221,7 @@ exprG
 
 
 structRef
-    : ID.member (.member)*
+    : ID'.'member ('.'member)*
     ;
 
 member
