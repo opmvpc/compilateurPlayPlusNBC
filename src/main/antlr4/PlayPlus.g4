@@ -178,8 +178,12 @@ exprEnt : MINUS exprEnt
  exprBool:
     | boolVal
     | boolVal (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) boolVal
+//    comparaison avec des entiers
     | boolVal (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) exprEnt
     | exprEnt (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) boolVal
+//    comparaison avec des chars
+    | boolVal (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) CHARACTER
+    | CHARACTER (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) boolVal
 //    | exprG
 //    | exprG (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) exprG
     | exprG (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) CHARACTER
