@@ -370,6 +370,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitExprG(PlayPlusParser.ExprGContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#arrayRef}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayRef(PlayPlusParser.ArrayRefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#arrayRef}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayRef(PlayPlusParser.ArrayRefContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#conditionalStmt}.
 	 * @param ctx the parse tree
 	 */

@@ -229,6 +229,12 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprG(PlayPlusParser.ExprGContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#arrayRef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayRef(PlayPlusParser.ArrayRefContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#conditionalStmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

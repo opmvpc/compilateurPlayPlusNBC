@@ -142,6 +142,7 @@ exprD
 
 exprEnt : MINUS exprEnt
     | exprG
+    | funcCall
     | NATUREL
 	| exprEnt MOD exprEnt
     | exprEnt (MUL | DIV) exprEnt
@@ -212,11 +213,14 @@ exprG
 //    : funcCall
 //    | ID
     : ID
-    | ID LBRACKET exprD (COMMA exprD)? RBRACKET
+    | arrayRef
     | exprG.ID
     | structRef
     ;
 
+arrayRef
+    : ID LBRACKET exprEnt (COMMA exprEnt)? RBRACKET
+    ;
 
 conditionalStmt : IF LPAREN exprBool RPAREN LBRACE statement* RBRACE (ELSE LBRACE statement* RBRACE)? ;
 repeatStmt : REPEAT LPAREN exprEnt RPAREN LBRACE statement* RBRACE ;

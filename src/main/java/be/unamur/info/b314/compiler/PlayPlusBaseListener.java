@@ -450,6 +450,18 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterArrayRef(PlayPlusParser.ArrayRefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayRef(PlayPlusParser.ArrayRefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterConditionalStmt(PlayPlusParser.ConditionalStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
