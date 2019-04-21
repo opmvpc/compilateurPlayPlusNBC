@@ -190,6 +190,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_j_testwhile_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testwhile.b314", testFolder.newFile(), true, "comments: j_testwhile");
+    }
+
+    @Test
     public void testcomments_j_testboolexpressions_check_global_var_is_initilized_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_check_global_var_is_initilized.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_check_global_var_is_initilized");
     }
