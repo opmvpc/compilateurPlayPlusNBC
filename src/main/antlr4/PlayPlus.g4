@@ -216,10 +216,11 @@ boolVal
 exprG
 //    : funcCall
 //    | ID
-    : ID
-    | arrayRef
-    | exprG.ID
+    : arrayRef
+//    | arrayRef
+//    | exprG.ID
     | structRef
+    | ID
     ;
 
 arrayRef
@@ -249,7 +250,7 @@ structRef
     ;
 
 member
-    : . ID
+    : . exprG
     ;
 
 mytype : scalar | structures;

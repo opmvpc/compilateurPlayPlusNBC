@@ -32,8 +32,9 @@ public class RefPhase extends PlayPlusBaseListener {
 
     @Override
     public void exitExprG(PlayPlusParser.ExprGContext ctx) {
-//        match aussi les appels de fonction donc on arrête là si c'est la cas
-        if (ctx.arrayRef() != null) {
+//        match aussi les référence de tableau et structs donc on stop là si c'est la cas
+        if (ctx.arrayRef() != null || ctx.structRef() != null) {
+//            System.out.println(ctx.getText());
             return;
         }
 
@@ -43,6 +44,14 @@ public class RefPhase extends PlayPlusBaseListener {
             resolveVar(varName);
         } catch (SymbolNotFoundException e) {
             this.errors.symbolNotFound.add(e.getMessage());
+        }
+    }
+
+    private void resolveStruct(String varName) {
+        varName = SymbolNamesHelper.generateName("StructSymbol", varName);
+        Symbol struct = this.symTable.getCurrentScope().resolve(varName);
+        if (struct == null) {
+            this.errors.symbolNotFound.add("Structure "+ varName +" do not exist");
         }
     }
 
@@ -99,6 +108,7 @@ public class RefPhase extends PlayPlusBaseListener {
     public void exitStructRef(PlayPlusParser.StructRefContext ctx) {
         String name = ctx.ID().getText();
         ctx.member().listIterator();
+        resolveStruct(name);
     }
 
     private Symbol resolveMap(String mapName){
