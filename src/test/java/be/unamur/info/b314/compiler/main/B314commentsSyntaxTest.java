@@ -55,6 +55,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_bool1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/bool1.b314", testFolder.newFile(), true, "comments: bool1");
+    }
+
+    @Test
     public void testcomments_enums1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/enums1.b314", testFolder.newFile(), true, "comments: enums1");
     }

@@ -229,6 +229,18 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprG(PlayPlusParser.ExprGContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#structRef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructRef(PlayPlusParser.StructRefContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#member}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMember(PlayPlusParser.MemberContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#arrayRef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -264,18 +276,6 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDig(PlayPlusParser.DigContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#structRef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStructRef(PlayPlusParser.StructRefContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#member}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMember(PlayPlusParser.MemberContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#mytype}.
 	 * @param ctx the parse tree

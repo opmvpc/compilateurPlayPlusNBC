@@ -214,13 +214,18 @@ boolVal
     ;
 
 exprG
-//    : funcCall
-//    | ID
-    : arrayRef
-//    | arrayRef
-//    | exprG.ID
+    : ID
+    | arrayRef
     | structRef
-    | ID
+    ;
+
+
+structRef
+    : ID.member (.member)*
+    ;
+
+member
+    : exprG
     ;
 
 arrayRef
@@ -243,14 +248,6 @@ actionType :
 
 dig :
     DIG LPAREN RPAREN
-    ;
-
-structRef
-    : ID member+
-    ;
-
-member
-    : . exprG
     ;
 
 mytype : scalar | structures;
