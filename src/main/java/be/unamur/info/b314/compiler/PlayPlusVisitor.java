@@ -181,6 +181,18 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFuncCall(PlayPlusParser.FuncCallContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#funcCallArgs}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncCallArgs(PlayPlusParser.FuncCallArgsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#funcCallArg}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncCallArg(PlayPlusParser.FuncCallArgContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#constantExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -204,6 +216,12 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExprBool(PlayPlusParser.ExprBoolContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#boolVal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolVal(PlayPlusParser.BoolValContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#exprG}.
 	 * @param ctx the parse tree

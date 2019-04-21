@@ -340,6 +340,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_function2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function2.b314", testFolder.newFile(), true, "comments: function2");
+    }
+
+    @Test
     public void testcomments_j_testboolexpressions_environment_var_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_environment_var.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_environment_var");
     }

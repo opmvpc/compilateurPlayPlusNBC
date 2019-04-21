@@ -290,6 +290,26 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitFuncCall(PlayPlusParser.FuncCallContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#funcCallArgs}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncCallArgs(PlayPlusParser.FuncCallArgsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#funcCallArgs}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncCallArgs(PlayPlusParser.FuncCallArgsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#funcCallArg}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncCallArg(PlayPlusParser.FuncCallArgContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#funcCallArg}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncCallArg(PlayPlusParser.FuncCallArgContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#constantExpr}.
 	 * @param ctx the parse tree
 	 */
@@ -329,6 +349,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExprBool(PlayPlusParser.ExprBoolContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#boolVal}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolVal(PlayPlusParser.BoolValContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#boolVal}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolVal(PlayPlusParser.BoolValContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#exprG}.
 	 * @param ctx the parse tree
