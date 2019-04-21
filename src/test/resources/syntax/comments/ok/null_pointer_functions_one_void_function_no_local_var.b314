@@ -1,0 +1,19 @@
+/* My comments */
+
+#import "world.map"
+
+ int f1;
+ int x;
+ void fct1()
+    {
+       f1 = 34;
+     return void;
+    }
+
+void main()
+{
+ fct1();
+  x = f1;
+ dig();
+ return void;
+}

@@ -1,0 +1,42 @@
+/* Test */
+
+#import "world.map"
+
+    bool v1[1];
+    char s;
+    bool v2[5,7];
+    int v3[2,3];
+    int v4[5];
+    int i;
+    char v5[5, 7];
+    bool b;
+    char v6[5,2];
+    const int LightThreshold = 40;
+    typedef bool BOOLEAN;
+     struct D2
+            {
+                int a[5];
+                char b;
+                bool c[5,3];
+          };
+
+     struct D3
+      {
+                int a[5];
+                char b;
+                bool c[5,3];
+
+      };
+void main()
+{
+D2.a[0] = 1;
+D2.b = 'a';
+D2.c[0,1] = true;
+left(D2.a[0]);
+right(3);
+
+dig();
+
+return void;
+
+}

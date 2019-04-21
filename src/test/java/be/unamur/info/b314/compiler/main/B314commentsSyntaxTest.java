@@ -55,6 +55,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_structs3_SubStructs_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/structs3_SubStructs.b314", testFolder.newFile(), true, "comments: structs3_SubStructs");
+    }
+
+    @Test
     public void testcomments_import2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/import2.b314", testFolder.newFile(), true, "comments: import2");
     }
@@ -102,6 +107,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_structure1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/structure1.b314", testFolder.newFile(), true, "comments: structure1");
+    }
+
+    @Test
+    public void testcomments_if1_conditionChar_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/if1_conditionChar.b314", testFolder.newFile(), true, "comments: if1_conditionChar");
     }
 
     @Test
@@ -165,6 +175,16 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_null_pointer2_functions_one_void_function_no_local_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/null_pointer2_functions_one_void_function_no_local_var.b314", testFolder.newFile(), true, "comments: null_pointer2_functions_one_void_function_no_local_var");
+    }
+
+    @Test
+    public void testcomments_null_pointer_functions_one_void_function_no_local_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/null_pointer_functions_one_void_function_no_local_var.b314", testFolder.newFile(), true, "comments: null_pointer_functions_one_void_function_no_local_var");
+    }
+
+    @Test
     public void testcomments_mainprogram2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram2.b314", testFolder.newFile(), true, "comments: mainprogram2");
     }
@@ -172,6 +192,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_vardeclaration2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/vardeclaration2.b314", testFolder.newFile(), true, "comments: vardeclaration2");
+    }
+
+    @Test
+    public void testcomments_structCall1_subArrayCall_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/structCall1_subArrayCall.b314", testFolder.newFile(), true, "comments: structCall1_subArrayCall");
     }
 
     @Test
@@ -257,6 +282,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_testcomments2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcomments2.b314", testFolder.newFile(), true, "comments: testcomments2");
+    }
+
+    @Test
+    public void testcomments_if2_conditionChar_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/if2_conditionChar.b314", testFolder.newFile(), true, "comments: if2_conditionChar");
     }
 
     @Test
@@ -385,6 +415,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_import2_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/import2.b314", testFolder.newFile(), false, "comments: import2");
+    }
+
+    @Test
+    public void testcomments_function2_mistake_boolean_function_no_local_var_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function2_mistake_boolean_function_no_local_var.b314", testFolder.newFile(), false, "comments: function2_mistake_boolean_function_no_local_var");
     }
 
     @Test
@@ -555,6 +590,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_function1_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/function1.b314", testFolder.newFile(), false, "comments: function1");
+    }
+
+    @Test
+    public void testcomments_actions4_WrongTypeCharLeftAction_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/actions4_WrongTypeCharLeftAction.b314", testFolder.newFile(), false, "comments: actions4_WrongTypeCharLeftAction");
     }
 
     @Test

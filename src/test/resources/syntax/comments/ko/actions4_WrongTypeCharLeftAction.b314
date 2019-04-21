@@ -1,0 +1,16 @@
+/* My comments */
+
+#import "world.map"
+
+    bool b;
+    int i;
+    bool s[2, 5];
+
+void main(){
+
+left(7);
+dig();
+left('a');
+
+return void;
+}
