@@ -236,10 +236,10 @@ repeatStmt : REPEAT LPAREN exprEnt RPAREN LBRACE statement* RBRACE ;
 whileStmt : WHILE LPAREN exprBool RPAREN LBRACE statement* RBRACE ;
 
 actionType :
-    LEFT LPAREN (exprD)? RPAREN
-    | RIGHT LPAREN (exprD)? RPAREN
-    | UP LPAREN (exprD)? RPAREN
-    | DOWN LPAREN (exprD)? RPAREN
+    LEFT LPAREN (exprEnt)? RPAREN
+    | RIGHT LPAREN (exprEnt)? RPAREN
+    | UP LPAREN (exprEnt)? RPAREN
+    | DOWN LPAREN (exprEnt)? RPAREN
     | FIGHT LPAREN RPAREN
     | JUMP LPAREN (exprEnt)? RPAREN
     | dig
