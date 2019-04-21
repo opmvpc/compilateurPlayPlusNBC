@@ -133,7 +133,6 @@ constantExpr :
 exprD
     : funcCall
     | exprG
-//    : exprG
     | exprEnt
     | exprBool
     | STRING
