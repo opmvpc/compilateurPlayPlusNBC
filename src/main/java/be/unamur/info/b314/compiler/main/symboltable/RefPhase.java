@@ -32,7 +32,13 @@ public class RefPhase extends PlayPlusBaseListener {
 
     @Override
     public void exitExprG(PlayPlusParser.ExprGContext ctx) {
+//        match aussi les appels de fonction donc on arrête là si c'est la cas
+        if (ctx.funcCall() != null) {
+            return;
+        }
+
         String varName = ctx.ID().getText();
+
         try {
             resolveVar(varName);
         } catch (SymbolNotFoundException e) {
