@@ -35,7 +35,7 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
     public Symbol resolve(String name) {
         Symbol symbol = this.symbols.get(name);
         if (symbol == null) {
-            this.body.resolve(name);
+            symbol = this.body.resolve(name);
         }
         return symbol;
     }

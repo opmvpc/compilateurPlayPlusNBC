@@ -44,7 +44,7 @@ public class RefPhase extends PlayPlusBaseListener {
     public void exitFuncCall(PlayPlusParser.FuncCallContext ctx) {
         String funName = ctx.ID().getText();
         try {
-            resolveFunc(funName);
+            resolveFunc(SymbolNamesHelper.generateName("FunctionSymbol", funName));
         } catch (SymbolNotFoundException e) {
             this.errors.symbolNotFound.add(e.getMessage());
         }
