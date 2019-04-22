@@ -3,13 +3,10 @@ package be.unamur.info.b314.compiler.main.symboltable;
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
-import be.unamur.info.b314.compiler.main.Helpers.Errors;
-import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
+import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
+import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
-import be.unamur.info.b314.compiler.main.symboltable.scopes.LocalScope;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.*;
-
-import java.util.HashMap;
 
 public class RefPhase extends PlayPlusBaseListener {
     private SymbolTable symTable;
@@ -18,7 +15,6 @@ public class RefPhase extends PlayPlusBaseListener {
     public RefPhase(SymbolTable symTable, Errors errors) {
         this.symTable = symTable;
         this.errors = errors;
-        checkNamingConvention();
     }
 
     @Override
@@ -151,93 +147,9 @@ public class RefPhase extends PlayPlusBaseListener {
 
         this.symTable.setCurrentScope(this.symTable.getCurrentScope().getEnclosingScope());
 
-        System.out.println(errors.toString());
-
-    }
-    private void checkNamingConvention(){
-        checkGlobalVarNames();
-        checkLocalVarNamesNotInArgs();
-        checkLocalVarNameNotFunctName();
-        checkArgNameNotFunctName();
-        checkConstNames();
-        checkLocalVarNames();
-//        checkLocalVarNotGlobalVarName();
+//        System.out.println(errors.toString());
     }
 
-    private void checkLocalVarNotGlobalVarName() {
-        HashMap globals =  this.symTable.getGlobals().getSymbols();
-        globals.forEach((k, globalVar) -> {
-            if(globalVar instanceof VariableSymbol){
-                String globalVarName = ((VariableSymbol) globalVar).getName();
-                System.out.println(globalVarName);
-                globals.forEach((k2, funct) -> {
-                    if (funct instanceof FunctionSymbol){
-                        Symbol localVar = ((FunctionSymbol) funct).getBody().resolve(globalVarName);
-                        if (localVar != null) {
-                            this.errors.badNameError.add("Le nom de la variable locale:" +
-                                    ((VariableSymbol) globalVar).getNiceName() +
-                                    " est déjà utilisé par une variable globale");
-                        }
-                    }
-                });
-            }
-        });
-    }
-
-    private void checkGlobalVarNames() {
-        HashMap globals =  this.symTable.getGlobals().getSymbols();
-        globals.forEach((k, v) -> {
-            if(v instanceof VariableSymbol){
-                globals.forEach((k2, v2) -> {
-                    if (v2 instanceof FunctionSymbol){
-                       if (((VariableSymbol) v).getNiceName().equals(((Symbol) v2).getNiceName())){
-                           this.errors.badNameError.add("Le nom de la variable:" +
-                                   ((VariableSymbol) v).getNiceName() +
-                                   " est déjà utilisé par une fonction");
-                       }
-                    }
-                });
-            }
-        });
-    }
-
-    private void checkLocalVarNamesNotInArgs() {
-        HashMap globals = this.symTable.getGlobals().getSymbols();
-        globals.forEach((k, v) -> {
-            String varName = ((Symbol) v).getName();
-            globals.forEach((k2, v2) -> {
-                if (v instanceof VariableSymbol) {
-                    if (v2 instanceof ConstanteSymbol) {
-                        if (((VariableSymbol) v).getNiceName().equals(((Symbol) v2).getNiceName())) {
-                            this.errors.badNameError.add("Le nom de la constante:" + ((VariableSymbol) v).getNiceName() + " est déjà utilisé par une variable");
-                        }
-                    }
-                }
-            });
-        });
-    }
-
-    private void checkConstNames() {
-        HashMap globals = this.symTable.getGlobals().getSymbols();
-        globals.forEach((k, v) -> {
-            String varName = ((Symbol) v).getName();
-            globals.forEach((k2, v2) -> {
-                if (v instanceof VariableSymbol) {
-                    if (v2 instanceof ConstanteSymbol) {
-                        if (((VariableSymbol) v).getNiceName().equals(((Symbol) v2).getNiceName())) {
-                            this.errors.badNameError.add("Le nom de la constante:" + ((VariableSymbol) v).getNiceName() + " est déjà utilisé par une variable");
-                        }
-                    }
-                }
-                if (v instanceof ConstanteSymbol && v2 instanceof ConstanteSymbol && k != k2) {
-                    if (((ConstanteSymbol) v).getNiceName().equals(((Symbol) v2).getNiceName())) {
-                        this.errors.badNameError.add("Le nom de la constante:" + ((ConstanteSymbol) v).getNiceName() + " est déjà utilisé par une autre constante" + ((Symbol) v2).getNiceName());
-                    }
-                }
-            });
-
-        });
-    }
 
     private void resolveConst(String constName) throws SymbolNotFoundException {
         constName = SymbolNamesHelper.generateName("ConstanteSymbol", constName);
@@ -260,58 +172,11 @@ public class RefPhase extends PlayPlusBaseListener {
         }
     }
 
-    private void checkLocalVarNames() {
-        HashMap globals =  this.symTable.getGlobals().getSymbols();
-        globals.forEach((k, funct) -> {
-            if (funct instanceof FunctionSymbol) {
-                HashMap args = ((FunctionSymbol) funct).getSymbols();
-                args.forEach((k1, arg) -> {
-                    Symbol localVar = ((FunctionSymbol) funct).getBody().resolve(((Symbol) arg).getName());
-                    if (localVar != null) {
-                        this.errors.badNameError.add("La variable locale : " +
-                                ((VariableSymbol) arg).getNiceName() +
-                                " de la fonction : "+
-                                ((FunctionSymbol) funct).getNiceName() +
-                                " ne peut avoir le même nom que l'un des paramètres");
-                    }
-                });
-            }
-        });
-    }
 
-    private void checkLocalVarNameNotFunctName() {
-        HashMap globals =  this.symTable.getGlobals().getSymbols();
-        globals.forEach((k, funct) -> {
-            if (funct instanceof FunctionSymbol) {
-                String varName = SymbolNamesHelper.generateName("VariableSymbol", ((FunctionSymbol) funct).getNiceName());
-                Symbol var = ((FunctionSymbol) funct).getBody().resolve(varName);
-                if (var != null) {
-                    this.errors.badNameError.add("La variable locale : " +
-                            var.getNiceName() +
-                            " ne peut pas avoir le même nom que la fonction dans laquelle elle est déclarée");
-                }
-            }
-        });
-    }
-
-    private void checkArgNameNotFunctName() {
-        HashMap globals =  this.symTable.getGlobals().getSymbols();
-        globals.forEach((k, funct) -> {
-            if (funct instanceof FunctionSymbol) {
-                String argName = SymbolNamesHelper.generateName("VariableSymbol", ((FunctionSymbol) funct).getNiceName());
-                Symbol var = ((FunctionSymbol) funct).getSymbols().get(argName);
-                if (var != null) {
-                    this.errors.badNameError.add("L'argument : " +
-                            var.getNiceName() +
-                            " ne peut pas avoir le même nom que la fonction dans lequel il est déclaré");
-                }
-            }
-        });
-    }
 
     @Override
     public void exitProgram(PlayPlusParser.ProgramContext ctx) {
-        System.out.println(errors.toString());
+//        System.out.println(errors.toString());
     }
 }
 

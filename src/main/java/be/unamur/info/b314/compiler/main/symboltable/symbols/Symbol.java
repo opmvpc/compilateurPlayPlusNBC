@@ -1,9 +1,9 @@
 package be.unamur.info.b314.compiler.main.symboltable.symbols;
 
-import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
+import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
-import org.apache.commons.lang3.StringUtils;
+
 /**
  * Class Symbol
  */

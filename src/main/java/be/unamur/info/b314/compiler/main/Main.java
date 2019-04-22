@@ -10,9 +10,8 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 //import be.unamur.info.b314.compiler.NBCVisitor;
 import be.unamur.info.b314.compiler.exception.BadNamingException;
 import be.unamur.info.b314.compiler.exception.MapConfigException;
-import be.unamur.info.b314.compiler.exception.ParsingException;
 import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
-import be.unamur.info.b314.compiler.main.Helpers.Errors;
+import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.DefPhase;
 import be.unamur.info.b314.compiler.main.symboltable.RefPhase;
 
@@ -24,6 +23,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import be.unamur.info.b314.compiler.main.symboltable.CheckNamingConventions;
+import be.unamur.info.b314.compiler.main.symboltable.CheckTypes;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
@@ -218,20 +219,26 @@ public class Main {
     private Map<String, Integer> fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException,BadNamingException,MapConfigException {
         ParseTreeWalker walker = new ParseTreeWalker();
 
-        System.out.println("==================================================================");
-        System.out.println("\t\t\t\tDef Phase");
-        System.out.println("==================================================================\n");
-
+        printTitle("Def Phase");
         Errors errors = new Errors();
         DefPhase def = new DefPhase(errors);
         walker.walk(def, tree);
 
-        System.out.println("\n==================================================================");
-        System.out.println("\t\t\t\tRef Phase");
-        System.out.println("==================================================================\n");
+        printTitle("Check Naming conventions Phase");
+        new CheckNamingConventions(def.getSymTable(), errors);
 
+        printTitle("Ref Phase");
         RefPhase ref = new RefPhase(def.getSymTable(), errors);
         walker.walk(ref, tree);
+
+        printTitle("Check Types Phase");
+        CheckTypes checkTypes = new CheckTypes(def.getSymTable(), errors);
+        walker.walk(checkTypes, tree);
+
+        printTitle("Errors");
+        System.out.println(errors.toString());
+
+        printSeparator();
 
         if (! errors.symbolNotFound.isEmpty()) {
             throw new SymbolNotFoundException(errors.symbolNotFound.toString());
@@ -259,7 +266,7 @@ public class Main {
     }
 */
     private static void printSourceFile(File file) {
-        System.out.println("\n\n==================================================================");
+        printSeparator();
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
                 new FileInputStream(file), StandardCharsets.UTF_8));) {
@@ -277,5 +284,15 @@ public class Main {
         }
 
         System.out.println("==================================================================\n\n");
+    }
+
+    private static void printSeparator() {
+        System.out.println("\n\n==================================================================");
+    }
+
+    private void printTitle(String title) {
+        System.out.println("\n==================================================================");
+        System.out.println("\t\t\t\t"+title);
+        System.out.println("==================================================================\n");
     }
 }

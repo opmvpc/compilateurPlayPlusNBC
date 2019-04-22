@@ -1,6 +1,5 @@
-package be.unamur.info.b314.compiler.main.Helpers;
+package be.unamur.info.b314.compiler.main.symboltable.Helpers;
 
-import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 import org.apache.commons.lang3.StringUtils;
 
 public  class SymbolNamesHelper {
