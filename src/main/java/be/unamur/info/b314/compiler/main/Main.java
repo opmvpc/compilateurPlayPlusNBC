@@ -1,7 +1,6 @@
 package be.unamur.info.b314.compiler.main;
 
 
-
 import be.unamur.info.b314.compiler.PlayPlusLexer;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 
@@ -9,6 +8,7 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 //import be.unamur.info.b314.compiler.NBCPrinter;
 //import be.unamur.info.b314.compiler.NBCVisitor;
 import be.unamur.info.b314.compiler.exception.BadNamingException;
+import be.unamur.info.b314.compiler.exception.BadTypeException;
 import be.unamur.info.b314.compiler.exception.MapConfigException;
 import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
@@ -16,6 +16,7 @@ import be.unamur.info.b314.compiler.main.symboltable.DefPhase;
 import be.unamur.info.b314.compiler.main.symboltable.RefPhase;
 
 import static com.google.common.base.Preconditions.checkArgument;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -45,7 +46,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 /**
- *
  * @author James Ortiz - james.ortizvega@unamur.be
  */
 public class Main {
@@ -167,7 +167,7 @@ public class Main {
     /**
      * Compiler Methods, this is where the MAGIC happens !!! \o/
      */
-    private void compile() throws IOException, SymbolNotFoundException,BadNamingException,MapConfigException {
+    private void compile() throws IOException, SymbolNotFoundException, BadNamingException, MapConfigException, BadTypeException {
 
         // Put your code here !
 
@@ -216,7 +216,7 @@ public class Main {
     /**
      * Builds symbol table from AST.
      */
-    private Map<String, Integer> fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException,BadNamingException,MapConfigException {
+    private Map<String, Integer> fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException, BadNamingException, MapConfigException, BadTypeException {
         ParseTreeWalker walker = new ParseTreeWalker();
 
         printTitle("Def Phase");
@@ -240,13 +240,16 @@ public class Main {
 
         printSeparator();
 
-        if (! errors.symbolNotFound.isEmpty()) {
+        if (!errors.symbolNotFound.isEmpty()) {
             throw new SymbolNotFoundException(errors.symbolNotFound.toString());
         }
-        if (! errors.badNameError.isEmpty()) {
+        if (!errors.badNameError.isEmpty()) {
             throw new BadNamingException(errors.badNameError.toString());
         }
-        if (! errors.mapError.isEmpty()) {
+        if (!errors.badTypeError.isEmpty()) {
+            throw new BadTypeException(errors.badTypeError.toString());
+        }
+        if (!errors.mapError.isEmpty()) {
             throw new MapConfigException(errors.mapError.toString());
         }
 
@@ -255,16 +258,16 @@ public class Main {
         return new HashMap<>();
     }
 
-/*
-    private void printNBCCode(PlayPlusParser.RootContext tree, Map<String, Integer> symTable) throws FileNotFoundException {
+    /*
+        private void printNBCCode(PlayPlusParser.RootContext tree, Map<String, Integer> symTable) throws FileNotFoundException {
 
-        NBCPrinter printer = new NBCPrinter("nbcCode.nbc");
-        NBCVisitor visitor = new NBCVisitor(symTable, printer);
-        tree.accept(visitor);
-        printer.flush();
-        printer.close();
-    }
-*/
+            NBCPrinter printer = new NBCPrinter("nbcCode.nbc");
+            NBCVisitor visitor = new NBCVisitor(symTable, printer);
+            tree.accept(visitor);
+            printer.flush();
+            printer.close();
+        }
+    */
     private static void printSourceFile(File file) {
         printSeparator();
 
@@ -292,7 +295,7 @@ public class Main {
 
     private void printTitle(String title) {
         System.out.println("\n==================================================================");
-        System.out.println("\t\t\t\t"+title);
+        System.out.println("\t\t\t\t" + title);
         System.out.println("==================================================================\n");
     }
 }
