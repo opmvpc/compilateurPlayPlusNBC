@@ -161,7 +161,7 @@ public class RefPhase extends PlayPlusBaseListener {
         checkArgNameNotFunctName();
         checkConstNames();
         checkLocalVarNames();
-        checkLocalVarNotGlobalVarName();
+//        checkLocalVarNotGlobalVarName();
     }
 
     private void checkLocalVarNotGlobalVarName() {
