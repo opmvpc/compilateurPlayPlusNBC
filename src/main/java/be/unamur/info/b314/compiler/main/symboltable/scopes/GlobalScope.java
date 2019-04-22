@@ -18,6 +18,7 @@ public class GlobalScope extends BaseScope {
         define(new BuiltInTypeSymbol("bool"));
         define(new BuiltInTypeSymbol("char"));
         define(new BuiltInTypeSymbol("string"));
+        define(new BuiltInTypeSymbol("void"));
     }
 
 }

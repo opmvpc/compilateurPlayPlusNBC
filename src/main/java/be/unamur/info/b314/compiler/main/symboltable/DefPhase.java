@@ -117,7 +117,12 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
     @Override
     public void enterFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
         String name = ctx.ID().getText();
-        String funcTypeName = ctx.mytype().getText();
+        String funcTypeName;
+        if (ctx.VOID() != null) {
+            funcTypeName = "void";
+        } else {
+            funcTypeName = ctx.mytype().getText();
+        }
         FunctionSymbol function = defineFunction(name, funcTypeName);
 
         this.symTable.saveScope(ctx, function);
