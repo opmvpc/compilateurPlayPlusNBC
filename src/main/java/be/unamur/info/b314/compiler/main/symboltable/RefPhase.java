@@ -6,6 +6,7 @@ import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
 import be.unamur.info.b314.compiler.main.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
+import be.unamur.info.b314.compiler.main.symboltable.scopes.LocalScope;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.*;
 
 import java.util.HashMap;
@@ -39,6 +40,16 @@ public class RefPhase extends PlayPlusBaseListener {
         }
 
         String varName = ctx.ID().getText();
+
+//        si le scope est un LocalScope (body d'une fonction) on ne regarde que dans le scope local
+        Scope currentScope = this.symTable.getCurrentScope();
+        if (currentScope instanceof FunctionSymbol) {
+            System.out.println(currentScope.getScopeName());
+            Symbol var = resolveLocalSymbol(varName, (FunctionSymbol) currentScope);
+            if (var == null) {
+                this.errors.symbolNotFound.add("Variable "+ varName +" do not exist");
+            }
+        }
 
         try {
             resolveVar(varName);
@@ -81,7 +92,8 @@ public class RefPhase extends PlayPlusBaseListener {
     }
 
     private void resolveFunc(String funName) throws SymbolNotFoundException {
-        Symbol func = resolveSymbolRec(funName, this.symTable.getCurrentScope());
+        Scope currentScope = this.symTable.getCurrentScope();
+        Symbol func = resolveSymbolRec(funName, currentScope);
         if (func == null) {
             throw new SymbolNotFoundException("Function "+ funName +" do not exist");
         }
@@ -102,6 +114,12 @@ public class RefPhase extends PlayPlusBaseListener {
         }
 
         return resolveSymbolRec(name, currentScope.getEnclosingScope());
+    }
+
+    private Symbol resolveLocalSymbol(String name, FunctionSymbol localScope) {
+        Symbol symbol = localScope.resolve(name);
+
+        return symbol;
     }
 
     @Override

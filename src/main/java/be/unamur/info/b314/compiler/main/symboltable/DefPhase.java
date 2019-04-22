@@ -7,6 +7,7 @@ import be.unamur.info.b314.compiler.main.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Filler;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
+import be.unamur.info.b314.compiler.main.symboltable.scopes.LocalScope;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.*;
 
 import java.util.Iterator;
@@ -135,6 +136,19 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
 
         defineFunctArg(varName, varTypeName);
     }
+
+//    sans doute pas besoin
+//    @Override
+//    public void enterLocalDecl(PlayPlusParser.LocalDeclContext ctx) {
+//        LocalScope scope = ((FunctionSymbol) this.symTable.getCurrentScope()).getBody();
+//        System.out.println();
+//        this.symTable.setCurrentScope(scope);
+//    }
+//
+//    @Override
+//    public void exitLocalDecl(PlayPlusParser.LocalDeclContext ctx) {
+//        this.symTable.setCurrentScopeToEnclosingOne();
+//    }
 
     @Override
     public void exitFuncDecl(PlayPlusParser.FuncDeclContext ctx) {

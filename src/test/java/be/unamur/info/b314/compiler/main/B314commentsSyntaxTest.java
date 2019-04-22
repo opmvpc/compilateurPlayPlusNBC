@@ -160,16 +160,6 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_null_pointer2_functions_one_void_function_no_local_var_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/null_pointer2_functions_one_void_function_no_local_var.b314", testFolder.newFile(), true, "comments: null_pointer2_functions_one_void_function_no_local_var");
-    }
-
-    @Test
-    public void testcomments_null_pointer_functions_one_void_function_no_local_var_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/null_pointer_functions_one_void_function_no_local_var.b314", testFolder.newFile(), true, "comments: null_pointer_functions_one_void_function_no_local_var");
-    }
-
-    @Test
     public void testcomments_mainprogram2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram2.b314", testFolder.newFile(), true, "comments: mainprogram2");
     }
@@ -503,8 +493,18 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_null_pointer2_functions_one_void_function_no_local_var_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/null_pointer2_functions_one_void_function_no_local_var.b314", testFolder.newFile(), false, "comments: null_pointer2_functions_one_void_function_no_local_var");
+    }
+
+    @Test
     public void testcomments_naming1_localVarNameNotInArgs_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/naming1_localVarNameNotInArgs.b314", testFolder.newFile(), false, "comments: naming1_localVarNameNotInArgs");
+    }
+
+    @Test
+    public void testcomments_null_pointer_functions_one_void_function_no_local_var_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/null_pointer_functions_one_void_function_no_local_var.b314", testFolder.newFile(), false, "comments: null_pointer_functions_one_void_function_no_local_var");
     }
 
     @Test
