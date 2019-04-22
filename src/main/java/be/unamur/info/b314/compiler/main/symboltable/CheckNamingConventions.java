@@ -27,7 +27,7 @@ public class CheckNamingConventions {
         checkArgNameNotFunctName();
         checkConstNames();
         checkLocalVarNames();
-//        checkLocalVarNotGlobalVarName();
+        checkLocalVarNotGlobalVarName();
     }
 
 //    Pas utilisée car crée 10 erreurs dans jenkins. contradiction avec un test?
