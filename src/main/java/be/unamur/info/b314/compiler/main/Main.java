@@ -11,9 +11,8 @@ import be.unamur.info.b314.compiler.exception.BadNamingException;
 import be.unamur.info.b314.compiler.exception.BadTypeException;
 import be.unamur.info.b314.compiler.exception.MapConfigException;
 import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
+import be.unamur.info.b314.compiler.main.symboltable.*;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
-import be.unamur.info.b314.compiler.main.symboltable.DefPhase;
-import be.unamur.info.b314.compiler.main.symboltable.RefPhase;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -24,8 +23,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import be.unamur.info.b314.compiler.main.symboltable.CheckNamingConventions;
-import be.unamur.info.b314.compiler.main.symboltable.CheckTypes;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
@@ -230,6 +227,10 @@ public class Main {
         printTitle("Ref Phase");
         RefPhase ref = new RefPhase(def.getSymTable(), errors);
         walker.walk(ref, tree);
+
+        printTitle("Def Types Phase");
+        DefTypes defTypes = new DefTypes();
+        walker.walk(defTypes, tree);
 
         printTitle("Check Types Phase");
         CheckTypes checkTypes = new CheckTypes(def.getSymTable(), errors);
