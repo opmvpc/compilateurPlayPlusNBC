@@ -245,6 +245,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_naming10_GlobalVarSameNameLocalDiffTypes_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/naming10_GlobalVarSameNameLocalDiffTypes.b314", testFolder.newFile(), true, "comments: naming10_GlobalVarSameNameLocalDiffTypes");
+    }
+
+    @Test
     public void testcomments_structCall1_subArrayCall_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/structCall1_subArrayCall.b314", testFolder.newFile(), true, "comments: structCall1_subArrayCall");
     }

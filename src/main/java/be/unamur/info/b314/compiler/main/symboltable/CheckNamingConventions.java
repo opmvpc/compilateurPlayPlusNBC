@@ -30,7 +30,6 @@ public class CheckNamingConventions {
         checkLocalVarNotGlobalVarName();
     }
 
-//    Pas utilisée car crée 10 erreurs dans jenkins. contradiction avec un test?
     private void checkLocalVarNotGlobalVarName() {
         HashMap globalScope =  this.symTable.getGlobals().getSymbols();
         globalScope.forEach((k, globalVar) -> {
@@ -41,9 +40,14 @@ public class CheckNamingConventions {
                     if (funct instanceof FunctionSymbol){
                         Symbol localVar = ((FunctionSymbol) funct).getBody().resolve(globalVarName);
                         if (localVar != null) {
-                            this.errors.badNameError.add("Le nom de la variable locale:" +
-                                    ((VariableSymbol) globalVar).getNiceName() +
-                                    " est déjà utilisé par une variable globale");
+                            if (!localVar.getType().getName().equals(((VariableSymbol) globalVar).getType().getName())){
+                                System.out.println(localVar.getType().getName().equals(((VariableSymbol) globalVar).getType().getName()));
+                            } else {
+                                this.errors.badNameError.add("Le nom de la variable locale:" +
+                                        ((VariableSymbol) globalVar).getNiceName() +
+                                        " est déjà utilisé par une variable globale");
+                            }
+
                         }
                     }
                 });
