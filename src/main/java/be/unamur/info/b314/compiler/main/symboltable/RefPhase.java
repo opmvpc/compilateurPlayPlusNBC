@@ -161,6 +161,27 @@ public class RefPhase extends PlayPlusBaseListener {
         checkArgNameNotFunctName();
         checkConstNames();
         checkLocalVarNames();
+        checkLocalVarNotGlobalVarName();
+    }
+
+    private void checkLocalVarNotGlobalVarName() {
+        HashMap globals =  this.symTable.getGlobals().getSymbols();
+        globals.forEach((k, globalVar) -> {
+            if(globalVar instanceof VariableSymbol){
+                String globalVarName = ((VariableSymbol) globalVar).getName();
+                System.out.println(globalVarName);
+                globals.forEach((k2, funct) -> {
+                    if (funct instanceof FunctionSymbol){
+                        Symbol localVar = ((FunctionSymbol) funct).getBody().resolve(globalVarName);
+                        if (localVar != null) {
+                            this.errors.badNameError.add("Le nom de la variable locale:" +
+                                    ((VariableSymbol) globalVar).getNiceName() +
+                                    " est déjà utilisé par une variable globale");
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void checkGlobalVarNames() {

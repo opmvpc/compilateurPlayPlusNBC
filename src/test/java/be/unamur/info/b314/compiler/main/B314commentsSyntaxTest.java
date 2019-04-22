@@ -433,6 +433,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_naming9_LocalVarSameNameAsGlobalVar_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/naming9_LocalVarSameNameAsGlobalVar.b314", testFolder.newFile(), false, "comments: naming9_LocalVarSameNameAsGlobalVar");
+    }
+
+    @Test
     public void testcomments_naming8_GlobalVarSameName_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/naming8_GlobalVarSameName.b314", testFolder.newFile(), false, "comments: naming8_GlobalVarSameName");
     }
