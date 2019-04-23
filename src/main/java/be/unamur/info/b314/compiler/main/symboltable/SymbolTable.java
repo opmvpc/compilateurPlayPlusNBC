@@ -1,10 +1,8 @@
 package be.unamur.info.b314.compiler.main.symboltable;
 
-import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.scopes.GlobalScope;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.FunctionSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.ScopedSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.ScopedSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;

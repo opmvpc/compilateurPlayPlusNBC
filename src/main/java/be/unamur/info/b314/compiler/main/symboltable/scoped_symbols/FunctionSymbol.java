@@ -1,9 +1,10 @@
-package be.unamur.info.b314.compiler.main.symboltable.symbols;
+package be.unamur.info.b314.compiler.main.symboltable.scoped_symbols;
 
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 import be.unamur.info.b314.compiler.main.symboltable.scopes.LocalScope;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 
 import java.util.HashMap;
 
@@ -44,6 +45,9 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
     public HashMap<String, Symbol> getSymbols() {
         return this.symbols;
     }
+
+//    Alias, obligé d'avoir une fonction getSymbols() et une propriété symbols
+    public  HashMap<String, Symbol> getArgs() { return this.symbols;}
 
     public LocalScope getBody() {
         return body;

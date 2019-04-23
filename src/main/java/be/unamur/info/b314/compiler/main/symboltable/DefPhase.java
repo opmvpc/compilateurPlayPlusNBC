@@ -7,6 +7,8 @@ import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Filler;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
+import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.StructSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.*;
 
 import java.util.Iterator;
