@@ -11,7 +11,7 @@
 int x;
 
 int f(int a, int b) {
-    int x;
+    bool x;
     return a;
 }
 

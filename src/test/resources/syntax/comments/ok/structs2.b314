@@ -10,7 +10,7 @@
 
 struct D2
 {
-    int a, c, d;
+    int a;
     char b;
     bool c[5,3];
 };

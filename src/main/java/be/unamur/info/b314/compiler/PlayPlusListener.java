@@ -380,6 +380,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitStructRef(PlayPlusParser.StructRefContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#members}.
+	 * @param ctx the parse tree
+	 */
+	void enterMembers(PlayPlusParser.MembersContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#members}.
+	 * @param ctx the parse tree
+	 */
+	void exitMembers(PlayPlusParser.MembersContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#member}.
 	 * @param ctx the parse tree
 	 */
@@ -470,16 +480,6 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitScalar(PlayPlusParser.ScalarContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#structures}.
-	 * @param ctx the parse tree
-	 */
-	void enterStructures(PlayPlusParser.StructuresContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#structures}.
-	 * @param ctx the parse tree
-	 */
-	void exitStructures(PlayPlusParser.StructuresContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#arrays}.
 	 * @param ctx the parse tree
 	 */
@@ -490,6 +490,36 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitArrays(PlayPlusParser.ArraysContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#arrayIndex}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayIndex(PlayPlusParser.ArrayIndexContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#arrayIndex}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayIndex(PlayPlusParser.ArrayIndexContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#firstDimension}.
+	 * @param ctx the parse tree
+	 */
+	void enterFirstDimension(PlayPlusParser.FirstDimensionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#firstDimension}.
+	 * @param ctx the parse tree
+	 */
+	void exitFirstDimension(PlayPlusParser.FirstDimensionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#secondDimension}.
+	 * @param ctx the parse tree
+	 */
+	void enterSecondDimension(PlayPlusParser.SecondDimensionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#secondDimension}.
+	 * @param ctx the parse tree
+	 */
+	void exitSecondDimension(PlayPlusParser.SecondDimensionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#structDecl}.
 	 * @param ctx the parse tree
 	 */
@@ -499,6 +529,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStructDecl(PlayPlusParser.StructDeclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#structures}.
+	 * @param ctx the parse tree
+	 */
+	void enterStructures(PlayPlusParser.StructuresContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#structures}.
+	 * @param ctx the parse tree
+	 */
+	void exitStructures(PlayPlusParser.StructuresContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#listStructFields}.
 	 * @param ctx the parse tree
@@ -520,15 +560,15 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitStructField(PlayPlusParser.StructFieldContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PlayPlusParser#fieldDecl}.
+	 * Enter a parse tree produced by {@link PlayPlusParser#field}.
 	 * @param ctx the parse tree
 	 */
-	void enterFieldDecl(PlayPlusParser.FieldDeclContext ctx);
+	void enterField(PlayPlusParser.FieldContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PlayPlusParser#fieldDecl}.
+	 * Exit a parse tree produced by {@link PlayPlusParser#field}.
 	 * @param ctx the parse tree
 	 */
-	void exitFieldDecl(PlayPlusParser.FieldDeclContext ctx);
+	void exitField(PlayPlusParser.FieldContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#varDecl}.
 	 * @param ctx the parse tree

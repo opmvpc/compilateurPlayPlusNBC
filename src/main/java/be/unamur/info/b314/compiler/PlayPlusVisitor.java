@@ -235,6 +235,12 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStructRef(PlayPlusParser.StructRefContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#members}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMembers(PlayPlusParser.MembersContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#member}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -289,23 +295,41 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitScalar(PlayPlusParser.ScalarContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#structures}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStructures(PlayPlusParser.StructuresContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#arrays}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitArrays(PlayPlusParser.ArraysContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#arrayIndex}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayIndex(PlayPlusParser.ArrayIndexContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#firstDimension}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFirstDimension(PlayPlusParser.FirstDimensionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#secondDimension}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSecondDimension(PlayPlusParser.SecondDimensionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#structDecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitStructDecl(PlayPlusParser.StructDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#structures}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStructures(PlayPlusParser.StructuresContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#listStructFields}.
 	 * @param ctx the parse tree
@@ -319,11 +343,11 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStructField(PlayPlusParser.StructFieldContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PlayPlusParser#fieldDecl}.
+	 * Visit a parse tree produced by {@link PlayPlusParser#field}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFieldDecl(PlayPlusParser.FieldDeclContext ctx);
+	T visitField(PlayPlusParser.FieldContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#varDecl}.
 	 * @param ctx the parse tree

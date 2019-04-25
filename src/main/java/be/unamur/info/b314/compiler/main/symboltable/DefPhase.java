@@ -163,20 +163,21 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
         StructSymbol struct = defineStruct(name);
 
         this.symTable.saveScope(ctx, struct);
+        this.symTable.setCurrentScope(struct);
     }
 
     @Override
     public void exitStructField(PlayPlusParser.StructFieldContext ctx) {
-        String varTypeName = ctx.mytype().getText();
-        Iterator vars = ctx.fieldDecl().listIterator();
-
-        while (vars.hasNext()) {
-            Object var = vars.next();
-            String varName = ((PlayPlusParser.FieldDeclContext) var).ID().getText();
-
-            defineVar(varName, varTypeName);
+        System.out.println(this.symTable.getCurrentScope().getScopeName());
+        if (ctx.structDecl() != null) {
+            return;
         }
 
+        String varTypeName = ctx.field().mytype().getText();
+        Type varType = (BuiltInTypeSymbol) resolveType(varTypeName);
+        String varName = ctx.field().ID().getText();
+        this.symTable.getCurrentScope().define(new VariableSymbol(varName, varType));
+        defineVar(varName, varTypeName);
     }
 
     @Override

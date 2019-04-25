@@ -220,15 +220,19 @@ exprG
 
 
 structRef
-    : ID'.'member ('.'member)*
+    : ID members
+    ;
+
+members
+    : '.'member ('.'member)*
     ;
 
 member
-    : exprG
+    : ID
     ;
 
 arrayRef
-    : ID LBRACKET exprEnt (COMMA exprEnt)? RBRACKET
+    : ID LBRACKET firstDimension (COMMA secondDimension)? RBRACKET
     ;
 
 conditionalStmt : IF LPAREN exprBool RPAREN LBRACE statement* RBRACE (ELSE LBRACE statement* RBRACE)? ;
@@ -251,16 +255,18 @@ dig :
 
 mytype : scalar | structures;
 scalar : BOOL | INT | CHAR;
-structures : STRUCT (ID)? LBRACE listStructFields RBRACE SEMICOLON;
-arrays : LBRACKET (NATUREL)+ (COMMA (NATUREL+))* RBRACKET;
-
+arrays : LBRACKET arrayIndex RBRACKET;
+arrayIndex : firstDimension (COMMA secondDimension)?;
+firstDimension:exprEnt;
+secondDimension:exprEnt;
 structDecl : structures;
+structures : STRUCT (ID)? LBRACE listStructFields RBRACE SEMICOLON;
 
-listStructFields: structField* ;
+listStructFields: structField+ ;
 
-structField: mytype fieldDecl (COMMA fieldDecl)* SEMICOLON;
+structField: (field | structDecl);
 
-fieldDecl: ID (arrays)?;
+field: mytype ID (arrays)? SEMICOLON;
 
 varDecl : mytype subVarDecl (COMMA subVarDecl)* SEMICOLON;
 
@@ -268,7 +274,7 @@ subVarDecl : ID (arrays)? (AFFECT initVariable)?;
 
 initVariable : TRUE | FALSE | STRING | CHARACTER | exprEnt | exprBool | initArrays | initStruct | LPAREN initVariable RPAREN;
 
-initArrays : LBRACE (initVariable)(COMMA initVariable)*? RBRACE ;
+initArrays : LBRACE (initVariable)(COMMA initVariable)* RBRACE ;
 
 initStruct : structDecl ;//LBRACE (ID COLON initVariable (COMMA ID COLON initVariable)*)? RBRACE ;
 

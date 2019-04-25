@@ -7,7 +7,10 @@ import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.StructSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.*;
+
+import java.util.Iterator;
 
 public class RefPhase extends PlayPlusBaseListener {
     private SymbolTable symTable;
@@ -30,7 +33,7 @@ public class RefPhase extends PlayPlusBaseListener {
 
     @Override
     public void exitExprG(PlayPlusParser.ExprGContext ctx) {
-//        match aussi les référence de tableau et structs donc on stop là si c'est la cas
+//        match aussi les références de tableau et structs donc on stop là si c'est la cas
         if (ctx.arrayRef() != null || ctx.structRef() != null) {
 //            System.out.println(ctx.getText());
             return;
@@ -55,12 +58,61 @@ public class RefPhase extends PlayPlusBaseListener {
         }
     }
 
-    private void resolveStruct(String varName) {
-        varName = SymbolNamesHelper.generateName("StructSymbol", varName);
-        Symbol struct = this.symTable.getCurrentScope().resolve(varName);
-        if (struct == null) {
-            this.errors.symbolNotFound.add("Structure "+ varName +" do not exist");
+//    @Override
+//    public void enterStructRef(PlayPlusParser.StructDeclContext ctx) {
+//        String structName = SymbolNamesHelper.generateName("StructSymbol", ctx.structures().ID().getText());
+//        StructSymbol structSymbol = (StructSymbol) this.symTable.getGlobals().resolve(structName);
+//        this.symTable.setCurrentScope(structSymbol);
+//    }
+
+
+    @Override
+    public void enterStructRef(PlayPlusParser.StructRefContext ctx) {
+        String structName = SymbolNamesHelper.generateName("StructSymbol", ctx.ID().getText());
+        StructSymbol structSymbol = (StructSymbol) this.symTable.getGlobals().resolve(structName);
+        this.symTable.setCurrentScope(structSymbol);
+    }
+
+    @Override
+    public void exitStructRef(PlayPlusParser.StructRefContext ctx) {
+        Iterator members = ctx.members().member().listIterator();
+        resolveStruct(members, this.symTable.getCurrentScope());
+    }
+
+    /**
+     * Check si une variable existe dans une structure
+     *
+     * on part du scope de la structure référencée
+     * pour chaque membre
+     * si le membre est final, on resolve une variable
+     * si le membre est une autre structure, on change de scope
+     * si on trouve rien on revoie une erreur
+     * à la fin on revient au scope de base
+     *
+     * @param members
+     * @param structScope
+     */
+    private void resolveStruct(Iterator members, Scope structScope) {
+        while (members.hasNext()) {
+            PlayPlusParser.MemberContext member = (PlayPlusParser.MemberContext) members.next();
+            System.out.println(member.ID().getText());
+            if (members.hasNext()) {
+                String structName = SymbolNamesHelper.generateName("StructSymbol", member.ID().getText());
+                StructSymbol struct = (StructSymbol) structScope.resolve(structName);
+                if (struct == null) {
+                    this.errors.symbolNotFound.add("Structure "+ structName +" do not exist");
+                }
+                this.symTable.setCurrentScope(struct);
+            } else {
+                String varName = SymbolNamesHelper.generateName("VariableSymbol", member.ID().getText());
+                System.out.println(structScope.getScopeName());
+                VariableSymbol var = (VariableSymbol) structScope.resolve(varName);
+                if (var == null) {
+                    this.errors.symbolNotFound.add("Variable "+ varName +" do not exist in structure");
+                }
+            }
         }
+        this.symTable.setCurrentScope(structScope);
     }
 
     @Override
@@ -119,12 +171,7 @@ public class RefPhase extends PlayPlusBaseListener {
         return symbol;
     }
 
-    @Override
-    public void exitStructRef(PlayPlusParser.StructRefContext ctx) {
-        String name = ctx.ID().getText();
-        ctx.member().listIterator();
-        resolveStruct(name);
-    }
+
 
     private Symbol resolveMap(String mapName){
         mapName = SymbolNamesHelper.generateName("MapSymbol",mapName);

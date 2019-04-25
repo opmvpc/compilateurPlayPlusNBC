@@ -462,6 +462,18 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMembers(PlayPlusParser.MembersContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMembers(PlayPlusParser.MembersContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMember(PlayPlusParser.MemberContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -570,18 +582,6 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStructures(PlayPlusParser.StructuresContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStructures(PlayPlusParser.StructuresContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterArrays(PlayPlusParser.ArraysContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -594,6 +594,42 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterArrayIndex(PlayPlusParser.ArrayIndexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayIndex(PlayPlusParser.ArrayIndexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFirstDimension(PlayPlusParser.FirstDimensionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFirstDimension(PlayPlusParser.FirstDimensionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSecondDimension(PlayPlusParser.SecondDimensionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSecondDimension(PlayPlusParser.SecondDimensionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterStructDecl(PlayPlusParser.StructDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -601,6 +637,18 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStructDecl(PlayPlusParser.StructDeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStructures(PlayPlusParser.StructuresContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStructures(PlayPlusParser.StructuresContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -630,13 +678,13 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFieldDecl(PlayPlusParser.FieldDeclContext ctx) { }
+	@Override public void enterField(PlayPlusParser.FieldContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFieldDecl(PlayPlusParser.FieldDeclContext ctx) { }
+	@Override public void exitField(PlayPlusParser.FieldContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
