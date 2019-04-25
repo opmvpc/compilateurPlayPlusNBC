@@ -270,6 +270,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_structs4_SubStructsCall_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/structs4_SubStructsCall.b314", testFolder.newFile(), true, "comments: structs4_SubStructsCall");
+    }
+
+    @Test
     public void testcomments_structure1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/structure1.b314", testFolder.newFile(), true, "comments: structure1");
     }
@@ -575,6 +580,21 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_null_pointer_functions_one_void_function_no_local_var_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/null_pointer_functions_one_void_function_no_local_var.b314", testFolder.newFile(), false, "comments: null_pointer_functions_one_void_function_no_local_var");
+    }
+
+    @Test
+    public void testcomments_structs3_WrongSubStructsCall_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/structs3_WrongSubStructsCall.b314", testFolder.newFile(), false, "comments: structs3_WrongSubStructsCall");
+    }
+
+    @Test
+    public void testcomments_structure1_wrongVarCall_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/structure1_wrongVarCall.b314", testFolder.newFile(), false, "comments: structure1_wrongVarCall");
+    }
+
+    @Test
+    public void testcomments_structure2_callSubstrucThatDoesntExist_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/structure2_callSubstrucThatDoesntExist.b314", testFolder.newFile(), false, "comments: structure2_callSubstrucThatDoesntExist");
     }
 
     @Test
