@@ -113,8 +113,6 @@ funcArg :
 
 funcCall :
     ID LPAREN funcCallArgs? RPAREN
-//    | ID LPAREN (exprD (COMMA exprD)*)? RPAREN RPAREN {notifyErrorListeners("Too many parentheses");}
-//    | ID LPAREN (exprD (COMMA exprD)*)? {notifyErrorListeners("Missing closing ')'");}
     ;
 
 funcCallArgs
@@ -148,31 +146,6 @@ exprEnt : MINUS exprEnt
     | exprEnt (PLUS | MINUS) exprEnt
 	| LPAREN exprEnt RPAREN
     ;
-
-// exprBool: TRUE | FALSE
-//    | funcCall
-//    | funcCall  (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) funcCall
-//    | funcCall  (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) exprEnt
-//    | exprG
-//    | exprG (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) exprG
-//    | exprG (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) CHARACTER
-//	| exprEnt SMALLER exprEnt
-//    | exprEnt GREATER exprEnt
-//	| exprEnt EGREATER exprEnt
-//    | exprEnt ESMALLER exprEnt
-//	| exprEnt EQUAL exprEnt
-//	| exprEnt NOTEQUAL exprEnt
-//	| STRING EQUAL STRING
-//	| STRING NOTEQUAL STRING
-//	| CHARACTER EQUAL CHARACTER
-//	| CHARACTER NOTEQUAL CHARACTER
-//	| exprBool AND exprBool
-//	| exprBool EQUAL exprBool
-//	| exprBool NOTEQUAL exprBool
-//    | exprBool OR exprBool
-//	| NOT exprBool
-//	| LPAREN exprBool RPAREN
-//	;
 
  exprBool:
     | boolVal
@@ -228,7 +201,7 @@ members
     ;
 
 member
-    : ID
+    : ID (arrays)?
     ;
 
 arrayRef
