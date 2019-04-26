@@ -11,4 +11,11 @@ public  class SymbolNamesHelper {
         return StringUtils.substringBefore(name,"_");
     }
 
+    public static String genStructName(String name) {
+        return generateName("StrucSymbol", name);
+    }
+
+    public static String genVarName(String name) {
+        return generateName("VariableSymbol", name);
+    }
 }

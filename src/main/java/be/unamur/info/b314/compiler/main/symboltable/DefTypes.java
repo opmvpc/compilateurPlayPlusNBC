@@ -3,7 +3,9 @@ package be.unamur.info.b314.compiler.main.symboltable;
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
+import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Types;
+import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.StructSymbol;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,9 +13,11 @@ import java.util.Iterator;
 
 public class DefTypes extends PlayPlusBaseListener {
     private ArrayList<Expression> expressions;
+    private SymbolTable symtable;
 
-    public DefTypes() {
+    public DefTypes(SymbolTable symtable) {
         this.expressions = new ArrayList();
+        this.symtable = symtable;
     }
 
     private void addExpr(Expression expression) {
@@ -90,16 +94,35 @@ public class DefTypes extends PlayPlusBaseListener {
         addExpr(expr);
     }
 
+//    @Override
+//    public void exitStructDecl(PlayPlusParser.StructDeclContext ctx) {
+////        System.out.println(ctx.getText());
+//
+//        String text = ctx.structures().ID().getText();
+//        String type = "structure";
+//        String symbolType = "structure";
+//
+//        Expression expr = new Expression(text, type, symbolType);
+//        addExpr(expr);
+//    }
+
+
     @Override
-    public void exitStructDecl(PlayPlusParser.StructDeclContext ctx) {
-//        System.out.println(ctx.getText());
-
-        String text = ctx.structures().ID().getText();
-        String type = "structure";
-        String symbolType = "structure";
-
-        Expression expr = new Expression(text, type, symbolType);
-        addExpr(expr);
+    public void exitStructRef(PlayPlusParser.StructRefContext ctx) {
+        System.out.println(ctx.getText());
+        String structName = SymbolNamesHelper.genStructName(ctx.ID().getText());
+        StructSymbol struct = (StructSymbol) this.symtable.getGlobals().resolve(structName);
+        Iterator members = ctx.members().member().listIterator();
+        while (members.hasNext()) {
+            PlayPlusParser.MemberContext member = (PlayPlusParser.MemberContext) members.next();
+            if (members.hasNext()) {
+                structName = SymbolNamesHelper.genStructName(member.ID().getText());
+                struct = (StructSymbol) struct.resolve(structName);
+            } else {
+                String varName = SymbolNamesHelper.genVarName(member.ID().getText());
+                System.out.println(struct.resolve(varName));
+            }
+        }
     }
 
     @Override

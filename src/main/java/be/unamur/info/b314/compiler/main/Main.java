@@ -228,13 +228,15 @@ public class Main {
         RefPhase ref = new RefPhase(def.getSymTable(), errors);
         walker.walk(ref, tree);
 
-        printTitle("Def Types Phase");
-        DefTypes defTypes = new DefTypes();
-        walker.walk(defTypes, tree);
+        if (errors.symbolNotFound.isEmpty() && errors.badNameError.isEmpty()){
+            printTitle("Def Types Phase");
+            DefTypes defTypes = new DefTypes(def.getSymTable());
+            walker.walk(defTypes, tree);
 
-        printTitle("Check Types Phase");
-        CheckTypes checkTypes = new CheckTypes(def.getSymTable(), errors);
-        walker.walk(checkTypes, tree);
+            printTitle("Check Types Phase");
+            CheckTypes checkTypes = new CheckTypes(def.getSymTable(), errors);
+            walker.walk(checkTypes, tree);
+        }
 
         printTitle("Errors");
         System.out.println(errors.toString());
