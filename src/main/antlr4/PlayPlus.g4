@@ -137,13 +137,19 @@ exprD
     | charVal
 	;
 
-exprEnt : MINUS exprEnt
+operateurEntier
+    : (MUL | DIV)
+    | (PLUS | MINUS)
+    | MOD
+    | POW
+    ;
+
+exprEnt
+    : MINUS exprEnt
     | exprG
     | funcCall
     | NATUREL
-	| exprEnt MOD exprEnt
-    | exprEnt (MUL | DIV) exprEnt
-    | exprEnt (PLUS | MINUS) exprEnt
+	| exprEnt operateurEntier exprEnt
 	| LPAREN exprEnt RPAREN
     ;
 

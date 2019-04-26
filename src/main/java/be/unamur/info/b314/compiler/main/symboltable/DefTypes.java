@@ -2,11 +2,14 @@ package be.unamur.info.b314.compiler.main.symboltable;
 
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
+import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Types;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.StructSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
+import org.antlr.v4.runtime.RuleContext;
+import org.antlr.v4.runtime.tree.TerminalNodeImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,10 +20,16 @@ import java.util.stream.Collectors;
 public class DefTypes extends PlayPlusBaseListener {
     private ArrayList<Expression> expressions;
     private SymbolTable symtable;
+    private Errors errors;
 
-    public DefTypes(SymbolTable symtable) {
+    public DefTypes(SymbolTable symtable, Errors errors) {
         this.expressions = new ArrayList();
         this.symtable = symtable;
+        this.errors = errors;
+    }
+
+    public ArrayList<Expression> getExpressions() {
+        return expressions;
     }
 
     private void addExpr(Expression expression) {
@@ -35,6 +44,7 @@ public class DefTypes extends PlayPlusBaseListener {
         try {
             Boolean.valueOf(text);
         } catch (Exception e) {
+            System.out.println("$ "+ctx.getText());
             return;
         }
 
@@ -63,6 +73,8 @@ public class DefTypes extends PlayPlusBaseListener {
         Expression expr = new Expression(text, type, symbolType);
         addExpr(expr);
     }
+
+
 
     @Override
     public void exitVarDecl(PlayPlusParser.VarDeclContext ctx) {

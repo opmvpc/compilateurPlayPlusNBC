@@ -205,6 +205,12 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprD(PlayPlusParser.ExprDContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#operateurEntier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperateurEntier(PlayPlusParser.OperateurEntierContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#exprEnt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

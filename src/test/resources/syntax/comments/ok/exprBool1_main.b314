@@ -1,0 +1,17 @@
+/*
+
+    Salut
+
+*/
+
+        // Coucou
+
+#import "hello.map"
+
+void main(){
+
+    dig();
+
+    return void;
+
+}

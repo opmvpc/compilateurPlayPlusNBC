@@ -402,6 +402,18 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterOperateurEntier(PlayPlusParser.OperateurEntierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperateurEntier(PlayPlusParser.OperateurEntierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExprEnt(PlayPlusParser.ExprEntContext ctx) { }
 	/**
 	 * {@inheritDoc}

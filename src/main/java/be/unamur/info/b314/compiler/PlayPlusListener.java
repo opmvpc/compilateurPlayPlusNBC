@@ -330,6 +330,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitExprD(PlayPlusParser.ExprDContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#operateurEntier}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperateurEntier(PlayPlusParser.OperateurEntierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#operateurEntier}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperateurEntier(PlayPlusParser.OperateurEntierContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#exprEnt}.
 	 * @param ctx the parse tree
 	 */

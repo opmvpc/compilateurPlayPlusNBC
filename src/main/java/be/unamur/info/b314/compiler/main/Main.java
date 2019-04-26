@@ -230,11 +230,11 @@ public class Main {
 
         if (errors.symbolNotFound.isEmpty() && errors.badNameError.isEmpty()){
             printTitle("Def Types Phase");
-            DefTypes defTypes = new DefTypes(def.getSymTable());
+            DefTypes defTypes = new DefTypes(def.getSymTable(), errors);
             walker.walk(defTypes, tree);
 
             printTitle("Check Types Phase");
-            CheckTypes checkTypes = new CheckTypes(def.getSymTable(), errors);
+            CheckTypes checkTypes = new CheckTypes(def.getSymTable(), defTypes.getExpressions(), errors);
             walker.walk(checkTypes, tree);
         }
 
