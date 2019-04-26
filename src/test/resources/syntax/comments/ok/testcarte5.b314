@@ -3,8 +3,9 @@
 // map: number, number
 
 map: 6 6
- A P G G _
- G G G B G
- G @ G X G
- G T S G G
- A G G G _
+ A P G G _ _
+ G G G B G _
+ G @ G X G _
+ G T S G G _
+ A G G G _ _
+ A G G G _ _
