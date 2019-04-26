@@ -6,10 +6,13 @@ import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Types;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.StructSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class DefTypes extends PlayPlusBaseListener {
     private ArrayList<Expression> expressions;
@@ -94,35 +97,55 @@ public class DefTypes extends PlayPlusBaseListener {
         addExpr(expr);
     }
 
-//    @Override
-//    public void exitStructDecl(PlayPlusParser.StructDeclContext ctx) {
-////        System.out.println(ctx.getText());
-//
-//        String text = ctx.structures().ID().getText();
-//        String type = "structure";
-//        String symbolType = "structure";
-//
-//        Expression expr = new Expression(text, type, symbolType);
-//        addExpr(expr);
-//    }
-
-
     @Override
     public void exitStructRef(PlayPlusParser.StructRefContext ctx) {
         System.out.println(ctx.getText());
+        Boolean isAssigned = false;
+        String structCall = ctx.getText();
         String structName = SymbolNamesHelper.genStructName(ctx.ID().getText());
+//        System.out.println("structName "+structName);
         StructSymbol struct = (StructSymbol) this.symtable.getGlobals().resolve(structName);
+//        System.out.println("struct " + struct.getName());
         Iterator members = ctx.members().member().listIterator();
         while (members.hasNext()) {
             PlayPlusParser.MemberContext member = (PlayPlusParser.MemberContext) members.next();
+//            System.out.println("member " + member.ID().getText());
             if (members.hasNext()) {
                 structName = SymbolNamesHelper.genStructName(member.ID().getText());
                 struct = (StructSymbol) struct.resolve(structName);
             } else {
                 String varName = SymbolNamesHelper.genVarName(member.ID().getText());
-                System.out.println(struct.resolve(varName));
+//                System.out.println(struct.resolve(varName));
+                VariableSymbol var = (VariableSymbol) struct.resolve(varName);
+                String varType = SymbolNamesHelper.generateNiceName(var.getType().getName());
+//                System.out.println(varType);
+                Expression expr = new Expression(structCall, varType, "structVariable", isAssigned);
+                addExpr(expr);
             }
         }
+    }
+
+    @Override
+    public void exitAffectInstr(PlayPlusParser.AffectInstrContext ctx) {
+        if (ctx.exprG().structRef() == null) {
+            return;
+        }
+
+        String varName = ctx.exprG().getText();
+        System.out.println("varName "+varName);
+        Boolean isAssigned = true;
+
+        Optional<Expression> result = this.expressions.stream()
+            .filter(x -> x.getSymbolTypeName().equals("structVariable") && x.getText().equals(varName))
+            .findFirst();
+
+        if (! result.isPresent()) {
+            return;
+        }
+
+        Expression expr = new Expression(varName, result.get().getBuiltInTypeName(), "structVariable", isAssigned);
+        addExpr(expr);
+        System.out.println("Result var" + result);
     }
 
     @Override
@@ -132,4 +155,6 @@ public class DefTypes extends PlayPlusBaseListener {
         }
 //        System.out.println(this.expressions.toString());
     }
+
+
 }

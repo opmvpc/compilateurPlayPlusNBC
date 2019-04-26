@@ -12,7 +12,7 @@ public  class SymbolNamesHelper {
     }
 
     public static String genStructName(String name) {
-        return generateName("StrucSymbol", name);
+        return generateName("StructSymbol", name);
     }
 
     public static String genVarName(String name) {
