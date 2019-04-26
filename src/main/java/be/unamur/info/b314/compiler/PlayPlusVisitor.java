@@ -223,6 +223,12 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBoolVal(PlayPlusParser.BoolValContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#charVal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCharVal(PlayPlusParser.CharValContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#exprG}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

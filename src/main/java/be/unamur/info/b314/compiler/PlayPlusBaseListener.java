@@ -438,6 +438,18 @@ public class PlayPlusBaseListener implements PlayPlusListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCharVal(PlayPlusParser.CharValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCharVal(PlayPlusParser.CharValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExprG(PlayPlusParser.ExprGContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -127,17 +127,41 @@ public class DefTypes extends PlayPlusBaseListener {
 
     @Override
     public void exitAffectInstr(PlayPlusParser.AffectInstrContext ctx) {
-        if (ctx.exprG().structRef() == null) {
-            return;
+        if (ctx.exprG().arrayRef() != null){
+            arrayAffectExpression(ctx);
         }
 
+        if (ctx.exprG().structRef() != null) {
+            structAffectExpression(ctx);
+        }
+    }
+
+    private void arrayAffectExpression(PlayPlusParser.AffectInstrContext ctx) {
         String varName = ctx.exprG().getText();
-        System.out.println("varName "+varName);
+//        System.out.println("arrayAffect "+varName);
         Boolean isAssigned = true;
 
         Optional<Expression> result = this.expressions.stream()
-            .filter(x -> x.getSymbolTypeName().equals("structVariable") && x.getText().equals(varName))
-            .findFirst();
+                .filter(x -> x.getSymbolTypeName().equals("arrayVariable") && x.getText().equals(ctx.exprG().arrayRef().ID().getText()))
+                .findFirst();
+
+        if (! result.isPresent()) {
+            return;
+        }
+
+        Expression expr = new Expression(varName, result.get().getBuiltInTypeName(), "variable", isAssigned);
+        addExpr(expr);
+//        System.out.println("Result var" + result);
+    }
+
+    private void structAffectExpression(PlayPlusParser.AffectInstrContext ctx) {
+        String varName = ctx.exprG().getText();
+//        System.out.println("structAffect "+varName);
+        Boolean isAssigned = true;
+
+        Optional<Expression> result = this.expressions.stream()
+                .filter(x -> x.getSymbolTypeName().equals("structVariable") && x.getText().equals(varName))
+                .findFirst();
 
         if (! result.isPresent()) {
             return;
@@ -145,7 +169,17 @@ public class DefTypes extends PlayPlusBaseListener {
 
         Expression expr = new Expression(varName, result.get().getBuiltInTypeName(), "structVariable", isAssigned);
         addExpr(expr);
-        System.out.println("Result var" + result);
+//        System.out.println("Result var" + result);
+    }
+
+    @Override
+    public void exitCharVal(PlayPlusParser.CharValContext ctx) {
+        String text = ctx.getText();
+        String type ="char";
+        String symbolType = "expr";
+
+        Expression expr = new Expression(text, type, symbolType);
+        addExpr(expr);
     }
 
     @Override

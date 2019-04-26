@@ -360,6 +360,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitBoolVal(PlayPlusParser.BoolValContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#charVal}.
+	 * @param ctx the parse tree
+	 */
+	void enterCharVal(PlayPlusParser.CharValContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#charVal}.
+	 * @param ctx the parse tree
+	 */
+	void exitCharVal(PlayPlusParser.CharValContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#exprG}.
 	 * @param ctx the parse tree
 	 */

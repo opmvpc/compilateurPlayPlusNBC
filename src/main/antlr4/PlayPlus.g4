@@ -134,7 +134,7 @@ exprD
     | exprEnt
     | exprBool
     | STRING
-    | CHARACTER
+    | charVal
 	;
 
 exprEnt : MINUS exprEnt
@@ -154,11 +154,11 @@ exprEnt : MINUS exprEnt
     | boolVal (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) exprEnt
     | exprEnt (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) boolVal
 //    comparaison avec des chars
-    | boolVal (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) CHARACTER
-    | CHARACTER (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) boolVal
+    | boolVal (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) charVal
+    | charVal (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) boolVal
 //    | exprG
 //    | exprG (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) exprG
-    | exprG (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) CHARACTER
+    | exprG (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) charVal
 	| exprEnt SMALLER exprEnt
     | exprEnt GREATER exprEnt
 	| exprEnt EGREATER exprEnt
@@ -167,8 +167,8 @@ exprEnt : MINUS exprEnt
 	| exprEnt NOTEQUAL exprEnt
 	| STRING EQUAL STRING
 	| STRING NOTEQUAL STRING
-	| CHARACTER EQUAL CHARACTER
-	| CHARACTER NOTEQUAL CHARACTER
+	| charVal EQUAL charVal
+	| charVal NOTEQUAL charVal
 	| exprBool AND exprBool
 	| exprBool EQUAL exprBool
 	| exprBool NOTEQUAL exprBool
@@ -185,12 +185,13 @@ boolVal
 //    | exprEnt
     ;
 
+charVal : CHARACTER;
+
 exprG
     : ID
     | arrayRef
     | structRef
     ;
-
 
 structRef
     : ID members
@@ -245,7 +246,7 @@ varDecl : mytype subVarDecl (COMMA subVarDecl)* SEMICOLON;
 
 subVarDecl : ID (arrays)? (AFFECT initVariable)?;
 
-initVariable : TRUE | FALSE | STRING | CHARACTER | exprEnt | exprBool | initArrays | initStruct | LPAREN initVariable RPAREN;
+initVariable : TRUE | FALSE | STRING | charVal | exprEnt | exprBool | initArrays | initStruct | LPAREN initVariable RPAREN;
 
 initArrays : LBRACE (initVariable)(COMMA initVariable)* RBRACE ;
 
