@@ -59,7 +59,7 @@ public class CheckTypes extends PlayPlusBaseListener {
         }
         return expression;
     }
-    
+
     @Override
     public void exitExprBool(PlayPlusParser.ExprBoolContext ctx) {
         evalExpBool(ctx);
