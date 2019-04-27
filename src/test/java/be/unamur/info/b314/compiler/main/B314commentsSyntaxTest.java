@@ -95,6 +95,41 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_function3_TypeArgs_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function3_TypeArgs.b314", testFolder.newFile(), true, "comments: function3_TypeArgs");
+    }
+
+    @Test
+    public void testcomments_function4_TypeArgs_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function4_TypeArgs.b314", testFolder.newFile(), true, "comments: function4_TypeArgs");
+    }
+
+    @Test
+    public void testcomments_function5_TypeArgs_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function5_TypeArgs.b314", testFolder.newFile(), true, "comments: function5_TypeArgs");
+    }
+
+    @Test
+    public void testcomments_function6_returnType_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function6_returnType.b314", testFolder.newFile(), true, "comments: function6_returnType");
+    }
+
+    @Test
+    public void testcomments_function7_returnType_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function7_returnType.b314", testFolder.newFile(), true, "comments: function7_returnType");
+    }
+
+    @Test
+    public void testcomments_function8_affectReturnType_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function8_affectReturnType.b314", testFolder.newFile(), true, "comments: function8_affectReturnType");
+    }
+
+    @Test
+    public void testcomments_function9_affectReturnType_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function9_affectReturnType.b314", testFolder.newFile(), true, "comments: function9_affectReturnType");
+    }
+
+    @Test
     public void testcomments_globalvardeclaration1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/globalvardeclaration1.b314", testFolder.newFile(), true, "comments: globalvardeclaration1");
     }
@@ -142,11 +177,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_j_testboolexpressions_environment_var_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_environment_var.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_environment_var");
-    }
-
-    @Test
-    public void testcomments_j_testboolexpressions_equals_mismatching_type_ko_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_equals_mismatching_type_ko.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_equals_mismatching_type_ko");
     }
 
     @Test
@@ -207,11 +237,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_j_testnextinstruction_action_move_down_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_move_down.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_move_down");
-    }
-
-    @Test
-    public void testcomments_j_testnextinstruction_action_move_down_ko_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_move_down_ko.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_move_down_ko");
     }
 
     @Test
@@ -488,6 +513,36 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_function3_arg_type_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function3_arg_type.b314", testFolder.newFile(), false, "comments: function3_arg_type");
+    }
+
+    @Test
+    public void testcomments_function4_arg_type_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function4_arg_type.b314", testFolder.newFile(), false, "comments: function4_arg_type");
+    }
+
+    @Test
+    public void testcomments_function5_return_type_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function5_return_type.b314", testFolder.newFile(), false, "comments: function5_return_type");
+    }
+
+    @Test
+    public void testcomments_function6_return_type_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function6_return_type.b314", testFolder.newFile(), false, "comments: function6_return_type");
+    }
+
+    @Test
+    public void testcomments_function7_return_type_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function7_return_type.b314", testFolder.newFile(), false, "comments: function7_return_type");
+    }
+
+    @Test
+    public void testcomments_function8_affect_return_type_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function8_affect_return_type.b314", testFolder.newFile(), false, "comments: function8_affect_return_type");
+    }
+
+    @Test
     public void testcomments_import1_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/import1.b314", testFolder.newFile(), false, "comments: import1");
     }
@@ -533,6 +588,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_j_testboolexpressions_equals_mismatching_type_ko_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/j_testboolexpressions_equals_mismatching_type_ko.b314", testFolder.newFile(), false, "comments: j_testboolexpressions_equals_mismatching_type_ko");
+    }
+
+    @Test
     public void testcomments_j_testboolexpressions_lessthan_env_var_wrong_type_ko_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/j_testboolexpressions_lessthan_env_var_wrong_type_ko.b314", testFolder.newFile(), false, "comments: j_testboolexpressions_lessthan_env_var_wrong_type_ko");
     }
@@ -545,6 +605,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_j_testcomments_missing_numbers_size_play_card_ko_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/j_testcomments_missing_numbers_size_play_card_ko.b314", testFolder.newFile(), false, "comments: j_testcomments_missing_numbers_size_play_card_ko");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_move_down_ko_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/j_testnextinstruction_action_move_down_ko.b314", testFolder.newFile(), false, "comments: j_testnextinstruction_action_move_down_ko");
     }
 
     @Test
