@@ -9,9 +9,10 @@
 #import "hello.map"
 
 void main(){
-    bool x = true;
+    bool x = false;
     int a = 2;
-    x = (a == 2);
+    int b = 3;
+    a = (a+b)+x-32*4;
     dig();
 
     return void;

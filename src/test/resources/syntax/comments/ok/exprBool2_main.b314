@@ -10,8 +10,8 @@
 
 void main(){
     bool x = true;
-    int a = 2;
-    x = (a == 2);
+    bool y = false;
+    x = x || y;
     dig();
 
     return void;

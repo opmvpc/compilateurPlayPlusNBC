@@ -9,9 +9,10 @@
 #import "hello.map"
 
 void main(){
-    bool x = true;
-    int a = 2;
-    x = (a == 2);
+    int x;
+    int b;
+    char a;
+    a = -(15/x)*344+23;
     dig();
 
     return void;

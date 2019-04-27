@@ -65,6 +65,26 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_exprBool2_main_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/exprBool2_main.b314", testFolder.newFile(), true, "comments: exprBool2_main");
+    }
+
+    @Test
+    public void testcomments_exprBool3_main_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/exprBool3_main.b314", testFolder.newFile(), true, "comments: exprBool3_main");
+    }
+
+    @Test
+    public void testcomments_exprEntiere1_Main_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/exprEntiere1_Main.b314", testFolder.newFile(), true, "comments: exprEntiere1_Main");
+    }
+
+    @Test
+    public void testcomments_exprEntiere2_Main_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/exprEntiere2_Main.b314", testFolder.newFile(), true, "comments: exprEntiere2_Main");
+    }
+
+    @Test
     public void testcomments_function1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/function1.b314", testFolder.newFile(), true, "comments: function1");
     }
@@ -420,6 +440,41 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_bool2_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/bool2.b314", testFolder.newFile(), false, "comments: bool2");
+    }
+
+    @Test
+    public void testcomments_exprBool1_main_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprBool1_main.b314", testFolder.newFile(), false, "comments: exprBool1_main");
+    }
+
+    @Test
+    public void testcomments_exprBool2_main_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprBool2_main.b314", testFolder.newFile(), false, "comments: exprBool2_main");
+    }
+
+    @Test
+    public void testcomments_exprBool3_main_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprBool3_main.b314", testFolder.newFile(), false, "comments: exprBool3_main");
+    }
+
+    @Test
+    public void testcomments_exprEntiere1_Main_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprEntiere1_Main.b314", testFolder.newFile(), false, "comments: exprEntiere1_Main");
+    }
+
+    @Test
+    public void testcomments_exprEntiere2_Main_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprEntiere2_Main.b314", testFolder.newFile(), false, "comments: exprEntiere2_Main");
+    }
+
+    @Test
+    public void testcomments_exprEntiere3_Main_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprEntiere3_Main.b314", testFolder.newFile(), false, "comments: exprEntiere3_Main");
+    }
+
+    @Test
+    public void testcomments_exprEntiere4_Main_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprEntiere4_Main.b314", testFolder.newFile(), false, "comments: exprEntiere4_Main");
     }
 
     @Test

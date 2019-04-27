@@ -9,9 +9,10 @@
 #import "hello.map"
 
 void main(){
+    int a;
     bool x = true;
-    int a = 2;
-    x = (a == 2);
+    bool y = false;
+    a = x || y;
     dig();
 
     return void;

@@ -11,7 +11,8 @@
 void main(){
     bool x = true;
     int a = 2;
-    x = (a == 2);
+    int b = 3;
+    x = (a>b)&&(a + b == x);
     dig();
 
     return void;

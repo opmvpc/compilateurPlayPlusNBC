@@ -11,7 +11,8 @@
 void main(){
     bool x = true;
     int a = 2;
-    x = (a == 2);
+    char y = 'a';
+    a = (y == 2);
     dig();
 
     return void;
