@@ -49,14 +49,28 @@ public class DefTypes extends PlayPlusBaseListener {
      * Evalue le type des expressions booléennes
      */
     public void exitExprBool(PlayPlusParser.ExprBoolContext ctx) {
-        System.out.println(ctx.getText());
+//        System.out.println(ctx.getText());
 
         String text = ctx.getText();
+
+//        négation (ex: !x)
+        if (ctx.getChildCount() == 2) {
+            System.out.println("$ "+ctx.getText());
+            evalNegBool(ctx);
+            return;
+        }
+
+        if (ctx.getChildCount() >= 3) {
+            System.out.println("$ "+ctx.getText());
+            evalExpBool(ctx);
+            return;
+        }
+
         try {
             Boolean.valueOf(text);
         } catch (Exception e) {
-            System.out.println("$ "+ctx.getText());
-            return;
+//            System.out.println("$ "+ctx.getText());
+//            evalExpBool(ctx);
         }
 
         String type ="bool";
@@ -66,13 +80,61 @@ public class DefTypes extends PlayPlusBaseListener {
         addExpr(expr);
     }
 
+    private void evalNegBool(PlayPlusParser.ExprBoolContext ctx) {
+        String rightPartName = ctx.getChild(1).getText();
+
+        Optional<Expression> rightPart = findExprByText(rightPartName);
+
+        if (! rightPart.isPresent()) {
+            return;
+        }
+        if (rightPart.get().getBuiltInTypeName().equals("bool")) {
+            System.out.println("types Ok");
+            Expression expr = new Expression(ctx.getText(), "bool", "expr");
+            addExpr(expr);
+        } else {
+            errors.badTypeError.add("BOOL EXPRESSION TYPE ERROR in "+ ctx.getText() +" : Le type de la variable suivante est imcompatible : "+rightPart.get().getText());
+        }
+    }
+
+    private void evalExpBool(PlayPlusParser.ExprBoolContext ctx) {
+        if (ctx.getChildCount() < 3) {
+            return;
+        }
+
+//        Expression parenthesée
+        if (ctx.getChild(0).getText().equals("(")) {
+            System.out.println("parent bool :"+ ctx.getText());
+            addParentheseExpr(ctx);
+            return;
+        }
+
+
+        String leftPartName = ctx.getChild(0).getText();
+        String rightPartName = ctx.getChild(2).getText();
+
+        Optional<Expression> leftPart = findExprByText(leftPartName);
+        Optional<Expression> rightPart = findExprByText(rightPartName);
+
+        if (! leftPart.isPresent() || ! rightPart.isPresent()) {
+            return;
+        }
+        if (leftPart.get().getBuiltInTypeName().equals(rightPart.get().getBuiltInTypeName())) {
+            System.out.println("types Ok");
+            Expression expr = new Expression(ctx.getText(), "bool", "expr");
+            addExpr(expr);
+        } else {
+            errors.badTypeError.add("BOOL EXPRESSION TYPE ERROR in "+ ctx.getText() +" : Les types des variables suivantes sont imcompatibles : "+leftPart.get().getText()+" "+rightPart.get().getText());
+        }
+    }
+
     @Override
     /**
      * Evalue le type d'une expression entières
      * Ajoute une expression entiere si elle est simple (Ex: 34, -1)
      */
     public void exitExprEnt(PlayPlusParser.ExprEntContext ctx) {
-        System.out.println("exitExprEnt :"+ctx.getText());
+//        System.out.println("exitExprEnt :"+ctx.getText());
 
         String text = ctx.getText();
 
@@ -153,11 +215,11 @@ public class DefTypes extends PlayPlusBaseListener {
         }
 //      Les types sont égaux
         if (leftPart.get().getBuiltInTypeName().equals(rightPart.get().getBuiltInTypeName())) {
-            System.out.println("types Ok");
+//            System.out.println("types Ok");
             Expression expr = new Expression(ctx.getText(), leftPart.get().getBuiltInTypeName(), "expr");
             addExpr(expr);
         } else {
-            errors.badTypeError.add("ENTIER : Les types des variables suivantes sont imcompatibles : "+leftPart+" "+rightPart);
+            errors.badTypeError.add("INT EXPRESSION TYPE ERROR in "+ ctx.getText() +" : Les types des variables suivantes sont imcompatibles : "+leftPart.get().getText()+" "+rightPart.get().getText());
         }
     }
 
@@ -165,17 +227,18 @@ public class DefTypes extends PlayPlusBaseListener {
      * Ajoute une expression parenthésée
      * @param ctx
      */
-    private void addParentheseExpr(PlayPlusParser.ExprEntContext ctx) {
-        System.out.println("parentExp "+ctx.getText());
+    private void addParentheseExpr(RuleContext ctx) {
+        System.out.println("add parentExp "+ctx.getText());
         String exprText = ctx.getChild(1).getText();
+        System.out.println(exprText);
 
         Optional<Expression> expression = findExprByText(exprText);
-
+        System.out.println("exp : " +expression);
         if (! expression.isPresent()) {
             return;
         }
 
-        Expression expr = new Expression(exprText, expression.get().getBuiltInTypeName(), "expr");
+        Expression expr = new Expression(ctx.getText(), expression.get().getBuiltInTypeName(), "expr");
         addExpr(expr);
     }
 
