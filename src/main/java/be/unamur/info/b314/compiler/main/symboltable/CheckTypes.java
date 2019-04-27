@@ -47,8 +47,12 @@ public class CheckTypes extends PlayPlusBaseListener {
             Optional<Expression> expression = this.expressions.stream()
                     .filter(x -> x.getParent() != null && x.getParent().getText().equals(functExpr.get().getText()) && ctx.getChild(0).getText().equals(x.getText()))
                     .findFirst();
-            System.out.println("Expr Local : "+ expression.get().getText());
-            return expression;
+
+            if (expression.isPresent()){
+                System.out.println("Expr Local : "+ expression.get().getText());
+                return expression;
+            }
+
         } catch (ClassCastException e) {
             System.out.println("Pas une fonction");
         }

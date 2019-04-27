@@ -90,6 +90,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_function10_bool_no_local_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function10_bool_no_local_var.b314", testFolder.newFile(), true, "comments: function10_bool_no_local_var");
+    }
+
+    @Test
     public void testcomments_function2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/function2.b314", testFolder.newFile(), true, "comments: function2");
     }

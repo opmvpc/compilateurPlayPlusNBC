@@ -1,0 +1,22 @@
+/* My comments */
+
+#import "world.map"
+
+
+    bool f1;
+    bool fct1()
+    {
+       f1 = true;
+     return f1;
+    }
+
+void main()
+{
+   if(!fct1()) {
+   	 left();
+   	 right();
+   	 up();
+   }
+   dig();
+ return void;
+}
