@@ -293,6 +293,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_aj_testaffectinstruction_affect_env_var_ko_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/aj_testaffectinstruction_affect_env_var_ko.b314", testFolder.newFile(), false, "comments: aj_testaffectinstruction_affect_env_var_ko");
+    }
+
+    @Test
     public void testcomments_array1_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/array1.b314", testFolder.newFile(), false, "comments: array1");
     }

@@ -45,11 +45,17 @@ public class CheckTypes extends PlayPlusBaseListener {
             if (expText.contains("[")) {
                 expText = StringUtils.substringBefore(expText,"[");
                 System.out.println("expText" + expText);
-            }
+
             String finalExpText1 = expText;
             expression = this.expressions.stream()
                     .filter(x -> x.getSymbolTypeName().equals("arrayVariable") && x.getText().equals(finalExpText1))
                     .findFirst();
+            }else{
+                // Maybe c'est une expression  on va chercher juste la 1ére valeur  vu que le reste est deja calculé dans ExprEnt ou Bool
+                expText =StringUtils.substringBefore(expText,"+");
+                System.out.println("exprG: " + StringUtils.substringBefore(expText,"+-*/"));
+                expression = findExprByText(expText);
+            }
         }
         return expression;
     }
@@ -63,8 +69,6 @@ public class CheckTypes extends PlayPlusBaseListener {
         if (ctx.getChildCount() < 3) {
             return;
         }
-
-        System.out.println(ctx.getText());
 
         if (ctx.getChild(0).getText().equals("(")) {
             System.out.println("parentExp "+ctx.getText());
@@ -96,8 +100,6 @@ public class CheckTypes extends PlayPlusBaseListener {
         if (ctx.getChildCount() < 3) {
             return;
         }
-
-        System.out.println("evalExpBool"+ ctx.getText());
 
         if (ctx.getChild(0).getText().equals("(")) {
             System.out.println("parentExp "+ctx.getText());
@@ -141,6 +143,9 @@ public class CheckTypes extends PlayPlusBaseListener {
 
         Optional<Expression> leftPart = findExprArrayByText(leftPartName);
         Optional<Expression> rightPart = findExprArrayByText(rightPartName);
+
+        System.out.println(leftPartName + " : leftPart " + leftPart.toString());
+        System.out.println(rightPartName + " : rightPart " + rightPart.toString());
 
         if (! leftPart.isPresent() || ! rightPart.isPresent()) {
             return;
