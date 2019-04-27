@@ -483,6 +483,16 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_exprBool4_main_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprBool4_main.b314", testFolder.newFile(), false, "comments: exprBool4_main");
+    }
+
+    @Test
+    public void testcomments_exprBool5_main_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprBool5_main.b314", testFolder.newFile(), false, "comments: exprBool5_main");
+    }
+
+    @Test
     public void testcomments_exprEntiere1_Main_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprEntiere1_Main.b314", testFolder.newFile(), false, "comments: exprEntiere1_Main");
     }
@@ -690,11 +700,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_naming9_LocalVarSameNameAsGlobalVar_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/naming9_LocalVarSameNameAsGlobalVar.b314", testFolder.newFile(), false, "comments: naming9_LocalVarSameNameAsGlobalVar");
-    }
-
-    @Test
-    public void testcomments_null_pointer2_functions_one_void_function_no_local_var_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/null_pointer2_functions_one_void_function_no_local_var.b314", testFolder.newFile(), false, "comments: null_pointer2_functions_one_void_function_no_local_var");
     }
 
     @Test
