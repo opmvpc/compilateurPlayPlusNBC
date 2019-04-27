@@ -59,38 +59,7 @@ public class CheckTypes extends PlayPlusBaseListener {
         }
         return expression;
     }
-
-    @Override
-    public void exitExprEnt(PlayPlusParser.ExprEntContext ctx) {
-        evalExprEnt(ctx);
-    }
-
-    private void evalExprEnt(PlayPlusParser.ExprEntContext ctx) {
-        if (ctx.getChildCount() < 3) {
-            return;
-        }
-
-        if (ctx.getChild(0).getText().equals("(")) {
-            System.out.println("parentExp "+ctx.getText());
-            return;
-        }
-
-        String leftPartName = ctx.getChild(0).getText();
-        String rightPartName = ctx.getChild(2).getText();
-
-        Optional<Expression> leftPart = findExprByText(leftPartName);
-        Optional<Expression> rightPart = findExprByText(rightPartName);
-
-        if (! leftPart.isPresent() || ! rightPart.isPresent()) {
-            return;
-        }
-        if (leftPart.get().getBuiltInTypeName().equals(rightPart.get().getBuiltInTypeName())) {
-            System.out.println("types Ok");
-        } else {
-            errors.badTypeError.add("ENTIER : Les types des variables suivantes sont imcompatibles : "+leftPart+" "+rightPart);
-        }
-    }
-
+    
     @Override
     public void exitExprBool(PlayPlusParser.ExprBoolContext ctx) {
         evalExpBool(ctx);

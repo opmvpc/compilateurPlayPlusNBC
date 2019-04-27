@@ -5,6 +5,7 @@ public class Expression {
     private String builtInTypeName;
     private String symbolTypeName;
     private Boolean isAssigned;
+    private Expression parent;
 
     public Expression(String text, String builtInTypeName, String symbolTypeName) {
         this.text = text;
@@ -17,6 +18,14 @@ public class Expression {
         this.builtInTypeName = builtInTypeName;
         this.symbolTypeName = symbolTypeName;
         this.isAssigned = isAssigned;
+    }
+
+    public Expression(String text, String builtInTypeName, String symbolTypeName, Boolean isAssigned, Expression parent) {
+        this.text = text;
+        this.builtInTypeName = builtInTypeName;
+        this.symbolTypeName = symbolTypeName;
+        this.isAssigned = isAssigned;
+        this.parent = parent;
     }
 
     public String getText() {
