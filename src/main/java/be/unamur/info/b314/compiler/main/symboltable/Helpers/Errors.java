@@ -8,12 +8,14 @@ public class Errors
     public ArrayList<String> mapError;
     public ArrayList<String> badNameError;
     public ArrayList<String> badTypeError;
+    public ArrayList<String> functionError;
 
     public Errors() {
         this.symbolNotFound = new ArrayList<>();
         this.mapError = new ArrayList<>();
         this.badNameError = new ArrayList<>();
         this.badTypeError = new ArrayList<>();
+        this.functionError = new ArrayList<>();
     }
 
     @Override
@@ -23,6 +25,7 @@ public class Errors
                 ", mapError=" + mapError +
                 ", badNameError=" + badNameError +
                 ", badTypeError=" + badTypeError +
+                ", functionError=" + functionError +
                 '}';
     }
 }

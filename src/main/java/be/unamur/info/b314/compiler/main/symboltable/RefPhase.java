@@ -6,11 +6,16 @@ import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
+import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.StructSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.*;
 
 import java.util.Iterator;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class RefPhase extends PlayPlusBaseListener {
     private SymbolTable symTable;
@@ -115,16 +120,6 @@ public class RefPhase extends PlayPlusBaseListener {
         this.symTable.setCurrentScope(structScope);
     }
 
-    @Override
-    public void exitFuncCall(PlayPlusParser.FuncCallContext ctx) {
-        String funName = ctx.ID().getText();
-        try {
-            resolveFunc(SymbolNamesHelper.generateName("FunctionSymbol", funName));
-        } catch (SymbolNotFoundException e) {
-            this.errors.symbolNotFound.add(e.getMessage());
-        }
-    }
-
     //    Attention, on dirait que les arguments de fonctions matchent expGauche
     private void resolveVar(String varName) throws SymbolNotFoundException {
 //        System.out.println("current Scope = "+ this.symTable.getCurrentScope().getScopeName() +"\t varName = "+ varName);
@@ -226,5 +221,6 @@ public class RefPhase extends PlayPlusBaseListener {
     public void exitProgram(PlayPlusParser.ProgramContext ctx) {
 //        System.out.println(errors.toString());
     }
+
 }
 

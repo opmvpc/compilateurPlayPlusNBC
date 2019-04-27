@@ -70,6 +70,7 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
         return function;
     }
 
+
     private StructSymbol defineStruct(String name) {
         Scope currentScope = this.symTable.getCurrentScope();
         StructSymbol struct = new StructSymbol(name, currentScope);
@@ -126,7 +127,6 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
             funcTypeName = ctx.mytype().getText();
         }
         FunctionSymbol function = defineFunction(name, funcTypeName);
-
         this.symTable.saveScope(ctx, function);
     }
 
@@ -204,8 +204,7 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
         String mapLine = ctx.world().getText();
         String typeError = mp.createCarte(mapX,mapY,mapLine);
         if (typeError != null){
-            //this.errors.mapError.add(typeError);
-            // Trouver un moyen de stocker et d'afficher les erreurs
+            errors.mapError.add(typeError);
         }
         //****************
         this.symTable.define(mp);
@@ -217,7 +216,6 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
 
     private void defineConstante(String constName, String constTypeName)  {
         Type varType = (BuiltInTypeSymbol) this.symTable.getGlobals().resolve(constTypeName);
-
         this.symTable.define(new ConstanteSymbol(constName, varType));
     }
     @Override

@@ -57,7 +57,7 @@ public class DefTypes extends PlayPlusBaseListener {
 
     @Override
     public void exitExprEnt(PlayPlusParser.ExprEntContext ctx) {
-        System.out.println(ctx.getText());
+        System.out.println("exitExprEnt :"+ctx.getText());
 
         String text = ctx.getText();
 
@@ -90,6 +90,9 @@ public class DefTypes extends PlayPlusBaseListener {
             Boolean isAssigned = false;
             if (var.AFFECT() != null) {
                 isAssigned = true;
+            }
+            if (var.arrays()!= null){
+                symbolType = "arrayVariable";
             }
 
             Expression expr = new Expression(text, type, symbolType, isAssigned);
@@ -150,7 +153,7 @@ public class DefTypes extends PlayPlusBaseListener {
 
     private void arrayAffectExpression(PlayPlusParser.AffectInstrContext ctx) {
         String varName = ctx.exprG().getText();
-//        System.out.println("arrayAffect "+varName);
+        System.out.println("arrayAffect exprD "+ctx.exprD().getText());
         Boolean isAssigned = true;
 
         Optional<Expression> result = this.expressions.stream()
@@ -163,7 +166,6 @@ public class DefTypes extends PlayPlusBaseListener {
 
         Expression expr = new Expression(varName, result.get().getBuiltInTypeName(), "variable", isAssigned);
         addExpr(expr);
-//        System.out.println("Result var" + result);
     }
 
     private void structAffectExpression(PlayPlusParser.AffectInstrContext ctx) {
@@ -183,6 +185,7 @@ public class DefTypes extends PlayPlusBaseListener {
         addExpr(expr);
 //        System.out.println("Result var" + result);
     }
+
 
     @Override
     public void exitCharVal(PlayPlusParser.CharValContext ctx) {
