@@ -8,14 +8,13 @@
 
 #import "hello.map"
 
-int x;
-
 bool f() {
     bool x;
     return x;
 }
 
 void main(){
+    int x;
     x = f();
     dig();
 

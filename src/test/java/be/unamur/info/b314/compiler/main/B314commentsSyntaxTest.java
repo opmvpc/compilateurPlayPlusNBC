@@ -518,8 +518,8 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_function2_mistake_boolean_function_no_local_var_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function2_mistake_boolean_function_no_local_var.b314", testFolder.newFile(), false, "comments: function2_mistake_boolean_function_no_local_var");
+    public void testcomments_function2_mistake_boolean_function_return_Type_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function2_mistake_boolean_function_return_Type.b314", testFolder.newFile(), false, "comments: function2_mistake_boolean_function_return_Type");
     }
 
     @Test

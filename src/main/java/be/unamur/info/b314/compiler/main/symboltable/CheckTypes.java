@@ -9,6 +9,7 @@ import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
+import org.antlr.v4.runtime.RuleContext;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -35,7 +36,23 @@ public class CheckTypes extends PlayPlusBaseListener {
         return expression;
     }
 
-    private Optional<Expression> findExprArrayByText(String expText) {
+    private Optional<Expression> findExprArrayByText(String expText, RuleContext ctx) {
+        try {
+            System.out.println("FUNCTION : "+ctx.getParent().getParent().getParent().getText());
+            PlayPlusParser.FuncDeclContext parentFunction = (PlayPlusParser.FuncDeclContext) ctx.getParent().getParent().getParent();
+            System.out.println("FUNCTION ID : "+parentFunction.ID().getText());
+            Optional<Expression> functExpr = findExprByText(parentFunction.ID().getText());
+            System.out.println("FUNCTION EXPR : "+functExpr.get());
+
+            Optional<Expression> expression = this.expressions.stream()
+                    .filter(x -> x.getParent() != null && x.getParent().getText().equals(functExpr.get().getText()) && ctx.getChild(0).getText().equals(x.getText()))
+                    .findFirst();
+            System.out.println("Expr Local : "+ expression.get().getText());
+            return expression;
+        } catch (ClassCastException e) {
+            System.out.println("Pas une fonction");
+        }
+
         String finalExpText = expText;
         Optional<Expression> expression = this.expressions.stream()
                 .filter(x -> x.getText().equals(finalExpText))
@@ -66,6 +83,7 @@ public class CheckTypes extends PlayPlusBaseListener {
     }
 
     private void evalAFFECT(PlayPlusParser.AffectInstrContext ctx) {
+        System.out.println("AFFECT : "+ctx.getText());
         if (ctx.getChildCount() < 3) {
             return;
         }
@@ -73,8 +91,8 @@ public class CheckTypes extends PlayPlusBaseListener {
         String leftPartName = ctx.getChild(0).getText();
         String rightPartName = ctx.getChild(2).getText();
 
-        Optional<Expression> leftPart = findExprArrayByText(leftPartName);
-        Optional<Expression> rightPart = findExprArrayByText(rightPartName);
+        Optional<Expression> leftPart = findExprArrayByText(leftPartName, ctx);
+        Optional<Expression> rightPart = findExprArrayByText(rightPartName, ctx);
 
         System.out.println(leftPartName + " : leftPart " + leftPart.toString());
         System.out.println(rightPartName + " : rightPart " + rightPart.toString());

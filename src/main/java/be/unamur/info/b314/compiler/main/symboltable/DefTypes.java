@@ -266,6 +266,19 @@ public class DefTypes extends PlayPlusBaseListener {
                 symbolType = "arrayVariable";
             }
 
+            try {
+                System.out.println(ctx.getParent().getParent().getText());
+                PlayPlusParser.FuncDeclContext parentFunction = (PlayPlusParser.FuncDeclContext) ctx.getParent().getParent();
+                System.out.println(parentFunction.ID().getText());
+                Optional<Expression> functExpr = findExprByText(parentFunction.ID().getText());
+                System.out.println(functExpr.get());
+                Expression expr = new Expression(text, type, symbolType, isAssigned, functExpr.get());
+                addExpr(expr);
+                return;
+            } catch (ClassCastException e) {
+                System.out.println("Pas une fonction");
+            }
+
             Expression expr = new Expression(text, type, symbolType, isAssigned);
             addExpr(expr);
         }
@@ -275,7 +288,7 @@ public class DefTypes extends PlayPlusBaseListener {
     /**
      * Ajouts d'une expression pour la déclaration des fonctions
      */
-    public void exitFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
+    public void enterFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
 //        System.out.println(ctx.getText());
 
         String text = ctx.ID().getText();

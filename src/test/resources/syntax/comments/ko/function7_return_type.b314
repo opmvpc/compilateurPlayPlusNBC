@@ -10,7 +10,7 @@
 
 int x;
 
-int f(int a, int b) {
+int f(char a, int b) {
     bool x;
     return a;
 }

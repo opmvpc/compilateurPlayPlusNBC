@@ -44,6 +44,10 @@ public class Expression {
         return isAssigned;
     }
 
+    public Expression getParent() {
+        return parent;
+    }
+
     @Override
     public String toString() {
         return "Expression{" +
@@ -51,6 +55,7 @@ public class Expression {
                 ", builtInTypeName='" + builtInTypeName + '\'' +
                 ", symbolTypeName='" + symbolTypeName + '\'' +
                 ", isAssigned='" + isAssigned + '\'' +
+                (parent != null ? ", parent = " + parent.getText() : "") +
                 '}';
     }
 }
