@@ -28,15 +28,26 @@ public class DefTypes extends PlayPlusBaseListener {
         this.errors = errors;
     }
 
+    /**
+     * Récupère la liste des expressions
+     * @return
+     */
     public ArrayList<Expression> getExpressions() {
         return expressions;
     }
 
+    /**
+     * Ajoute une expression à la table des expressions
+     * @param expression
+     */
     private void addExpr(Expression expression) {
         this.expressions.add(expression);
     }
 
     @Override
+    /**
+     * Evalue le type des expressions booléennes
+     */
     public void exitExprBool(PlayPlusParser.ExprBoolContext ctx) {
         System.out.println(ctx.getText());
 
@@ -56,6 +67,10 @@ public class DefTypes extends PlayPlusBaseListener {
     }
 
     @Override
+    /**
+     * Evalue le type d'une expression entières
+     * Ajoute une expression entiere si elle est simple (Ex: 34, -1)
+     */
     public void exitExprEnt(PlayPlusParser.ExprEntContext ctx) {
         System.out.println(ctx.getText());
 
@@ -64,7 +79,7 @@ public class DefTypes extends PlayPlusBaseListener {
         try {
             Integer.valueOf(text);
         } catch (Exception e) {
-            return;
+            evalExprEnt(ctx);
         }
 
         String type ="int";
@@ -74,8 +89,101 @@ public class DefTypes extends PlayPlusBaseListener {
         addExpr(expr);
     }
 
+    /**
+     * Trouve un élément qui match le text dans la table des expressions
+     * @param expText
+     * @return
+     */
+    private Optional<Expression> findExprByText(String expText) {
+        Optional<Expression> expression = this.expressions.stream()
+                .filter(x -> x.getText().equals(expText))
+                .findFirst();
+
+        return expression;
+    }
+
+    /**
+     * Trouve un élément qui match le text et le type dans la table des epxressions
+     * @param expText
+     * @param type
+     * @return
+     */
+    private Optional<Expression> findExprByTextAndType(String expText, String type) {
+        Optional<Expression> expression = this.expressions.stream()
+                .filter(x -> x.getText().equals(expText) && x.getBuiltInTypeName().equals(type))
+                .findFirst();
+
+        return expression;
+    }
+
+    /**
+     * Expressions entières à trois termes
+     * @param ctx
+     */
+    private void evalExprEnt(PlayPlusParser.ExprEntContext ctx) {
+//        On ne veut que des expressions à trois termes
+        if (ctx.getChildCount() < 3) {
+            return;
+        }
+
+//        System.out.println(ctx.getText());
+
+//        Expression parenthesée
+        if (ctx.getChild(0).getText().equals("(")) {
+            addParentheseExpr(ctx);
+            return;
+        }
+
+        addExprEntiere(ctx);
+    }
+
+    /**
+     * Ajoute une expression entière à trois termes et check les types
+     * @param ctx
+     */
+    private void addExprEntiere(PlayPlusParser.ExprEntContext ctx) {
+        String leftPartName = ctx.getChild(0).getText();
+        String rightPartName = ctx.getChild(2).getText();
+
+        Optional<Expression> leftPart = findExprByText(leftPartName);
+        Optional<Expression> rightPart = findExprByText(rightPartName);
+
+        if (! leftPart.isPresent() || ! rightPart.isPresent()) {
+            return;
+        }
+//      Les types sont égaux
+        if (leftPart.get().getBuiltInTypeName().equals(rightPart.get().getBuiltInTypeName())) {
+            System.out.println("types Ok");
+            Expression expr = new Expression(ctx.getText(), leftPart.get().getBuiltInTypeName(), "expr");
+            addExpr(expr);
+        } else {
+            errors.badTypeError.add("ENTIER : Les types des variables suivantes sont imcompatibles : "+leftPart+" "+rightPart);
+        }
+    }
+
+    /**
+     * Ajoute une expression parenthésée
+     * @param ctx
+     */
+    private void addParentheseExpr(PlayPlusParser.ExprEntContext ctx) {
+        System.out.println("parentExp "+ctx.getText());
+        String exprText = ctx.getChild(1).getText();
+
+        Optional<Expression> expression = findExprByText(exprText);
+
+        if (! expression.isPresent()) {
+            return;
+        }
+
+        Expression expr = new Expression(exprText, expression.get().getBuiltInTypeName(), "expr");
+        addExpr(expr);
+    }
 
 
+    /**
+     * Ajoute d'une exepression de déclaration de variable (fonctionne aussi pour les arrays, on a juste besoin du type
+     * @param ctx
+     */
     @Override
     public void exitVarDecl(PlayPlusParser.VarDeclContext ctx) {
 //        System.out.println(ctx.getText());
@@ -98,6 +206,9 @@ public class DefTypes extends PlayPlusBaseListener {
     }
 
     @Override
+    /**
+     * Ajouts d'une expression pour la déclaration des fonctions
+     */
     public void exitFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
 //        System.out.println(ctx.getText());
 
@@ -110,6 +221,9 @@ public class DefTypes extends PlayPlusBaseListener {
     }
 
     @Override
+    /**
+     * ajouts d'une expression de reference d'une variable contenue dans une structure
+     */
     public void exitStructRef(PlayPlusParser.StructRefContext ctx) {
         System.out.println(ctx.getText());
         Boolean isAssigned = false;
@@ -138,6 +252,9 @@ public class DefTypes extends PlayPlusBaseListener {
     }
 
     @Override
+    /**
+     * Affectation d'une variable de structure ou tableau
+     */
     public void exitAffectInstr(PlayPlusParser.AffectInstrContext ctx) {
         if (ctx.exprG().arrayRef() != null){
             arrayAffectExpression(ctx);
@@ -148,6 +265,10 @@ public class DefTypes extends PlayPlusBaseListener {
         }
     }
 
+    /**
+     * Ajoute une expression d'affectation d'une variarble contenue dans un tableau
+     * @param ctx
+     */
     private void arrayAffectExpression(PlayPlusParser.AffectInstrContext ctx) {
         String varName = ctx.exprG().getText();
 //        System.out.println("arrayAffect "+varName);
@@ -166,6 +287,10 @@ public class DefTypes extends PlayPlusBaseListener {
 //        System.out.println("Result var" + result);
     }
 
+    /**
+     * Ajoute une symbole d'acces à une variable de structure
+     * @param ctx
+     */
     private void structAffectExpression(PlayPlusParser.AffectInstrContext ctx) {
         String varName = ctx.exprG().getText();
 //        System.out.println("structAffect "+varName);
@@ -185,6 +310,9 @@ public class DefTypes extends PlayPlusBaseListener {
     }
 
     @Override
+    /**
+     * Ajoute des caracteres à la table
+     */
     public void exitCharVal(PlayPlusParser.CharValContext ctx) {
         String text = ctx.getText();
         String type ="char";
@@ -195,6 +323,9 @@ public class DefTypes extends PlayPlusBaseListener {
     }
 
     @Override
+    /**
+     * Affiche la liste d'expressions
+     */
     public void exitRoot(PlayPlusParser.RootContext ctx) {
         for (Expression exp : this.expressions) {
             System.out.println(exp.toString());
