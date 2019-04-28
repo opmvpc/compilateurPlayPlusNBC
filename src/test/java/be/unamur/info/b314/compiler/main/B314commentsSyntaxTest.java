@@ -30,13 +30,33 @@ public class B314commentsSyntaxTest {
     // Serie comments OK
     //
     @Test
-    public void testcomments_aj_testfunctions_one_void_function_no_local_var_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/aj_testfunctions_one_void_function_no_local_var.b314", testFolder.newFile(), true, "comments: aj_testfunctions_one_void_function_no_local_var");
+    public void testcomments_actions1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/actions1.b314", testFolder.newFile(), true, "comments: actions1");
     }
 
     @Test
-    public void testcomments_aj_testlocalvariabledecl_while_local_var_same_names_and_different_types_than_global_vars_condition_on_global_vars_in_main_ok_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/aj_testlocalvariabledecl_while_local_var_same_names_and_different_types_than_global_vars_condition_on_global_vars_in_main_ok.b314", testFolder.newFile(), true, "comments: aj_testlocalvariabledecl_while_local_var_same_names_and_different_types_than_global_vars_condition_on_global_vars_in_main_ok");
+    public void testcomments_actions2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/actions2.b314", testFolder.newFile(), true, "comments: actions2");
+    }
+
+    @Test
+    public void testcomments_actions3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/actions3.b314", testFolder.newFile(), true, "comments: actions3");
+    }
+
+    @Test
+    public void testcomments_affectation1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/affectation1.b314", testFolder.newFile(), true, "comments: affectation1");
+    }
+
+    @Test
+    public void testcomments_affectation2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/affectation2.b314", testFolder.newFile(), true, "comments: affectation2");
+    }
+
+    @Test
+    public void testcomments_enums1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/enums1.b314", testFolder.newFile(), true, "comments: enums1");
     }
 
     @Test
@@ -65,6 +85,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_function1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function1.b314", testFolder.newFile(), true, "comments: function1");
+    }
+
+    @Test
     public void testcomments_function10_bool_no_local_var_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/function10_bool_no_local_var.b314", testFolder.newFile(), true, "comments: function10_bool_no_local_var");
     }
@@ -82,6 +107,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_function4_TypeArgs_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/function4_TypeArgs.b314", testFolder.newFile(), true, "comments: function4_TypeArgs");
+    }
+
+    @Test
+    public void testcomments_function5_TypeArgs_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function5_TypeArgs.b314", testFolder.newFile(), true, "comments: function5_TypeArgs");
     }
 
     @Test
@@ -105,6 +135,16 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_globalvardeclaration1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/globalvardeclaration1.b314", testFolder.newFile(), true, "comments: globalvardeclaration1");
+    }
+
+    @Test
+    public void testcomments_globalvardeclaration2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/globalvardeclaration2.b314", testFolder.newFile(), true, "comments: globalvardeclaration2");
+    }
+
+    @Test
     public void testcomments_if1_conditionChar_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/if1_conditionChar.b314", testFolder.newFile(), true, "comments: if1_conditionChar");
     }
@@ -115,33 +155,143 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_j_testfunctions_one_square_function_no_local_var_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testfunctions_one_square_function_no_local_var.b314", testFolder.newFile(), true, "comments: j_testfunctions_one_square_function_no_local_var");
+    public void testcomments_import1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/import1.b314", testFolder.newFile(), true, "comments: import1");
     }
 
     @Test
-    public void testcomments_j_testfunctions_one_void_function_no_local_var_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testfunctions_one_void_function_no_local_var.b314", testFolder.newFile(), true, "comments: j_testfunctions_one_void_function_no_local_var");
+    public void testcomments_import2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/import2.b314", testFolder.newFile(), true, "comments: import2");
     }
 
     @Test
-    public void testcomments_j_testlocalvariabledecl_fct_local_variable_diff_names_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testlocalvariabledecl_fct_local_variable_diff_names.b314", testFolder.newFile(), true, "comments: j_testlocalvariabledecl_fct_local_variable_diff_names");
+    public void testcomments_import3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/import3.b314", testFolder.newFile(), true, "comments: import3");
     }
 
     @Test
-    public void testcomments_j_testlocalvariabledecl_fct_local_var_diff_names_than_global_vars_ok_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testlocalvariabledecl_fct_local_var_diff_names_than_global_vars_ok.b314", testFolder.newFile(), true, "comments: j_testlocalvariabledecl_fct_local_var_diff_names_than_global_vars_ok");
+    public void testcomments_j_testboolexpressions_check_global_var_is_initilized_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_check_global_var_is_initilized.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_check_global_var_is_initilized");
     }
 
     @Test
-    public void testcomments_j_testlocalvariabledecl_while_local_var_same_names_and_different_types_than_global_vars_ok_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testlocalvariabledecl_while_local_var_same_names_and_different_types_than_global_vars_ok.b314", testFolder.newFile(), true, "comments: j_testlocalvariabledecl_while_local_var_same_names_and_different_types_than_global_vars_ok");
+    public void testcomments_j_testboolexpressions_constant_values_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_constant_values.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_constant_values");
+    }
+
+    @Test
+    public void testcomments_j_testboolexpressions_environment_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_environment_var.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_environment_var");
+    }
+
+    @Test
+    public void testcomments_j_testboolexpressions_operations_only_env_vars_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testboolexpressions_operations_only_env_vars.b314", testFolder.newFile(), true, "comments: j_testboolexpressions_operations_only_env_vars");
+    }
+
+    @Test
+    public void testcomments_j_testfunctions_factorial_recursive_call_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testfunctions_factorial_recursive_call.b314", testFolder.newFile(), true, "comments: j_testfunctions_factorial_recursive_call");
+    }
+
+    @Test
+    public void testcomments_j_testfunctions_multiple_global_vars_and_functions_no_local_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testfunctions_multiple_global_vars_and_functions_no_local_var.b314", testFolder.newFile(), true, "comments: j_testfunctions_multiple_global_vars_and_functions_no_local_var");
+    }
+
+    @Test
+    public void testcomments_j_testfunctions_one_int_function_no_local_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testfunctions_one_int_function_no_local_var.b314", testFolder.newFile(), true, "comments: j_testfunctions_one_int_function_no_local_var");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_actions_jump_right_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_actions_jump_right.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_actions_jump_right");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_actions_with_dig_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_actions_with_dig.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_actions_with_dig");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_actions_with_only_dig_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_actions_with_only_dig.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_actions_with_only_dig");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_fight_down_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_fight_down.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_fight_down");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_fight_left_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_fight_left.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_fight_left");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_fight_right_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_fight_right.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_fight_right");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_fight_up_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_fight_up.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_fight_up");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_move_down_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_move_down.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_move_down");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_move_left_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_move_left.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_move_left");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_move_right_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_move_right.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_move_right");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_move_up_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_move_up.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_move_up");
+    }
+
+    @Test
+    public void testcomments_j_testnextinstruction_action_use_jump_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_action_use_jump.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_action_use_jump");
     }
 
     @Test
     public void testcomments_j_testwhile_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testwhile.b314", testFolder.newFile(), true, "comments: j_testwhile");
+    }
+
+    @Test
+    public void testcomments_mainprogram1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram1.b314", testFolder.newFile(), true, "comments: mainprogram1");
+    }
+
+    @Test
+    public void testcomments_mainprogram2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram2.b314", testFolder.newFile(), true, "comments: mainprogram2");
+    }
+
+    @Test
+    public void testcomments_mainprogram3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram3.b314", testFolder.newFile(), true, "comments: mainprogram3");
+    }
+
+    @Test
+    public void testcomments_mainprogram4_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram4.b314", testFolder.newFile(), true, "comments: mainprogram4");
+    }
+
+    @Test
+    public void testcomments_mainprogram5_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram5.b314", testFolder.newFile(), true, "comments: mainprogram5");
     }
 
     @Test
@@ -155,6 +305,16 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_structs1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/structs1.b314", testFolder.newFile(), true, "comments: structs1");
+    }
+
+    @Test
+    public void testcomments_structs2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/structs2.b314", testFolder.newFile(), true, "comments: structs2");
+    }
+
+    @Test
     public void testcomments_structs3_SubStructs_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/structs3_SubStructs.b314", testFolder.newFile(), true, "comments: structs3_SubStructs");
     }
@@ -165,8 +325,103 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_structure1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/structure1.b314", testFolder.newFile(), true, "comments: structure1");
+    }
+
+    @Test
+    public void testcomments_testarrays1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testarrays1.b314", testFolder.newFile(), true, "comments: testarrays1");
+    }
+
+    @Test
+    public void testcomments_testarrays2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testarrays2.b314", testFolder.newFile(), true, "comments: testarrays2");
+    }
+
+    @Test
+    public void testcomments_testarrays3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testarrays3.b314", testFolder.newFile(), true, "comments: testarrays3");
+    }
+
+    @Test
+    public void testcomments_testcarte1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcarte1.b314", testFolder.newFile(), true, "comments: testcarte1");
+    }
+
+    @Test
+    public void testcomments_testcarte2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcarte2.b314", testFolder.newFile(), true, "comments: testcarte2");
+    }
+
+    @Test
+    public void testcomments_testcarte3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcarte3.b314", testFolder.newFile(), true, "comments: testcarte3");
+    }
+
+    @Test
+    public void testcomments_testcarte4_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcarte4.b314", testFolder.newFile(), true, "comments: testcarte4");
+    }
+
+    @Test
+    public void testcomments_testcarte5_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcarte5.b314", testFolder.newFile(), true, "comments: testcarte5");
+    }
+
+    @Test
+    public void testcomments_testcomments1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcomments1.b314", testFolder.newFile(), true, "comments: testcomments1");
+    }
+
+    @Test
+    public void testcomments_testcomments2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcomments2.b314", testFolder.newFile(), true, "comments: testcomments2");
+    }
+
+    @Test
+    public void testcomments_testcomments3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcomments3.b314", testFolder.newFile(), true, "comments: testcomments3");
+    }
+
+    @Test
+    public void testcomments_testruleprogramme01_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testruleprogramme01.b314", testFolder.newFile(), true, "comments: testruleprogramme01");
+    }
+
+    @Test
+    public void testcomments_typedef_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/typedef.b314", testFolder.newFile(), true, "comments: typedef");
+    }
+
+    @Test
     public void testcomments_types1_multvars_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/types1_multvars.b314", testFolder.newFile(), true, "comments: types1_multvars");
+    }
+
+    @Test
+    public void testcomments_vardeclaration1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/vardeclaration1.b314", testFolder.newFile(), true, "comments: vardeclaration1");
+    }
+
+    @Test
+    public void testcomments_vardeclaration2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/vardeclaration2.b314", testFolder.newFile(), true, "comments: vardeclaration2");
+    }
+
+    @Test
+    public void testcomments_varScopes1_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/varScopes1.b314", testFolder.newFile(), true, "comments: varScopes1");
+    }
+
+    @Test
+    public void testcomments_varScopes2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/varScopes2.b314", testFolder.newFile(), true, "comments: varScopes2");
+    }
+
+    @Test
+    public void testcomments_varScopes3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/varScopes3.b314", testFolder.newFile(), true, "comments: varScopes3");
     }
 
     //
@@ -190,11 +445,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_actions4_WrongTypeCharLeftAction_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/actions4_WrongTypeCharLeftAction.b314", testFolder.newFile(), false, "comments: actions4_WrongTypeCharLeftAction");
-    }
-
-    @Test
-    public void testcomments_aj_testaffectinstruction_affect_env_var_ko_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/aj_testaffectinstruction_affect_env_var_ko.b314", testFolder.newFile(), false, "comments: aj_testaffectinstruction_affect_env_var_ko");
     }
 
     @Test
@@ -248,6 +498,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_exprBool6_main_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprBool6_main.b314", testFolder.newFile(), false, "comments: exprBool6_main");
+    }
+
+    @Test
     public void testcomments_exprEntiere1_Main_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprEntiere1_Main.b314", testFolder.newFile(), false, "comments: exprEntiere1_Main");
     }
@@ -283,11 +538,6 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_function3_wrong_number_args_call_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function3_wrong_number_args_call.b314", testFolder.newFile(), false, "comments: function3_wrong_number_args_call");
-    }
-
-    @Test
     public void testcomments_function4_arg_type_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/function4_arg_type.b314", testFolder.newFile(), false, "comments: function4_arg_type");
     }
@@ -295,11 +545,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_function5_return_type_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/function5_return_type.b314", testFolder.newFile(), false, "comments: function5_return_type");
-    }
-
-    @Test
-    public void testcomments_function5_TypeArgs_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/function5_TypeArgs.b314", testFolder.newFile(), false, "comments: function5_TypeArgs");
     }
 
     @Test
@@ -395,11 +640,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_j_testnextinstruction_action_move_down_ko_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/j_testnextinstruction_action_move_down_ko.b314", testFolder.newFile(), false, "comments: j_testnextinstruction_action_move_down_ko");
-    }
-
-    @Test
-    public void testcomments_j_testwhileinstruction_repeat_wrong_expression_and_condition_ko_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/j_testwhileinstruction_repeat_wrong_expression_and_condition_ko.b314", testFolder.newFile(), false, "comments: j_testwhileinstruction_repeat_wrong_expression_and_condition_ko");
     }
 
     @Test
@@ -525,11 +765,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_testcarte3_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcarte3.b314", testFolder.newFile(), false, "comments: testcarte3");
-    }
-
-    @Test
-    public void testcomments_testcarte3_wrong_param_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcarte3_wrong_param.b314", testFolder.newFile(), false, "comments: testcarte3_wrong_param");
     }
 
     @Test

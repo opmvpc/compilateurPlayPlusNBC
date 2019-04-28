@@ -55,13 +55,13 @@ public class DefTypes extends PlayPlusBaseListener {
 
 //        négation (ex: !x)
         if (ctx.getChildCount() == 2) {
-            System.out.println("$ "+ctx.getText());
+//            System.out.println("Neg Exp bool : "+ctx.getText());
             evalNegBool(ctx);
             return;
         }
 
         if (ctx.getChildCount() >= 3) {
-            System.out.println("$ "+ctx.getText());
+//            System.out.println("Exp bool 3 termes : "+ctx.getText());
             evalExpBool(ctx);
             return;
         }
@@ -69,8 +69,7 @@ public class DefTypes extends PlayPlusBaseListener {
         try {
             Boolean.valueOf(text);
         } catch (Exception e) {
-//            System.out.println("$ "+ctx.getText());
-//            evalExpBool(ctx);
+            System.out.println("Erreur bool : "+ctx.getText());
         }
 
         String type ="bool";
@@ -106,7 +105,7 @@ public class DefTypes extends PlayPlusBaseListener {
 
 //        Expression parenthesée
         if (ctx.getChild(0).getText().equals("(")) {
-            System.out.println("parent bool :"+ ctx.getText());
+//            System.out.println("parent bool :"+ ctx.getText());
             addParentheseExpr(ctx);
             return;
         }
@@ -119,8 +118,10 @@ public class DefTypes extends PlayPlusBaseListener {
         Optional<Expression> rightPart = findExprByText(rightPartName);
 
         if (! leftPart.isPresent() || ! rightPart.isPresent()) {
+            System.out.println("Error , left or right part not in expressions");
             return;
         }
+
         if (leftPart.get().getBuiltInTypeName().equals(rightPart.get().getBuiltInTypeName())) {
             System.out.println("types Ok");
             Expression expr = new Expression(ctx.getText(), "bool", "expr");
@@ -230,12 +231,12 @@ public class DefTypes extends PlayPlusBaseListener {
      * @param ctx
      */
     private void addParentheseExpr(RuleContext ctx) {
-        System.out.println("add parentExp "+ctx.getText());
+//        System.out.println("add parentExp "+ctx.getText());
         String exprText = ctx.getChild(1).getText();
-        System.out.println(exprText);
+//        System.out.println(exprText);
 
         Optional<Expression> expression = findExprByText(exprText);
-        System.out.println("exp : " +expression);
+//        System.out.println("exp : " +expression);
         if (! expression.isPresent()) {
             return;
         }
@@ -269,7 +270,7 @@ public class DefTypes extends PlayPlusBaseListener {
             }
 
             try {
-                System.out.println(ctx.getParent().getParent().getText());
+//                System.out.println(ctx.getParent().getParent().getText());
                 PlayPlusParser.FuncDeclContext parentFunction = (PlayPlusParser.FuncDeclContext) ctx.getParent().getParent();
                 System.out.println(parentFunction.ID().getText());
                 Optional<Expression> functExpr = findExprByText(parentFunction.ID().getText());
@@ -406,7 +407,7 @@ public class DefTypes extends PlayPlusBaseListener {
      */
     private void arrayAffectExpression(PlayPlusParser.AffectInstrContext ctx) {
         String varName = ctx.exprG().getText();
-        System.out.println("arrayAffect exprD "+ctx.exprD().getText());
+//        System.out.println("arrayAffect exprD "+ctx.exprD().getText());
         Boolean isAssigned = true;
 
         Optional<Expression> result = this.expressions.stream()
@@ -443,7 +444,6 @@ public class DefTypes extends PlayPlusBaseListener {
 //        System.out.println("Result var" + result);
     }
 
-
     @Override
     /**
      * Ajoute des caracteres à la table
@@ -455,6 +455,14 @@ public class DefTypes extends PlayPlusBaseListener {
 
         Expression expr = new Expression(text, type, symbolType);
         addExpr(expr);
+    }
+
+    @Override
+    public void exitBoolVal(PlayPlusParser.BoolValContext ctx) {
+        if (ctx.TRUE() != null || ctx.FALSE() != null) {
+            Expression expr = new Expression(ctx.getText(), "bool", "expr", true);
+            addExpr(expr);
+        }
     }
 
     @Override
