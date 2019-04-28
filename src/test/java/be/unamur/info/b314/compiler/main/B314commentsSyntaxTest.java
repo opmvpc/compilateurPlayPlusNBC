@@ -30,6 +30,11 @@ public class B314commentsSyntaxTest {
     // Serie comments OK
     //
     @Test
+    public void testcomments_aj_testfunctions_one_void_function_no_local_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/aj_testfunctions_one_void_function_no_local_var.b314", testFolder.newFile(), true, "comments: aj_testfunctions_one_void_function_no_local_var");
+    }
+
+    @Test
     public void testcomments_aj_testlocalvariabledecl_while_local_var_same_names_and_different_types_than_global_vars_condition_on_global_vars_in_main_ok_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/aj_testlocalvariabledecl_while_local_var_same_names_and_different_types_than_global_vars_condition_on_global_vars_in_main_ok.b314", testFolder.newFile(), true, "comments: aj_testlocalvariabledecl_while_local_var_same_names_and_different_types_than_global_vars_condition_on_global_vars_in_main_ok");
     }

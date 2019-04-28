@@ -151,7 +151,12 @@ public class CheckTypes extends PlayPlusBaseListener {
 
         String typeRet= ctx.returnInstr().getChild(1).getText();
 
-        System.out.println("Return instruction " + typeRet);
+      //  System.out.println("Return instruction " + typeRet);// Erreur lorsque  void
+        if (typeRet.equals("void") && expr.get().getBuiltInTypeName().equals(typeRet)){
+               // errors.badTypeError.add("Error avec le type de retour de la fonction " + text + " recu " + typeRet);
+                return;
+        }
+
         Optional<Expression>  exprRet = findExprByTextParent(typeRet,text);
 
         if (!expr.get().getBuiltInTypeName().equals(exprRet.get().getBuiltInTypeName())) {
@@ -198,7 +203,7 @@ public class CheckTypes extends PlayPlusBaseListener {
         long args = this.expressions.stream()
                 .filter(x ->  x.getSymbolTypeName().equals("argument") && x.getParent().getText().equals(parent))
                 .count();
-        System.out.println("args " + args );
+     //   System.out.println("args " + args );
         return args;
     }
 
