@@ -6,6 +6,7 @@ public class Expression {
     private String symbolTypeName;
     private Boolean isAssigned;
     private Expression parent;
+    private int position;
 
     public Expression(String text, String builtInTypeName, String symbolTypeName) {
         this.text = text;
@@ -27,6 +28,14 @@ public class Expression {
         this.isAssigned = isAssigned;
         this.parent = parent;
     }
+    public Expression(String text, String builtInTypeName, String symbolTypeName, Boolean isAssigned, Expression parent , int position) {
+        this.text = text;
+        this.builtInTypeName = builtInTypeName;
+        this.symbolTypeName = symbolTypeName;
+        this.isAssigned = isAssigned;
+        this.parent = parent;
+        this.position = position;
+    }
 
     public String getText() {
         return text;
@@ -46,6 +55,10 @@ public class Expression {
 
     public Expression getParent() {
         return parent;
+    }
+
+    public int getPosition() {
+        return position;
     }
 
     @Override

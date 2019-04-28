@@ -76,6 +76,8 @@ public class DefTypes extends PlayPlusBaseListener {
         String type ="bool";
         String symbolType = "expr";
 
+
+
         Expression expr = new Expression(text, type, symbolType);
         addExpr(expr);
     }
@@ -298,6 +300,10 @@ public class DefTypes extends PlayPlusBaseListener {
 
         Expression expr = new Expression(text, type, symbolType);
         addExpr(expr);
+
+        String ret= ctx.returnInstr().getChild(1).getText();
+
+
     }
 
     @Override
@@ -319,6 +325,37 @@ public class DefTypes extends PlayPlusBaseListener {
     }
 
     @Override
+    public void enterFuncArgs(PlayPlusParser.FuncArgsContext ctx) {
+      //  System.out.println("enterFuncArgs: " + ctx.funcArg().size());
+        int position = 1;
+        Optional<Expression> functExpr = null;
+        try {
+            System.out.println("Parent :" + ctx.getParent().getText());
+            PlayPlusParser.FuncDeclContext parentFunction = (PlayPlusParser.FuncDeclContext) ctx.getParent();
+            System.out.println(parentFunction.ID().getText());
+
+            functExpr = findExprByText(parentFunction.ID().getText());
+           // System.out.println("functExpr " + functExpr.get());
+        } catch (ClassCastException e) {
+            //System.out.println("Pas une fonction");
+        }
+        // On va chercher l'appel de la fonction ainsi que les arguments et leurs nombres
+        Iterator vars = ctx.funcArg().listIterator();
+        while (vars.hasNext()) {
+            System.out.println("");
+            Object var = vars.next();
+            String name = ((PlayPlusParser.FuncArgContext) var).exprG().getText();
+            String type = ((PlayPlusParser.FuncArgContext) var).mytype().getText();
+            String symbolType = "argument";
+            Expression expr = new Expression(name, type, symbolType, false, functExpr.get(), position);
+            addExpr(expr);
+          //  System.out.println("Name " + name + " type: " + type + "position" + position);
+            position++;
+        }
+
+    }
+
+
     /**
      * ajouts d'une expression de reference d'une variable contenue dans une structure
      */
