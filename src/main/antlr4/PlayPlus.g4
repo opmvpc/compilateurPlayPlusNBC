@@ -215,9 +215,12 @@ arrayRef
     : ID LBRACKET firstDimension (COMMA secondDimension)? RBRACKET
     ;
 
-conditionalStmt : IF LPAREN exprBool RPAREN LBRACE statement* RBRACE (ELSE LBRACE statement* RBRACE)? ;
-repeatStmt : REPEAT LPAREN exprEnt RPAREN LBRACE statement* RBRACE ;
-whileStmt : WHILE LPAREN exprBool RPAREN LBRACE statement* RBRACE ;
+conditionalStmt : IF LPAREN boolCondition RPAREN LBRACE statement* RBRACE (ELSE LBRACE statement* RBRACE)? ;
+repeatStmt : REPEAT LPAREN repeatCondition RPAREN LBRACE statement* RBRACE ;
+whileStmt : WHILE LPAREN boolCondition RPAREN LBRACE statement* RBRACE ;
+
+boolCondition : exprBool;
+repeatCondition : exprEnt;
 
 actionType :
     LEFT LPAREN (exprEnt)? RPAREN

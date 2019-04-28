@@ -292,10 +292,29 @@ public class DefTypes extends PlayPlusBaseListener {
 //        System.out.println(ctx.getText());
 
         String text = ctx.ID().getText();
+
         String type = ctx.mytype() == null ? "void" : ctx.mytype().getText();
         String symbolType = "function";
 
         Expression expr = new Expression(text, type, symbolType);
+        addExpr(expr);
+    }
+
+    @Override
+    public void exitFuncCall(PlayPlusParser.FuncCallContext ctx) {
+        System.out.println(ctx.getText());
+        String funcName = ctx.ID().getText();
+
+        Optional<Expression> function = findExprByText(funcName);
+
+        if (! function.isPresent()) {
+            return;
+        }
+
+        String type = function.get().getBuiltInTypeName();
+        String symbolType = "functionCall";
+
+        Expression expr = new Expression(ctx.getText(), type, symbolType);
         addExpr(expr);
     }
 

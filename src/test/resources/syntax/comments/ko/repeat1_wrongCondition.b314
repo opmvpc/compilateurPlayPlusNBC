@@ -1,0 +1,14 @@
+/* My comments */
+
+#import "world.map"
+
+
+void main()
+{
+   repeat('a') {
+   	 left();
+   	 right();
+   }
+   dig();
+ return void;
+}

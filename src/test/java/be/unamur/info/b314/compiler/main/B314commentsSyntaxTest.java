@@ -558,6 +558,16 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_if1_wrongCondition_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/if1_wrongCondition.b314", testFolder.newFile(), false, "comments: if1_wrongCondition");
+    }
+
+    @Test
+    public void testcomments_if2_wrongCondition_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/if2_wrongCondition.b314", testFolder.newFile(), false, "comments: if2_wrongCondition");
+    }
+
+    @Test
     public void testcomments_import1_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/import1.b314", testFolder.newFile(), false, "comments: import1");
     }
@@ -713,6 +723,16 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_repeat1_wrongCondition_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/repeat1_wrongCondition.b314", testFolder.newFile(), false, "comments: repeat1_wrongCondition");
+    }
+
+    @Test
+    public void testcomments_repeat2_wrongCondition_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/repeat2_wrongCondition.b314", testFolder.newFile(), false, "comments: repeat2_wrongCondition");
+    }
+
+    @Test
     public void testcomments_structs3_WrongSubStructsCall_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/structs3_WrongSubStructsCall.b314", testFolder.newFile(), false, "comments: structs3_WrongSubStructsCall");
     }
@@ -790,6 +810,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_varScopes2_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/varScopes2.b314", testFolder.newFile(), false, "comments: varScopes2");
+    }
+
+    @Test
+    public void testcomments_while1_wrongCondition_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/while1_wrongCondition.b314", testFolder.newFile(), false, "comments: while1_wrongCondition");
     }
 
 }

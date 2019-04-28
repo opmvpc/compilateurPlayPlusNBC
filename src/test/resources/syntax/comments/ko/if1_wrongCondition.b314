@@ -1,0 +1,21 @@
+/* My comments */
+
+#import "world.map"
+
+
+    char f1;
+    char fct1()
+    {
+     f1 = 'w';
+     return f1;
+    }
+
+void main()
+{
+   if(fct1() == 2) {
+   	 left();
+   	 right();
+   }
+   dig();
+ return void;
+}

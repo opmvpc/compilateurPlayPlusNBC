@@ -1,0 +1,15 @@
+/* My comments */
+
+#import "world.map"
+
+
+void main()
+{
+    bool a = false;
+    repeat(a) {
+        left();
+        right();
+    }
+   dig();
+ return void;
+}

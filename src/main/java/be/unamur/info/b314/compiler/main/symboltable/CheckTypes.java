@@ -38,23 +38,23 @@ public class CheckTypes extends PlayPlusBaseListener {
 
     private Optional<Expression> findExprArrayByText(String expText, RuleContext ctx) {
         try {
-            System.out.println("FUNCTION : "+ctx.getParent().getParent().getParent().getText());
+//            System.out.println("FUNCTION : "+ctx.getParent().getParent().getParent().getText());
             PlayPlusParser.FuncDeclContext parentFunction = (PlayPlusParser.FuncDeclContext) ctx.getParent().getParent().getParent();
-            System.out.println("FUNCTION ID : "+parentFunction.ID().getText());
+//            System.out.println("FUNCTION ID : "+parentFunction.ID().getText());
             Optional<Expression> functExpr = findExprByText(parentFunction.ID().getText());
-            System.out.println("FUNCTION EXPR : "+functExpr.get());
+//            System.out.println("FUNCTION EXPR : "+functExpr.get());
 
             Optional<Expression> expression = this.expressions.stream()
                     .filter(x -> x.getParent() != null && x.getParent().getText().equals(functExpr.get().getText()) && ctx.getChild(0).getText().equals(x.getText()))
                     .findFirst();
 
             if (expression.isPresent()){
-                System.out.println("Expr Local : "+ expression.get().getText());
+//                System.out.println("Expr Local : "+ expression.get().getText());
                 return expression;
             }
 
         } catch (ClassCastException e) {
-            System.out.println("Pas une fonction");
+//            System.out.println("Pas une fonction");
         }
 
         String finalExpText = expText;
@@ -65,7 +65,7 @@ public class CheckTypes extends PlayPlusBaseListener {
         if (!expression.isPresent()) { // Si on ne la  trouve pas directement on va voir si ce n'est pas un tableau
             if (expText.contains("[")) {
                 expText = StringUtils.substringBefore(expText,"[");
-                System.out.println("expText" + expText);
+//                System.out.println("expText" + expText);
 
             String finalExpText1 = expText;
             expression = this.expressions.stream()
@@ -74,7 +74,7 @@ public class CheckTypes extends PlayPlusBaseListener {
             }else{
                 // Maybe c'est une expression  on va chercher juste la 1ére valeur  vu que le reste est deja calculé dans ExprEnt ou Bool
                 expText =StringUtils.substringBefore(expText,"+");
-                System.out.println("exprG: " + StringUtils.substringBefore(expText,"+-*/"));
+//                System.out.println("exprG: " + StringUtils.substringBefore(expText,"+-*/"));
                 expression = findExprByText(expText);
             }
         }
@@ -87,7 +87,7 @@ public class CheckTypes extends PlayPlusBaseListener {
     }
 
     private void evalAFFECT(PlayPlusParser.AffectInstrContext ctx) {
-        System.out.println("AFFECT : "+ctx.getText());
+//        System.out.println("AFFECT : "+ctx.getText());
         if (ctx.getChildCount() < 3) {
             return;
         }
@@ -98,14 +98,14 @@ public class CheckTypes extends PlayPlusBaseListener {
         Optional<Expression> leftPart = findExprArrayByText(leftPartName, ctx);
         Optional<Expression> rightPart = findExprArrayByText(rightPartName, ctx);
 
-        System.out.println(leftPartName + " : leftPart " + leftPart.toString());
-        System.out.println(rightPartName + " : rightPart " + rightPart.toString());
+//        System.out.println(leftPartName + " : leftPart " + leftPart.toString());
+//        System.out.println(rightPartName + " : rightPart " + rightPart.toString());
 
         if (! leftPart.isPresent() || ! rightPart.isPresent()) {
             return;
         }
         if (leftPart.get().getBuiltInTypeName().equals(rightPart.get().getBuiltInTypeName())) {
-            System.out.println("types Ok");
+//            System.out.println("types Ok");
         } else {
             errors.badTypeError.add("Error Types Affectation in"+ ctx.getText() +" : Les types des variables suivantes sont imcompatibles : "+leftPart.get().getText()+" et "+rightPart.get().getText());
         }
@@ -212,7 +212,7 @@ public class CheckTypes extends PlayPlusBaseListener {
         System.out.println("");
     }
 
-   private Symbol getFunc(String funName){
+    private Symbol getFunc(String funName){
         Scope currentScope = this.symTable.getCurrentScope();
         Symbol func = resolveSymbolRec(funName, currentScope);
         if (func == null) {
@@ -236,5 +236,31 @@ public class CheckTypes extends PlayPlusBaseListener {
         }
 
         return resolveSymbolRec(name, currentScope.getEnclosingScope());
+    }
+
+    @Override
+    public void exitWhileStmt(PlayPlusParser.WhileStmtContext ctx) {
+        System.out.println(ctx.getText());
+        String conditionText = ctx.boolCondition().getText();
+        checkBoolConditionType(conditionText);
+    }
+
+    @Override
+    public void exitConditionalStmt(PlayPlusParser.ConditionalStmtContext ctx) {
+        System.out.println(ctx.getText());
+        String conditionText = ctx.boolCondition().getText();
+        checkBoolConditionType(conditionText);
+    }
+
+    private void checkBoolConditionType(String conditionText) {
+        Optional<Expression> condition = findExprByText(conditionText);
+
+        if (! condition.isPresent()) {
+            return;
+        }
+
+        if (! condition.get().getBuiltInTypeName().equals("bool")) {
+            errors.badTypeError.add("ERROR while condition in "+conditionText+" n'est pas une expression booléenne");
+        }
     }
 }
