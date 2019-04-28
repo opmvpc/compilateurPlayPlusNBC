@@ -5,7 +5,8 @@
 
 void main()
 {
-   if(2) {
+    char a = 'a';
+   if(a) {
    	 left();
    	 right();
    }

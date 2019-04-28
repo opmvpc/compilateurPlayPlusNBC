@@ -240,27 +240,52 @@ public class CheckTypes extends PlayPlusBaseListener {
 
     @Override
     public void exitWhileStmt(PlayPlusParser.WhileStmtContext ctx) {
-        System.out.println(ctx.getText());
+//        System.out.println(ctx.getText());
         String conditionText = ctx.boolCondition().getText();
-        checkBoolConditionType(conditionText);
+        if (isBoolCondition(conditionText)) {
+            errors.badTypeError.add("ERROR WHILE condition in "+conditionText+" n'est pas une expression booléenne");
+        }
     }
 
     @Override
     public void exitConditionalStmt(PlayPlusParser.ConditionalStmtContext ctx) {
-        System.out.println(ctx.getText());
+//        System.out.println(ctx.getText());
         String conditionText = ctx.boolCondition().getText();
-        checkBoolConditionType(conditionText);
+        if (isBoolCondition(conditionText)) {
+            errors.badTypeError.add("ERROR IF condition in "+conditionText+" n'est pas une expression booléenne");
+        }
     }
 
-    private void checkBoolConditionType(String conditionText) {
+    private boolean isBoolCondition(String conditionText) {
+        Optional<Expression> condition = findExprByText(conditionText);
+
+        if (! condition.isPresent()) {
+            return false;
+        }
+
+        if (! condition.get().getBuiltInTypeName().equals("bool")) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void exitRepeatStmt(PlayPlusParser.RepeatStmtContext ctx) {
+        System.out.println(ctx.getText());
+        String conditionText = ctx.repeatCondition().getText();
+        checkIntConditionType(conditionText);
+    }
+
+    private void checkIntConditionType(String conditionText) {
         Optional<Expression> condition = findExprByText(conditionText);
 
         if (! condition.isPresent()) {
             return;
         }
 
-        if (! condition.get().getBuiltInTypeName().equals("bool")) {
-            errors.badTypeError.add("ERROR while condition in "+conditionText+" n'est pas une expression booléenne");
+        if (! condition.get().getBuiltInTypeName().equals("int")) {
+            errors.badTypeError.add("ERROR Repeat condition in "+conditionText+" n'est pas une expression entière");
         }
     }
 }
