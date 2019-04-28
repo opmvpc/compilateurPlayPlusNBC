@@ -170,6 +170,7 @@ public class CheckTypes extends PlayPlusBaseListener {
         int nbArgs = 0;
 
         Optional<Expression> funExpr = findExprByText(funName);
+        long  size =countArgumentFonct(funName) ;
 
         // On va chercher l'appel de la fonction ainsi que les arguments et leurs nombres
         Iterator vars = ctx.funcCallArgs().funcCallArg().listIterator();
@@ -181,11 +182,11 @@ public class CheckTypes extends PlayPlusBaseListener {
 
             if (varName.length() != 0) { // Si la chaine au bout est vide, car il crée l'arborescence meme s'il n'y a pas de parametre
                 nbArgs++;
-                checkArgsFunctCall(varName, val,nbArgs);
+                checkArgsFunctCall(varName, nbArgs);
             }
         }
 
-        long  size =countArgumentFonct(funName) ;
+
         if (size!= nbArgs) {
             this.errors.functionError.add("Le nombre de paramètres de la fonction " + nbArgs + " ne corresponde pas à ceux de la déclaration (" + size + ")");
             return;
@@ -201,17 +202,29 @@ public class CheckTypes extends PlayPlusBaseListener {
         return args;
     }
 
-    private void checkArgsFunctCall(String argNameCall,String argNameDecl, int pos) {
+    private void checkArgsFunctCall(String argNameCall, int pos) {
         // essayer de faire un getType sur la valeur qu'on recoit
+        //System.out.println("argNameCall " + argNameCall );
 
         Optional<Expression> resultArgs = findExprByTextAndSymbolType(argNameCall,"expr");
         // on check les types des arguments de la fonction
 
        // Optional<Expression> argFunc = findExprByTextAndSymbolType(argNameDecl,"argument");
 
+        if (! resultArgs.isPresent()) {
+            this.errors.badTypeError.add("APPEL DE FONCTION (def): not find arguments");
+            return;
+        }
+
         Optional<Expression> argFunc = this.expressions.stream()
                 .filter(x -> x.getSymbolTypeName().equals("argument") && x.getPosition()== pos)
                 .findFirst();
+
+        if (! argFunc.isPresent()) {
+            this.errors.badTypeError.add("APPEL DE FONCTION (call) : not find arguments");
+            return;
+        }
+
 
         System.out.println("Argument " + argFunc.toString());
         System.out.println("Argument call  " + resultArgs.toString());
