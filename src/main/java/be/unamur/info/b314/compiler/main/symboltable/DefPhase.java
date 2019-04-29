@@ -138,19 +138,6 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
         defineFunctArg(varName, varTypeName);
     }
 
-//    sans doute pas besoin
-//    @Override
-//    public void enterLocalDecl(PlayPlusParser.LocalDeclContext ctx) {
-//        LocalScope scope = ((FunctionSymbol) this.symTable.getCurrentScope()).getBody();
-//        System.out.println();
-//        this.symTable.setCurrentScope(scope);
-//    }
-//
-//    @Override
-//    public void exitLocalDecl(PlayPlusParser.LocalDeclContext ctx) {
-//        this.symTable.setCurrentScopeToEnclosingOne();
-//    }
-
     @Override
     public void exitFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
 //        System.out.println(this.symTable.getCurrentScope());
@@ -223,6 +210,17 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
         String constTypeName = ctx.mytype().getText();
         String varName = ctx.ID().get(0).getText();
         defineConstante(varName, constTypeName);
+    }
+
+    @Override
+    public void enterMainProgram(PlayPlusParser.MainProgramContext ctx) {
+        FunctionSymbol function = defineFunction("main", "void");
+        this.symTable.saveScope(ctx, function);
+    }
+
+    @Override
+    public void exitMainProgram(PlayPlusParser.MainProgramContext ctx) {
+        this.symTable.setCurrentScopeToEnclosingOne();
     }
 
 }

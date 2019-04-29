@@ -38,16 +38,17 @@ public class CheckNamingConventions {
                 System.out.println(globalVarName);
                 globalScope.forEach((k2, funct) -> {
                     if (funct instanceof FunctionSymbol){
-                        Symbol localVar = ((FunctionSymbol) funct).getBody().resolve(globalVarName);
-                        if (localVar != null) {
-                            if (!localVar.getType().getName().equals(((VariableSymbol) globalVar).getType().getName())){
-                                System.out.println(localVar.getType().getName().equals(((VariableSymbol) globalVar).getType().getName()));
-                            } else {
-                                this.errors.badNameError.add("Le nom de la variable locale:" +
-                                        ((VariableSymbol) globalVar).getNiceName() +
-                                        " est déjà utilisé par une variable globale");
+                        if (!((FunctionSymbol) funct).getScopeName().equals("main_FunctionSymbol")) {
+                            Symbol localVar = ((FunctionSymbol) funct).getBody().resolve(globalVarName);
+                            if (localVar != null) {
+                                if (!localVar.getType().getName().equals(((VariableSymbol) globalVar).getType().getName())){
+                                    System.out.println(localVar.getType().getName().equals(((VariableSymbol) globalVar).getType().getName()));
+                                } else {
+                                    this.errors.badNameError.add("Le nom de la variable locale:" +
+                                            ((VariableSymbol) globalVar).getNiceName() +
+                                            " est déjà utilisé par une variable globale");
+                                }
                             }
-
                         }
                     }
                 });
