@@ -27,9 +27,9 @@ public class DefPhase extends PlayPlusBaseListener implements Filler {
 
         Scope currentScope = symTable.getCurrentScope();
         if (currentScope.getEnclosingScope() == null) {
-            if (currentScope.resolve(SymbolNamesHelper.generateName("VariableSymbol", varName)) != null) {
-                errors.badNameError.add("Deux variables globales ne peuvent pas porter le même nom");
-            }
+//            if (currentScope.resolve(SymbolNamesHelper.generateName("VariableSymbol", varName)) != null) {
+//                errors.badNameError.add("Deux variables globales ne peuvent pas porter le même nom");
+//            }
         } else {
             if (currentScope instanceof FunctionSymbol) {
                 if (((FunctionSymbol) currentScope).getBody().resolve(SymbolNamesHelper.generateName("VariableSymbol", varName)) != null) {

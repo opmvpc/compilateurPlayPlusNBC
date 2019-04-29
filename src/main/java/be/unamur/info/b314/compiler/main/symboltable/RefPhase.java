@@ -33,7 +33,17 @@ public class RefPhase extends PlayPlusBaseListener {
 
     @Override
     public void exitFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
-        this.symTable.setCurrentScope(this.symTable.getCurrentScope().getEnclosingScope());
+        this.symTable.setCurrentScopeToEnclosingOne();
+    }
+
+    @Override
+    public void enterMainProgram(PlayPlusParser.MainProgramContext ctx) {
+        this.symTable.setCurrentScope((Scope) this.symTable.getScopes().get(ctx));
+    }
+
+    @Override
+    public void exitMainProgram(PlayPlusParser.MainProgramContext ctx) {
+        this.symTable.setCurrentScopeToEnclosingOne();
     }
 
     @Override

@@ -105,6 +105,25 @@ public class CheckTypes extends PlayPlusBaseListener {
 //            System.out.println("Pas une fonction");
         }
 
+//        MAIN
+        try {
+//            System.out.println("MAIN VAR = "+expText);
+            System.out.println("CLASS = "+ctx.getParent().getParent().getParent().getClass().getSimpleName());
+            PlayPlusParser.MainProgramContext scope = (PlayPlusParser.MainProgramContext) ctx.getParent().getParent().getParent();
+            String varText = expText;
+            System.out.println("MAIN VAR = "+expText);
+            Optional<Expression> expression =  this.expressions.stream()
+                    .filter(x -> x.getParent() == null && x.getText().equals(varText) && ! x.getSymbolTypeName().contains("func"))
+                    .findFirst();
+
+            if (expression.isPresent()){
+                return expression;
+            }
+
+        } catch (ClassCastException e) {
+            System.out.println("Pas le main");
+        }
+
         String finalExpText = expText;
         Optional<Expression> expression = this.expressions.stream()
                 .filter(x -> x.getText().equals(finalExpText))
