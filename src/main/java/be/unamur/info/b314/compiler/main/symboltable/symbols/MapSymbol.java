@@ -6,28 +6,34 @@ import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 public class MapSymbol extends Symbol {
     private char[][] carte;
 
-    public MapSymbol(String name, char[][] carte) {
-        super(name);
-        this.carte = carte;
-    }
-
-    public MapSymbol(String name, Type type, char[][] carte) {
-        super(name, type);
-        this.carte = carte;
-    }
-
+    /**
+     * Constructeur
+     * @param name
+     * @param type
+     */
     public MapSymbol(String name, Type type) {
         super(name, type);
     }
 
+    /**
+     *
+     * @return carte
+     */
     public char[][] getCarte() {
         return carte;
     }
 
-    public String isvalidParamMap(String mapX, String mapY, String line) {
+    /**
+     *
+     * @param mapX Coordonnées 1 du tableau
+     * @param mapY Coordonnées 1 du tableau
+     * @param line tous les elements à mettre dans le tableau
+     * @return un boolean un true pour dire si les coordonnées de la Map sont valides
+     */
+    private String isvalidParamMap(String mapX, String mapY, String line) {
         int x = 0;
         int y = 0;
-        String typeError = null;
+        String typeError;
         try {
             x = Integer.parseInt(mapX);
             y = Integer.parseInt(mapY);
@@ -36,7 +42,6 @@ public class MapSymbol extends Symbol {
         }
         if (x <= 0 || y <= 0) {
             typeError = "Les coordonées du tableau sont invalides X:" + x + " ou Y: " + y;
-            //     this.errors.mapError.add("La configuration de la carte est incorrect : Plusieurs Cody ");
             return typeError;
         } else if ((x * y) != line.length()) {
             typeError = "Les coordonées ne correspondent pas à la taille du tableauX:" + x + "-Y:" + y;
@@ -45,11 +50,19 @@ public class MapSymbol extends Symbol {
 
         return null;
     }
+
+    /**
+     * Création d'un tableau à deux dimensions représentant  la carte de jeu
+     * @param mapX Coordonnées 1 du tableau
+     * @param mapY Coordonnées 1 du tableau
+     * @param line tous les éléments à mettre dans le tableau
+     * @return null si la carte a été créer sinon retourne un message d'erreur
+     */
     public String createCarte(String mapX, String mapY, String line) {
         String typeError = isvalidParamMap(mapX, mapY, line);
         if (typeError == null) {
-            Integer x = Integer.parseInt(mapX);
-            Integer y = Integer.parseInt(mapY);
+            int x = Integer.parseInt(mapX);
+            int y = Integer.parseInt(mapY);
             carte = new char[x][y];
             int z = 0;
             while (z < line.length()) {
@@ -64,6 +77,10 @@ public class MapSymbol extends Symbol {
         return typeError;
     }
 
+    /**
+     *  Vérifie si la config de la cart est correct, si il y a plusieurs Cody ou plusieurs trésors  on renvoi un message contenant le texte d'erreur
+     * @return un message d'erreur ou null si la Config est correct
+     */
     public String isMapConfigCorrect() {
         String typeError = null;
         int nbCody = 0;
@@ -92,7 +109,11 @@ public class MapSymbol extends Symbol {
         return typeError;
     }
 
-    public String afficheCarte() {
+    /**
+     *
+     * @return un String contenant la carte à afficher
+     */
+    private String afficheCarte() {
         String maps = "\n\t";
         if (carte != null) {
             for (int i = 0; i < carte.length; i++) {

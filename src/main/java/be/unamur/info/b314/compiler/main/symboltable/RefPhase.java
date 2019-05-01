@@ -176,7 +176,11 @@ public class RefPhase extends PlayPlusBaseListener {
         return symbol;
     }
 
-
+    /**
+     *  Vérifie si la Map existe dans la table des symboles
+     * @param mapName
+     * @return un MapSymbol representant la Map
+     */
 
     private Symbol resolveMap(String mapName){
         mapName = SymbolNamesHelper.generateName("MapSymbol",mapName);
@@ -200,10 +204,13 @@ public class RefPhase extends PlayPlusBaseListener {
 
         this.symTable.setCurrentScope(this.symTable.getCurrentScope().getEnclosingScope());
 
-//        System.out.println(errors.toString());
     }
 
-
+    /**
+     * Vérifife si le nom de la constante existe dans la table des symboles
+     * @param constName le nom de la constante
+     * @throws SymbolNotFoundException
+     */
     private void resolveConst(String constName) throws SymbolNotFoundException {
         constName = SymbolNamesHelper.generateName("ConstanteSymbol", constName);
         Symbol consts = resolveSymbolRec(constName, this.symTable.getCurrentScope());

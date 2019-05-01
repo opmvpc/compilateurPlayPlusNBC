@@ -13,6 +13,9 @@ public class SymbolTable {
     private GlobalScope globals;
     private Scope currentScope;
 
+    /**
+     * Constructeur de la table des symboles
+     */
     public SymbolTable() {
         this.scopes = new ParseTreeProperty<>();
         this.globals = new GlobalScope(null);
@@ -31,26 +34,51 @@ public class SymbolTable {
         return globals;
     }
 
+    /**
+     *
+     * @return currentScope
+     */
     public Scope getCurrentScope() {
         return currentScope;
     }
 
+    /**
+     * met dans le currentScope l'enclosing Scope
+     */
     public void setCurrentScopeToEnclosingOne() {
         this.currentScope = this.getCurrentScope().getEnclosingScope();
     }
 
+    /**
+     * On remplace le currentScope par celui reçu en paramètre
+     * @param currentScope
+     */
     public void setCurrentScope(Scope currentScope) {
         this.currentScope = currentScope;
     }
 
+    /**
+     *
+     * @param symbol
+     */
     public void define(Symbol symbol) {
         this.currentScope.define(symbol);
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public Symbol getType(String name) {
         return this.getGlobals().resolve(name);
     }
 
+    /**
+     * Sauvegarde le scope dans la table des symboles
+     * @param ctx
+     * @param scope
+     */
     public void saveScope(RuleContext ctx, ScopedSymbol scope) {
         this.scopes.put(ctx, scope);
     }

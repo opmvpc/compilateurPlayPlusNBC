@@ -4,17 +4,11 @@ import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
-import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
-import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
-import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
 import org.antlr.v4.runtime.RuleContext;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Optional;
 
 public class CheckTypes extends PlayPlusBaseListener {
@@ -22,12 +16,23 @@ public class CheckTypes extends PlayPlusBaseListener {
     private ArrayList<Expression> expressions;
     private Errors errors;
 
+    /**
+     * Constructeur
+     * @param symTable la table des symboles
+     * @param expressions la table des expressions
+     * @param errors les erreurs
+     */
     public CheckTypes(SymbolTable symTable, ArrayList expressions, Errors errors) {
         this.symTable = symTable;
         this.expressions = expressions;
         this.errors = errors;
     }
 
+    /**
+     *  Recherche dans la table des symboles une expression à partir de son nom
+     * @param expText le nom de l'expression
+     * @return une Expression
+     */
     private Optional<Expression> findExprByText(String expText) {
         Optional<Expression> expression = this.expressions.stream()
                 .filter(x -> x.getText().equals(expText))
@@ -37,9 +42,9 @@ public class CheckTypes extends PlayPlusBaseListener {
     }
 
     /**
-     *
+     * Cherche une expression en fonction de son texte et de son parent s'il existe
      * @param expText
-     * @param parent
+     * @param parent de l'expression
      * @return expression
      */
     private Optional<Expression> findExprByTextParent(String expText, String parent) {
@@ -56,10 +61,10 @@ public class CheckTypes extends PlayPlusBaseListener {
     }
 
     /**
-     *
-     * @param expText
-     * @param type
-     * @return
+     * Recherche d'une expression à partir de son texte et de son type
+     * @param expText  texte de l'expression
+     * @param type SymbolTypeName
+     * @return une expression
      */
     private Optional<Expression> findExprByTextAndSymbolType(String expText, String type) {
         Optional<Expression> expression = this.expressions.stream()
@@ -71,10 +76,10 @@ public class CheckTypes extends PlayPlusBaseListener {
 
     /**
      * Renvoi une expression à partir du symbolTypeName, de la position et du parent , est utilisé pour les arguments
-     * @param symboltype
-     * @param position
-     * @param parent
-     * @return
+     * @param symboltype type du symbole
+     * @param position position de l'argument de la fonction dans l'appel
+     * @param parent nom de la fonction parent
+     * @return une expression
      */
   private Optional<Expression> findExprByTextAndSymbolType(String symboltype, int position , String parent) {
     Optional<Expression> expression =  this.expressions.stream()
@@ -84,6 +89,12 @@ public class CheckTypes extends PlayPlusBaseListener {
     return expression;
 }
 
+    /**
+     * Recherche une expression à partir de son nom et du contexte
+     * @param expText nom du symbole
+     * @param ctx contexte du symbole
+     * @return une expression
+     */
     private Optional<Expression> findExprArrayByText(String expText, RuleContext ctx) {
         try {
 //            System.out.println("FUNCTION : "+ctx.getParent().getParent().getParent().getText());
@@ -158,6 +169,10 @@ public class CheckTypes extends PlayPlusBaseListener {
         evalAFFECT(ctx);
     }
 
+    /**
+     * Vérifie s'il n'y a pas d'erreur de type dans une affectation
+     * @param ctx AffectInstrContext
+     */
     private void evalAFFECT(PlayPlusParser.AffectInstrContext ctx) {
 //        System.out.println("AFFECT : "+ctx.getText());
         if (ctx.getChildCount() < 3) {
@@ -209,22 +224,23 @@ public class CheckTypes extends PlayPlusBaseListener {
         checknbArgsFunctCall(ctx);
     }
 
+    /**
+     * Verifie que le nombre d'arguments recu est correct et decompose ces arguments pour vérifier qu'il sont corrects
+     * @param ctx FuncCallContext
+     */
     private void checknbArgsFunctCall(PlayPlusParser.FuncCallContext ctx) {
         String funName =ctx.ID().getText();// SymbolNamesHelper.generateName("FunctionSymbol", ctx.ID().getText());
         int nbArgs = 0;
 
         Optional<Expression> funExpr = findExprByText(funName);
-        System.out.println("funName" + funName + "funExpression" + funExpr.toString());
         if (funExpr.isPresent()) {
-            System.out.println("funName" + funName);
+
             long size = countArgumentFonct(funName);
             // On va chercher l'appel de la fonction ainsi que les arguments et leurs nombres
             Iterator vars = ctx.funcCallArgs().funcCallArg().listIterator();
             while (vars.hasNext()) {
-                System.out.println("");
                 Object var = vars.next();
-                //String varName = ((PlayPlusParser.FuncCallArgContext) var).exprD().children.get(0).getText();
-                String varName = ((PlayPlusParser.FuncCallArgContext) var).exprD().getText();
+                 String varName = ((PlayPlusParser.FuncCallArgContext) var).exprD().getText();
                 String val = ((PlayPlusParser.FuncCallArgContext) var).exprD().getText();
 
                 if (varName.length() != 0) { // Si la chaine au bout est vide, car il crée l'arborescence meme s'il n'y a pas de parametre
@@ -233,8 +249,7 @@ public class CheckTypes extends PlayPlusBaseListener {
                 }
             }
 
-
-            if (size != nbArgs) {
+          if (size != nbArgs) {
                 this.errors.functionError.add("Le nombre de paramètres " + nbArgs + " de la fonction  "+  funName + " ne corresponde pas à ceux de la déclaration (" + size + ")");
                 return;
             }
@@ -246,23 +261,27 @@ public class CheckTypes extends PlayPlusBaseListener {
         System.out.println("");
     }
 
+    /**
+     *
+     * @param parent nom de la fonction
+     * @return le nombre d'argument de la fonction parent
+     */
     private long countArgumentFonct(String parent) {
         long args = this.expressions.stream()
                 .filter(x ->  x.getSymbolTypeName().equals("argument") && x.getParent().getText().equals(parent))
                 .count();
-     //   System.out.println("args " + args );
         return args;
     }
 
     /**
      * Comparaison entre un argument reçu en paramètre et l'argument correspondant dans la déclaration de la fonction
-     * @param argNameCall
-     * @param pos
-     * @param funName
+     * @param argNameCall  nom de l'argument de l'appel de fonction
+     * @param pos position dans l'appel
+     * @param funName nom de la fonction parent
      */
     private void checkArgsFunctCall(String argNameCall, int pos , String funName) {
         // essayer de faire un getType sur la valeur qu'on recoit
-        System.out.println("argNameCall " + argNameCall + "funName" + funName);
+        //System.out.println("argNameCall " + argNameCall + "funName" + funName);
 
         Optional<Expression> resultArgsCall = findExprByTextParent(argNameCall,funName);
         if (!resultArgsCall.isPresent()) {
@@ -276,8 +295,8 @@ public class CheckTypes extends PlayPlusBaseListener {
             return;
         }
 
-        System.out.println("Argument " + argFuncDecl.toString());
-        System.out.println("Argument call  " + resultArgsCall.toString());
+      //  System.out.println("Argument " + argFuncDecl.toString());
+       // System.out.println("Argument call  " + resultArgsCall.toString());
 
         // Reste a checker que les types correspondent bien
         if (!argFuncDecl.get().getBuiltInTypeName().equals(resultArgsCall.get().getBuiltInTypeName())) {
@@ -308,6 +327,11 @@ public class CheckTypes extends PlayPlusBaseListener {
         }
     }
 
+    /**
+     *
+     * @param conditionText
+     * @return true si c'est une expression booléenne
+     */
     private boolean isBoolCondition(String conditionText) {
         Optional<Expression> condition = findExprByText(conditionText);
 
@@ -329,6 +353,10 @@ public class CheckTypes extends PlayPlusBaseListener {
         checkIntConditionType(conditionText);
     }
 
+    /**
+     * Vérifie si la condition est une expression entière
+     * @param conditionText
+     */
     private void checkIntConditionType(String conditionText) {
         Optional<Expression> condition = findExprByText(conditionText);
 

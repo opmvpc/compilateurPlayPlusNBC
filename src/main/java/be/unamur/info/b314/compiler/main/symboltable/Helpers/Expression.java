@@ -8,12 +8,25 @@ public class Expression {
     private Expression parent;
     private int position;
 
+    /**
+     * Constructeur
+     * @param text
+     * @param builtInTypeName
+     * @param symbolTypeName
+     */
     public Expression(String text, String builtInTypeName, String symbolTypeName) {
         this.text = text;
         this.builtInTypeName = builtInTypeName;
         this.symbolTypeName = symbolTypeName;
     }
 
+    /**
+     * Constructeur
+     * @param text
+     * @param builtInTypeName
+     * @param symbolTypeName
+     * @param isAssigned
+     */
     public Expression(String text, String builtInTypeName, String symbolTypeName, Boolean isAssigned) {
         this.text = text;
         this.builtInTypeName = builtInTypeName;
@@ -21,6 +34,14 @@ public class Expression {
         this.isAssigned = isAssigned;
     }
 
+    /**
+     *  Constructeur , utilisé pour les symboles ayant un parent comme les paramètres des fonctions
+     * @param text
+     * @param builtInTypeName
+     * @param symbolTypeName
+     * @param isAssigned
+     * @param parent
+     */
     public Expression(String text, String builtInTypeName, String symbolTypeName, Boolean isAssigned, Expression parent) {
         this.text = text;
         this.builtInTypeName = builtInTypeName;
@@ -28,6 +49,16 @@ public class Expression {
         this.isAssigned = isAssigned;
         this.parent = parent;
     }
+
+    /**
+     * Constructeur , utilisé surtout pour les symboles qui ont une position comme les arguments d'une fonction
+     * @param text
+     * @param builtInTypeName
+     * @param symbolTypeName
+     * @param isAssigned
+     * @param parent
+     * @param position
+     */
     public Expression(String text, String builtInTypeName, String symbolTypeName, Boolean isAssigned, Expression parent , int position) {
         this.text = text;
         this.builtInTypeName = builtInTypeName;
@@ -37,26 +68,50 @@ public class Expression {
         this.position = position;
     }
 
+    /**
+     *
+     * @return text , le nom de l'expression
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     *
+     * @return symbolTypeName le type du symbole
+     */
     public String getSymbolTypeName() {
         return symbolTypeName;
     }
 
+    /**
+     *
+     * @return Le type BuiltInTypeName du symbole
+     */
     public String getBuiltInTypeName() {
         return builtInTypeName;
     }
 
+    /**
+     *
+     * @return isAssigned true si le symbole à été assigné
+     */
     public Boolean getIsAssigned() {
         return isAssigned;
     }
 
+    /**
+     *
+     * @return l'expression parent
+     */
     public Expression getParent() {
         return parent;
     }
 
+    /**
+     *
+     * @return la position de l'argument dans une déclaration de fonction
+     */
     public int getPosition() {
         return position;
     }

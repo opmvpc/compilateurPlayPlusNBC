@@ -1,6 +1,7 @@
 package be.unamur.info.b314.compiler.main.symboltable;
 
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
+import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.ConstanteSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
@@ -13,7 +14,7 @@ public class CheckNamingConventions {
     private SymbolTable symTable;
     private Errors errors;
 
-    public CheckNamingConventions(SymbolTable symTable, Errors errors) {
+    public CheckNamingConventions(SymbolTable symTable, Errors errors ) {
         this.symTable = symTable;
         this.errors = errors;
 
@@ -30,12 +31,15 @@ public class CheckNamingConventions {
         checkLocalVarNotGlobalVarName();
     }
 
+    /**
+     * Vérifie si le nom de la variable local est déjà utilisé par une variable globale
+     */
     private void checkLocalVarNotGlobalVarName() {
         HashMap globalScope =  this.symTable.getGlobals().getSymbols();
         globalScope.forEach((k, globalVar) -> {
             if(globalVar instanceof VariableSymbol){
                 String globalVarName = ((VariableSymbol) globalVar).getName();
-                System.out.println(globalVarName);
+                System.out.println("globalVarName "+ globalVarName );
                 globalScope.forEach((k2, funct) -> {
                     if (funct instanceof FunctionSymbol){
                         if (!((FunctionSymbol) funct).getScopeName().equals("main_FunctionSymbol")) {
@@ -56,6 +60,9 @@ public class CheckNamingConventions {
         });
     }
 
+    /**
+     * Vérifie si le nom de la variable est déjà utilisé par une fonction
+     */
     private void checkGlobalVarNames() {
         HashMap globalScope =  this.symTable.getGlobals().getSymbols();
         globalScope.forEach((k, v) -> {
@@ -73,6 +80,9 @@ public class CheckNamingConventions {
         });
     }
 
+    /**
+     *  Vérifie si le nom de la constante est déjà utilisé par une variable
+     */
     private void checkLocalVarNamesNotInArgs() {
         HashMap globalScope = this.symTable.getGlobals().getSymbols();
         globalScope.forEach((k, v) -> {
@@ -89,6 +99,9 @@ public class CheckNamingConventions {
         });
     }
 
+    /**
+     * Vérifie si le nom de la constante est déjà utilisé par une variable ou une autre constante
+     */
     private void checkConstNames() {
         HashMap globalScope = this.symTable.getGlobals().getSymbols();
         globalScope.forEach((k, v) -> {
@@ -111,6 +124,9 @@ public class CheckNamingConventions {
         });
     }
 
+    /**
+     * Vérifie si le nom de la variable dans une fonction est déjà utilisé par un des paramètres de la fonction
+     */
     private void checkLocalVarNames() {
         HashMap globalScope =  this.symTable.getGlobals().getSymbols();
         globalScope.forEach((k, funct) -> {
@@ -130,6 +146,9 @@ public class CheckNamingConventions {
         });
     }
 
+    /**
+     *  Vérifife si la variable locale  à le même nom que la fonction dans laquelle elle est déclarée
+     */
     private void checkLocalVarNameNotFunctName() {
         HashMap globalScope =  this.symTable.getGlobals().getSymbols();
         globalScope.forEach((k, funct) -> {
@@ -145,6 +164,9 @@ public class CheckNamingConventions {
         });
     }
 
+    /**
+     * Vérifife que les arguments d'une fonction n'ont pas le meme nom que la même fonction
+     */
     private void checkArgNameNotFunctName() {
         HashMap globalScope =  this.symTable.getGlobals().getSymbols();
         globalScope.forEach((k, funct) -> {

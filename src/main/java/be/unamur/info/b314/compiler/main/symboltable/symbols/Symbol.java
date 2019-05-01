@@ -35,10 +35,18 @@ public abstract class Symbol {
         return name;
     }
 
+    /**
+     *
+     * @return le nom du symbol sans la concaténation avec le type du symbol
+     */
     public String getNiceName(){
         return SymbolNamesHelper.generateNiceName(name);
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = SymbolNamesHelper.generateName(this.getClass().getSimpleName(),name);
     }
