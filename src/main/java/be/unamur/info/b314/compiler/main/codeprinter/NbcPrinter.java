@@ -27,6 +27,14 @@ public class NbcPrinter extends PlayPlusBaseListener {
         this.templates = new HashMap<>();
         this.templates.put("expressions", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/expressions.stg"));
         this.templates.put("program", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/program.stg"));
+        this.templates.put("actions", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/actions.stg"));
+    }
+
+    @Override
+    public void enterProgram(PlayPlusParser.ProgramContext ctx) {
+        ST st = this.templates.get("actions").getInstanceOf("actiondeclaration");
+        String result = st.render();
+        this.code.append(result+"\n\n");
     }
 
     @Override
@@ -111,5 +119,41 @@ public class NbcPrinter extends PlayPlusBaseListener {
         FileWriter fileWriter = new FileWriter(this.fileName);
         fileWriter.write(this.code.toString());
         fileWriter.close();
+    }
+
+
+    @Override
+    public void enterActionType(PlayPlusParser.ActionTypeContext ctx) {
+        int time = 500;
+        int multiplicateur = 1;
+        String pwr = "100";
+        String actionkeyword = ctx.children.get(0).getText();
+
+        if (ctx.exprEnt() != null){
+            try {
+                multiplicateur = Integer.parseInt(ctx.exprEnt().getText());
+            } catch(Exception exception) {
+               // System.out.println(exception.toString());
+            }
+        }
+
+        time *= multiplicateur;
+
+        if (actionkeyword.equals("dig()")){
+
+            //System.out.println("If robot on treasure play tone");
+
+        } else {
+
+            ST st = this.templates.get("actions").getInstanceOf(actionkeyword);
+            st.add("time", time);
+            st.add("pwr",pwr);
+            String result = st.render();
+            this.code.append("\t"+result+"\n");
+
+        }
+
+
+
     }
 }
