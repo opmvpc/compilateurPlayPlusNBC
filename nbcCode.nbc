@@ -1,0 +1,16 @@
+#include "world.map"
+
+	set z
+	set f
+
+subroutine facto
+	call facto
+	return
+ends
+
+thread main
+	set x
+	call facto
+	return
+	exit
+endt

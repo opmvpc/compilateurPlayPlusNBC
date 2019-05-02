@@ -8,6 +8,7 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 //import be.unamur.info.b314.compiler.NBCPrinter;
 //import be.unamur.info.b314.compiler.NBCVisitor;
 import be.unamur.info.b314.compiler.exception.*;
+import be.unamur.info.b314.compiler.main.codeprinter.NbcPrinter;
 import be.unamur.info.b314.compiler.main.symboltable.*;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 
@@ -174,11 +175,11 @@ public class Main {
         LOG.debug("AST is {}", tree.toStringTree(parser));
         // Build symbol table
         LOG.debug("Building symbol table");
-        Map<String, Integer> symTable = fillSymTable(tree);
+        SymbolTable symTable = fillSymTable(tree);
         LOG.debug("Building symbol table: done");
         // Print NBC Code
         LOG.debug("Printing NBC Code");
-        // printNBCCode(tree, symTable);
+        printNBCCode(tree, symTable);
         LOG.debug("Printing NBC Code: done");
     }
 
@@ -210,7 +211,7 @@ public class Main {
     /**
      * Builds symbol table from AST.
      */
-    private Map<String, Integer> fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException, BadNamingException, MapConfigException, BadTypeException,FunctionException {
+    private SymbolTable fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException, BadNamingException, MapConfigException, BadTypeException,FunctionException {
         ParseTreeWalker walker = new ParseTreeWalker();
 
         printTitle("Def Phase");
@@ -256,18 +257,16 @@ public class Main {
             throw new FunctionException(errors.mapError.toString());
         }
 
-//        return def.getSymTable();
-//        en attendant
-        return new HashMap<>();
+        return def.getSymTable();
     }
 
-    private void printNBCCode(PlayPlusParser.RootContext tree, Map<String, Integer> symTable) throws FileNotFoundException {
-
-//        NBCPrinter printer = new NBCPrinter("nbcCode.nbc");
-//        NBCVisitor visitor = new NBCVisitor(symTable, printer);
-//        tree.accept(visitor);
-//        printer.flush();
-//        printer.close();
+    private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable) throws IOException {
+        printTitle("Printing NBC code...");
+        ParseTreeWalker walker = new ParseTreeWalker();
+        NbcPrinter printer = new NbcPrinter("nbcCode.nbc", symTable);
+        walker.walk(printer, tree);
+        System.out.println(printer.toString());
+        printer.printFile();
     }
 
     private static void printSourceFile(File file) {

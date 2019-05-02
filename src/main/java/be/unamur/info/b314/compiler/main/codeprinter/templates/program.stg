@@ -1,0 +1,8 @@
+include(text) ::= "#include <text>"
+threadMain() ::= "thread main"
+exitMain() ::= "exit"
+endThread() ::= "endt"
+subDecl(name) ::= "subroutine <name>"
+return() ::= "return"
+endSubDecl() ::= "ends"
+subCall(name) ::= "call <name>"
