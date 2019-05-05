@@ -1,0 +1,12 @@
+initrepeatvariable(n)::=<<
+dseg segment
+        RepeatVar byte <n>
+    dseg ends
+>>
+
+repeat()::=<<RepeatLoop :>>
+
+repeatend()::=<<
+sub RepeatVar, RepeatVar, 1
+brtst GT, RepeatLoop, RepeatVar
+>>

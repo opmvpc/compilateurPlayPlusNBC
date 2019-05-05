@@ -28,6 +28,7 @@ public class NbcPrinter extends PlayPlusBaseListener {
         this.templates.put("expressions", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/expressions.stg"));
         this.templates.put("program", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/program.stg"));
         this.templates.put("actions", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/actions.stg"));
+        this.templates.put("loops", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/loops.stg"));
     }
 
     @Override
@@ -123,7 +124,28 @@ public class NbcPrinter extends PlayPlusBaseListener {
 
 
     @Override
+    public void enterRepeatStmt(PlayPlusParser.RepeatStmtContext ctx) {
+        String content = ctx.getText();
+        String repeatcondition = ctx.repeatCondition().getText();
+        ST stInit = this.templates.get("loops").getInstanceOf("initrepeatvariable");
+        stInit.add("n", repeatcondition);
+        String resultInit = stInit.render();
+        this.code.insert(0,"\t"+resultInit +"\n");
+        ST stResultCorpse = this.templates.get("loops").getInstanceOf("repeat");
+        String resultCorpse = stResultCorpse.render();
+        this.code.append("\t"+resultCorpse +"\n");
+    }
+
+    @Override
+    public void exitRepeatStmt(PlayPlusParser.RepeatStmtContext ctx) {
+        ST st = this.templates.get("loops").getInstanceOf("repeatend");
+        String result = st.render();
+        this.code.append("\t"+result +"\n");
+    }
+
+    @Override
     public void enterActionType(PlayPlusParser.ActionTypeContext ctx) {
+
         int time = 500;
         int multiplicateur = 1;
         String pwr = "100";
@@ -152,7 +174,6 @@ public class NbcPrinter extends PlayPlusBaseListener {
             this.code.append("\t"+result+"\n");
 
         }
-
 
 
     }

@@ -410,6 +410,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_repeat1_goodCondition_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/repeat1_goodCondition.b314", testFolder.newFile(), true, "comments: repeat1_goodCondition");
+    }
+
+    @Test
     public void testcomments_testcarte2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcarte2.b314", testFolder.newFile(), true, "comments: testcarte2");
     }

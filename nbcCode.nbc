@@ -1,3 +1,6 @@
+	dseg segment
+        RepeatVar byte 4
+    dseg ends
 #define turn_right(pwr,time) \
     OnRev(OUT_C,pwr) \
     wait time \
@@ -6,22 +9,21 @@
     OnRev(OUT_B,pwr) \
     wait time \
     OnFwd(OUT_C,pwr)
-#define forwards(pwr,time) \
+#define up(pwr,time) \
     OnFwd(OUT_BC,pwr) \
     wait time
-#define backwards(pwr,time) \
+#define down(pwr,time) \
     OnRev(OUT_BC,pwr) \
     wait time"
 
 #include "world.map"
 
-	set v1
-	set i
-	set s
 thread main
+	RepeatLoop :
+	left(100,500)
 	right(100,500)
-	right(100,500)
-	right(100,2500)
+	sub RepeatVar, RepeatVar, 1
+brtst GT, RepeatLoop, RepeatVar
 	return
 	exit
 endt
