@@ -24,6 +24,7 @@ thread main
 	right(100,500)
 	sub RepeatVar, RepeatVar, 1
 brtst GT, RepeatLoop, RepeatVar
+	 PlayTone(TONE_C5,500)
 	return
 	exit
 endt

@@ -125,15 +125,22 @@ public class NbcPrinter extends PlayPlusBaseListener {
 
     @Override
     public void enterRepeatStmt(PlayPlusParser.RepeatStmtContext ctx) {
-        String content = ctx.getText();
-        String repeatcondition = ctx.repeatCondition().getText();
-        ST stInit = this.templates.get("loops").getInstanceOf("initrepeatvariable");
-        stInit.add("n", repeatcondition);
-        String resultInit = stInit.render();
-        this.code.insert(0,"\t"+resultInit +"\n");
-        ST stResultCorpse = this.templates.get("loops").getInstanceOf("repeat");
-        String resultCorpse = stResultCorpse.render();
-        this.code.append("\t"+resultCorpse +"\n");
+
+        if (ctx.repeatCondition().exprEnt() != null) {
+            try {
+                int r = Integer.parseInt(ctx.repeatCondition().exprEnt().getText());
+                ST stInit = this.templates.get("loops").getInstanceOf("initrepeatvariable");
+                stInit.add("n", r );
+                String resultInit = stInit.render();
+                this.code.insert(0, "\t" + resultInit + "\n");
+            } catch (Exception exception){
+                    //
+            }
+        }
+
+        ST stResultRepeat = this.templates.get("loops").getInstanceOf("repeat");
+        String resultRepeat = stResultRepeat.render();
+        this.code.append("\t"+resultRepeat +"\n");
     }
 
     @Override
@@ -164,6 +171,7 @@ public class NbcPrinter extends PlayPlusBaseListener {
         if (actionkeyword.equals("dig()")){
 
             //System.out.println("If robot on treasure play tone");
+            this.code.append("\t PlayTone(TONE_C5,500)\n");
 
         } else {
 

@@ -23,7 +23,6 @@ public class B314commentsSyntaxTest {
             LOG.info(String.format("Starting test: %s()...",
                     description.getMethodName()));
         }
-    ;
     };
 
     //
@@ -412,6 +411,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_repeat1_goodCondition_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/repeat1_goodCondition.b314", testFolder.newFile(), true, "comments: repeat1_goodCondition");
+    }
+
+    @Test
+    public void testcomments_repeat1_goodIntCondition_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/repeat1_goodIntCondition.b314", testFolder.newFile(), true, "comments: repeat1_goodIntCondition");
     }
 
     @Test
