@@ -236,8 +236,9 @@ public class Main {
             CheckTypes checkTypes = new CheckTypes(def.getSymTable(), defTypes.getExpressions(), errors);
             walker.walk(checkTypes, tree);
 
-            printTitle("ExpressionCalculator");
-            ExpressionCalculator expr = new ExpressionCalculator(defTypes.getExpressions());
+            // printTitle("ExpressionCalculator");
+           // ExpressionCalculator expr = new ExpressionCalculator(defTypes.getExpressions());
+            // walker.walk(expr, tree);
         }
 
         printTitle("Errors");

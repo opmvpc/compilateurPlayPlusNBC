@@ -98,6 +98,10 @@ public class DefTypes extends PlayPlusBaseListener {
         }
     }
 
+    /**
+     *
+     * @param ctx
+     */
     private void evalExpBool(PlayPlusParser.ExprBoolContext ctx) {
         if (ctx.getChildCount() < 3) {
             return;
@@ -109,7 +113,6 @@ public class DefTypes extends PlayPlusBaseListener {
             addParentheseExpr(ctx);
             return;
         }
-
 
         String leftPartName = ctx.getChild(0).getText();
         String rightPartName = ctx.getChild(2).getText();
@@ -137,12 +140,12 @@ public class DefTypes extends PlayPlusBaseListener {
      * Ajoute une expression entiere si elle est simple (Ex: 34, -1)
      */
     public void exitExprEnt(PlayPlusParser.ExprEntContext ctx) {
-//        System.out.println("exitExprEnt :"+ctx.getText());
+        System.out.println("exitExprEnt :"+ctx.getText());
 
         String text = ctx.getText();
-
+        int value = 0;
         try {
-            Integer.valueOf(text);
+            value = Integer.valueOf(text);
         } catch (Exception e) {
             evalExprEnt(ctx);
         }
@@ -150,8 +153,15 @@ public class DefTypes extends PlayPlusBaseListener {
         String type ="int";
         String symbolType = "expr";
 
-        Expression expr = new Expression(text, type, symbolType);
-        addExpr(expr);
+        if (!findExprByText(text).isPresent()){
+
+            Expression expr = new Expression(text, type, symbolType);
+            addExpr(expr);
+            expr.setValue(value);
+
+        }
+
+
     }
 
     /**
@@ -209,9 +219,10 @@ public class DefTypes extends PlayPlusBaseListener {
     private void addExprEntiere(PlayPlusParser.ExprEntContext ctx) {
         String leftPartName = ctx.getChild(0).getText();
         String rightPartName = ctx.getChild(2).getText();
-
+        String operateur = ctx.operateurEntier().getText();
         Optional<Expression> leftPart = findExprByText(leftPartName);
         Optional<Expression> rightPart = findExprByText(rightPartName);
+
 
         if (! leftPart.isPresent() || ! rightPart.isPresent()) {
             return;
@@ -221,9 +232,43 @@ public class DefTypes extends PlayPlusBaseListener {
 //            System.out.println("types Ok");
             Expression expr = new Expression(ctx.getText(), leftPart.get().getBuiltInTypeName(), "expr");
             addExpr(expr);
+            int value = evaluateExprEnt(leftPart.get(),rightPart.get(),operateur);
+            expr.setValue(value);
         } else {
             errors.badTypeError.add("INT EXPRESSION TYPE ERROR in "+ ctx.getText() +" : Les types des variables suivantes sont imcompatibles : "+leftPart.get().getText()+" "+rightPart.get().getText());
         }
+    }
+
+    private int evaluateExprEnt(Expression left, Expression right, String operateur) {
+        int result = 0;
+        switch(operateur) {
+            case "+":
+                // code block
+                result = left.getValue() + right.getValue();
+                break;
+            case "-":
+                // code block
+                result = left.getValue() - right.getValue();
+                break;
+                case "*":
+                    result = left.getValue()  * right.getValue();
+                    break;
+            case "/":
+                result = left.getValue() / right.getValue();
+                //
+                break;
+            case "^":
+                result = (int)Math.pow(left.getValue(), right.getValue());
+                //
+                break;
+
+            default:
+                // code block
+
+        }
+
+        return result;
+
     }
 
     /**
@@ -237,13 +282,19 @@ public class DefTypes extends PlayPlusBaseListener {
 
         Optional<Expression> expression = findExprByText(exprText);
 //        System.out.println("exp : " +expression);
+
         if (! expression.isPresent()) {
             return;
         }
 
         Expression expr = new Expression(ctx.getText(), expression.get().getBuiltInTypeName(), "expr");
         addExpr(expr);
+
+        expr.setValue(expression.get().getValue());
     }
+
+
+
 
 
     /**
@@ -259,17 +310,23 @@ public class DefTypes extends PlayPlusBaseListener {
         Iterator vars = ctx.subVarDecl().listIterator();
 
         while (vars.hasNext()) {
+            int value = 0;
             PlayPlusParser.SubVarDeclContext var = (PlayPlusParser.SubVarDeclContext) vars.next();
             String text = var.ID().getText();
             Boolean isAssigned = false;
             if (var.AFFECT() != null) {
                 isAssigned = true;
+                // recuperation de la valeur dans la table
+                System.out.println(var.AFFECT().getText());
+                value = findExprByText(var.initVariable().getText()).get().getValue();
             }
             if (var.arrays()!= null){
                 symbolType = "arrayVariable";
             }
 
+            // cas du body d'une fonction
             try {
+
 //                System.out.println(ctx.getParent().getParent().getText());
                 PlayPlusParser.FuncDeclContext parentFunction = (PlayPlusParser.FuncDeclContext) ctx.getParent().getParent();
                 System.out.println(parentFunction.ID().getText());
@@ -277,13 +334,16 @@ public class DefTypes extends PlayPlusBaseListener {
                 System.out.println(functExpr.get());
                 Expression expr = new Expression(text, type, symbolType, isAssigned, functExpr.get());
                 addExpr(expr);
+
                 return;
+
             } catch (ClassCastException e) {
                 System.out.println("Pas une fonction");
             }
 
             Expression expr = new Expression(text, type, symbolType, isAssigned);
             addExpr(expr);
+            expr.setValue(value);
         }
     }
 

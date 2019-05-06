@@ -7,6 +7,7 @@ public class Expression {
     private Boolean isAssigned;
     private Expression parent;
     private int position;
+    private int value;
 
     /**
      * Constructeur
@@ -116,6 +117,20 @@ public class Expression {
         return position;
     }
 
+    /**
+     *
+     * @return la valeur de l'expression
+     */
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+
+
     @Override
     public String toString() {
         return "Expression{" +
@@ -123,7 +138,10 @@ public class Expression {
                 ", builtInTypeName='" + builtInTypeName + '\'' +
                 ", symbolTypeName='" + symbolTypeName + '\'' +
                 ", isAssigned='" + isAssigned + '\'' +
+                ", value='" + value + '\'' +
                 (parent != null ? ", parent = " + parent.getText() : "") +
                 '}';
     }
+
+
 }

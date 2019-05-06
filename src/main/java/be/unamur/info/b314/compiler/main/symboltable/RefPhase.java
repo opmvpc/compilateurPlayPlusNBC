@@ -56,7 +56,7 @@ public class RefPhase extends PlayPlusBaseListener {
 
         String varName = ctx.ID().getText();
 
-//        si le scope est un LocalScope (body d'une fonction) on ne regarde que dans le scope local
+//        si le scope est un LocalScope (body d'une fonction) on regarde dans le scope local
 //        Scope currentScope = this.symTable.getCurrentScope();
 //        if (currentScope instanceof FunctionSymbol) {
 //            System.out.println(currentScope.getScopeName());
