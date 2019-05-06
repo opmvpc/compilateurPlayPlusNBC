@@ -23,6 +23,7 @@ public class B314commentsSyntaxTest {
             LOG.info(String.format("Starting test: %s()...",
                     description.getMethodName()));
         }
+    ;
     };
 
     //
@@ -31,6 +32,16 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_actions2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/actions2.b314", testFolder.newFile(), true, "comments: actions2");
+    }
+
+    @Test
+    public void testcomments_if4_conditionBool2_nbc_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/if4_conditionBool2_nbc.b314", testFolder.newFile(), true, "comments: if4_conditionBool2_nbc");
+    }
+
+    @Test
+    public void testcomments_if3_conditionBool_nbc_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/if3_conditionBool_nbc.b314", testFolder.newFile(), true, "comments: if3_conditionBool_nbc");
     }
 
     @Test
@@ -76,6 +87,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_j_testnextinstruction_actions_jump_right_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testnextinstruction_actions_jump_right.b314", testFolder.newFile(), true, "comments: j_testnextinstruction_actions_jump_right");
+    }
+
+    @Test
+    public void testcomments_if5_conditionBool3_nbc_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/if5_conditionBool3_nbc.b314", testFolder.newFile(), true, "comments: if5_conditionBool3_nbc");
     }
 
     @Test
@@ -344,6 +360,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_repeat1_goodIntCondition_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/repeat1_goodIntCondition.b314", testFolder.newFile(), true, "comments: repeat1_goodIntCondition");
+    }
+
+    @Test
     public void testcomments_structure1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/structure1.b314", testFolder.newFile(), true, "comments: structure1");
     }
@@ -411,11 +432,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_repeat1_goodCondition_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/repeat1_goodCondition.b314", testFolder.newFile(), true, "comments: repeat1_goodCondition");
-    }
-
-    @Test
-    public void testcomments_repeat1_goodIntCondition_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/repeat1_goodIntCondition.b314", testFolder.newFile(), true, "comments: repeat1_goodIntCondition");
     }
 
     @Test

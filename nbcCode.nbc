@@ -1,6 +1,3 @@
-	dseg segment
-        RepeatVar byte 4
-    dseg ends
 #define turn_right(pwr,time) \
     OnRev(OUT_C,pwr) \
     wait time \
@@ -18,12 +15,26 @@
 
 #include "world.map"
 
+	set z
+	set f
+
+subroutine facto
+	brtst EQ, Then, 0
+Then :
+	call facto
+	jmp EndIf
+EndIf :
+	return
+ends
+
 thread main
-	RepeatLoop :
-	left(100,500)
-	right(100,500)
-	sub RepeatVar, RepeatVar, 1
-brtst GT, RepeatLoop, RepeatVar
+	set x
+	call facto
+	brtst EQ, Then, 0
+Then :
+	right(100,2500)
+	jmp EndIf
+EndIf :
 	 PlayTone(TONE_C5,500)
 	return
 	exit

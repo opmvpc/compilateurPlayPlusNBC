@@ -29,6 +29,7 @@ public class NbcPrinter extends PlayPlusBaseListener {
         this.templates.put("program", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/program.stg"));
         this.templates.put("actions", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/actions.stg"));
         this.templates.put("loops", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/loops.stg"));
+        this.templates.put("ifs", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/ifs.stg"));
     }
 
     @Override
@@ -185,4 +186,34 @@ public class NbcPrinter extends PlayPlusBaseListener {
 
 
     }
+
+    @Override
+    public void enterConditionalStmt(PlayPlusParser.ConditionalStmtContext ctx) {
+        // should evaluate the if condition and if it is true then the value for nbc is 0
+        // for now will be 0 on default
+        String condition = ctx.boolCondition().exprBool().getText();
+        try {
+
+            ST st = this.templates.get("ifs").getInstanceOf("condibranch");
+            String eq = "EQ";
+            st.add("operation", eq);
+            st.add("value","0");
+            String result = st.render();
+            this.code.append("\t"+result+"\n");
+
+        } catch (Exception e){
+
+            this.code.append("// error in ifs translation to nbc\n");
+            this.code.append("// condition "+ condition);
+        }
+
+    }
+
+    @Override
+    public void exitConditionalStmt(PlayPlusParser.ConditionalStmtContext ctx) {
+        this.code.append("\tjmp EndIf\n");
+        this.code.append("EndIf :\n");
+    }
+
+
 }
