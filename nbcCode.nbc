@@ -6,22 +6,20 @@
     OnRev(OUT_B,pwr) \
     wait time \
     OnFwd(OUT_C,pwr)
-#define forwards(pwr,time) \
+#define up(pwr,time) \
     OnFwd(OUT_BC,pwr) \
     wait time
-#define backwards(pwr,time) \
+#define down(pwr,time) \
     OnRev(OUT_BC,pwr) \
     wait time"
 
-#include "world.map"
+#include "hello.map"
 
-	set v1
-	set i
-	set s
 thread main
-	right(100,500)
-	right(100,500)
-	right(100,2500)
+	set x, true
+	set a, 2
+	set b, 3
+	 PlayTone(TONE_C5,500)
 	return
 	exit
 endt

@@ -13,12 +13,12 @@ defleft()::=<<
 >>
 
 defdown()::=<<
-#define forwards(pwr,time) \
+#define up(pwr,time) \
     OnFwd(OUT_BC,pwr) \
     wait time
 >>
 defup()::=<<
-#define backwards(pwr,time) \
+#define down(pwr,time) \
     OnRev(OUT_BC,pwr) \
     wait time
 >>

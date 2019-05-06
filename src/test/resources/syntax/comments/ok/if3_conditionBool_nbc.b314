@@ -1,0 +1,19 @@
+/* Test fonction  playPlus */
+
+ #import "world.map"
+
+
+	bool a = true;
+
+void main(){
+
+    if (a) {
+       right(6);
+    } else {
+        left(3);
+    }
+
+    dig();
+
+ return void;
+ }

@@ -1,0 +1,20 @@
+/* Test fonction  playPlus */
+
+ #import "world.map"
+
+
+	int a = 0;
+	int b = 1;
+
+void main(){
+
+    if (a < b) {
+       up(6);
+    } else {
+        down(3);
+    }
+
+    dig();
+
+ return void;
+ }

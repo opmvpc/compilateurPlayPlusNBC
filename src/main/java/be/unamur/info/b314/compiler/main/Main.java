@@ -8,6 +8,7 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 //import be.unamur.info.b314.compiler.NBCPrinter;
 //import be.unamur.info.b314.compiler.NBCVisitor;
 import be.unamur.info.b314.compiler.exception.*;
+import be.unamur.info.b314.compiler.main.codeprinter.ExpressionCalculator;
 import be.unamur.info.b314.compiler.main.codeprinter.NbcPrinter;
 import be.unamur.info.b314.compiler.main.symboltable.*;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
@@ -234,6 +235,9 @@ public class Main {
             printTitle("Check Types Phase");
             CheckTypes checkTypes = new CheckTypes(def.getSymTable(), defTypes.getExpressions(), errors);
             walker.walk(checkTypes, tree);
+
+            printTitle("ExpressionCalculator");
+            ExpressionCalculator expr = new ExpressionCalculator(defTypes.getExpressions());
         }
 
         printTitle("Errors");
