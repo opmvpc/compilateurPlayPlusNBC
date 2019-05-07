@@ -15,19 +15,9 @@
 
 #include "hello.map"
 
-	set x, 3
-	set a, 'a'
-	set estVrai, true
-	set y, 1+2
-	set estFaux
-	set t
-
-subroutine f
-	set x
-	return
-ends
-
 thread main
+	set x, true
+	set y, false
 	 PlayTone(TONE_C5,500)
 	return
 	exit

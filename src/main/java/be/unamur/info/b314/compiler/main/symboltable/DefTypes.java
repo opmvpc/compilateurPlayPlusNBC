@@ -49,7 +49,7 @@ public class DefTypes extends PlayPlusBaseListener {
      * Evalue le type des expressions booléennes
      */
     public void exitExprBool(PlayPlusParser.ExprBoolContext ctx) {
-//        System.out.println(ctx.getText());
+        System.out.println(ctx.getText());
 
         String text = ctx.getText();
 
@@ -75,10 +75,14 @@ public class DefTypes extends PlayPlusBaseListener {
         String type ="bool";
         String symbolType = "expr";
 
-
-
         Expression expr = new Expression(text, type, symbolType);
         addExpr(expr);
+        expr.setValue(getBoolVal(text));
+    }
+
+    private int getBoolVal(String text) {
+        System.out.println("BOOLVAL = "+text);
+        return Boolean.parseBoolean(text) == true ? 1 : 0;
     }
 
     private void evalNegBool(PlayPlusParser.ExprBoolContext ctx) {
@@ -93,6 +97,8 @@ public class DefTypes extends PlayPlusBaseListener {
             System.out.println("types Ok");
             Expression expr = new Expression(ctx.getText(), "bool", "expr");
             addExpr(expr);
+//            inversion de la valeur
+            expr.setValue(rightPart.get().getValue() == 1 ? 0 : 1);
         } else {
             errors.badTypeError.add("BOOL EXPRESSION TYPE ERROR in "+ ctx.getText() +" : Le type de la variable suivante est imcompatible : "+rightPart.get().getText());
         }
@@ -115,6 +121,7 @@ public class DefTypes extends PlayPlusBaseListener {
         }
 
         String leftPartName = ctx.getChild(0).getText();
+        String operator = ctx.getChild(1).getText();
         String rightPartName = ctx.getChild(2).getText();
 
         Optional<Expression> leftPart = findExprByText(leftPartName);
@@ -129,9 +136,60 @@ public class DefTypes extends PlayPlusBaseListener {
             System.out.println("types Ok");
             Expression expr = new Expression(ctx.getText(), "bool", "expr");
             addExpr(expr);
+            int value = computeBoolExpr(leftPart.get(), rightPart.get(), operator);
+            expr.setValue(value);
         } else {
             errors.badTypeError.add("BOOL EXPRESSION TYPE ERROR in "+ ctx.getText() +" : Les types des variables suivantes sont imcompatibles : "+leftPart.get().getText()+" "+rightPart.get().getText());
         }
+    }
+
+    private int computeBoolExpr(Expression leftPart, Expression rightPart, String operator) {
+        int value = 0;
+        ArrayList<String> compareOps = setCompareOpsList();
+        ArrayList<String> boolOps = setBoolOpsList();
+
+        if (compareOps.contains(operator)) {
+            boolean boolVal = false;
+            switch (operator) {
+                case "==" :
+                    boolVal = leftPart.getValue() == rightPart.getValue();
+                    break;
+                case "!=" :
+                    boolVal = leftPart.getValue() != rightPart.getValue();
+                    break;
+                case "<" :
+                    boolVal = leftPart.getValue() < rightPart.getValue();
+                    break;
+                case ">" :
+                    boolVal = leftPart.getValue() > rightPart.getValue();
+                    break;
+                case "<=" :
+                    boolVal = leftPart.getValue() <= rightPart.getValue();
+                    break;
+                case ">=" :
+                    boolVal = leftPart.getValue() >= rightPart.getValue();
+                    break;
+            }
+            System.out.println(boolVal);
+            value = getBoolVal(String.valueOf(boolVal));
+        }
+        if (boolOps.contains(operator)) {
+            boolean boolVal = false;
+            switch (operator) {
+                case "&&" :
+                    boolVal = Boolean.logicalAnd(intToBoolean(leftPart.getValue()), intToBoolean(rightPart.getValue()));
+                    break;
+                case "||" :
+                    boolVal = Boolean.logicalOr(intToBoolean(leftPart.getValue()), intToBoolean(rightPart.getValue()));
+                    break;
+            }
+            value = getBoolVal(String.valueOf(boolVal));
+        }
+        return value;
+    }
+
+    private boolean intToBoolean(int value) {
+        return value == 0 ? false : true;
     }
 
     @Override
@@ -160,7 +218,6 @@ public class DefTypes extends PlayPlusBaseListener {
             expr.setValue(value);
 
         }
-
 
     }
 
@@ -562,10 +619,20 @@ public class DefTypes extends PlayPlusBaseListener {
 
     @Override
     public void exitBoolVal(PlayPlusParser.BoolValContext ctx) {
-        if (ctx.TRUE() != null || ctx.FALSE() != null) {
+
+        if (ctx.boolLiteral() != null) {
             Expression expr = new Expression(ctx.getText(), "bool", "expr", true);
             addExpr(expr);
+            expr.setValue(getBoolVal(ctx.getText()));
         }
+    }
+
+    @Override
+    public void exitBoolLiteral(PlayPlusParser.BoolLiteralContext ctx) {
+        System.out.println("BOOL = "+ctx.getText());
+        Expression expr = new Expression(ctx.getText(), "bool", "expr", true);
+        addExpr(expr);
+        expr.setValue(getBoolVal(ctx.getText()));
     }
 
     @Override
@@ -577,6 +644,27 @@ public class DefTypes extends PlayPlusBaseListener {
             System.out.println(exp.toString());
         }
 //        System.out.println(this.expressions.toString());
+    }
+
+
+    private ArrayList<String> setCompareOpsList() {
+        ArrayList<String> compareOps = new ArrayList<>();
+        compareOps.add("==");
+        compareOps.add("!=");
+        compareOps.add("<=");
+        compareOps.add(">=");
+        compareOps.add("<");
+        compareOps.add(">");
+
+        return compareOps;
+    }
+
+    private ArrayList<String> setBoolOpsList() {
+        ArrayList<String> boolOps = new ArrayList<>();
+        boolOps.add("&&");
+        boolOps.add("||");
+
+        return boolOps;
     }
 
 

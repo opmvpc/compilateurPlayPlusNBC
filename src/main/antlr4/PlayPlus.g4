@@ -184,11 +184,15 @@ exprEnt
 	;
 
 boolVal
-    : TRUE
-    | FALSE
+    : boolLiteral
     | funcCall
     | exprG
 //    | exprEnt
+    ;
+
+boolLiteral
+    : TRUE
+    | FALSE
     ;
 
 charVal : CHARACTER;
@@ -255,7 +259,7 @@ varDecl : mytype subVarDecl (COMMA subVarDecl)* SEMICOLON;
 
 subVarDecl : ID (arrays)? (AFFECT initVariable)?;
 
-initVariable : TRUE | FALSE | STRING | charVal | exprEnt | exprBool | initArrays | initStruct | LPAREN initVariable RPAREN;
+initVariable : boolLiteral | STRING | charVal | exprEnt | exprBool | initArrays | initStruct | LPAREN initVariable RPAREN;
 
 initArrays : LBRACE (initVariable)(COMMA initVariable)* RBRACE ;
 
