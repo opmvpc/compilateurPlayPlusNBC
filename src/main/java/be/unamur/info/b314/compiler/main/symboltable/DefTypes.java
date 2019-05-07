@@ -140,7 +140,7 @@ public class DefTypes extends PlayPlusBaseListener {
      * Ajoute une expression entiere si elle est simple (Ex: 34, -1)
      */
     public void exitExprEnt(PlayPlusParser.ExprEntContext ctx) {
-        System.out.println("exitExprEnt :"+ctx.getText());
+//        System.out.println("exitExprEnt :"+ctx.getText());
 
         String text = ctx.getText();
         int value = 0;
@@ -317,28 +317,30 @@ public class DefTypes extends PlayPlusBaseListener {
             if (var.AFFECT() != null) {
                 isAssigned = true;
                 // recuperation de la valeur dans la table
-                System.out.println(var.AFFECT().getText());
-                value = findExprByText(var.initVariable().getText()).get().getValue();
+                Optional<Expression> variable = findExprByText(var.initVariable().getText());
+                if (variable.isPresent()) {
+                    value = variable.get().getValue();
+                }
             }
             if (var.arrays()!= null){
+//                instancier les vars des tableaux
                 symbolType = "arrayVariable";
             }
 
             // cas du body d'une fonction
             try {
-
 //                System.out.println(ctx.getParent().getParent().getText());
                 PlayPlusParser.FuncDeclContext parentFunction = (PlayPlusParser.FuncDeclContext) ctx.getParent().getParent();
                 System.out.println(parentFunction.ID().getText());
                 Optional<Expression> functExpr = findExprByText(parentFunction.ID().getText());
-                System.out.println(functExpr.get());
+//                System.out.println(functExpr.get());
                 Expression expr = new Expression(text, type, symbolType, isAssigned, functExpr.get());
                 addExpr(expr);
 
                 return;
 
             } catch (ClassCastException e) {
-                System.out.println("Pas une fonction");
+//                System.out.println("Pas une fonction");
             }
 
             Expression expr = new Expression(text, type, symbolType, isAssigned);
@@ -369,7 +371,7 @@ public class DefTypes extends PlayPlusBaseListener {
 
     @Override
     public void exitFuncCall(PlayPlusParser.FuncCallContext ctx) {
-        System.out.println(ctx.getText());
+//        System.out.println(ctx.getText());
         String funcName = ctx.ID().getText();
 
         Optional<Expression> function = findExprByText(funcName);
@@ -421,7 +423,7 @@ public class DefTypes extends PlayPlusBaseListener {
      * ajouts d'une expression de reference d'une variable contenue dans une structure
      */
     public void exitStructRef(PlayPlusParser.StructRefContext ctx) {
-        System.out.println(ctx.getText());
+//        System.out.println(ctx.getText());
         Boolean isAssigned = false;
         String structCall = ctx.getText();
         String structName = SymbolNamesHelper.genStructName(ctx.ID().getText());
@@ -454,10 +456,49 @@ public class DefTypes extends PlayPlusBaseListener {
     public void exitAffectInstr(PlayPlusParser.AffectInstrContext ctx) {
         if (ctx.exprG().arrayRef() != null){
             arrayAffectExpression(ctx);
+            return;
         }
 
         if (ctx.exprG().structRef() != null) {
             structAffectExpression(ctx);
+            return;
+        }
+
+        affectVar(ctx);
+    }
+
+    private void affectVar(PlayPlusParser.AffectInstrContext ctx) {
+        String id = ctx.exprG().ID().getText();
+        Optional<Expression> var = Optional.empty();
+
+        // cas du body d'une fonction
+        try {
+            System.out.println(ctx.getParent().getParent().getParent().getText());
+            PlayPlusParser.FuncDeclContext parentFunction = (PlayPlusParser.FuncDeclContext) ctx.getParent().getParent().getParent();
+            Optional<Expression> functExpr = findExprByText(parentFunction.ID().getText());
+            System.out.println("FUNC = "+functExpr.get().getText());
+
+//            trouver la variable dans le scope de la fonction
+            var = this.expressions.stream()
+                    .filter(x -> x.getText().equals(id) && x.getParent()!=null && x.getParent().getText().equals(functExpr.get().getText()))
+                    .findFirst();
+
+            System.out.println("VAR = "+var.get().getText());
+        } catch (ClassCastException e) {
+            System.out.println("Pas dans le body d'une fonction");
+        }
+
+//       cas variable globale
+        if (! var.isPresent()) {
+            var = findExprByText(id);
+        }
+
+//        Enregistrement de la nouvelle valeur de la variable
+        Optional<Expression> exprD = findExprByText(ctx.exprD().getText());
+        if (var.isPresent() && exprD.isPresent()) {
+            Expression exprG = new Expression(id, var.get().getBuiltInTypeName(), var.get().getSymbolTypeName(), true);
+            addExpr(exprG);
+            exprG.setValue(exprD.get().getValue());
         }
     }
 
@@ -515,6 +556,8 @@ public class DefTypes extends PlayPlusBaseListener {
 
         Expression expr = new Expression(text, type, symbolType);
         addExpr(expr);
+        int value = ctx.getText().charAt(1);
+        expr.setValue(value);
     }
 
     @Override

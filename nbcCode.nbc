@@ -13,28 +13,21 @@
     OnRev(OUT_BC,pwr) \
     wait time"
 
-#include "world.map"
+#include "hello.map"
 
-	set z
-	set f
+	set x, 3
+	set a, 'a'
+	set estVrai, true
+	set y, 1+2
+	set estFaux
+	set t
 
-subroutine facto
-	brtst EQ, Then, 0
-Then :
-	call facto
-	jmp EndIf
-EndIf :
+subroutine f
+	set x
 	return
 ends
 
 thread main
-	set x
-	call facto
-	brtst EQ, Then, 0
-Then :
-	right(100,2500)
-	jmp EndIf
-EndIf :
 	 PlayTone(TONE_C5,500)
 	return
 	exit
