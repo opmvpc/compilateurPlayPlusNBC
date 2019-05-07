@@ -384,6 +384,26 @@ public class DefTypes extends PlayPlusBaseListener {
                 symbolType = "arrayVariable";
             }
 
+            if (var.initVariable() != null && var.initVariable().initArrays() != null){
+                Iterator values = var.initVariable().initArrays().initVariable().listIterator();
+                int i = 0;
+                while (values.hasNext()){
+
+                    PlayPlusParser.InitVariableContext cellValue = (PlayPlusParser.InitVariableContext) values.next();
+                    String cellText = cellValue.getText();
+                    System.out.println(cellText);
+
+                    String cellName = text + "["+ String.valueOf(i) + "]";
+                    Expression expr = new Expression(cellName,type,"cell" );
+                    addExpr(expr);
+                    Optional<Expression> cellExprValue = findExprByText(cellText);
+                    expr.setValue(cellExprValue.get().getValue());
+
+                    i++;
+
+                }
+            }
+
             // cas du body d'une fonction
             try {
 //                System.out.println(ctx.getParent().getParent().getText());
@@ -540,7 +560,7 @@ public class DefTypes extends PlayPlusBaseListener {
                     .filter(x -> x.getText().equals(id) && x.getParent()!=null && x.getParent().getText().equals(functExpr.get().getText()))
                     .findFirst();
 
-            System.out.println("VAR = "+var.get().getText());
+            //System.out.println("VAR = "+var.get().getText()); // broken print get may be null
         } catch (ClassCastException e) {
             System.out.println("Pas dans le body d'une fonction");
         }
@@ -553,9 +573,12 @@ public class DefTypes extends PlayPlusBaseListener {
 //        Enregistrement de la nouvelle valeur de la variable
         Optional<Expression> exprD = findExprByText(ctx.exprD().getText());
         if (var.isPresent() && exprD.isPresent()) {
-            Expression exprG = new Expression(id, var.get().getBuiltInTypeName(), var.get().getSymbolTypeName(), true);
-            addExpr(exprG);
-            exprG.setValue(exprD.get().getValue());
+
+            //Expression exprG = new Expression(id, var.get().getBuiltInTypeName(), var.get().getSymbolTypeName(), true);
+            //addExpr(exprG);
+            //exprG.setValue(exprD.get().getValue());
+
+            var.get().setValue(exprD.get().getValue());
         }
     }
 
@@ -576,8 +599,16 @@ public class DefTypes extends PlayPlusBaseListener {
             return;
         }
 
+        Optional<Expression> valueExpr = findExprByText(ctx.exprD().getText());
+
         Expression expr = new Expression(varName, result.get().getBuiltInTypeName(), "variable", isAssigned);
         addExpr(expr);
+        if (valueExpr.isPresent()){
+
+            expr.setValue(valueExpr.get().getValue());
+
+        }
+
     }
 
     /**

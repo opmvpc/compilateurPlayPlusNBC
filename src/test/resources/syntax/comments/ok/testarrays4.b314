@@ -1,0 +1,21 @@
+/*
+
+    HELLOO */
+
+
+    // coucou
+
+#import "salut.map"
+
+    bool b2[5] = {true, false, true, false, true};
+
+void main(){
+
+   b2[0]=true;
+
+dig();
+    return void;
+
+}
+
+

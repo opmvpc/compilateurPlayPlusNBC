@@ -180,7 +180,7 @@ public class Main {
         LOG.debug("Building symbol table: done");
         // Print NBC Code
         LOG.debug("Printing NBC Code");
-        printNBCCode(tree, symTable);
+        //printNBCCode(tree, symTable);
         LOG.debug("Printing NBC Code: done");
     }
 

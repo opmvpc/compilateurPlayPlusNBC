@@ -24,6 +24,7 @@ public class NbcPrinter extends PlayPlusBaseListener {
     }
 
     private void initTemplates() {
+
         this.templates = new HashMap<>();
         this.templates.put("expressions", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/expressions.stg"));
         this.templates.put("program", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/program.stg"));
