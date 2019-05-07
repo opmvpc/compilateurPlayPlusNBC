@@ -2,28 +2,29 @@ package be.unamur.info.b314.compiler.main.symboltable;
 
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
-import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
-import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
-import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
-import be.unamur.info.b314.compiler.main.symboltable.Helpers.Types;
+import be.unamur.info.b314.compiler.main.symboltable.Helpers.*;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.StructSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
 import org.antlr.v4.runtime.RuleContext;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNodeImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class DefTypes extends PlayPlusBaseListener {
     private ArrayList<Expression> expressions;
+    private ArrayList<FunctionDecl> functionDecls;
     private SymbolTable symtable;
     private Errors errors;
 
     public DefTypes(SymbolTable symtable, Errors errors) {
         this.expressions = new ArrayList();
+        this.functionDecls = new ArrayList<>();
         this.symtable = symtable;
         this.errors = errors;
     }
@@ -42,6 +43,14 @@ public class DefTypes extends PlayPlusBaseListener {
      */
     private void addExpr(Expression expression) {
         this.expressions.add(expression);
+    }
+
+    /**
+     * Ajoute une déclaration de fonction à la arraylist des fonctions.
+     * @param functionDecl
+     */
+    private void addFunctionDecl(FunctionDecl functionDecl) {
+        this.functionDecls.add(functionDecl);
     }
 
     @Override
@@ -232,6 +241,18 @@ public class DefTypes extends PlayPlusBaseListener {
                 .findFirst();
 
         return expression;
+    }
+
+    /**
+     * Trouve une functionDecl qui match le text dans la table des functiondecls
+     * @param functText
+     * @return
+     */
+    private Optional<FunctionDecl> findFunctionDeclByText(String functText) {
+        Optional<FunctionDecl> functionDecl = this.functionDecls.stream()
+                .filter(x -> x.getText().equals(functText))
+                .findFirst();
+        return functionDecl;
     }
 
     /**
@@ -441,6 +462,9 @@ public class DefTypes extends PlayPlusBaseListener {
         Expression expr = new Expression(text, type, symbolType);
         addExpr(expr);
 
+        FunctionDecl fct = new FunctionDecl(text,ctx);
+        addFunctionDecl(fct);
+        System.out.println(fct.toString());
         String ret= ctx.returnInstr().getChild(1).getText();
 
 
@@ -459,6 +483,19 @@ public class DefTypes extends PlayPlusBaseListener {
 
         String type = function.get().getBuiltInTypeName();
         String symbolType = "functionCall";
+
+        PlayPlusParser.FuncDeclContext funcDeclContext = findFunctionDeclByText(funcName).get().getCtx();
+
+        //ParseTreeWalker walker = new ParseTreeWalker();
+
+        // on rewalk la fonction pour l'executer :-)
+       // walker.walk(this, funcDeclContext);
+
+        //enterFuncDecl( funcDeclContext );
+     //   funcDeclContext
+
+        System.out.println(funcDeclContext.toString());
+
 
         Expression expr = new Expression(ctx.getText(), type, symbolType);
         addExpr(expr);
@@ -628,9 +665,30 @@ public class DefTypes extends PlayPlusBaseListener {
             return;
         }
 
-        Expression expr = new Expression(varName, result.get().getBuiltInTypeName(), "structVariable", isAssigned);
-        addExpr(expr);
-//        System.out.println("Result var" + result);
+
+        Optional<Expression> exprStruct = findExprByText(varName);
+
+
+        if (! exprStruct.isPresent()){
+
+            Expression expr = new Expression(varName, result.get().getBuiltInTypeName(), "structVariable", isAssigned);
+            addExpr(expr);
+
+        } else {
+
+            Optional<Expression> valueExpr = findExprByText(ctx.exprD().getText());
+            if (valueExpr.isPresent()){
+
+                exprStruct.get().setValue(valueExpr.get().getValue());
+
+            }
+
+        }
+
+
+
+
+
     }
 
     @Override
@@ -673,6 +731,9 @@ public class DefTypes extends PlayPlusBaseListener {
     public void exitRoot(PlayPlusParser.RootContext ctx) {
         for (Expression exp : this.expressions) {
             System.out.println(exp.toString());
+        }
+        for (FunctionDecl fcd : this.functionDecls){
+            System.out.print(fcd.toString());
         }
 //        System.out.println(this.expressions.toString());
     }

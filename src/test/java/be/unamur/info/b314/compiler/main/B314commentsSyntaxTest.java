@@ -305,6 +305,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_function11_returnvalues_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function11_returnvalues.b314", testFolder.newFile(), true, "comments: function11_returnvalues");
+    }
+
+    @Test
     public void testcomments_testcomments3_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcomments3.b314", testFolder.newFile(), true, "comments: testcomments3");
     }
