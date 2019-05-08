@@ -373,6 +373,9 @@ public class DefTypes extends PlayPlusBaseListener {
                 result = (int)Math.pow(left.getValue(), right.getValue());
                 //
                 break;
+            case "%":
+                result = left.getValue() % right.getValue();
+                break;
 
             default:
                 // code block
@@ -430,6 +433,7 @@ public class DefTypes extends PlayPlusBaseListener {
                 isAssigned = true;
                 // recuperation de la valeur dans la table
                 Optional<Expression> variable = findExprByText(var.initVariable().getText());
+                System.out.println("InitVariable Test : " + var.initVariable().getText());
                 if (variable.isPresent()) {
                     value = variable.get().getValue();
                 }
@@ -461,22 +465,23 @@ public class DefTypes extends PlayPlusBaseListener {
             }
 
             // cas du body d'une fonction
+            Expression parent = null;
             try {
 //                System.out.println(ctx.getParent().getParent().getText());
                 PlayPlusParser.FuncDeclContext parentFunction = (PlayPlusParser.FuncDeclContext) ctx.getParent().getParent();
                 System.out.println(parentFunction.ID().getText());
                 Optional<Expression> functExpr = findExprByText(parentFunction.ID().getText());
-//                System.out.println(functExpr.get());
-                Expression expr = new Expression(text, type, symbolType, isAssigned, functExpr.get());
-                addExpr(expr);
+                parent = functExpr.get();  //System.out.println(functExpr.get());
+                //Expression expr = new Expression(text, type, symbolType, isAssigned, functExpr.get());
+                //addExpr(expr);
                 //expr.setValue(12);
-                return;
+                //return;
 
             } catch (ClassCastException e) {
 //                System.out.println("Pas une fonction");
             }
 
-            Expression expr = new Expression(text, type, symbolType, isAssigned);
+            Expression expr = new Expression(text, type, symbolType, isAssigned,parent);
             addExpr(expr);
             expr.setValue(value);
         }

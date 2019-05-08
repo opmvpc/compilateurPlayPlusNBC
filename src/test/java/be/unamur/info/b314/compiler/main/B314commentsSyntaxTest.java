@@ -375,6 +375,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_affectation0_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/affectation0.b314", testFolder.newFile(), true, "comments: affectation0");
+    }
+
+    @Test
     public void testcomments_repeat1_goodIntCondition_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/repeat1_goodIntCondition.b314", testFolder.newFile(), true, "comments: repeat1_goodIntCondition");
     }

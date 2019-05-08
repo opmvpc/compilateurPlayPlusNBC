@@ -1,0 +1,20 @@
+#import "hello.map"
+    int a = 2;
+    int b = 5;
+    int c = a + b;
+
+void main(){
+
+
+    int d;
+    int e;
+    int f;
+
+    d = a + b;
+    e = c + d;
+
+    f = 5 % 2;
+
+    dig();
+    return void;
+}
