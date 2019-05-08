@@ -22,6 +22,7 @@ public class DefTypes extends PlayPlusBaseListener {
     private ArrayList<FunctionDecl> functionDecls;
     private SymbolTable symtable;
     private Errors errors;
+    private Expression currentFuncCall;
 
     public DefTypes(SymbolTable symtable, Errors errors) {
         this.expressions = new ArrayList();
@@ -275,7 +276,17 @@ public class DefTypes extends PlayPlusBaseListener {
     private Optional<Expression>findExprByTextAndParentName(String expText, String parentName){
 
         Optional<Expression> expression = this.expressions.stream()
-                .filter(x -> x.getText().equals(expText) && x.getParent().getText().equals(parentName))
+                .filter(x -> x.getText().equals(expText) && x.getParent() != null && x.getParent().getText().equals(parentName))
+                .findFirst();
+
+        return expression;
+
+    }
+
+    private Optional<Expression>findExprByTextAndOrphaned(String expText){
+
+        Optional<Expression> expression = this.expressions.stream()
+                .filter(x -> x.getText().equals(expText) && x.getParent() == null)
                 .findFirst();
 
         return expression;
@@ -285,7 +296,7 @@ public class DefTypes extends PlayPlusBaseListener {
     private List<Expression> findExprBySymbolTypenameAndParentName(String symbol, String parentName){
 
         List<Expression> localArgExprs = this.expressions.stream()
-                .filter(x -> x.getSymbolTypeName().equals(symbol) && x.getParent().getText().equals(parentName))
+                .filter(x -> x.getSymbolTypeName().equals(symbol)  && x.getParent().getText().equals(parentName))
                 .collect(Collectors.toList());
         return localArgExprs;
 
@@ -565,10 +576,14 @@ public class DefTypes extends PlayPlusBaseListener {
 
         PlayPlusParser.FuncDeclContext funcDeclContext = findFunctionDeclByText(funcName).get().getCtx();
 
+        Expression expr = new Expression(ctx.getText(), type, symbolType);
+        addExpr(expr);
+
         ParseTreeWalker walker = new ParseTreeWalker();
 
         // on rewalk la fonction pour l'executer :-)
-         //walker.walk(this, funcDeclContext);
+        currentFuncCall = expr;
+         walker.walk(this, funcDeclContext);
 
         //enterFuncDecl( funcDeclContext );
      //   funcDeclContext
@@ -576,8 +591,44 @@ public class DefTypes extends PlayPlusBaseListener {
         System.out.println(funcDeclContext.toString());
 
 
-        Expression expr = new Expression(ctx.getText(), type, symbolType);
-        addExpr(expr);
+
+
+    }
+
+    @Override
+    public void exitFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
+
+        String nameFunction = ctx.ID().getText();
+        String returnInst = ctx.returnInstr().getChild(1).getText();
+        System.out.println("Return INST : " + returnInst);
+        System.out.println("Return INST Name fct : " + nameFunction);
+        Optional<Expression> exprReturn = findExprByTextAndParentName(returnInst,nameFunction);
+
+        if (exprReturn.isPresent()){
+
+            int returnValue = exprReturn.get().getValue();
+            if (currentFuncCall != null){
+
+                currentFuncCall.setValue(returnValue);
+            }
+
+
+        } else {
+
+            Optional<Expression> exprReturnOrphaned = findExprByTextAndOrphaned(returnInst);
+
+            if (exprReturnOrphaned.isPresent()){
+                int returnValueOrphaned = exprReturnOrphaned.get().getValue();
+                if (currentFuncCall != null){
+
+                    currentFuncCall.setValue(returnValueOrphaned);
+                }
+
+            }
+
+        }
+
+
     }
 
     @Override
@@ -610,11 +661,8 @@ public class DefTypes extends PlayPlusBaseListener {
                 Expression expr = new Expression(name, type, symbolType, false, functExpr.get(), position);
                 addExpr(expr);
 
-            } else {
-
-               // expArgument.get().setValue(4);
-
             }
+
             position++;
             System.out.println("Name " + name + " type: " + type + "position" + position);
 
