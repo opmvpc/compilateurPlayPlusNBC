@@ -12,7 +12,7 @@ int x;
 
 int f(bool a, int b) {
     bool x;
-    return a;
+    return b;
 }
 
 void main(){

@@ -200,11 +200,6 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_j_testfunctions_multiple_global_vars_and_functions_no_local_var_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testfunctions_multiple_global_vars_and_functions_no_local_var.b314", testFolder.newFile(), true, "comments: j_testfunctions_multiple_global_vars_and_functions_no_local_var");
-    }
-
-    @Test
     public void testcomments_testcarte5_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcarte5.b314", testFolder.newFile(), true, "comments: testcarte5");
     }
@@ -337,6 +332,16 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_mainprogram1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram1.b314", testFolder.newFile(), true, "comments: mainprogram1");
+    }
+
+    @Test
+    public void testcomments_null_pointer_functions_one_void_function_no_local_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/null_pointer_functions_one_void_function_no_local_var.b314", testFolder.newFile(), true, "comments: null_pointer_functions_one_void_function_no_local_var");
+    }
+
+    @Test
+    public void testcomments_function12_returnvalues_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function12_returnvalues.b314", testFolder.newFile(), true, "comments: function12_returnvalues");
     }
 
     @Test
@@ -715,11 +720,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_structure2_callSubstrucThatDoesntExist_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/structure2_callSubstrucThatDoesntExist.b314", testFolder.newFile(), false, "comments: structure2_callSubstrucThatDoesntExist");
-    }
-
-    @Test
-    public void testcomments_null_pointer_functions_one_void_function_no_local_var_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/null_pointer_functions_one_void_function_no_local_var.b314", testFolder.newFile(), false, "comments: null_pointer_functions_one_void_function_no_local_var");
     }
 
     @Test

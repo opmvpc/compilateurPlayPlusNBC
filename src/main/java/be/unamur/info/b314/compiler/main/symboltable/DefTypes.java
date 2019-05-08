@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNodeImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Optional;
@@ -262,12 +263,34 @@ public class DefTypes extends PlayPlusBaseListener {
      * @return
      */
     private Optional<Expression> findExprByTextAndType(String expText, String type) {
+
         Optional<Expression> expression = this.expressions.stream()
                 .filter(x -> x.getText().equals(expText) && x.getBuiltInTypeName().equals(type))
                 .findFirst();
 
         return expression;
+
     }
+
+    private Optional<Expression>findExprByTextAndParentName(String expText, String parentName){
+
+        Optional<Expression> expression = this.expressions.stream()
+                .filter(x -> x.getText().equals(expText) && x.getParent().getText().equals(parentName))
+                .findFirst();
+
+        return expression;
+
+    }
+
+    private List<Expression> findExprBySymbolTypenameAndParentName(String symbol, String parentName){
+
+        List<Expression> localArgExprs = this.expressions.stream()
+                .filter(x -> x.getSymbolTypeName().equals(symbol) && x.getParent().getText().equals(parentName))
+                .collect(Collectors.toList());
+        return localArgExprs;
+
+    }
+
 
     /**
      * Expressions entières à trois termes
@@ -399,6 +422,7 @@ public class DefTypes extends PlayPlusBaseListener {
                 if (variable.isPresent()) {
                     value = variable.get().getValue();
                 }
+
             }
             if (var.arrays()!= null){
 //                instancier les vars des tableaux
@@ -434,7 +458,7 @@ public class DefTypes extends PlayPlusBaseListener {
 //                System.out.println(functExpr.get());
                 Expression expr = new Expression(text, type, symbolType, isAssigned, functExpr.get());
                 addExpr(expr);
-
+                //expr.setValue(12);
                 return;
 
             } catch (ClassCastException e) {
@@ -459,8 +483,14 @@ public class DefTypes extends PlayPlusBaseListener {
         String type = ctx.mytype() == null ? "void" : ctx.mytype().getText();
         String symbolType = "function";
 
-        Expression expr = new Expression(text, type, symbolType);
-        addExpr(expr);
+
+        // si la fonction est deja dans la table des expressions on ne l'ajoute pas.
+        Optional<Expression> functExpr = findExprByText(text);
+
+        if (! functExpr.isPresent()){
+            Expression expr = new Expression(text, type, symbolType);
+            addExpr(expr);
+        }
 
         FunctionDecl fct = new FunctionDecl(text,ctx);
         addFunctionDecl(fct);
@@ -468,6 +498,55 @@ public class DefTypes extends PlayPlusBaseListener {
         String ret= ctx.returnInstr().getChild(1).getText();
 
 
+    }
+
+    @Override
+    public void exitFuncCallArgs(PlayPlusParser.FuncCallArgsContext ctx) {
+        int position = 0;
+        Optional<Expression> functExpr = null;
+
+        try {
+
+            System.out.println("Parent :" + ctx.getParent().getText());
+            PlayPlusParser.FuncCallContext parentFunction = (PlayPlusParser.FuncCallContext) ctx.getParent();
+            System.out.println(parentFunction.ID().getText());
+            functExpr = findExprByText(parentFunction.ID().getText());
+            // System.out.println("functExpr " + functExpr.get());
+
+        } catch (ClassCastException e) {
+            //System.out.println("Pas une fonction");
+        }
+        // On va chercher l'appel de la fonction ainsi que les arguments et leurs nombres
+        PlayPlusParser.FuncCallContext parentFunction = (PlayPlusParser.FuncCallContext) ctx.getParent();
+        Iterator vars = ctx.funcCallArg().listIterator();
+        List<Expression> argsDeclexpressions = findExprBySymbolTypenameAndParentName("argument",parentFunction.ID().getText());
+        int count = argsDeclexpressions.size();
+        System.out.println("count" + count);
+        while (vars.hasNext()) {
+            System.out.println("");
+            Object var = vars.next();
+
+             String exprDText = ((PlayPlusParser.FuncCallArgContext) var).exprD().getText();
+
+            System.out.println("NEWTEST : +" + exprDText);
+            Optional<Expression> exprD = findExprByText(exprDText);
+
+            if (exprD.isPresent() && ! argsDeclexpressions.isEmpty()) {
+                System.out.println("exprd" + exprDText);
+                //Expression exprG = new Expression(id, var.get().getBuiltInTypeName(), var.get().getSymbolTypeName(), true);
+                //addExpr(exprG);
+                //exprG.setValue(exprD.get().getValue());
+                Expression arg  = argsDeclexpressions.get(position);
+                arg.setValue(exprD.get().getValue());
+                System.out.println("NEW TEST :"+  arg.toString());
+            //.setValue(exprD.get().getValue());
+                position++;
+            }
+
+            String symbolType = "argumentCall";
+
+
+        }
     }
 
     @Override
@@ -486,10 +565,10 @@ public class DefTypes extends PlayPlusBaseListener {
 
         PlayPlusParser.FuncDeclContext funcDeclContext = findFunctionDeclByText(funcName).get().getCtx();
 
-        //ParseTreeWalker walker = new ParseTreeWalker();
+        ParseTreeWalker walker = new ParseTreeWalker();
 
         // on rewalk la fonction pour l'executer :-)
-       // walker.walk(this, funcDeclContext);
+         //walker.walk(this, funcDeclContext);
 
         //enterFuncDecl( funcDeclContext );
      //   funcDeclContext
@@ -524,10 +603,21 @@ public class DefTypes extends PlayPlusBaseListener {
             String name = ((PlayPlusParser.FuncArgContext) var).exprG().getText();
             String type = ((PlayPlusParser.FuncArgContext) var).mytype().getText();
             String symbolType = "argument";
-            Expression expr = new Expression(name, type, symbolType, false, functExpr.get(), position);
-            addExpr(expr);
-          //  System.out.println("Name " + name + " type: " + type + "position" + position);
+
+
+            Optional<Expression> expArgument = findExprByTextAndParentName(name,functExpr.get().getText());
+            if ( ! expArgument.isPresent()){
+                Expression expr = new Expression(name, type, symbolType, false, functExpr.get(), position);
+                addExpr(expr);
+
+            } else {
+
+               // expArgument.get().setValue(4);
+
+            }
             position++;
+            System.out.println("Name " + name + " type: " + type + "position" + position);
+
         }
 
     }
@@ -684,8 +774,6 @@ public class DefTypes extends PlayPlusBaseListener {
             }
 
         }
-
-
 
 
 

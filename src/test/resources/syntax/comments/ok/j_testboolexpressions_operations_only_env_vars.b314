@@ -8,7 +8,7 @@
 void main()
 {
   x = 42;
-  b = !true;
+  bool b = !true;
   left();
   up(2);
   if(b) {
