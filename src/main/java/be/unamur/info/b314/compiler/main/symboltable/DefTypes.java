@@ -8,6 +8,7 @@ import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
 import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNodeImpl;
+import org.jaxen.expr.Expr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -407,7 +408,6 @@ public class DefTypes extends PlayPlusBaseListener {
 
         expr.setValue(expression.get().getValue());
     }
-
 
 
 
@@ -863,6 +863,28 @@ public class DefTypes extends PlayPlusBaseListener {
         Expression expr = new Expression(ctx.getText(), "bool", "expr", true);
         addExpr(expr);
         expr.setValue(getBoolVal(ctx.getText()));
+    }
+
+
+    @Override
+    public void exitConditionalStmt(PlayPlusParser.ConditionalStmtContext ctx) {
+        Optional<Expression> boolConditionExpression = findExprByText(ctx.boolCondition().getText());
+        if (boolConditionExpression.isPresent()){
+
+            int flagCondition = boolConditionExpression.get().getValue();
+
+            // il faut enregistrer celui qui est exclu - pour pouvoir return quand le parent est une condition dans les statements (skip).
+            //
+            if (flagCondition == 1){
+
+                System.out.println("Flag ; "+ flagCondition);
+
+            } else {
+
+                System.out.println("Flag ; " + flagCondition);
+            }
+
+        }
     }
 
     @Override

@@ -4,10 +4,14 @@
 
 
 	bool a = true;
+    int c = 4;
+    int e ;
 
 void main(){
 
     if (a) {
+
+        e = c + 4;
        right(6);
     } else {
         left(3);
