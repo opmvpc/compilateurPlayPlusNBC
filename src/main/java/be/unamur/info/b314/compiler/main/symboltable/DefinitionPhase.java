@@ -85,6 +85,12 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         Type functype = (BuiltInTypeSymbol) resolveType(funcTypeName);
         Scope currentScope = this.symTable.getCurrentScope();
 
+        if (name.equals("main")){
+
+            currentScope = this.symTable.getGlobals();
+
+        }
+
         if (currentScope.resolveByName(name).isPresent()) {
             errors.badNameError.add("Deux fonctions ne peuvent pas porter le même nom");
         }
@@ -436,6 +442,64 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         } else {
             errors.badTypeError.add("INT EXPRESSION TYPE ERROR in "+ ctx.getText() +" : Les types des variables suivantes sont imcompatibles : "+leftPart.get().getName()+" "+rightPart.get().getName());
         }
+    }
+
+
+
+    @Override
+    public void enterFuncCall(PlayPlusParser.FuncCallContext ctx) {
+
+
+        System.out.println(ctx.getText());
+        String funcName = ctx.ID().getText();
+
+        Optional<Symbol> function = this.resolveFunc(funcName);
+        System.out.println(funcName + '-');
+        if (! function.isPresent()) {
+            return;
+        }
+
+        Type type = function.get().getType();
+
+        FuncCallSymbol expr = new FuncCallSymbol(ctx.getText(), type, (FunctionSymbol) function.get());
+
+
+        String funcCallName = ctx.getText();
+
+        Optional<Symbol> funcCall = symTable.getCurrentScope().resolveByName(funcCallName);
+
+        if (funcCall.isPresent()){
+            symTable.getCurrentScope().getSymbols().remove(funcCall.get());
+        }
+
+
+        symTable.define(expr);
+
+
+    }
+
+
+    private Optional<Symbol> resolveFunc(String funName) {
+        Scope currentScope = this.symTable.getCurrentScope();
+        System.out.println("currentscope : "+ currentScope.getScopeName());
+        Optional<Symbol> func = resolveSymbolRec(funName, currentScope);
+        if (! func.isPresent()) {
+            this.errors.symbolNotFound.add("Function "+ funName +" do not exist");
+        }
+        return func;
+
+    }
+
+    private Optional<Symbol> resolveSymbolRec(String name, Scope currentScope) {
+        System.out.println("resolveSymbolRec : "+ currentScope.getScopeName());
+        Optional<Symbol> symbol = currentScope.resolveByName(name);
+        if (! symbol.isPresent() && currentScope.getEnclosingScope() == null) {
+            return Optional.empty();
+        }
+        if (symbol.isPresent()) {
+            return symbol;
+        }
+        return resolveSymbolRec(name, currentScope.getEnclosingScope());
     }
 
 }
