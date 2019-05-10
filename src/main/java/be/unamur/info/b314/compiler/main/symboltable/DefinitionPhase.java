@@ -444,17 +444,104 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         }
     }
 
+    @Override
+    /**
+     * Affectation d'une variable de structure ou tableau
+     */
+    public void exitAffectInstr(PlayPlusParser.AffectInstrContext ctx) {
+        System.out.println("exitAffectInstr : "+ ctx.getText());
+        if (ctx.exprG().arrayRef() != null){
+            arrayAffectSymbol(ctx);
+            return;
+        }
+
+        if (ctx.exprG().structRef() != null) {
+            structAffectExpression(ctx);
+            return;
+        }
+
+
+    }
+
+
+
+    private void arrayAffectSymbol(PlayPlusParser.AffectInstrContext ctx) {
+        String varName = ctx.exprG().getText();
+       System.out.println("arrayAffect exprD "+ctx.exprD().getText());
+
+        Optional<Symbol> result = resolveSymbolRec(varName,symTable.getCurrentScope());
+
+        if (! result.isPresent()) {
+            return;
+        }
+        Type type = result.get().getType();
+
+        CellSymbol cell = new CellSymbol(varName,type);
+        symTable.define(cell);
+
+    }
+
+    /**
+     * Ajoute une symbole d'acces à une variable de structure
+     * @param ctx
+     */
+    private void structAffectExpression(PlayPlusParser.AffectInstrContext ctx) {
+        String varName = ctx.exprG().getText();
+       System.out.println("structAffect "+varName);
+
+        Optional<Symbol> result = resolveSymbolRec(varName,symTable.getCurrentScope());
+
+        if (! result.isPresent()) {
+            Type type = result.get().getType();
+
+            StructRefSymbol structRef = new StructRefSymbol(varName,type);
+            symTable.define(structRef);
+        }
+
+    }
+
+    /**
+     * ajouts d'une expression de reference d'une variable contenue dans une structure
+     */
+    public void exitStructRef(PlayPlusParser.StructRefContext ctx) {
+        System.out.println("exitStructRef" + ctx.getText());
+
+        String structCall = ctx.getText();
+        String structName = ctx.ID().getText();
+//        System.out.println("structName "+structName);
+        Optional<Symbol> struct =  this.symTable.getGlobals().resolveByName(structName);
+//        System.out.println("struct " + struct.getName());
+        Iterator members = ctx.members().member().listIterator();
+        while (members.hasNext()) {
+            PlayPlusParser.MemberContext member = (PlayPlusParser.MemberContext) members.next();
+//            System.out.println("member " + member.ID().getText());
+            if (members.hasNext()) {
+                structName = member.ID().getText();
+                struct = ((StructSymbol) struct.get()).resolveByName(structName);
+            } else {
+                String varName = member.ID().getText();
+//                System.out.println(struct.resolve(varName));
+                Optional<Symbol> var = ((StructSymbol) struct.get()).resolveByName(varName);
+
+                Type type = var.get().getType();
+
+                StructRefSymbol structRef = new StructRefSymbol(structCall,type);
+                symTable.define(structRef);
+
+            }
+        }
+    }
 
 
     @Override
     public void enterFuncCall(PlayPlusParser.FuncCallContext ctx) {
 
 
-        System.out.println(ctx.getText());
+        System.out.println("enterFuncCall : " + ctx.getText());
         String funcName = ctx.ID().getText();
 
         Optional<Symbol> function = this.resolveFunc(funcName);
-        System.out.println(funcName + '-');
+
         if (! function.isPresent()) {
             return;
         }
