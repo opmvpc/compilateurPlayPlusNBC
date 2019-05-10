@@ -11,6 +11,7 @@ public abstract class Symbol {
 
     private String name;
     private Type type;
+    private Integer value;
 
     public Symbol(String name) {
         setName(name);
@@ -48,7 +49,7 @@ public abstract class Symbol {
      * @param name
      */
     public void setName(String name) {
-        this.name = SymbolNamesHelper.generateName(this.getClass().getSimpleName(),name);
+        this.name = name;
     }
 
     /**
@@ -60,6 +61,14 @@ public abstract class Symbol {
         return type;
     }
 
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
     /**
      * Représentation de l'objet
      *
@@ -68,8 +77,8 @@ public abstract class Symbol {
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + " {" +
-                "\n\t\tname = '" + SymbolNamesHelper.generateNiceName(name) + '\'' +
-                (type != null ? ", \n\t\ttype = " + SymbolNamesHelper.generateNiceName(type.getName()) : "") +
+                "\n\t\tname = '" + name + '\'' +
+                (type != null ? ", \n\t\ttype = " + type.getName() : "") +
                 "\n\t}";
     }
 }

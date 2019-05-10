@@ -133,7 +133,7 @@ public class Expression {
 
     @Override
     public String toString() {
-        return "Expression{" +
+        return "ExpressionSymbol{" +
                 "text='" + text + '\'' +
                 ", builtInTypeName='" + builtInTypeName + '\'' +
                 ", symbolTypeName='" + symbolTypeName + '\'' +

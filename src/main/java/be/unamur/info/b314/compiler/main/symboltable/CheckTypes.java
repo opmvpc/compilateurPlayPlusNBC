@@ -31,7 +31,7 @@ public class CheckTypes extends PlayPlusBaseListener {
     /**
      *  Recherche dans la table des symboles une expression à partir de son nom
      * @param expText le nom de l'expression
-     * @return une Expression
+     * @return une ExpressionSymbol
      */
     private Optional<Expression> findExprByText(String expText) {
         Optional<Expression> expression = this.expressions.stream()

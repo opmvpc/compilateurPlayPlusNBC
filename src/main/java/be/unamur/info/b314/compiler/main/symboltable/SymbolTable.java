@@ -71,7 +71,7 @@ public class SymbolTable {
      * @return
      */
     public Symbol getType(String name) {
-        return this.getGlobals().resolve(name);
+        return this.getGlobals().resolveByName(name).get();
     }
 
     /**

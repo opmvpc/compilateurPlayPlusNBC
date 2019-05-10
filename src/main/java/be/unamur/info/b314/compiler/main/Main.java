@@ -217,29 +217,34 @@ public class Main {
 
         printTitle("Def Phase");
         Errors errors = new Errors();
-        DefPhase def = new DefPhase(errors);
+
+        SymbolTable symbolTable = new SymbolTable();
+        DefinitionPhase def = new DefinitionPhase(symbolTable, errors);
         walker.walk(def, tree);
 
-        printTitle("Check Naming conventions Phase");
-        new CheckNamingConventions(def.getSymTable(), errors);
-
-        printTitle("Ref Phase");
-        RefPhase ref = new RefPhase(def.getSymTable(), errors);
-        walker.walk(ref, tree);
-
-        if (errors.symbolNotFound.isEmpty() && errors.badNameError.isEmpty()){
-            printTitle("Def Types Phase");
-            DefTypes defTypes = new DefTypes(def.getSymTable(), errors);
-            walker.walk(defTypes, tree);
-
-            printTitle("Check Types Phase");
-            CheckTypes checkTypes = new CheckTypes(def.getSymTable(), defTypes.getExpressions(), errors);
-            walker.walk(checkTypes, tree);
-
-            // printTitle("ExpressionCalculator");
-           // ExpressionCalculator expr = new ExpressionCalculator(defTypes.getExpressions());
-            // walker.walk(expr, tree);
-        }
+//        DefPhase def = new DefPhase(errors);
+//        walker.walk(def, tree);
+//
+//        printTitle("Check Naming conventions Phase");
+//        new CheckNamingConventions(def.getSymTable(), errors);
+//
+//        printTitle("Ref Phase");
+//        RefPhase ref = new RefPhase(def.getSymTable(), errors);
+//        walker.walk(ref, tree);
+//
+//        if (errors.symbolNotFound.isEmpty() && errors.badNameError.isEmpty()){
+//            printTitle("Def Types Phase");
+//            DefTypes defTypes = new DefTypes(def.getSymTable(), errors);
+//            walker.walk(defTypes, tree);
+//
+//            printTitle("Check Types Phase");
+//            CheckTypes checkTypes = new CheckTypes(def.getSymTable(), defTypes.getExpressions(), errors);
+//            walker.walk(checkTypes, tree);
+//
+//            // printTitle("ExpressionCalculator");
+//           // ExpressionCalculator expr = new ExpressionCalculator(defTypes.getExpressions());
+//            // walker.walk(expr, tree);
+//        }
 
         printTitle("Errors");
         System.out.println(errors.toString());
@@ -262,7 +267,7 @@ public class Main {
             throw new FunctionException(errors.mapError.toString());
         }
 
-        return def.getSymTable();
+        return symbolTable;
     }
 
     private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable) throws IOException {

@@ -4,24 +4,26 @@ import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 public abstract class BaseScope implements Scope {
 
     private String name;
     private Scope enclosingScope;
-    private HashMap<String, Symbol> symbols;
+    private ArrayList<Symbol> symbols;
 
     public BaseScope(Scope enclosingScope) {
         this.name = "global";
         this.enclosingScope = enclosingScope;
-        this.symbols = new HashMap<>();
+        this.symbols = new ArrayList<>();
     }
 
     public BaseScope(String name, Scope enclosingScope) {
         this.name = name;
         this.enclosingScope = enclosingScope;
-        this.symbols = new HashMap<>();
+        this.symbols = new ArrayList<>();
     }
 
     @Override
@@ -36,16 +38,28 @@ public abstract class BaseScope implements Scope {
 
     @Override
     public void define(Symbol symbol) {
-        String name  = symbol.getName();
-        this.symbols.put(name , symbol);
+        this.symbols.add(symbol);
     }
 
     @Override
-    public Symbol resolve(String name) {
-        return this.symbols.get(name);
+    public Optional<Symbol> resolveByName(String name) {
+        Optional<Symbol> symbol = this.symbols.stream()
+                .filter(s -> s.getName().equals(name))
+                .findFirst();
+
+        return symbol;
     }
 
-    public HashMap<String, Symbol> getSymbols() {
+    @Override
+    public Optional<Symbol> resolveByNameAndType(String name, String type) {
+        Optional<Symbol> symbol = this.symbols.stream()
+                .filter(s -> s.getName().equals(name) && s.getType().getName().equals(type))
+                .findFirst();
+
+        return symbol;
+    }
+
+    public ArrayList<Symbol> getSymbols() {
         return symbols;
     }
 

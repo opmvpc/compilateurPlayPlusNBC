@@ -125,7 +125,7 @@ public class DefTypes extends PlayPlusBaseListener {
             return;
         }
 
-//        Expression parenthesée
+//        ExpressionSymbol parenthesée
         if (ctx.getChild(0).getText().equals("(")) {
 //            System.out.println("parent bool :"+ ctx.getText());
             addParentheseExpr(ctx);
@@ -316,7 +316,7 @@ public class DefTypes extends PlayPlusBaseListener {
 
 //        System.out.println(ctx.getText());
 
-//        Expression parenthesée
+//        ExpressionSymbol parenthesée
         if (ctx.getChild(0).getText().equals("(")) {
             addParentheseExpr(ctx);
             return;
@@ -472,7 +472,7 @@ public class DefTypes extends PlayPlusBaseListener {
                 System.out.println(parentFunction.ID().getText());
                 Optional<Expression> functExpr = findExprByText(parentFunction.ID().getText());
                 parent = functExpr.get();  //System.out.println(functExpr.get());
-                //Expression expr = new Expression(text, type, symbolType, isAssigned, functExpr.get());
+                //ExpressionSymbol expr = new ExpressionSymbol(text, type, symbolType, isAssigned, functExpr.get());
                 //addExpr(expr);
                 //expr.setValue(12);
                 //return;
@@ -549,7 +549,7 @@ public class DefTypes extends PlayPlusBaseListener {
 
             if (exprD.isPresent() && ! argsDeclexpressions.isEmpty()) {
                 System.out.println("exprd" + exprDText);
-                //Expression exprG = new Expression(id, var.get().getBuiltInTypeName(), var.get().getSymbolTypeName(), true);
+                //ExpressionSymbol exprG = new ExpressionSymbol(id, var.get().getBuiltInTypeName(), var.get().getSymbolTypeName(), true);
                 //addExpr(exprG);
                 //exprG.setValue(exprD.get().getValue());
                 Expression arg  = argsDeclexpressions.get(position);
@@ -679,32 +679,32 @@ public class DefTypes extends PlayPlusBaseListener {
     /**
      * ajouts d'une expression de reference d'une variable contenue dans une structure
      */
-    public void exitStructRef(PlayPlusParser.StructRefContext ctx) {
-//        System.out.println(ctx.getText());
-        Boolean isAssigned = false;
-        String structCall = ctx.getText();
-        String structName = SymbolNamesHelper.genStructName(ctx.ID().getText());
-//        System.out.println("structName "+structName);
-        StructSymbol struct = (StructSymbol) this.symtable.getGlobals().resolve(structName);
-//        System.out.println("struct " + struct.getName());
-        Iterator members = ctx.members().member().listIterator();
-        while (members.hasNext()) {
-            PlayPlusParser.MemberContext member = (PlayPlusParser.MemberContext) members.next();
-//            System.out.println("member " + member.ID().getText());
-            if (members.hasNext()) {
-                structName = SymbolNamesHelper.genStructName(member.ID().getText());
-                struct = (StructSymbol) struct.resolve(structName);
-            } else {
-                String varName = SymbolNamesHelper.genVarName(member.ID().getText());
-//                System.out.println(struct.resolve(varName));
-                VariableSymbol var = (VariableSymbol) struct.resolve(varName);
-                String varType = SymbolNamesHelper.generateNiceName(var.getType().getName());
-//                System.out.println(varType);
-                Expression expr = new Expression(structCall, varType, "structVariable", isAssigned);
-                addExpr(expr);
-            }
-        }
-    }
+//    public void exitStructRef(PlayPlusParser.StructRefContext ctx) {
+////        System.out.println(ctx.getText());
+//        Boolean isAssigned = false;
+//        String structCall = ctx.getText();
+//        String structName = SymbolNamesHelper.genStructName(ctx.ID().getText());
+////        System.out.println("structName "+structName);
+//        StructSymbol struct = (StructSymbol) this.symtable.getGlobals().resolve(structName);
+////        System.out.println("struct " + struct.getName());
+//        Iterator members = ctx.members().member().listIterator();
+//        while (members.hasNext()) {
+//            PlayPlusParser.MemberContext member = (PlayPlusParser.MemberContext) members.next();
+////            System.out.println("member " + member.ID().getText());
+//            if (members.hasNext()) {
+//                structName = SymbolNamesHelper.genStructName(member.ID().getText());
+//                struct = (StructSymbol) struct.resolve(structName);
+//            } else {
+//                String varName = SymbolNamesHelper.genVarName(member.ID().getText());
+////                System.out.println(struct.resolve(varName));
+//                VariableSymbol var = (VariableSymbol) struct.resolve(varName);
+//                String varType = SymbolNamesHelper.generateNiceName(var.getType().getName());
+////                System.out.println(varType);
+//                ExpressionSymbol expr = new ExpressionSymbol(structCall, varType, "structVariable", isAssigned);
+//                addExpr(expr);
+//            }
+//        }
+//    }
 
     @Override
     /**
@@ -754,7 +754,7 @@ public class DefTypes extends PlayPlusBaseListener {
         Optional<Expression> exprD = findExprByText(ctx.exprD().getText());
         if (var.isPresent() && exprD.isPresent()) {
 
-            //Expression exprG = new Expression(id, var.get().getBuiltInTypeName(), var.get().getSymbolTypeName(), true);
+            //ExpressionSymbol exprG = new ExpressionSymbol(id, var.get().getBuiltInTypeName(), var.get().getSymbolTypeName(), true);
             //addExpr(exprG);
             //exprG.setValue(exprD.get().getValue());
 
