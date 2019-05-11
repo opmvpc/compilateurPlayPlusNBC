@@ -95,12 +95,18 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             Optional<Symbol> result = symbolTable.getCurrentScope().resolveByName(ctx.getText());
 
             if (result.isPresent()) {
-                System.out.println("valueof "+ctx.getText() + "value :"+result.get().getValue());
+                System.out.println("valueof "+ctx.getText() + " value :"+result.get().getValue());
                 //result.get().getValue();
+                if (result.get().getValue() != null){
+
+                    value = result.get().getValue();
+                }
+
             } else {
                 System.out.println("ERROR : valueof "+ctx.getText() +"");
+
             }
-            value = result.get().getValue();
+
         }
 
         return value;
@@ -111,15 +117,19 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
         @Override
         public Integer visitSubVarDecl(PlayPlusParser.SubVarDeclContext ctx) {
+            int value = 0;
             System.out.println("visitSubVarDecl :"+ctx.getText());
             String varName = ctx.ID().getText();
-            int value = this.visitInitVariable(ctx.initVariable());
-            Optional<Symbol> result = symbolTable.getCurrentScope().resolveByName(varName);
-            if (result.isPresent()){
+            if (ctx.initVariable() != null) {
+                value = this.visitInitVariable(ctx.initVariable());
+                Optional<Symbol> result = symbolTable.getCurrentScope().resolveByName(varName);
+                if (result.isPresent()){
 
-                result.get().setValue(value);
+                    result.get().setValue(value);
 
+                }
             }
+
             return value;
         }
 
@@ -134,17 +144,22 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
     @Override
     public Integer visitAffectInstr(PlayPlusParser.AffectInstrContext ctx) {
+        int value = 0;
         System.out.println("VisitAffectInstr :"+ctx.getText());
-        String varName = ctx.exprG().ID().getText();
-        Optional<Symbol> result = symbolTable.getCurrentScope().resolveByName(varName);
-        int value = this.visitExprD(ctx.exprD());
-        if (result.isPresent()) {
-            System.out.println("valueof "+ctx.getText() + "value :"+result.toString());
+        if (ctx.exprG().ID() != null){
+            String varName = ctx.exprG().ID().getText();
+            Optional<Symbol> result = symbolTable.getCurrentScope().resolveByName(varName);
+            value = this.visitExprD(ctx.exprD());
+            if (result.isPresent()) {
+                System.out.println("setting value of  "+ ctx.getText() + "value : "+ value);
 
-            result.get().setValue(value);
-        } else {
-            System.out.println("ERROR : valueof "+ctx.getText() +"");
+                result.get().setValue(value);
+            } else {
+                System.out.println("ERROR : valueof "+ctx.getText() +"");
+            }
+
         }
+
 
         return value;
     }
