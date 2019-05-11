@@ -400,7 +400,7 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
             return;
         }
 
-        Type type = (BuiltInTypeSymbol) resolveType("bool");
+        Type type = expression.get().getType();
         ExpressionSymbol expr = new ExpressionSymbol(ctx.getText(), type);
         symTable.define(expr);
     }
@@ -474,9 +474,10 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
     private void arrayAffectSymbol(PlayPlusParser.AffectInstrContext ctx) {
         String varName = ctx.exprG().getText();
-       System.out.println("arrayAffect exprD "+ctx.exprD().getText());
+        String arrayName = ctx.exprG().arrayRef().ID().getText();
+        System.out.println("arrayAffect name "+arrayName);
 
-        Optional<Symbol> result = resolveSymbolRec(varName,symTable.getCurrentScope());
+        Optional<Symbol> result = resolveSymbolRec(arrayName,symTable.getCurrentScope());
 
         if (! result.isPresent()) {
             return;

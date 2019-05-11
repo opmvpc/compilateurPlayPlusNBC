@@ -228,9 +228,9 @@ public class Main {
 //        printTitle("Check Naming conventions Phase");
 //        new CheckNamingConventions(def.getSymTable(), errors);
 //
-//        printTitle("Ref Phase");
-//        RefPhase ref = new RefPhase(def.getSymTable(), errors);
-//        walker.walk(ref, tree);
+        printTitle("Ref Phase");
+        RefPhase ref = new RefPhase(def.getSymTable(), errors);
+        walker.walk(ref, tree);
 //
 //        if (errors.symbolNotFound.isEmpty() && errors.badNameError.isEmpty()){
 //            printTitle("Def Types Phase");
