@@ -7,8 +7,10 @@ import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Filler;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
+import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.ConditionalSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.StructSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.WhileSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.*;
 import org.antlr.v4.runtime.RuleContext;
 
@@ -573,6 +575,45 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
     }
 
+    @Override
+    public void enterConditionalStmt(PlayPlusParser.ConditionalStmtContext ctx) {
+        System.out.println(ctx.getText());
+        String name = ctx.getText();
+        Scope currentScope = this.symTable.getCurrentScope();
+        String condition = ctx.boolCondition().getText();
+        Type type = new BuiltInTypeSymbol("conditionalStmt");
+
+        ConditionalSymbol expr = new ConditionalSymbol(name,type,currentScope,ctx,condition);
+        this.symTable.define(expr);
+        this.symTable.setCurrentScope(expr);
+        this.symTable.saveScope(ctx,expr);
+
+    }
+
+    @Override
+    public void exitConditionalStmt(PlayPlusParser.ConditionalStmtContext ctx) {
+        symTable.setCurrentScopeToEnclosingOne();
+    }
+
+    @Override
+    public void enterWhileStmt(PlayPlusParser.WhileStmtContext ctx) {
+        System.out.println(ctx.getText());
+        String name = ctx.getText();
+        Scope currentScope = this.symTable.getCurrentScope();
+        String condition = ctx.boolCondition().getText();
+        Type type = new BuiltInTypeSymbol("whileStmt");
+
+        WhileSymbol expr = new WhileSymbol(name,type,currentScope,ctx,condition);
+        this.symTable.define(expr);
+        this.symTable.setCurrentScope(expr);
+        this.symTable.saveScope(ctx,expr);
+
+    }
+
+    @Override
+    public void exitWhileStmt(PlayPlusParser.WhileStmtContext ctx) {
+        symTable.setCurrentScopeToEnclosingOne();
+    }
 
     private Optional<Symbol> resolveFunc(String funName) {
         Scope currentScope = this.symTable.getCurrentScope();
