@@ -185,6 +185,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_exprEntiere5_Main_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/exprEntiere5_Main.b314", testFolder.newFile(), true, "comments: exprEntiere5_Main");
+    }
+
+    @Test
     public void testcomments_varScopes2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/varScopes2.b314", testFolder.newFile(), true, "comments: varScopes2");
     }
