@@ -138,8 +138,8 @@ exprD
 	;
 
 operateurEntier
-    : (MUL | DIV)
-    | (PLUS | MINUS)
+    : (PLUS | MINUS)
+    | (MUL | DIV)
     | MOD
     | POW
     ;

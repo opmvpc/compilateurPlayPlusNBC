@@ -2352,10 +2352,10 @@ public class PlayPlusParser extends Parser {
 	}
 
 	public static class OperateurEntierContext extends ParserRuleContext {
-		public TerminalNode MUL() { return getToken(PlayPlusParser.MUL, 0); }
-		public TerminalNode DIV() { return getToken(PlayPlusParser.DIV, 0); }
 		public TerminalNode PLUS() { return getToken(PlayPlusParser.PLUS, 0); }
 		public TerminalNode MINUS() { return getToken(PlayPlusParser.MINUS, 0); }
+		public TerminalNode MUL() { return getToken(PlayPlusParser.MUL, 0); }
+		public TerminalNode DIV() { return getToken(PlayPlusParser.DIV, 0); }
 		public TerminalNode MOD() { return getToken(PlayPlusParser.MOD, 0); }
 		public TerminalNode POW() { return getToken(PlayPlusParser.POW, 0); }
 		public OperateurEntierContext(ParserRuleContext parent, int invokingState) {
@@ -2385,13 +2385,13 @@ public class PlayPlusParser extends Parser {
 			setState(340);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case MUL:
-			case DIV:
+			case PLUS:
+			case MINUS:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(336);
 				_la = _input.LA(1);
-				if ( !(_la==MUL || _la==DIV) ) {
+				if ( !(_la==PLUS || _la==MINUS) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -2401,13 +2401,13 @@ public class PlayPlusParser extends Parser {
 				}
 				}
 				break;
-			case PLUS:
-			case MINUS:
+			case MUL:
+			case DIV:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(337);
 				_la = _input.LA(1);
-				if ( !(_la==PLUS || _la==MINUS) ) {
+				if ( !(_la==MUL || _la==DIV) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -5386,7 +5386,7 @@ public class PlayPlusParser extends Parser {
 		"E\5E\u02b9\nE\3E\3E\3E\3E\7E\u02bf\nE\fE\16E\u02c2\13E\3E\3E\3E\3F\3F"+
 		"\3F\3F\3F\3F\3\u02c0\4DFG\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&"+
 		"(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`bdfhjlnprtvxz|~\u0080\u0082\u0084"+
-		"\u0086\u0088\u008a\2\b\3\2EN\3\2!\"\3\2\37 \4\2%%(,\3\2\n\13\3\2\24\26"+
+		"\u0086\u0088\u008a\2\b\3\2EN\3\2\37 \3\2!\"\4\2%%(,\3\2\n\13\3\2\24\26"+
 		"\u0302\2\u008e\3\2\2\2\4\u0090\3\2\2\2\6\u0095\3\2\2\2\b\u0099\3\2\2\2"+
 		"\n\u009d\3\2\2\2\f\u009f\3\2\2\2\16\u00a1\3\2\2\2\20\u00a8\3\2\2\2\22"+
 		"\u00aa\3\2\2\2\24\u00b1\3\2\2\2\26\u00b9\3\2\2\2\30\u00bc\3\2\2\2\32\u00bf"+

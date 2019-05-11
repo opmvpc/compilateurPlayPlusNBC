@@ -295,6 +295,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_exprEntiere4_Main_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/exprEntiere4_Main.b314", testFolder.newFile(), true, "comments: exprEntiere4_Main");
+    }
+
+    @Test
     public void testcomments_affectation2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/affectation2.b314", testFolder.newFile(), true, "comments: affectation2");
     }

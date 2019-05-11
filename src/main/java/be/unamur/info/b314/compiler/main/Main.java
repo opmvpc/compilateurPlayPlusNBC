@@ -8,8 +8,8 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 //import be.unamur.info.b314.compiler.NBCPrinter;
 //import be.unamur.info.b314.compiler.NBCVisitor;
 import be.unamur.info.b314.compiler.exception.*;
-import be.unamur.info.b314.compiler.main.codeprinter.ExpressionCalculator;
 import be.unamur.info.b314.compiler.main.codeprinter.NbcPrinter;
+import be.unamur.info.b314.compiler.main.codeprinter.NbcPrinterVisitor;
 import be.unamur.info.b314.compiler.main.symboltable.*;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 
@@ -19,8 +19,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -180,7 +178,7 @@ public class Main {
         LOG.debug("Building symbol table: done");
         // Print NBC Code
         LOG.debug("Printing NBC Code");
-        //printNBCCode(tree, symTable);
+        printNBCCode(tree, symTable);
         LOG.debug("Printing NBC Code: done");
     }
 
@@ -241,8 +239,8 @@ public class Main {
 //            CheckTypes checkTypes = new CheckTypes(def.getSymTable(), errors);
 //            walker.walk(checkTypes, tree);
 //
-//            // printTitle("ExpressionCalculator");
-//           // ExpressionCalculator expr = new ExpressionCalculator(defTypes.getExpressions());
+//            // printTitle("NbcPrinterVisitor");
+//           // NbcPrinterVisitor expr = new NbcPrinterVisitor(defTypes.getExpressions());
 //            // walker.walk(expr, tree);
 //        }
 
@@ -273,10 +271,10 @@ public class Main {
     private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable) throws IOException {
         printTitle("Printing NBC code...");
         ParseTreeWalker walker = new ParseTreeWalker();
-        NbcPrinter printer = new NbcPrinter("nbcCode.nbc", symTable);
-        walker.walk(printer, tree);
+        NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable);
+        printer.visitRoot(tree);
         System.out.println(printer.toString());
-        printer.printFile();
+       // printer.printFile();
     }
 
     private static void printSourceFile(File file) {
