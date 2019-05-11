@@ -291,7 +291,11 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
         Type type = (BuiltInTypeSymbol) resolveType("bool");
 
+        if (ctx.exprG() != null && ctx.exprG().ID() != null){
+            return;
+        }
         ExpressionSymbol expr = new ExpressionSymbol(text, type);
+
         symTable.define(expr);
     }
 
@@ -368,6 +372,10 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         }
 
         Type type = (BuiltInTypeSymbol) resolveType("int");
+
+        if (ctx.exprG() != null && ctx.exprG().ID() != null){
+            return;
+        }
 
         if (!symTable.getCurrentScope().resolveByName(text).isPresent()){
 

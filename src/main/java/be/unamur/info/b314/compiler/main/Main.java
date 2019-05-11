@@ -238,7 +238,7 @@ public class Main {
 //            walker.walk(defTypes, tree);
 //
 //            printTitle("Check Types Phase");
-//            CheckTypes checkTypes = new CheckTypes(def.getSymTable(), defTypes.getExpressions(), errors);
+//            CheckTypes checkTypes = new CheckTypes(def.getSymTable(), errors);
 //            walker.walk(checkTypes, tree);
 //
 //            // printTitle("ExpressionCalculator");
