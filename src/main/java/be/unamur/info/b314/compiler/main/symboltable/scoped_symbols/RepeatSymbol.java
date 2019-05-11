@@ -4,19 +4,19 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 
-public class WhileSymbol extends ScopedSymbol {
+public class RepeatSymbol extends ScopedSymbol {
     private String condition;
-    private PlayPlusParser.WhileStmtContext whileContext;
+    private PlayPlusParser.RepeatStmtContext repeatContext;
 
-    public WhileSymbol(String name, Type type, Scope enclosingScope) {
+    public RepeatSymbol(String name, Type type, Scope enclosingScope) {
         super(name, type, enclosingScope);
     }
 
 
-    public WhileSymbol(String name, Type type, Scope scope, PlayPlusParser.WhileStmtContext whileContext, String condition ){
+    public RepeatSymbol(String name, Type type, Scope scope, PlayPlusParser.RepeatStmtContext repeatContext, String condition ){
         super(name, type, scope);
         this.condition = condition;
-        this.whileContext = whileContext;
+        this.repeatContext = repeatContext;
     }
 
     /**
@@ -26,7 +26,7 @@ public class WhileSymbol extends ScopedSymbol {
      */
     @Override
     public String toString() {
-        return "WhileSymbol" + " {" +
+        return "RepeatSymbol" + " {" +
                 "\n\t\tname = '" + super.getName() + '\'' +
                 (super.getType() != null ? ", \n\t\ttype = " + super.getType().getName() : "") +
                 ", \n\t\tbody = " + super.getSymbols()+

@@ -7,10 +7,7 @@ import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Filler;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
-import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.ConditionalSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.StructSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.WhileSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.*;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.*;
 import org.antlr.v4.runtime.RuleContext;
 
@@ -612,6 +609,26 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
     @Override
     public void exitWhileStmt(PlayPlusParser.WhileStmtContext ctx) {
+        symTable.setCurrentScopeToEnclosingOne();
+    }
+
+
+    @Override
+    public void enterRepeatStmt(PlayPlusParser.RepeatStmtContext ctx) {
+        System.out.println(ctx.getText());
+        String name = ctx.getText();
+        Scope currentScope = this.symTable.getCurrentScope();
+        String condition = ctx.repeatCondition().getText();
+        Type type = new BuiltInTypeSymbol("RepeatStmt");
+
+        RepeatSymbol expr = new RepeatSymbol(name,type,currentScope,ctx,condition);
+        this.symTable.define(expr);
+        this.symTable.setCurrentScope(expr);
+        this.symTable.saveScope(ctx,expr);
+    }
+
+    @Override
+    public void exitRepeatStmt(PlayPlusParser.RepeatStmtContext ctx){
         symTable.setCurrentScopeToEnclosingOne();
     }
 
