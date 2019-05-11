@@ -225,8 +225,8 @@ public class Main {
 //        DefPhase def = new DefPhase(errors);
 //        walker.walk(def, tree);
 //
-//        printTitle("Check Naming conventions Phase");
-//        new CheckNamingConventions(def.getSymTable(), errors);
+        printTitle("Check Naming conventions Phase");
+        new CheckNamingConventions(def.getSymTable(), errors);
 //
         printTitle("Ref Phase");
         RefPhase ref = new RefPhase(def.getSymTable(), errors);

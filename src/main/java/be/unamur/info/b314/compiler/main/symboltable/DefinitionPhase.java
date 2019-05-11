@@ -87,14 +87,10 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         Type functype = (BuiltInTypeSymbol) resolveType(funcTypeName);
         Scope currentScope = this.symTable.getCurrentScope();
 
-        if (name.equals("main")){
-
-            currentScope = this.symTable.getGlobals();
-
-        }
-
         if (currentScope.resolveByName(name).isPresent()) {
-            errors.badNameError.add("Deux fonctions ne peuvent pas porter le même nom");
+            if (currentScope.resolveByName(name).get().getClass().getSimpleName().equals("FunctionSymbol") ) {
+                errors.badNameError.add("Deux fonctions ne peuvent pas porter le même nom");
+            }
         }
 
         FunctionSymbol function = new FunctionSymbol(name, functype, currentScope);
