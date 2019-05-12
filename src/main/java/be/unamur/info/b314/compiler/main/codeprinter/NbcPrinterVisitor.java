@@ -87,6 +87,12 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         return 0;
     }
 
+    @Override
+    public Integer visitBoolCondition(PlayPlusParser.BoolConditionContext ctx) {
+        int value = visitExprBool(ctx.exprBool());
+
+        return value;
+    }
 
     @Override
     public Integer visitExprBool(PlayPlusParser.ExprBoolContext ctx) {
@@ -96,15 +102,60 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         if (ctx.getChildCount() == 2) {
 //            System.out.println("Neg Exp bool : "+ctx.getText());
             //evalNegBool(ctx);
+            // aller chercher dans la table des symboles
             return value;
         }
 
         if (ctx.getChildCount() >= 3) {
             System.out.println("Exp bool 3 termes : "+ctx.getText());
-            //evalExpBool(ctx);
-            return value;
-        }
 
+            int leftPart = 0;
+            int rightPart = 0 ;
+            String operator = ctx.getChild(1).getText();
+
+            System.out.println("ctx.exprEnt(0) " + ctx.exprEnt(0) );
+            System.out.println("ctx.exprEnt(1) " + ctx.exprEnt(1) );
+
+            if (ctx.boolVal(0) != null){
+                leftPart = visitBoolVal(ctx.boolVal(0));
+            }
+            if (ctx.boolVal(1) != null){
+                rightPart = visitBoolVal(ctx.boolVal(1));
+            }
+
+            if(ctx.exprEnt(0) != null && ctx.exprEnt(1) != null ) {
+                leftPart = visitExprEnt(ctx.exprEnt(0));
+                rightPart = visitExprEnt(ctx.exprEnt(1));
+            }
+
+
+                boolean boolVal = false;
+                switch (operator) {
+                    case "==" :
+                        boolVal = leftPart == rightPart;
+                        break;
+                    case "!=" :
+                        boolVal = leftPart != rightPart;
+                        break;
+                    case "<" :
+                        boolVal = leftPart < rightPart;
+                        break;
+                    case ">" :
+                        boolVal = leftPart > rightPart;
+                        break;
+                    case "<=" :
+                        boolVal = leftPart <= rightPart;
+                        break;
+                    case ">=" :
+                        boolVal = leftPart >= rightPart;
+                        break;
+                }
+
+                value = (boolVal == true) ? 1 : 0;
+                System.out.println("Bool calculated value : " + value);
+                return value;
+
+        }
 
         try {
             boolean val = Boolean.valueOf(ctx.getText());
@@ -115,6 +166,30 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         }
 
         return value; //super.visitExprBool(ctx);
+    }
+
+    @Override
+    public Integer visitBoolVal(PlayPlusParser.BoolValContext ctx) {
+        String debugString = ctx.getText();
+        System.out.println("VisitBoolVal :" + debugString );
+        int value = 0 ;
+
+        if(ctx.exprG() != null){
+            value = visitExprG(ctx.exprG());
+        }
+        return value;
+    }
+
+    @Override
+    public Integer visitExprG(PlayPlusParser.ExprGContext ctx) {
+        String debugString = ctx.getText();
+        System.out.println("VisitExprG :" + debugString );
+        int value = 0 ;
+
+        if(ctx.ID() != null){
+            //value = visitId(ctx.exprG());
+        }
+        return value;
     }
 
     @Override
