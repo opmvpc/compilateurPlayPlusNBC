@@ -160,6 +160,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_function14_returnvalues_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function14_returnvalues.b314", testFolder.newFile(), true, "comments: function14_returnvalues");
+    }
+
+    @Test
     public void testcomments_affectation1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/affectation1.b314", testFolder.newFile(), true, "comments: affectation1");
     }

@@ -71,11 +71,32 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     }
 
     @Override
-    public Object visitExprBool(PlayPlusParser.ExprBoolContext ctx) {
+    public Integer visitExprBool(PlayPlusParser.ExprBoolContext ctx) {
+        int value = 0;
         String debugString = ctx.getText();
         System.out.println("VisitExprBool :" + debugString );
+        if (ctx.getChildCount() == 2) {
+//            System.out.println("Neg Exp bool : "+ctx.getText());
+            //evalNegBool(ctx);
+            return value;
+        }
 
-        return super.visitExprBool(ctx);
+        if (ctx.getChildCount() >= 3) {
+            System.out.println("Exp bool 3 termes : "+ctx.getText());
+            //evalExpBool(ctx);
+            return value;
+        }
+
+
+        try {
+            boolean val = Boolean.valueOf(ctx.getText());
+            value = val == true ? 1 : 0;
+
+        } catch (Exception e) {
+            System.out.println("Erreur bool : "+ctx.getText());
+        }
+
+        return value; //super.visitExprBool(ctx);
     }
 
     @Override
@@ -238,6 +259,10 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             value = visitFuncCall(ctx.funcCall());
 
         }
+        if (ctx.exprBool() != null){
+            value = visitExprBool(ctx.exprBool());
+
+        }
         if (ctx.charVal()  != null){
             value = visitCharVal(ctx.charVal());
         }
@@ -390,6 +415,9 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         }
         return resolveSymbolRec(name, currentScope.getEnclosingScope());
     }
+
+
+
 
 
 }
