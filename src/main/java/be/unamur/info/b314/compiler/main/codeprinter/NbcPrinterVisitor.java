@@ -16,6 +16,7 @@ import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -69,6 +70,23 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         return visitChildren(ctx);
 
     }
+
+    @Override
+    public Object visitWhileStmt(PlayPlusParser.WhileStmtContext ctx) {
+        symbolTable.setCurrentScope((Scope) symbolTable.getScopes().get(ctx));
+        visitChildren(ctx);
+        symbolTable.setCurrentScopeToEnclosingOne();
+        return 0;
+    }
+
+    @Override
+    public Object visitConditionalStmt(PlayPlusParser.ConditionalStmtContext ctx) {
+        symbolTable.setCurrentScope((Scope) symbolTable.getScopes().get(ctx));
+        visitChildren(ctx);
+        symbolTable.setCurrentScopeToEnclosingOne();
+        return 0;
+    }
+
 
     @Override
     public Integer visitExprBool(PlayPlusParser.ExprBoolContext ctx) {
@@ -331,15 +349,20 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             if (!(funcDeclContext.returnInstr().getChild(1).getText().equals("void"))) {
 
                     //value = ((FunctionSymbol) result.get()).resolveByName(funcDeclContext.returnInstr().getChild(1).getText()).get().getValue();
-                value = resolveSymbolRec(funcDeclContext.returnInstr().getChild(1).getText(),symbolTable.getCurrentScope()).get().getValue();
-                    System.out.println("TEst = " + value);
+                System.out.println("return expr :"+funcDeclContext.returnInstr().getChild(1).getText());
+                if (funcDeclContext.returnInstr().exprD() != null){
+                    value =visitExprD(funcDeclContext.returnInstr().exprD());
+                } else {
+                    value = resolveSymbolRec(funcDeclContext.returnInstr().getChild(1).getText(), symbolTable.getCurrentScope()).get().getValue();
 
+                }
             }
-
+            System.out.println("TEst = " + value);
             //super.visitFuncDecl(funcDeclContext);
             //visitChildren(ctx);
             System.out.println("SETTING SCOPE TO :" + currentScope.getScopeName());
             this.symbolTable.setCurrentScope(currentScope);
+            System.out.println("98 :"+ ctx.getText());
             symbolTable.getCurrentScope().resolveByName(ctx.getText()).get().setValue(value);
         }
         System.out.println("reutn visiFuncCall :" + value);
@@ -417,7 +440,9 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     }
 
 
-
-
-
+    @Override
+    public Object visitDig(PlayPlusParser.DigContext ctx) {
+        System.out.println(symbolTable.toString());
+        return 0;
+    }
 }

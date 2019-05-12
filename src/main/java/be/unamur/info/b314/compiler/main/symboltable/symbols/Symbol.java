@@ -79,6 +79,7 @@ public abstract class Symbol {
         return this.getClass().getSimpleName() + " {" +
                 "\n\t\tname = '" + name + '\'' +
                 (type != null ? ", \n\t\ttype = " + type.getName() : "") +
+                (value != null ? ", \n\t\tvalue = " + value : "") +
                 "\n\t}";
     }
 }
