@@ -71,6 +71,14 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     }
 
     @Override
+    public Object visitExprBool(PlayPlusParser.ExprBoolContext ctx) {
+        String debugString = ctx.getText();
+        System.out.println("VisitExprBool :" + debugString );
+
+        return super.visitExprBool(ctx);
+    }
+
+    @Override
     public Integer visitExprEnt(PlayPlusParser.ExprEntContext ctx) {
         String debugString = ctx.getText();
         System.out.println("VisitExprEnt :" + debugString );
@@ -106,8 +114,10 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
 
             value = visitFuncCall(ctx.funcCall());// value of execution.
-            //value = symbolTable.getCurrentScope().resolveByName(ctx.funcCall().getText()).get().getValue();
 
+
+
+            return value;
         }
 
         try {
@@ -117,14 +127,13 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
         } catch (Exception exception){
 
-            //System.out.println("Aller voir dans la table avant de cast :" + exception.toString());
 
             Optional<Symbol> result = symbolTable.getCurrentScope().resolveByName(ctx.getText());
 
             if (result.isPresent()) {
                 System.out.println("result get"+result.get());
                 System.out.println("valueof "+ctx.getText() + " value :"+result.get().getValue());
-                //result.get().getValue();
+
                 if (result.get().getValue() != null){
 
                     value = result.get().getValue();
@@ -142,17 +151,25 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     }
 
     @Override
-    public Object visitVarDecl(PlayPlusParser.VarDeclContext ctx) {
+    public Integer visitCharVal(PlayPlusParser.CharValContext ctx) {
+        int value = 0;
+        value = ctx.CHARACTER().getText().charAt(1);
+        return value;
+    }
 
+    @Override
+    public Integer visitVarDecl(PlayPlusParser.VarDeclContext ctx) {
+
+        int value = 0;
         System.out.println("visitVarDecl :"+ctx.getText());
        Iterator subVarDecls = ctx.subVarDecl().listIterator();
        while (subVarDecls.hasNext()){
            PlayPlusParser.SubVarDeclContext subVarDecl = (PlayPlusParser.SubVarDeclContext) subVarDecls.next();
-           int value = this.visitSubVarDecl(subVarDecl);
+           value = this.visitSubVarDecl(subVarDecl);
            symbolTable.getCurrentScope().resolveByName(subVarDecl.ID().getText()).get().setValue(value);
        }
 
-       return 0;
+       return value;
     }
 
     @Override
@@ -180,7 +197,6 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         int value = 0;
         if (ctx.exprEnt() != null)
         { value = visitExprEnt(ctx.exprEnt());}
-
         return value;
 
     }
@@ -191,10 +207,13 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         System.out.println("VisitAffectInstr :"+ctx.getText());
         if (ctx.exprG().ID() != null){
             String varName = ctx.exprG().ID().getText();
-            System.out.println("Scope Affect : "+ symbolTable.getCurrentScope().getScopeName());
-            Optional<Symbol> result = symbolTable.getCurrentScope().resolveByName(varName);
 
-            value = this.visitExprD(ctx.exprD());
+
+            System.out.println("Scope Affect : "+ symbolTable.getCurrentScope().getScopeName());
+            Optional<Symbol> result = resolveSymbolRec(varName, symbolTable.getCurrentScope());
+
+                value = this.visitExprD(ctx.exprD());
+
             if (result.isPresent()) {
                 System.out.println("setting value of  "+ varName + " in " + ctx.getText() + "value : "+ value);
 
@@ -215,7 +234,13 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         int value = 0;
         if (ctx.exprEnt() != null)
         { value = visitExprEnt(ctx.exprEnt());}
+        if (ctx.funcCall() != null){
+            value = visitFuncCall(ctx.funcCall());
 
+        }
+        if (ctx.charVal()  != null){
+            value = visitCharVal(ctx.charVal());
+        }
         return value;
     }
 
@@ -262,21 +287,28 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         Scope currentScope = symbolTable.getCurrentScope();
         if (result.isPresent()){
             this.symbolTable.setCurrentScope(((FunctionSymbol) result.get()));
+
             Iterator callargs = ctx.funcCallArgs().funcCallArg().listIterator();
             int i = 0;
-            while (callargs.hasNext()){
-                PlayPlusParser.ExprDContext exprDContext = ((PlayPlusParser.FuncCallArgContext) callargs.next()).exprD();
-                ((FunctionSymbol) result.get()).getArgs().get(i).setValue(visitExprD(exprDContext));
-                i++;
-            }
+                while (callargs.hasNext()) {
+                    PlayPlusParser.ExprDContext exprDContext = ((PlayPlusParser.FuncCallArgContext) callargs.next()).exprD();
+                    if (exprDContext.getText().length() > 0){
+                        ((FunctionSymbol) result.get()).getArgs().get(i).setValue(visitExprD(exprDContext));
+                        i++;
+                    }
+
+                }
 
             PlayPlusParser.FuncDeclContext funcDeclContext = findFunctionDeclByText(funcName).get().getCtx();
             //value  = visitFuncDecl(funcDeclContext);
             visitChildren(funcDeclContext);
 
             if (!(funcDeclContext.returnInstr().getChild(1).getText().equals("void"))) {
-                value = ((FunctionSymbol) result.get()).resolveByName(funcDeclContext.returnInstr().getChild(1).getText()).get().getValue();
-                System.out.println("TEst = " + value);
+
+                    //value = ((FunctionSymbol) result.get()).resolveByName(funcDeclContext.returnInstr().getChild(1).getText()).get().getValue();
+                value = resolveSymbolRec(funcDeclContext.returnInstr().getChild(1).getText(),symbolTable.getCurrentScope()).get().getValue();
+                    System.out.println("TEst = " + value);
+
             }
 
             //super.visitFuncDecl(funcDeclContext);

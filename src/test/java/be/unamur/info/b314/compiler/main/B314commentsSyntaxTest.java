@@ -75,6 +75,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_function13_returnvalues_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/function13_returnvalues.b314", testFolder.newFile(), true, "comments: function13_returnvalues");
+    }
+
+    @Test
     public void testcomments_naming1_mainSameVarAsGlobal_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/naming1_mainSameVarAsGlobal.b314", testFolder.newFile(), true, "comments: naming1_mainSameVarAsGlobal");
     }

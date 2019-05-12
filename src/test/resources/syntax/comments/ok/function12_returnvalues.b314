@@ -3,8 +3,7 @@
 #import "world.map"
 
 
-    bool f1;
-    int fct1(int a,int b)
+    int add(int a,int b)
     {
     int c;
      c = a + b;
@@ -13,14 +12,9 @@
 
 void main()
 {
-    int x = fct1(2,3);
-
-    int a = 12;
-    int b = 11;
-    int y = 2;
-    int k = a + b ;
-    y = x + a;
-    x = a+b;
+    int x = add(2,3);
+    int b = 4;
+    b = x + b;
 
    dig();
  return void;
