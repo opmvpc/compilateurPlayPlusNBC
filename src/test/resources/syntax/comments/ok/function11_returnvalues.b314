@@ -6,6 +6,8 @@
     bool f1;
     int fct1(int a,int b)
     {
+       int d = 4 + 5;
+       int e = d + 3;
        int c = a + b;
      return c;
     }
@@ -13,7 +15,8 @@
 void main()
 {
     int x = fct1(2,3);
-
+    int y;
+    y = fct1(2,3);
     int a = 12;
     int b = 11;
 
