@@ -229,20 +229,20 @@ public class Main {
         printTitle("Ref Phase");
         RefPhase ref = new RefPhase(def.getSymTable(), errors);
         walker.walk(ref, tree);
-//
-//        if (errors.symbolNotFound.isEmpty() && errors.badNameError.isEmpty()){
+
+        if (errors.symbolNotFound.isEmpty() && errors.badNameError.isEmpty()){
 //            printTitle("Def Types Phase");
 //            DefTypes defTypes = new DefTypes(def.getSymTable(), errors);
 //            walker.walk(defTypes, tree);
-//
-//            printTitle("Check Types Phase");
-//            CheckTypes checkTypes = new CheckTypes(def.getSymTable(), errors);
-//            walker.walk(checkTypes, tree);
-//
-//            // printTitle("NbcPrinterVisitor");
-//           // NbcPrinterVisitor expr = new NbcPrinterVisitor(defTypes.getExpressions());
-//            // walker.walk(expr, tree);
-//        }
+
+            printTitle("Check Types Phase");
+            CheckTypes checkTypes = new CheckTypes(symbolTable, errors);
+            walker.walk(checkTypes, tree);
+
+            // printTitle("ExpressionCalculator");
+           // ExpressionCalculator expr = new ExpressionCalculator(defTypes.getExpressions());
+            // walker.walk(expr, tree);
+        }
 
         printTitle("Errors");
         System.out.println(errors.toString());

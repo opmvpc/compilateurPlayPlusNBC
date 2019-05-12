@@ -2,7 +2,9 @@ package be.unamur.info.b314.compiler.main.symboltable.scopes;
 
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Types;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
+import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.BuiltInTypeSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.ExpressionSymbol;
 
 public class GlobalScope extends BaseScope {
 
@@ -18,6 +20,8 @@ public class GlobalScope extends BaseScope {
         for (Types type : Types.values()) {
             define(new BuiltInTypeSymbol((String) type.toString().toLowerCase()));
         }
+        define(new ExpressionSymbol("true", (Type) super.resolveByName("bool").get()));
+        define(new ExpressionSymbol("false", (Type) super.resolveByName("bool").get()));
     }
 
 }

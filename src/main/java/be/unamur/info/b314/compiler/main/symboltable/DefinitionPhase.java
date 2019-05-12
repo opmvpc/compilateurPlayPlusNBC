@@ -35,8 +35,8 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         if (currentScope.getEnclosingScope() == null) {
         } else {
             if (currentScope instanceof FunctionSymbol) {
-                if (((FunctionSymbol) currentScope).getBody().resolveByName(varName).isPresent()) {
-                    errors.badNameError.add("Deux variables ne peuvent pas porter le même nom dans une même fonction");
+                if (((FunctionSymbol) currentScope).getBody().resolveByNameAndType(varName, varTypeName).isPresent()) {
+                    errors.badNameError.add("Deux variables ne peuvent pas porter le même nom dans une même fonction " + varName);
                 }
             }
         }
@@ -130,10 +130,7 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         while (vars.hasNext()) {
             PlayPlusParser.SubVarDeclContext var = (PlayPlusParser.SubVarDeclContext) vars.next();
             String varName = var.ID().getText();
-            if (var.arrays()!= null){
-//                instancier les vars des tableaux
-                defineArray(varName, varTypeName);
-            } if (var.initVariable() != null && var.initVariable().initArrays() != null){
+            if (var.initVariable() != null && var.initVariable().initArrays() != null){
                 Iterator values = var.initVariable().initArrays().initVariable().listIterator();
                 int i = 0;
                 while (values.hasNext()) {
@@ -148,9 +145,17 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
                     i++;
 
                 }
-            } else {
-                defineVar(varName, varTypeName);
             }
+
+            if (var.arrays()!= null){
+//                instancier les vars des tableaux
+                defineArray(varName, varTypeName);
+                continue;
+            }
+
+
+            defineVar(varName, varTypeName);
+
         }
     }
 
@@ -278,15 +283,16 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
             return;
         }
 
-        try {
-            Boolean.valueOf(text);
-        } catch (Exception e) {
-            System.out.println("Erreur bool : "+ctx.getText());
-        }
+//        try {
+//            Boolean.valueOf(text);
+//        } catch (Exception e) {
+//            System.out.println("Erreur bool : "+ctx.getText());
+//        }
 
         Type type = (BuiltInTypeSymbol) resolveType("bool");
 
-        if (ctx.exprG() != null && ctx.exprG().ID() != null){
+        if (ctx.boolVal() != null && ctx.boolVal().size() == 1 && ctx.boolVal().get(0).exprG() != null && ctx.boolVal().get(0).exprG().ID() != null){
+            System.out.println("BOOL PAS ID = "+ctx.getText());
             return;
         }
         ExpressionSymbol expr = new ExpressionSymbol(text, type);
@@ -329,12 +335,16 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         }
 
         String leftPartName = ctx.getChild(0).getText();
-        String operator = ctx.getChild(1).getText();
         String rightPartName = ctx.getChild(2).getText();
 
-        Optional<Symbol> leftPart = symTable.getCurrentScope().resolveByName(leftPartName);
-        Optional<Symbol> rightPart = symTable.getCurrentScope().resolveByName(rightPartName);
-
+        Optional<Symbol> leftPart = resolveSymbolRec(leftPartName, symTable.getCurrentScope());
+        Optional<Symbol> rightPart = resolveSymbolRec(rightPartName, symTable.getCurrentScope());
+        if (! leftPart.isPresent()) {
+            System.out.println("LEFT = " + leftPartName);
+        }
+        if (! rightPart.isPresent()) {
+            System.out.println("RIGHT = " + rightPartName);
+        }
         if (! leftPart.isPresent() || ! rightPart.isPresent()) {
             System.out.println("Error , left or right part not in expressions");
             return;
@@ -478,6 +488,11 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         if (! result.isPresent()) {
             return;
         }
+
+        if (!result.get().getClass().getSimpleName().equals("ArraySymbol")) {
+            errors.badTypeError.add("La variable "+ varName +" n'est pas un array");
+        }
+
         Type type = result.get().getType();
 
         CellSymbol cell = new CellSymbol(varName,type);
@@ -652,4 +667,18 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         return resolveSymbolRec(name, currentScope.getEnclosingScope());
     }
 
+    @Override
+    /**
+     * Ajoute des caracteres à la table
+     */
+    public void exitCharVal(PlayPlusParser.CharValContext ctx) {
+        String text = ctx.getText();
+        Type varType = (BuiltInTypeSymbol) resolveType("char");
+        String symbolType = "expr";
+
+        ExpressionSymbol expr = new ExpressionSymbol(text, varType);
+        symTable.define(expr);
+//        int value = ctx.getText().charAt(1);
+//        expr.setValue(value);
+    }
 }
