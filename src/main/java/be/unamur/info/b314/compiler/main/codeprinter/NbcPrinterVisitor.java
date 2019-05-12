@@ -99,11 +99,30 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         int value = 0;
         String debugString = ctx.getText();
         System.out.println("VisitExprBool :" + debugString );
+        if (ctx.getChildCount() == 1){
+            Optional<Symbol> result =  resolveSymbolRec(ctx.getText(), symbolTable.getCurrentScope());
+
+            if (result.isPresent()) {
+                System.out.println("result get"+result.get());
+                System.out.println("valueof "+ctx.getText() + " value :"+result.get().getValue());
+
+                if (result.get().getValue() != null){
+                    value = result.get().getValue();
+                }
+            } else {
+                System.out.println("Scope ExprBool : "+ symbolTable.getCurrentScope().getScopeName());
+                System.out.println("ERROR : valueof "+ctx.getText() +"");
+            }
+            return value;
+        }
         if (ctx.getChildCount() == 2) {
 //            System.out.println("Neg Exp bool : "+ctx.getText());
             //evalNegBool(ctx);
-            // aller chercher dans la table des symboles
-            return value;
+            if( ctx.exprBool(1) != null) {
+                value = visitExprBool(ctx.exprBool(1));
+                return  value == 1 ? 0 : 1;
+            }
+
         }
 
         if (ctx.getChildCount() >= 3) {
@@ -113,9 +132,6 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             int rightPart = 0 ;
             String operator = ctx.getChild(1).getText();
 
-            System.out.println("ctx.exprEnt(0) " + ctx.exprEnt(0) );
-            System.out.println("ctx.exprEnt(1) " + ctx.exprEnt(1) );
-
             if (ctx.boolVal(0) != null){
                 leftPart = visitBoolVal(ctx.boolVal(0));
             }
@@ -123,12 +139,20 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
                 rightPart = visitBoolVal(ctx.boolVal(1));
             }
 
-            if(ctx.exprEnt(0) != null && ctx.exprEnt(1) != null ) {
+            if(ctx.exprEnt(0) != null) {
                 leftPart = visitExprEnt(ctx.exprEnt(0));
+            }
+            if (ctx.exprEnt(1) != null){
                 rightPart = visitExprEnt(ctx.exprEnt(1));
             }
+            if (ctx.exprBool(0) != null){
+                leftPart = visitExprBool(ctx.exprBool(0));
+            }
+            if (ctx.exprBool(1) != null){
+                rightPart = visitExprBool(ctx.exprBool(1));
+            }
 
-
+            System.out.println("ExprBool : leftPart: " + leftPart + "/rightPart: " + rightPart);
                 boolean boolVal = false;
                 switch (operator) {
                     case "==" :
@@ -149,6 +173,12 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
                     case ">=" :
                         boolVal = leftPart >= rightPart;
                         break;
+                    case "&&" :
+                        boolVal = Boolean.logicalAnd(intToBoolean(leftPart), intToBoolean(rightPart));
+                        break;
+                    case "||" :
+                        boolVal = Boolean.logicalOr(intToBoolean(leftPart), intToBoolean(rightPart));
+                        break;
                 }
 
                 value = (boolVal == true) ? 1 : 0;
@@ -164,16 +194,20 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         } catch (Exception e) {
             System.out.println("Erreur bool : "+ctx.getText());
         }
-
+        System.out.println("");
         return value; //super.visitExprBool(ctx);
     }
-
+    private boolean intToBoolean(int value) {
+        return value == 0 ? false : true;
+    }
     @Override
     public Integer visitBoolVal(PlayPlusParser.BoolValContext ctx) {
         String debugString = ctx.getText();
         System.out.println("VisitBoolVal :" + debugString );
         int value = 0 ;
-
+        if(ctx.funcCall() != null){
+            value = visitFuncCall(ctx.funcCall());
+        }
         if(ctx.exprG() != null){
             value = visitExprG(ctx.exprG());
         }
