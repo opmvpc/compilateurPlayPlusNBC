@@ -99,13 +99,25 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         int value = 0;
         String debugString = ctx.getText();
         System.out.println("VisitExprBool :" + debugString );
-        if (ctx.getChildCount() == 1){
+
+        if (ctx.getChild(0).getText().charAt(0) == '(' ){
+            System.out.println("Parenthese : "+ctx.getChild(0).getText());
+            value = visitExprBool(ctx.exprBool(0));
+            return value;
+        }
+
+
+        if (ctx.getChildCount() == 1){ // soucis lorsque c'est un funcCall , la valeur n'est pas presente dan sla table des symboles
+            if (ctx.boolVal(0).boolLiteral()!= null ) {
+                value = visitBoolLiteral(ctx.boolVal(0).boolLiteral());
+                return value;
+            }
+            System.out.println("Expr Bool search expression ");
             Optional<Symbol> result =  resolveSymbolRec(ctx.getText(), symbolTable.getCurrentScope());
 
             if (result.isPresent()) {
                 System.out.println("result get"+result.get());
                 System.out.println("valueof "+ctx.getText() + " value :"+result.get().getValue());
-
                 if (result.get().getValue() != null){
                     value = result.get().getValue();
                 }
@@ -116,8 +128,12 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             return value;
         }
         if (ctx.getChildCount() == 2) {
-//            System.out.println("Neg Exp bool : "+ctx.getText());
+            System.out.println("Neg Exp bool : "+ctx.getText());
             //evalNegBool(ctx);
+            if( ctx.exprBool(0) != null) {
+                value = visitExprBool(ctx.exprBool(0));
+                return  value == 1 ? 0 : 1;
+            }
             if( ctx.exprBool(1) != null) {
                 value = visitExprBool(ctx.exprBool(1));
                 return  value == 1 ? 0 : 1;
@@ -127,6 +143,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
         if (ctx.getChildCount() >= 3) {
             System.out.println("Exp bool 3 termes : "+ctx.getText());
+            //Check sur les parenthese
 
             int leftPart = 0;
             int rightPart = 0 ;
@@ -151,8 +168,13 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             if (ctx.exprBool(1) != null){
                 rightPart = visitExprBool(ctx.exprBool(1));
             }
-
-            System.out.println("ExprBool : leftPart: " + leftPart + "/rightPart: " + rightPart);
+            if (ctx.charVal(0) != null){
+                leftPart = visitCharVal(ctx.charVal(0));
+            }
+            if (ctx.charVal(1) != null){
+                rightPart = visitCharVal(ctx.charVal(1));
+            }
+            System.out.println("ExprBool : leftPart: " + leftPart + "operateur: "+ operator + " rightPart: "+  rightPart);
                 boolean boolVal = false;
                 switch (operator) {
                     case "==" :
@@ -182,7 +204,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
                 }
 
                 value = (boolVal == true) ? 1 : 0;
-                System.out.println("Bool calculated value : " + value);
+                System.out.println("Bool calculated value in boolean : " + boolVal);
                 return value;
 
         }
@@ -211,7 +233,19 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         if(ctx.exprG() != null){
             value = visitExprG(ctx.exprG());
         }
+        if(ctx.boolLiteral() != null){
+            value = visitBoolLiteral(ctx.boolLiteral());
+        }
         return value;
+    }
+
+    @Override
+    public Integer visitBoolLiteral(PlayPlusParser.BoolLiteralContext ctx) {
+        String debugString = ctx.getText();
+        System.out.println("VisitBoolLoteral :" + debugString );
+        boolean boolval  = Boolean.valueOf(ctx.getText());
+        int value = (boolval == true) ? 1 : 0;
+        return value ;
     }
 
     @Override
@@ -345,6 +379,9 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         int value = 0;
         if (ctx.exprEnt() != null)
         { value = visitExprEnt(ctx.exprEnt());}
+        if(ctx.exprBool() != null){
+            value = visitExprBool(ctx.exprBool());
+        }
         return value;
 
     }
@@ -551,7 +588,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
     @Override
     public Object visitDig(PlayPlusParser.DigContext ctx) {
-        System.out.println(symbolTable.toString());
+       // System.out.println(symbolTable.toString());
         return 0;
     }
 }
