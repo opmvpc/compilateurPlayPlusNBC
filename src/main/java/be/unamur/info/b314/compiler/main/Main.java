@@ -272,8 +272,8 @@ public class Main {
     private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable) throws IOException {
         printTitle("Printing NBC code...");
         ParseTreeWalker walker = new ParseTreeWalker();
-       // NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable);
-        NbcVisitor printer = new NbcVisitor("nbcCode.nbc", symTable);
+        NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable);
+       // NbcVisitor printer = new NbcVisitor("nbcCode.nbc", symTable);
         printer.visitRoot(tree);
         System.out.println(printer.toString());
        // printer.printFile();
