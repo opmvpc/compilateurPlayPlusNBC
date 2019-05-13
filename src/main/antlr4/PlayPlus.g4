@@ -148,10 +148,13 @@ exprEnt
     : MINUS exprEnt
     | exprG
     | funcCall
-    | NATUREL
+    | naturel
 	| exprEnt operateurEntier exprEnt
 	| LPAREN exprEnt RPAREN
     ;
+
+naturel
+    : NATUREL;
 
  exprBool:
     | boolVal

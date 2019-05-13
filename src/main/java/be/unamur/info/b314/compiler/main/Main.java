@@ -10,6 +10,7 @@ import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.exception.*;
 import be.unamur.info.b314.compiler.main.codeprinter.NbcPrinter;
 import be.unamur.info.b314.compiler.main.codeprinter.NbcPrinterVisitor;
+import be.unamur.info.b314.compiler.main.codeprinter.NbcVisitor;
 import be.unamur.info.b314.compiler.main.symboltable.*;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 
@@ -271,7 +272,8 @@ public class Main {
     private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable) throws IOException {
         printTitle("Printing NBC code...");
         ParseTreeWalker walker = new ParseTreeWalker();
-        NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable);
+       // NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable);
+        NbcVisitor printer = new NbcVisitor("nbcCode.nbc", symTable);
         printer.visitRoot(tree);
         System.out.println(printer.toString());
        // printer.printFile();

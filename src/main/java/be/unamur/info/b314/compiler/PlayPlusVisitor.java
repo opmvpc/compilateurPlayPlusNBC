@@ -217,6 +217,12 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprEnt(PlayPlusParser.ExprEntContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#naturel}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNaturel(PlayPlusParser.NaturelContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#exprBool}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

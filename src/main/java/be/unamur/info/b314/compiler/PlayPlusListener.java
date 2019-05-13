@@ -350,6 +350,16 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitExprEnt(PlayPlusParser.ExprEntContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#naturel}.
+	 * @param ctx the parse tree
+	 */
+	void enterNaturel(PlayPlusParser.NaturelContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#naturel}.
+	 * @param ctx the parse tree
+	 */
+	void exitNaturel(PlayPlusParser.NaturelContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#exprBool}.
 	 * @param ctx the parse tree
 	 */

@@ -155,19 +155,21 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             if (ctx.boolVal(1) != null){
                 rightPart = visitBoolVal(ctx.boolVal(1));
             }
-
+            System.out.println("ExprBool : leftPart: " + leftPart + "operateur: "+ operator + " rightPart: "+  rightPart);
             if(ctx.exprEnt(0) != null) {
                 leftPart = visitExprEnt(ctx.exprEnt(0));
             }
             if (ctx.exprEnt(1) != null){
                 rightPart = visitExprEnt(ctx.exprEnt(1));
             }
+            System.out.println("ExprBool : leftPart: " + leftPart + "operateur: "+ operator + " rightPart: "+  rightPart);
             if (ctx.exprBool(0) != null){
                 leftPart = visitExprBool(ctx.exprBool(0));
             }
             if (ctx.exprBool(1) != null){
                 rightPart = visitExprBool(ctx.exprBool(1));
             }
+            System.out.println("ExprBool : leftPart: " + leftPart + "operateur: "+ operator + " rightPart: "+  rightPart);
             if (ctx.charVal(0) != null){
                 leftPart = visitCharVal(ctx.charVal(0));
             }
