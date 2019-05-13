@@ -320,6 +320,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_j_testwhile2_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testwhile2.b314", testFolder.newFile(), true, "comments: j_testwhile2");
+    }
+
+    @Test
     public void testcomments_mainprogram1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram1.b314", testFolder.newFile(), true, "comments: mainprogram1");
     }

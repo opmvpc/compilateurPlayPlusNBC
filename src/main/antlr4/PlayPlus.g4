@@ -222,9 +222,9 @@ arrayRef
     : ID LBRACKET firstDimension (COMMA secondDimension)? RBRACKET
     ;
 
-conditionalStmt : IF LPAREN boolCondition RPAREN LBRACE statement* RBRACE (ELSE LBRACE statement* RBRACE)? ;
-repeatStmt : REPEAT LPAREN repeatCondition RPAREN LBRACE statement* RBRACE ;
-whileStmt : WHILE LPAREN boolCondition RPAREN LBRACE statement* RBRACE ;
+conditionalStmt : IF LPAREN boolCondition RPAREN LBRACE labelif=statement* RBRACE (ELSE LBRACE labelelse=statement* RBRACE)? ;
+repeatStmt : REPEAT LPAREN repeatCondition RPAREN LBRACE labelloop=statement* RBRACE ;
+whileStmt : WHILE LPAREN boolCondition RPAREN LBRACE labelloop=statement* RBRACE ;
 
 boolCondition : exprBool;
 repeatCondition : exprEnt;
