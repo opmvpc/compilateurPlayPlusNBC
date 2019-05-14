@@ -164,7 +164,7 @@ public class NbcPrinter extends PlayPlusBaseListener {
             try {
                 multiplicateur = Integer.parseInt(ctx.exprEnt().getText());
             } catch (Exception exception) {
-                // System.out.println(exception.toString());
+                 System.out.println(exception.toString());
             }
         }
 

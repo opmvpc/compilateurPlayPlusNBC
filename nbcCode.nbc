@@ -13,29 +13,22 @@
     OnRev(OUT_BC,pwr) \
     wait time"
 
-#include "world.map"
-
-	set z
-	set f
-
-subroutine facto
-	brtst EQ, Then, 0
-Then :
-	call facto
-	jmp EndIf
-EndIf :
-	return
-ends
-
 thread main
-	set x
-	call facto
-	brtst EQ, Then, 0
-Then :
-	right(100,2500)
-	jmp EndIf
-EndIf :
+	right(100,500)
+	up(100,500)
+	right(100,500)
+	up(100,500)
+	right(100,500)
+	up(100,500)
+	right(100,500)
+	up(100,500)
+	 // I AM A PACIFIST 
+	right(100,500)
+	up(100,500)
+	right(100,500)
+	up(100,500)
+	right(100,500)
+	up(100,500)
 	 PlayTone(TONE_C5,500)
-	return
 	exit
 endt

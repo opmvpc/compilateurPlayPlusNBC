@@ -17,6 +17,8 @@ import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,13 +67,37 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     @Override
     public Object visitMainProgram(PlayPlusParser.MainProgramContext ctx) {
 
+        //ajout des macros actions dans le code nbc
+        ST st = this.templates.get("actions").getInstanceOf("actiondeclaration");
+        String result = st.render();
+        this.code.append(result + "\n\n");
+        this.code.append("thread main\n");
 
-        //Optional<Symbol> result = symbolTable.getCurrentScope().resolveByName("main");
+
+        //setting main scope and visiting children
+
         FunctionSymbol mainscope = (FunctionSymbol) symbolTable.getScopes().get(ctx);
         System.out.println("BEFORE SET SCOPE :" +symbolTable.getCurrentScope().getScopeName());
         this.symbolTable.setCurrentScope(mainscope);
         System.out.println("AFTER SET SCOPE : "  + symbolTable.getCurrentScope().getScopeName());
-        return visitChildren(ctx);
+
+        // visit du code du main
+        visitChildren(ctx);
+
+        // fin du code nbc
+        this.code.append("\texit\n");
+        this.code.append("endt\n");
+
+        // ajoute le code au fichier .nbc
+        try {
+            printFile();
+        } catch (Exception e){
+            System.out.println("Error Writing NBC code to File");
+        }
+
+        System.out.println("CODE NBC :");
+        System.out.println(this.code);
+        return 0;
 
     }
 
@@ -661,10 +687,54 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         return resolveSymbolRec(name, currentScope.getEnclosingScope());
     }
 
+    @Override
+    public Object visitActionType(PlayPlusParser.ActionTypeContext ctx) {
+        System.out.println("VisitActionType : "+ ctx.getText());
+        int time = 500;
+        int multiplicateur = 1;
+        String pwr = "100";
+        String actionkeyword = ctx.children.get(0).getText();
+        System.out.println("ActionkeyWord :" + actionkeyword);
+
+        if (ctx.exprEnt() != null) {
+            try {
+                multiplicateur = visitExprEnt(ctx.exprEnt());
+            } catch (Exception exception) {
+                // System.out.println(exception.toString());
+            }
+        }
+
+        time *= multiplicateur;
+
+        if (actionkeyword.equals("dig()")) {
+
+            //System.out.println("If robot on treasure play tone");
+            this.code.append("\t PlayTone(TONE_C5,500)\n");
+
+        } else if (actionkeyword.equals("fight")) {
+            this.code.append("\t // I AM A PACIFIST \n");
+        } else {
+
+            ST st = this.templates.get("actions").getInstanceOf(actionkeyword);
+            st.add("time", time);
+            st.add("pwr", pwr);
+            String result = st.render();
+            this.code.append("\t" + result + "\n");
+
+        }
+        return 0;
+    }
 
     @Override
     public Object visitDig(PlayPlusParser.DigContext ctx) {
        // System.out.println(symbolTable.toString());
         return 0;
+    }
+
+
+    public void printFile() throws IOException {
+        FileWriter fileWriter = new FileWriter(this.fileName);
+        fileWriter.write(this.code.toString());
+        fileWriter.close();
     }
 }
