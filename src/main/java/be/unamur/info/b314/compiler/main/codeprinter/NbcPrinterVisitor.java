@@ -28,6 +28,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     private StringBuilder code;
     private HashMap<String, STGroup> templates;
     private ArrayList<FunctionDecl> functionDecls;
+    private Game game;
 
     public NbcPrinterVisitor(String fileName, SymbolTable symtable) {
         this.fileName = fileName;
@@ -35,6 +36,8 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         initTemplates();
         this.code = new StringBuilder();
         this.functionDecls = new ArrayList<>();
+        this.game = new Game(symbolTable, fileName);
+        this.game.toString();
     }
 
     private void initTemplates() {
