@@ -179,8 +179,19 @@ public class Main {
         // Print NBC Code
         LOG.debug("Printing NBC Code");
         Errors errors = new Errors();
-        printNBCCode(tree, symTable,errors);
-        LOG.debug("Printing NBC Code: done");
+        Optional<Symbol> mapSymbol = symTable
+                .getGlobals()
+                .getSymbols()
+                .stream()
+                .filter(x -> x.getClass().getSimpleName().equals("MapSymbol"))
+                .findFirst();
+        if (mapSymbol.isPresent()) {
+            printNBCCode(tree, symTable, errors);
+            LOG.debug("Printing NBC Code: done");
+        } else {
+            System.out.println("no mapfile");
+        }
+
     }
 
     /**
