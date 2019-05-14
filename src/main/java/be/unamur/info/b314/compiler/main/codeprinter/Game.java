@@ -1,22 +1,27 @@
 package be.unamur.info.b314.compiler.main.codeprinter;
 
 import be.unamur.info.b314.compiler.main.symboltable.SymbolTable;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.MapSymbol;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 public class Game {
-    private String fileName;
-    private HashMap<Coordinate, Character> map;
+    private char[][] map;
     private Coordinate codyPos;
 
-    public Game(SymbolTable symbolTable, String fileName) {
-//        initMap et init codyPos
-        this.fileName = fileName;
-        initMap(symbolTable);
-    }
+    public Game(SymbolTable symbolTable) {
+        Optional<Symbol> mapSymbol = symbolTable
+                .getGlobals()
+                .getSymbols()
+                .stream()
+                .filter(x -> x.getClass().getSimpleName().equals("MapSymbol"))
+                .findFirst();
 
-    private void initMap(SymbolTable symbolTable) {
-//        walk la map
+        if (mapSymbol.isPresent()) {
+            this.map = ((MapSymbol) mapSymbol.get()).getCarte();
+        }
     }
 
     @Override

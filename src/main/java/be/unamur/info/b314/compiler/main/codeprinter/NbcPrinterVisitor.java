@@ -37,8 +37,8 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         initTemplates();
         this.code = new StringBuilder();
         this.functionDecls = new ArrayList<>();
-        this.game = new Game(symbolTable, fileName);
-        this.game.toString();
+        this.game = new Game(symbolTable);
+        System.out.println(this.game.toString());
     }
 
     private void initTemplates() {

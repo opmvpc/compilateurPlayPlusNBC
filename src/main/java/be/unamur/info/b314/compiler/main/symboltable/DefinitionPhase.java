@@ -117,6 +117,12 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         return this.symTable;
     }
 
+    @Override
+    public void exitImplDecl(PlayPlusParser.ImplDeclContext ctx) {
+        System.out.println(ctx.FILE().getText().replaceAll("\"", ""));
+        symTable.define(new MapFileSymbol(ctx.FILE().getText().replaceAll("\"", "")));
+    }
+
     /**
      *  Ajoute un symbole lors de la déclaration d'une variable à la table des symboles
      *

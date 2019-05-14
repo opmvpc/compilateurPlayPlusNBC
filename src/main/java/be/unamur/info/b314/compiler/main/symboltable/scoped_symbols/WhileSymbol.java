@@ -12,7 +12,6 @@ public class WhileSymbol extends ScopedSymbol {
         super(name, type, enclosingScope);
     }
 
-
     public WhileSymbol(String name, Type type, Scope scope, PlayPlusParser.WhileStmtContext whileContext, String condition ){
         super(name, type, scope);
         this.condition = condition;

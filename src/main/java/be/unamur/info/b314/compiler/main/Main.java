@@ -3,14 +3,8 @@ package be.unamur.info.b314.compiler.main;
 
 import be.unamur.info.b314.compiler.PlayPlusLexer;
 import be.unamur.info.b314.compiler.PlayPlusParser;
-
-
-//import be.unamur.info.b314.compiler.NBCPrinter;
-//import be.unamur.info.b314.compiler.NBCVisitor;
 import be.unamur.info.b314.compiler.exception.*;
-import be.unamur.info.b314.compiler.main.codeprinter.NbcPrinter;
 import be.unamur.info.b314.compiler.main.codeprinter.NbcPrinterVisitor;
-import be.unamur.info.b314.compiler.main.codeprinter.NbcVisitor;
 import be.unamur.info.b314.compiler.main.symboltable.*;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 
@@ -21,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
@@ -39,6 +34,10 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 
 /**
  * @author James Ortiz - james.ortizvega@unamur.be
@@ -211,7 +210,7 @@ public class Main {
     /**
      * Builds symbol table from AST.
      */
-    private SymbolTable fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException, BadNamingException, MapConfigException, BadTypeException,FunctionException {
+    private SymbolTable fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException, BadNamingException, MapConfigException, BadTypeException, FunctionException, IOException {
         ParseTreeWalker walker = new ParseTreeWalker();
 
         printTitle("Def Phase");
@@ -232,17 +231,36 @@ public class Main {
         walker.walk(ref, tree);
 
         if (errors.symbolNotFound.isEmpty() && errors.badNameError.isEmpty()){
-//            printTitle("Def Types Phase");
-//            DefTypes defTypes = new DefTypes(def.getSymTable(), errors);
-//            walker.walk(defTypes, tree);
 
             printTitle("Check Types Phase");
             CheckTypes checkTypes = new CheckTypes(symbolTable, errors);
             walker.walk(checkTypes, tree);
 
-            // printTitle("ExpressionCalculator");
-           // ExpressionCalculator expr = new ExpressionCalculator(defTypes.getExpressions());
-            // walker.walk(expr, tree);
+            Optional<Symbol> fileName = symbolTable
+                    .getGlobals()
+                    .getSymbols()
+                    .stream()
+                    .filter(x -> x.getClass().getSimpleName().equals("MapFileSymbol"))
+                    .findFirst();
+
+            if (fileName.isPresent()) {
+                printTitle("Map def Phase");
+                Path root = FileSystems.getDefault().getPath("").toAbsolutePath();
+                Path filePath = Paths.get(root.toString(),"src", "test", "resources", "syntax", "comments", "ok", fileName.get().getName());
+                System.out.println(filePath);
+                File mapFile = new File(filePath.toUri());
+
+//                Si on trouve pas la map, on pourrait checker si elle est dans ko, ou alors on trouve comment récup le nom du dossier qui contient le fichier .b314 du test
+                try {
+                    checkArgument(mapFile.exists() && mapFile.isFile(), "File %s not found!", mapFile.getName());
+                    PlayPlusParser.RootContext mapTree = parse(new ANTLRInputStream(new FileInputStream(mapFile)));
+
+                    symbolTable.setCurrentScope(symbolTable.getGlobals());
+                    walker.walk(def, mapTree);
+                } catch (IOException | IllegalArgumentException e) {
+                    System.out.println("ERREUR : Map "+ mapFile +" introuvable");
+                }
+            }
         }
 
         printTitle("Errors");
@@ -271,7 +289,7 @@ public class Main {
 
     private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable) throws IOException {
         printTitle("Printing NBC code...");
-        ParseTreeWalker walker = new ParseTreeWalker();
+//        ParseTreeWalker walker = new ParseTreeWalker();
         NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable);
        // NbcVisitor printer = new NbcVisitor("nbcCode.nbc", symTable);
         printer.visitRoot(tree);
