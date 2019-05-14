@@ -46,7 +46,7 @@ for serie in [x for x in os.listdir(syntaxDir) if not x.startswith('.')]:
         fout.write('    //\n')
         fout.write('    // Serie {} OK\n'.format(serie))
         fout.write('    //\n')
-        for inputFile in [x for x in os.listdir(okDir) if not x.startswith('.')]:
+        for inputFile in [x for x in os.listdir(okDir) if (not x.startswith('.') and x.endswith('b314'))]:
             fout.write('    @Test\n')
             fout.write('    public void test{}_{}_ok() throws Exception{{\n'.format(serie, inputFile.replace('.b314', '')))
             fout.write('        CompilerTestHelper.launchCompilation("/syntax/{}/ok/{}", testFolder.newFile(), true, "{}: {}");\n'.format(serie, inputFile, serie, inputFile.replace('.b314', '')))
@@ -54,7 +54,7 @@ for serie in [x for x in os.listdir(syntaxDir) if not x.startswith('.')]:
         fout.write('    //\n')
         fout.write('    // Serie {} KO\n'.format(serie))
         fout.write('    //\n')
-        for inputFile in [x for x in os.listdir(koDir) if not x.startswith('.')]:
+        for inputFile in [x for x in os.listdir(koDir) if (not x.startswith('.') and x.endswith('b314'))]:
             fout.write('    @Test\n')
             fout.write('    public void test{}_{}_ko() throws Exception {{\n'.format(serie, inputFile.replace('.b314', '')))
             fout.write('        CompilerTestHelper.launchCompilation("/syntax/{}/ko/{}", testFolder.newFile(), false, "{}: {}");\n'.format(serie, inputFile, serie, inputFile.replace('.b314', '')))

@@ -86,7 +86,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             value =  visitBoolCondition(ctx.boolCondition());
             System.out.println("visitWhileStmt = value" + value );
             if(value == 1){
-                visit(ctx.labelloop);
+                visitChildren(ctx);
                 visitWhileStmt(ctx);
             }else{
                 symbolTable.setCurrentScopeToEnclosingOne();

@@ -1,0 +1,34 @@
+/* Test If playPlus */
+
+#import "world.map"
+
+
+    int i;
+    bool b;
+    char s;
+    bool t1[5];
+    int  t2[6];
+    char t3[3];
+
+
+void main(){
+   i = 1;
+   b = true;
+   while(i <= 7)
+   {
+    right();
+    up();
+    if(i == 4)
+     {
+      fight();
+     }
+     i = i + 1;
+     b = false;
+   }
+
+
+dig();
+
+return void;
+
+}
