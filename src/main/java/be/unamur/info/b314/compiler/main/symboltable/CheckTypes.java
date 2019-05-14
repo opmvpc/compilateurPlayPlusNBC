@@ -270,8 +270,7 @@ public class CheckTypes extends PlayPlusBaseListener {
         System.out.println(ctx.getText());
         String conditionText = ctx.repeatCondition().getText();
         checkIntConditionType(conditionText);
-
-        symTable.setCurrentScopeToEnclosingOne();
+        //symTable.setCurrentScopeToEnclosingOne();
     }
 
     /**

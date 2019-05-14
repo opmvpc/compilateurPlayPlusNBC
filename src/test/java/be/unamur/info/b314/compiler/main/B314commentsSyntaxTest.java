@@ -280,6 +280,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_repeat42_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/repeat42.b314", testFolder.newFile(), true, "comments: repeat42");
+    }
+
+    @Test
     public void testcomments_function3_TypeArgs_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/function3_TypeArgs.b314", testFolder.newFile(), true, "comments: function3_TypeArgs");
     }

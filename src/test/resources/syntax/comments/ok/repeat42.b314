@@ -1,0 +1,38 @@
+/* Test while playPlus */
+
+  #import "world.map"
+
+      int i;
+      char s;
+      bool t1[5];
+      int t2[42];
+      int t3[10, 10];
+
+ void main(){
+   i = 0;
+
+     repeat(1) {
+       up(1);
+      }
+
+      repeat(10) {
+       down(1);
+      }
+
+      repeat(3 + 5) {
+       left(1);
+      }
+
+      repeat(i + 10) {
+        right(1);
+      }
+
+      repeat(i - 5) {
+        jump();
+      }
+
+
+  dig();
+  return void;
+
+ }
