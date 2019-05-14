@@ -5,6 +5,8 @@ import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 
 public class MapSymbol extends Symbol {
     private char[][] carte;
+    private int initX;
+    private int initY;
 
     /**
      * Constructeur
@@ -22,6 +24,23 @@ public class MapSymbol extends Symbol {
     public char[][] getCarte() {
         return carte;
     }
+
+    /**
+     *
+     * @return initX
+     */
+    public int getInitX() {
+        return initX;
+    }
+    /**
+     *
+     * @return initY
+     */
+    public int getInitY() {
+        return initY;
+    }
+
+
 
     /**
      *
@@ -93,6 +112,8 @@ public class MapSymbol extends Symbol {
                 for (int j = 0; j < carte.length; j++) {
                     if (carte[i][j] == '@') {
                         nbCody++;
+                        initX = j;
+                        initY = i;
                         if (nbCody != 1) {
                             typeError = typeError + "La configuration de la carte est incorrect : Plusieurs Tresor ";
                         }
@@ -131,6 +152,8 @@ public class MapSymbol extends Symbol {
         return "MapSymbol" + " {" +
                 "\n\t\tname = '" + super.getName() + '\'' +
                 ", \n\t\tcarte = " + afficheCarte() +
+                ", \n\t\tinitX = " + initX +
+                ", \n\t\tinitY = " + initX +
                 "\n\t}";
     }
 

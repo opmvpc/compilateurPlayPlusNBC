@@ -714,7 +714,8 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         } else if (actionkeyword.equals("fight")) {
             this.code.append("\t // I AM A PACIFIST \n");
         } else {
-
+            // movement de cody sur la carte : Il faudra ajouter une erreur
+            this.game.moveCody(actionkeyword,multiplicateur);
             ST st = this.templates.get("actions").getInstanceOf(actionkeyword);
             st.add("time", time);
             st.add("pwr", pwr);

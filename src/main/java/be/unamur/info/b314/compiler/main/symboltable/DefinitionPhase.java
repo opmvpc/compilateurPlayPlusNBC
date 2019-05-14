@@ -240,6 +240,10 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         if (typeError != null){
             errors.mapError.add(typeError);
         }
+        typeError = mp.isMapConfigCorrect();
+        if (typeError != null){
+            errors.mapError.add(typeError);
+        }
         //****************
         this.symTable.define(mp);
     }
