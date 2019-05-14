@@ -310,6 +310,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_actions_move01_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/actions_move01.b314", testFolder.newFile(), true, "comments: actions_move01");
+    }
+
+    @Test
     public void testcomments_mainprogram2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram2.b314", testFolder.newFile(), true, "comments: mainprogram2");
     }

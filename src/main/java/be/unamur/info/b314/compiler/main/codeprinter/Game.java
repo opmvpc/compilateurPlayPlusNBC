@@ -36,9 +36,10 @@ public class Game {
 
     public void moveCody(String actionword,int value){
         // for autour pour un mouvement à la fois?
+        System.out.println("moveCody : actionword : "+actionword + "value :" + value);
         int tempX = codyX;
         int tempY = codyY;
-
+        System.out.println("x ; "+tempX + " y: " + tempY);
         for (int i = 0; i < value ; i++) {
             if (actionword.equals("left")){
                 codyX -= 1;
@@ -47,10 +48,10 @@ public class Game {
                 codyX += 1;
             }
             if (actionword.equals("down")){
-                codyY -= 1;
+                codyY += 1;
             }
             if (actionword.equals("up")){
-                codyY += 1;
+                codyY -= 1;
             }
 
             checkPositionCody(tempX,tempY);
@@ -59,9 +60,11 @@ public class Game {
 
     private void checkPositionCody(int tempX,int tempY){
         // init to ascii 0
+        System.out.println("CheckPositionCody : (" + codyX + "," + codyY+")");
         char currentPosition = 0;
         try {
             currentPosition = map[codyY][codyX];
+            System.out.println("current position : "+currentPosition);
         } catch (ArrayIndexOutOfBoundsException e){
             errors.gameError.add("Cody plonge de le néant (out of bound)");
         }

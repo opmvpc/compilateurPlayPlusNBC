@@ -14,6 +14,21 @@
     wait time"
 
 thread main
+	right(100,500)
+	up(100,500)
+	right(100,500)
+	up(100,500)
+	right(100,500)
+	up(100,500)
+	right(100,500)
+	up(100,500)
+	 // I AM A PACIFIST 
+	right(100,500)
+	up(100,500)
+	right(100,500)
+	up(100,500)
+	right(100,500)
+	up(100,500)
 	 PlayTone(TONE_C5,500)
 	exit
 endt
