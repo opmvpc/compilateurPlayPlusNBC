@@ -82,14 +82,13 @@ public class MapSymbol extends Symbol {
         if (typeError == null) {
             int x = Integer.parseInt(mapX);
             int y = Integer.parseInt(mapY);
-            carte = new char[x][y];
+            carte = new char[y][x];
             int z = 0;
-            while (z < line.length()) {
-                for (int i = 0; i < x && z < line.length(); i++) {
-                    for (int j = 0; j < y && z < line.length(); j++) {
-                        carte[i][j] = line.charAt(z);
-                        z++;
-                    }
+            for (int i = 0; i < y ; i++) {
+                for (int j = 0; j < x; j++) {
+                    carte[i][j] = line.charAt(z);
+                    System.out.println("carte("+i+","+j+")"+carte[i][j]);
+                    z++;
                 }
             }
         }
@@ -109,7 +108,7 @@ public class MapSymbol extends Symbol {
         } else {
             // 1 - Check Un seul cody et un seul tresor
             for (int i = 0; i < carte.length; i++) {
-                for (int j = 0; j < carte.length; j++) {
+                for (int j = 0; j < carte[0].length; j++) {
                     if (carte[i][j] == '@') {
                         nbCody++;
                         initX = j;
@@ -141,7 +140,7 @@ public class MapSymbol extends Symbol {
         String maps = "\n\t";
         if (carte != null) {
             for (int i = 0; i < carte.length; i++) {
-                for (int j = 0; j < carte.length; j++) {
+                for (int j = 0; j < carte[0].length; j++) {
                     maps = maps + " " + carte[i][j];
                 }
                 maps = maps + "\n\t";

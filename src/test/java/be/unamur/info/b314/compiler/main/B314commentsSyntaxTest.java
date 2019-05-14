@@ -175,6 +175,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_world3_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/world3.b314", testFolder.newFile(), true, "comments: world3");
+    }
+
+    @Test
     public void testcomments_mainprogram5_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/mainprogram5.b314", testFolder.newFile(), true, "comments: mainprogram5");
     }

@@ -232,10 +232,11 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         String funcTypeName =ctx.getChild(1).getText();
         MapSymbol mp = defineMap(name, funcTypeName);
         //****************
-        String mapX = ctx.mapsize().coordX().getText();
-        String mapY = ctx.mapsize().coordY().getText();
-
+        String mapY = ctx.mapsize().coordX().getText();
+        String mapX = ctx.mapsize().coordY().getText();
+        System.out.println("Map x : "+ mapX + " Map y : " + mapY);
         String mapLine = ctx.world().getText();
+        System.out.println("Map Line :"+ mapLine);
         String typeError = mp.createCarte(mapX,mapY,mapLine);
         if (typeError != null){
             errors.mapError.add(typeError);

@@ -1,0 +1,7 @@
+// Carte de Jeu
+// Exemple
+
+map: 3 5
+ A P G G _
+ G G G B G
+ G @ G X G
