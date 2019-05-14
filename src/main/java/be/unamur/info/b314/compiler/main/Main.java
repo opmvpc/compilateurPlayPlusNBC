@@ -320,7 +320,7 @@ public class Main {
         printer.visitRoot(tree);
         System.out.println("Visit errors? :" + errors.gameError.toString());
         if (!errors.gameError.isEmpty()) {
-            exitCode = 0;
+            exitCode = 1;
             System.out.println("Visit errors? :" + errors.gameError.toString());
             throw new GameException(errors.gameError.toString());
         }
