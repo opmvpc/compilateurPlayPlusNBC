@@ -255,12 +255,11 @@ public class Main {
                     .filter(x -> x.getClass().getSimpleName().equals("MapFileSymbol"))
                     .findFirst();
 
+
             if (fileName.isPresent()) {
                 printTitle("Map def Phase");
-                Path root = FileSystems.getDefault().getPath("").toAbsolutePath();
-                Path filePath = Paths.get(root.toString(),"src", "test", "resources", "syntax", "comments", "ok", fileName.get().getName());
-                System.out.println(filePath);
-                File mapFile = new File(filePath.toUri());
+                String testFolder = inputFile.getParent();
+                File mapFile  = new File(testFolder  + "/" + fileName);
 
 //                Si on trouve pas la map, on pourrait checker si elle est dans ko, ou alors on trouve comment récup le nom du dossier qui contient le fichier .b314 du test
                 try {
