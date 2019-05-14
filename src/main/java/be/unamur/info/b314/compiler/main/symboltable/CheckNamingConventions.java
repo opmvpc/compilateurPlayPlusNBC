@@ -55,9 +55,9 @@ public class CheckNamingConventions {
                             Optional<Symbol> localVar = ((FunctionSymbol) funct).resolveByName(globalVarName);
                             if (localVar.isPresent()) {
                                 if (localVar.get().getType().getName().equals(((VariableSymbol) globalVar).getType().getName())) {
-                                       this.errors.badNameError.add("Le nom de la variable locale:" +
-                                            globalVar.getName() +
-                                            " est déjà utilisé par une variable globale");
+                                       //this.errors.badNameError.add("Le nom de la variable locale:" +
+                                       //     globalVar.getName() +
+                                        //    " est déjà utilisé par une variable globale");
                                 }
                             }
                         }

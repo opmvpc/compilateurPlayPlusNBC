@@ -1,29 +1,33 @@
- /* Test while playPlus */
+// faux positif/negatif jenkins
+// testifinstruction_iif_wrong_affectation_condition
+// expected:<1> but was:<0>
 
  #import "world4.map"
 
 
      int i;
-     int j;
-     int x;
+     bool b;
      char s;
-     bool t1[5];
 
 
-void main(){
-    i = 1;
-    j = 0;
-
-    while(i < 5) {
-       right(i);
-       jump();
-       i = i + 1;
-       j = j + 1;
-     }
-
+ void main(){
+    i = 0;
+    b = true;
+    while(i <= 15)
+    {
+     right();
+     up();
+     if(i == 7)
+      {
+       fight();
+      }
+     i = i + 1;
+     b = false;
+    }
 
 
  dig();
 
  return void;
+
  }
