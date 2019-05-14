@@ -51,6 +51,7 @@ public class Main {
     private static final String INPUT = "i";
     private static final String OUTPUT = "o";
     private static int exitCode = 2;
+    private static boolean mapFileExists = false;
 
     /**
      * Main method launched when starting compiler jar file.
@@ -192,7 +193,7 @@ public class Main {
                 .stream()
                 .filter(x -> x.getClass().getSimpleName().equals("MapSymbol"))
                 .findFirst();
-        if (mapSymbol.isPresent()) {
+        if (mapSymbol.isPresent() && mapFileExists) {
             printNBCCode(tree, symTable, errors);
             LOG.debug("Printing NBC Code: done");
         } else {
@@ -275,7 +276,9 @@ public class Main {
 
                     symbolTable.setCurrentScope(symbolTable.getGlobals());
                     walker.walk(def, mapTree);
+                    mapFileExists = true;
                 } catch (IOException | IllegalArgumentException e) {
+
                     System.out.println("ERREUR : Map "+ mapFile +" introuvable");
                 }
             }
