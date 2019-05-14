@@ -3493,6 +3493,8 @@ public class PlayPlusParser extends Parser {
 	}
 
 	public static class ConditionalStmtContext extends ParserRuleContext {
+		public StatementContext labelif;
+		public StatementContext labelelse;
 		public TerminalNode IF() { return getToken(PlayPlusParser.IF, 0); }
 		public TerminalNode LPAREN() { return getToken(PlayPlusParser.LPAREN, 0); }
 		public BoolConditionContext boolCondition() {
@@ -3507,13 +3509,13 @@ public class PlayPlusParser extends Parser {
 		public TerminalNode RBRACE(int i) {
 			return getToken(PlayPlusParser.RBRACE, i);
 		}
+		public TerminalNode ELSE() { return getToken(PlayPlusParser.ELSE, 0); }
 		public List<StatementContext> statement() {
 			return getRuleContexts(StatementContext.class);
 		}
 		public StatementContext statement(int i) {
 			return getRuleContext(StatementContext.class,i);
 		}
-		public TerminalNode ELSE() { return getToken(PlayPlusParser.ELSE, 0); }
 		public ConditionalStmtContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3558,7 +3560,7 @@ public class PlayPlusParser extends Parser {
 					{
 					{
 					setState(500);
-					statement();
+					((ConditionalStmtContext)_localctx).labelif = statement();
 					}
 					} 
 				}
@@ -3585,7 +3587,7 @@ public class PlayPlusParser extends Parser {
 						{
 						{
 						setState(509);
-						statement();
+						((ConditionalStmtContext)_localctx).labelelse = statement();
 						}
 						} 
 					}
@@ -3612,6 +3614,7 @@ public class PlayPlusParser extends Parser {
 	}
 
 	public static class RepeatStmtContext extends ParserRuleContext {
+		public StatementContext labelloop;
 		public TerminalNode REPEAT() { return getToken(PlayPlusParser.REPEAT, 0); }
 		public TerminalNode LPAREN() { return getToken(PlayPlusParser.LPAREN, 0); }
 		public RepeatConditionContext repeatCondition() {
@@ -3670,7 +3673,7 @@ public class PlayPlusParser extends Parser {
 					{
 					{
 					setState(523);
-					statement();
+					((RepeatStmtContext)_localctx).labelloop = statement();
 					}
 					} 
 				}
@@ -3694,6 +3697,7 @@ public class PlayPlusParser extends Parser {
 	}
 
 	public static class WhileStmtContext extends ParserRuleContext {
+		public StatementContext labelloop;
 		public TerminalNode WHILE() { return getToken(PlayPlusParser.WHILE, 0); }
 		public TerminalNode LPAREN() { return getToken(PlayPlusParser.LPAREN, 0); }
 		public BoolConditionContext boolCondition() {
@@ -3752,7 +3756,7 @@ public class PlayPlusParser extends Parser {
 					{
 					{
 					setState(536);
-					statement();
+					((WhileStmtContext)_localctx).labelloop = statement();
 					}
 					} 
 				}
