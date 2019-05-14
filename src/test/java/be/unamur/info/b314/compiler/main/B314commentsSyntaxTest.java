@@ -395,6 +395,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_dig_nbc01_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/dig_nbc01.b314", testFolder.newFile(), true, "comments: dig_nbc01");
+    }
+
+    @Test
     public void testcomments_testarrays3_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/testarrays3.b314", testFolder.newFile(), true, "comments: testarrays3");
     }
