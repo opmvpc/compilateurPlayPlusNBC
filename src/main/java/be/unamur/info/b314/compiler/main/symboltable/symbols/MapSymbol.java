@@ -126,6 +126,9 @@ public class MapSymbol extends Symbol {
                     }
                 }
             }
+            if (nbTresor == 0){
+                typeError = typeError + "La configuration de la est incorrect - Pas de trésor ";
+            }
         }
         return typeError;
     }

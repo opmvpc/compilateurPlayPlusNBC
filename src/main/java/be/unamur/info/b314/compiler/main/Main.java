@@ -50,6 +50,7 @@ public class Main {
     private static final String HELP = "h";
     private static final String INPUT = "i";
     private static final String OUTPUT = "o";
+    private static int exitCode = 2;
 
     /**
      * Main method launched when starting compiler jar file.
@@ -75,7 +76,13 @@ public class Main {
                 try {
                     main.initialise(line);
                     main.compile(); // Call compile method (to be completed)
-                    System.err.println("OK"); // Print OK on stderr
+                    if (exitCode != 2){
+                        System.err.println(exitCode);
+                         // Print OK on stderr
+                    } else {
+                        System.err.println("OK");
+                    }
+
                 } catch (Exception e) {
                     LOG.error("Exception occured during compilation!", e);
                     System.err.println("KO"); // Print KO on stderr if a problem occured
@@ -305,6 +312,7 @@ public class Main {
        // NbcVisitor printer = new NbcVisitor("nbcCode.nbc", symTable);
         printer.visitRoot(tree);
         if (!errors.gameError.isEmpty()) {
+            exitCode = 0;
             throw new GameException(errors.gameError.toString());
         }
         System.out.println(printer.toString());
