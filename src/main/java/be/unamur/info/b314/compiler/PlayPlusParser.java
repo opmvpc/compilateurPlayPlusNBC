@@ -2654,15 +2654,15 @@ public class PlayPlusParser extends Parser {
 		public TerminalNode STRING(int i) {
 			return getToken(PlayPlusParser.STRING, i);
 		}
-		public TerminalNode NOT() { return getToken(PlayPlusParser.NOT, 0); }
+		public TerminalNode LPAREN() { return getToken(PlayPlusParser.LPAREN, 0); }
 		public List<ExprBoolContext> exprBool() {
 			return getRuleContexts(ExprBoolContext.class);
 		}
 		public ExprBoolContext exprBool(int i) {
 			return getRuleContext(ExprBoolContext.class,i);
 		}
-		public TerminalNode LPAREN() { return getToken(PlayPlusParser.LPAREN, 0); }
 		public TerminalNode RPAREN() { return getToken(PlayPlusParser.RPAREN, 0); }
+		public TerminalNode NOT() { return getToken(PlayPlusParser.NOT, 0); }
 		public TerminalNode AND() { return getToken(PlayPlusParser.AND, 0); }
 		public TerminalNode OR() { return getToken(PlayPlusParser.OR, 0); }
 		public ExprBoolContext(ParserRuleContext parent, int invokingState) {
@@ -2924,19 +2924,19 @@ public class PlayPlusParser extends Parser {
 			case 19:
 				{
 				setState(431);
-				match(NOT);
+				match(LPAREN);
 				setState(432);
-				exprBool(2);
+				exprBool(0);
+				setState(433);
+				match(RPAREN);
 				}
 				break;
 			case 20:
 				{
-				setState(433);
-				match(LPAREN);
-				setState(434);
-				exprBool(0);
 				setState(435);
-				match(RPAREN);
+				match(NOT);
+				setState(436);
+				exprBool(1);
 				}
 				break;
 			}
@@ -5546,14 +5546,14 @@ public class PlayPlusParser extends Parser {
 		"\u01a5\7%\2\2\u01a5\u01b8\7\35\2\2\u01a6\u01a7\7\35\2\2\u01a7\u01a8\7"+
 		"(\2\2\u01a8\u01b8\7\35\2\2\u01a9\u01aa\5N(\2\u01aa\u01ab\7%\2\2\u01ab"+
 		"\u01ac\5N(\2\u01ac\u01b8\3\2\2\2\u01ad\u01ae\5N(\2\u01ae\u01af\7(\2\2"+
-		"\u01af\u01b0\5N(\2\u01b0\u01b8\3\2\2\2\u01b1\u01b2\7\'\2\2\u01b2\u01b8"+
-		"\5H%\4\u01b3\u01b4\7-\2\2\u01b4\u01b5\5H%\2\u01b5\u01b6\7.\2\2\u01b6\u01b8"+
-		"\3\2\2\2\u01b7\u0171\3\2\2\2\u01b7\u0172\3\2\2\2\u01b7\u0173\3\2\2\2\u01b7"+
-		"\u0177\3\2\2\2\u01b7\u017b\3\2\2\2\u01b7\u017f\3\2\2\2\u01b7\u0183\3\2"+
-		"\2\2\u01b7\u0187\3\2\2\2\u01b7\u018b\3\2\2\2\u01b7\u018f\3\2\2\2\u01b7"+
+		"\u01af\u01b0\5N(\2\u01b0\u01b8\3\2\2\2\u01b1\u01b2\7-\2\2\u01b2\u01b3"+
+		"\5H%\2\u01b3\u01b4\7.\2\2\u01b4\u01b8\3\2\2\2\u01b5\u01b6\7\'\2\2\u01b6"+
+		"\u01b8\5H%\3\u01b7\u0171\3\2\2\2\u01b7\u0172\3\2\2\2\u01b7\u0173\3\2\2"+
+		"\2\u01b7\u0177\3\2\2\2\u01b7\u017b\3\2\2\2\u01b7\u017f\3\2\2\2\u01b7\u0183"+
+		"\3\2\2\2\u01b7\u0187\3\2\2\2\u01b7\u018b\3\2\2\2\u01b7\u018f\3\2\2\2\u01b7"+
 		"\u0193\3\2\2\2\u01b7\u0197\3\2\2\2\u01b7\u019b\3\2\2\2\u01b7\u019f\3\2"+
 		"\2\2\u01b7\u01a3\3\2\2\2\u01b7\u01a6\3\2\2\2\u01b7\u01a9\3\2\2\2\u01b7"+
-		"\u01ad\3\2\2\2\u01b7\u01b1\3\2\2\2\u01b7\u01b3\3\2\2\2\u01b8\u01c7\3\2"+
+		"\u01ad\3\2\2\2\u01b7\u01b1\3\2\2\2\u01b7\u01b5\3\2\2\2\u01b8\u01c7\3\2"+
 		"\2\2\u01b9\u01ba\f\b\2\2\u01ba\u01bb\79\2\2\u01bb\u01c6\5H%\t\u01bc\u01bd"+
 		"\f\7\2\2\u01bd\u01be\7%\2\2\u01be\u01c6\5H%\b\u01bf\u01c0\f\6\2\2\u01c0"+
 		"\u01c1\7(\2\2\u01c1\u01c6\5H%\7\u01c2\u01c3\f\5\2\2\u01c3\u01c4\7:\2\2"+

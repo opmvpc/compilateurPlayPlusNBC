@@ -1,33 +1,31 @@
-// faux positif/negatif jenkins
-// testifinstruction_iif_wrong_affectation_condition
-// expected:<1> but was:<0>
 
- #import "world4.map"
+#import "world.map"
 
+  int x;
+  int y;
+  bool b;
+  char z;
 
-     int i;
-     bool b;
-     char s;
-
-
- void main(){
-    i = 0;
-    b = true;
-    while(i <= 15)
-    {
-     right();
-     up();
-     if(i == 7)
-      {
-       fight();
-      }
-     i = i + 1;
-     b = false;
-    }
-
+void main()
+{
+  x = 0;
+  y = 0;
+  b = true;
+  z = 'm';
+ if(!b && (x > 42))
+ {
+    x = x + 2;
+    left(x);
+ }
+ else{
+    y = 1;
+    down(y);
+    y = y + 2;
+    right(y);
+    up(5);
+ }
 
  dig();
 
  return void;
-
- }
+}
