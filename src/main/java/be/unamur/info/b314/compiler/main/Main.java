@@ -50,7 +50,7 @@ public class Main {
     private static final String HELP = "h";
     private static final String INPUT = "i";
     private static final String OUTPUT = "o";
-    private static int exitCode = 2;
+    private static int exitCode;
     private static boolean mapFileExists = false;
 
     /**
@@ -59,6 +59,7 @@ public class Main {
      * @param args Command line arguments.
      */
     public static void main(String[] args) {
+
         Main main = new Main();
         CommandLineParser parser = new DefaultParser();
         CommandLine line = null;
@@ -77,7 +78,9 @@ public class Main {
                 try {
                     main.initialise(line);
                     main.compile(); // Call compile method (to be completed)
+                    System.out.println("EXIT : "+exitCode);
                     if (exitCode != 2){
+                        System.out.println(exitCode);
                         System.err.println(exitCode);
                          // Print OK on stderr
                     } else {
@@ -125,6 +128,7 @@ public class Main {
                 .desc("The PCOde output file.")
                 .hasArg()
                 .build());
+        this.exitCode = 2;
     }
 
     /**
@@ -193,7 +197,7 @@ public class Main {
                 .stream()
                 .filter(x -> x.getClass().getSimpleName().equals("MapSymbol"))
                 .findFirst();
-        if (mapSymbol.isPresent() && mapFileExists) {
+        if (mapSymbol.isPresent()) {
             printNBCCode(tree, symTable, errors);
             LOG.debug("Printing NBC Code: done");
         } else {
@@ -314,8 +318,10 @@ public class Main {
         NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable,errors);
        // NbcVisitor printer = new NbcVisitor("nbcCode.nbc", symTable);
         printer.visitRoot(tree);
+        System.out.println("Visit errors? :" + errors.gameError.toString());
         if (!errors.gameError.isEmpty()) {
             exitCode = 0;
+            System.out.println("Visit errors? :" + errors.gameError.toString());
             throw new GameException(errors.gameError.toString());
         }
         System.out.println(printer.toString());
