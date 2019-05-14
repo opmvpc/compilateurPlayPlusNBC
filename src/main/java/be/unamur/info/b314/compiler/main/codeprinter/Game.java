@@ -1,5 +1,6 @@
 package be.unamur.info.b314.compiler.main.codeprinter;
 
+import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.SymbolTable;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.MapSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
@@ -13,8 +14,11 @@ public class Game {
     //private Coordinate codyPos;
     private int codyX;
     private int codyY;
+    private Errors errors;
 
-    public Game(SymbolTable symbolTable) {
+
+    public Game(SymbolTable symbolTable, Errors errors) {
+        this.errors = errors;
         Optional<Symbol> mapSymbol = symbolTable
                 .getGlobals()
                 .getSymbols()
@@ -31,27 +35,49 @@ public class Game {
     }
 
     public void moveCody(String actionword,int value){
-        if (actionword.equals("left")){
-            codyX -= 1;
+        // for autour pour un mouvement à la fois?
+        int tempX = codyX;
+        int tempY = codyY;
+
+        for (int i = 0; i < value ; i++) {
+            if (actionword.equals("left")){
+                codyX -= 1;
+            }
+            if (actionword.equals("right")){
+                codyX += 1;
+            }
+            if (actionword.equals("down")){
+                codyY -= 1;
+            }
+            if (actionword.equals("up")){
+                codyY += 1;
+            }
+
+            checkPositionCody(tempX,tempY);
         }
-        if (actionword.equals("right")){
-            codyX += 1;
-        }
-        if (actionword.equals("down")){
-            codyY -= 1;
-        }
-        if (actionword.equals("up")){
-            codyY += 1;
-        }
-        checkPositionCody();
-        System.out.println("Cody New POS :\n" + "\tcodyX :" + codyX + "\n\tcodyY :" +codyY);
     }
 
-    private void checkPositionCody(){
-        char currentPosition = map[codyY][codyX];
-        if ((currentPosition== '_') || (currentPosition== 'A') || (currentPosition== 'S')) {
-            System.out.println("I will die if I execute this...");
-
+    private void checkPositionCody(int tempX,int tempY){
+        // init to ascii 0
+        char currentPosition = 0;
+        try {
+            currentPosition = map[codyY][codyX];
+        } catch (ArrayIndexOutOfBoundsException e){
+            errors.gameError.add("Cody plonge de le néant (out of bound)");
+        }
+        // si on est tombé dans l'eau ou dans un puits.
+        if ((currentPosition== '_') || (currentPosition== 'S')) {
+            this.errors.gameError.add("I will die if I execute this...");
+        }
+        // si obstacles
+        if ((currentPosition == 'P') || (currentPosition == 'B') || (currentPosition == 'T')){
+            // reset position can't go further
+            codyX = tempX;
+            codyY = tempY;
+        }
+        // si squelettes
+        if ((currentPosition == 'Q')){
+            System.out.println("Q");
         }
     }
 
@@ -64,3 +90,16 @@ public class Game {
                 '}';
     }
 }
+
+/*
+— Le symbole “@” (robot) représente le robot qui prend une position de départ sur la carte,
+— Le symbole “X” (trésor) représente le trésor que le robot veut déterrer,
+— Le symbole “G” (pelouse) représente la pelouse (ou gazon),
+— Le symbole “P” (palmiers) représente les palmiers,
+— Le symbole “A” (pons) représente les ponts,
+— Le symbole “B” (buissons) représente les buissons,
+— Le symbole “T” (tonneau) représente les tonneaux,
+— Le symbole “S” (puits) représente les puits,
+— Le symbole “ ” (vide) représente de l’eau dans la carte,
+— Le symbole “ Q” (squelette) représente les squellettes dans la carte,
+ */

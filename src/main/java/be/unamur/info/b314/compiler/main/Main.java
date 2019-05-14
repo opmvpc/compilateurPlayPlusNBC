@@ -161,7 +161,7 @@ public class Main {
     /**
      * Compiler Methods, this is where the MAGIC happens !!! \o/
      */
-    private void compile() throws IOException, SymbolNotFoundException, BadNamingException, MapConfigException, BadTypeException,FunctionException {
+    private void compile() throws IOException, SymbolNotFoundException, BadNamingException, MapConfigException, BadTypeException, FunctionException, GameException {
 
         // Put your code here !
 
@@ -178,7 +178,8 @@ public class Main {
         LOG.debug("Building symbol table: done");
         // Print NBC Code
         LOG.debug("Printing NBC Code");
-        printNBCCode(tree, symTable);
+        Errors errors = new Errors();
+        printNBCCode(tree, symTable,errors);
         LOG.debug("Printing NBC Code: done");
     }
 
@@ -287,12 +288,15 @@ public class Main {
         return symbolTable;
     }
 
-    private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable) throws IOException {
+    private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable, Errors errors) throws IOException, GameException {
         printTitle("Printing NBC code...");
 //        ParseTreeWalker walker = new ParseTreeWalker();
-        NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable);
+        NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable,errors);
        // NbcVisitor printer = new NbcVisitor("nbcCode.nbc", symTable);
         printer.visitRoot(tree);
+        if (!errors.gameError.isEmpty()) {
+            throw new GameException(errors.gameError.toString());
+        }
         System.out.println(printer.toString());
        // printer.printFile();
     }

@@ -9,6 +9,7 @@ public class Errors
     public ArrayList<String> badNameError;
     public ArrayList<String> badTypeError;
     public ArrayList<String> functionError;
+    public ArrayList<String> gameError;
 
     public Errors() {
         this.symbolNotFound = new ArrayList<>();
@@ -16,6 +17,7 @@ public class Errors
         this.badNameError = new ArrayList<>();
         this.badTypeError = new ArrayList<>();
         this.functionError = new ArrayList<>();
+        this.gameError = new ArrayList<>();
     }
 
     @Override
@@ -26,6 +28,7 @@ public class Errors
                 ", badNameError=" + badNameError +
                 ", badTypeError=" + badTypeError +
                 ", functionError=" + functionError +
+                ", gameError=" + gameError +
                 '}';
     }
 }

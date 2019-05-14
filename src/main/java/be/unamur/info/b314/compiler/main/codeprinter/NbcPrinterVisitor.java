@@ -3,6 +3,7 @@ package be.unamur.info.b314.compiler.main.codeprinter;
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusBaseVisitor;
 import be.unamur.info.b314.compiler.PlayPlusParser;
+import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.FunctionDecl;
 import be.unamur.info.b314.compiler.main.symboltable.SymbolTable;
@@ -32,15 +33,16 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     private HashMap<String, STGroup> templates;
     private ArrayList<FunctionDecl> functionDecls;
     private Game game;
+    private Errors errors;
 
-    public NbcPrinterVisitor(String fileName, SymbolTable symtable) {
+    public NbcPrinterVisitor(String fileName, SymbolTable symtable,Errors errors) {
         this.fileName = fileName;
         this.symbolTable = symtable;
         initTemplates();
         this.code = new StringBuilder();
         this.functionDecls = new ArrayList<>();
-        this.game = new Game(symbolTable);
-        System.out.println(this.game.toString());
+        this.game = new Game(symbolTable,errors);
+        this.errors = errors;
     }
 
     private void initTemplates() {
