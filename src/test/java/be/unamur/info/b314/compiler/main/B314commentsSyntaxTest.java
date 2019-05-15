@@ -100,6 +100,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_world5_array_tour_while_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/world5_array_tour_while.b314", testFolder.newFile(), true, "comments: world5_array_tour_while");
+    }
+
+    @Test
     public void testcomments_if5_conditionBool3_nbc_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/if5_conditionBool3_nbc.b314", testFolder.newFile(), true, "comments: if5_conditionBool3_nbc");
     }
@@ -312,6 +317,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_function5_TypeArgs_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/function5_TypeArgs.b314", testFolder.newFile(), true, "comments: function5_TypeArgs");
+    }
+
+    @Test
+    public void testcomments_world6_testfunctions_multiple_global_vars_and_functions_no_local_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/world6_testfunctions_multiple_global_vars_and_functions_no_local_var.b314", testFolder.newFile(), true, "comments: world6_testfunctions_multiple_global_vars_and_functions_no_local_var");
     }
 
     @Test

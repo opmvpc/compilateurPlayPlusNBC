@@ -1,0 +1,20 @@
+// world6.map
+
+map: 7 17
+ @ G G G _ G G
+ G G G G G G G
+ G G A A G G G
+ G P G P G G G
+ S G G B G G A
+ G G S G P G G
+ P G G T G G B
+ G P A G G G G
+ G G S G G T G
+ G B Q G G A G
+ G G P G G B P
+ G G P G G P G
+ A A G P G G B
+ G G G G G S G
+ G B G A A G G
+ P P P G G G A
+ A G G G G _ X

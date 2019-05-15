@@ -480,6 +480,26 @@ public interface PlayPlusListener extends ParseTreeListener {
 	 */
 	void exitWhileStmt(PlayPlusParser.WhileStmtContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#ifStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfStmt(PlayPlusParser.IfStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#ifStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfStmt(PlayPlusParser.IfStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PlayPlusParser#elseStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseStmt(PlayPlusParser.ElseStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PlayPlusParser#elseStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseStmt(PlayPlusParser.ElseStmtContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PlayPlusParser#boolCondition}.
 	 * @param ctx the parse tree
 	 */

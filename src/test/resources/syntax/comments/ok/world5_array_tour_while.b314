@@ -1,0 +1,29 @@
+ /* Test while playPlus */
+
+ #import "world5.map"
+
+
+     int i;
+     int j;
+     int x;
+     char s;
+     bool t1[5];
+
+
+void main(){
+    i = 1;
+    j = 0;
+
+    while(i < 5) {
+       right(i);
+       jump();
+       i = i + 1;
+       j = j + 1;
+     }
+
+
+
+ dig();
+
+ return void;
+ }

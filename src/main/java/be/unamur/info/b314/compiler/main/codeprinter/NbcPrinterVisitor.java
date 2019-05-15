@@ -149,10 +149,13 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
            value =  visitBoolCondition(ctx.boolCondition());
             System.out.println("visitConditionalStmt = value" + value );
             if(value == 1){
-                visit(ctx.labelif);
+                if (ctx.ifStmt() != null){
+                    visitChildren(ctx.ifStmt());
+                }
+
             }else{
-                if(ctx.labelelse != null) {
-                    visit(ctx.labelelse);
+                if(ctx.elseStmt() != null) {
+                    visitChildren(ctx.elseStmt());;
                 }
             }
         }

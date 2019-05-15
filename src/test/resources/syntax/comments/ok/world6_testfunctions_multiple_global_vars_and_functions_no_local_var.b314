@@ -1,0 +1,56 @@
+/* Test fonction  playPlus */
+
+#import "world6.map"
+
+
+
+  bool f1;
+  int x;
+
+  bool fct1(int x)
+  {
+    f1 = true && (x < 10);
+    return f1;
+  }
+
+ void f2(int x)
+ {
+  right();
+  down(x);
+  right();
+  jump();
+
+  return void;
+ }
+
+void f3(int x)
+{
+ down();
+ right(x);
+ jump();
+
+ return void;
+}
+
+
+  void main(){
+
+   int x = 2;
+
+     if (!fct1(5) == false) {
+        f2(x);
+        f3(x);
+        f2(x);
+
+     }
+
+     if (!fct1(42) == true) {
+         down();
+         right(x);
+         jump();
+      }
+
+     dig();
+
+  return void;
+  }

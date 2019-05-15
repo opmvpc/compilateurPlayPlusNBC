@@ -295,6 +295,18 @@ public interface PlayPlusVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWhileStmt(PlayPlusParser.WhileStmtContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#ifStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfStmt(PlayPlusParser.IfStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PlayPlusParser#elseStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseStmt(PlayPlusParser.ElseStmtContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PlayPlusParser#boolCondition}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
