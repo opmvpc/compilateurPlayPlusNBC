@@ -315,6 +315,7 @@ public class Main {
     private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable, Errors errors) throws IOException, GameException {
         printTitle("Printing NBC code...");
 //        ParseTreeWalker walker = new ParseTreeWalker();
+        System.out.println("outputfile : " +  this.outputFile.getName());
         NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable,errors);
        // NbcVisitor printer = new NbcVisitor("nbcCode.nbc", symTable);
         printer.visitRoot(tree);

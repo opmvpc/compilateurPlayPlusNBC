@@ -1,0 +1,17 @@
+/* Commentaires */
+
+#import "world.map"
+// pas de map??
+ bool b;
+ int i;
+
+
+void main()
+{
+ i = 0;
+ i = 42;
+ i = -34;
+
+dig();
+return void;
+}

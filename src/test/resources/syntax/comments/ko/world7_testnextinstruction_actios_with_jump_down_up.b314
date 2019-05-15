@@ -1,0 +1,23 @@
+/* Test */
+
+#import "world.map"
+// pas de map?
+    bool v1;
+    int i;
+    char s;
+
+void main()
+{
+i = 5;
+right();
+left();
+down();
+up(i);
+jump(3);
+fight();
+
+dig();
+
+return void;
+
+}

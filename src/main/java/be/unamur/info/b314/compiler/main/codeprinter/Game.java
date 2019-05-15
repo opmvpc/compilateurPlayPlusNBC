@@ -80,8 +80,8 @@ public class Game {
     private void checkPositionCody(int tempX,int tempY){
         // init to ascii 0
         System.out.println("CheckPositionCody : (" + codyX + "," + codyY+")");
-        System.out.println(map.length);
-        System.out.println(map[0].length);
+        System.out.println("Y max :" + map.length);
+        System.out.println("X max :" + map[0].length);
         char currentPosition = 0;
         try {
             currentPosition = map[codyY][codyX];

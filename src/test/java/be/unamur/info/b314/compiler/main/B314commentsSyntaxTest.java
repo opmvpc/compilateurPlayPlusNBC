@@ -783,6 +783,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_world8_testaffectinstruction_affect_int_constant_values_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/world8_testaffectinstruction_affect_int_constant_values.b314", testFolder.newFile(), false, "comments: world8_testaffectinstruction_affect_int_constant_values");
+    }
+
+    @Test
     public void testcomments_testcarte6_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/testcarte6.b314", testFolder.newFile(), false, "comments: testcarte6");
     }
@@ -818,6 +823,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_world7_testnextinstruction_actios_with_jump_down_up_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/world7_testnextinstruction_actios_with_jump_down_up.b314", testFolder.newFile(), false, "comments: world7_testnextinstruction_actios_with_jump_down_up");
+    }
+
+    @Test
     public void testcomments_tomanyparen_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/tomanyparen.b314", testFolder.newFile(), false, "comments: tomanyparen");
     }
@@ -845,6 +855,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_array2_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/array2.b314", testFolder.newFile(), false, "comments: array2");
+    }
+
+    @Test
+    public void testcomments_world9_testifinstruction_previous_series_and_if_else_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/world9_testifinstruction_previous_series_and_if_else.b314", testFolder.newFile(), false, "comments: world9_testifinstruction_previous_series_and_if_else");
     }
 
     @Test

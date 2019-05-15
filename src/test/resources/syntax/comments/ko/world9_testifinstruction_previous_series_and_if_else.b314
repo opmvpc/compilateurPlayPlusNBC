@@ -1,0 +1,91 @@
+/* Test If else playPlus */
+
+#import "world.map"
+// pas de map??
+    int x;
+    int y;
+    bool b;
+    int z[5];
+    bool t1[5];
+    int t2[42, 42];
+
+void main(){
+   x = 0;
+   y = 10;
+   b = true;
+   b = (true && !b);
+
+        if (b) {
+           y = y - 1;
+         }
+         else {
+
+           x = x - 1;
+         }
+
+        if ((b || true) && false) {
+        	t1[0] = true;
+        	t1[1] = false;
+        	t1[2] = (true || false);
+        }
+        else {
+             t1[3] = true;
+             t1[4] = (true || true);
+
+        }
+
+        t1[0] = b;
+
+        if (t1[0] && t1[1]) {
+
+           b = true;
+           fight();
+        }
+        else {
+           b = t1[x + 1];
+
+        }
+
+        z[0] = (2*y + 1);
+        z[1] = 2*(x + 1);
+        z[2] = 3;
+        z[3] = 0;
+        z[4] = z[0] + z[1] + z[4];
+
+        if (!b) {
+
+        	z[0] = z[1] + z[2];
+        	up(z[0]);
+        }
+        else {
+        y = y + 1;
+        left(6);
+        right(8);
+        }
+
+        if (!(y == 0)) {
+        	b = false;
+        	down(5);
+        }
+        else {
+         t2[x + 1, y + 1] = x + 2;
+        }
+
+        if (t2[x + 1, y + 1] > 2) {
+        	x = (x - 67) + ( y - 45);
+        }
+        else {
+
+        fight();
+        dig();
+        up(34);
+        left(23);
+
+        }
+
+
+dig();
+
+return void;
+
+}
