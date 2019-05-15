@@ -222,7 +222,7 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
     private MapSymbol defineMap(String name, String mapTypeName) {
         Type mtype= new BuiltInTypeSymbol("map");
-        MapSymbol map = new MapSymbol(name, mtype);
+        MapSymbol map = new MapSymbol(name, mtype,errors);
         return map;
     }
 
@@ -237,14 +237,7 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         System.out.println("Map x : "+ mapX + " Map y : " + mapY);
         String mapLine = ctx.world().getText();
         System.out.println("Map Line :"+ mapLine);
-        String typeError = mp.createCarte(mapX,mapY,mapLine);
-        if (typeError != null){
-            errors.mapError.add(typeError);
-        }
-        typeError = mp.isMapConfigCorrect();
-        if (typeError != null){
-            errors.mapError.add(typeError);
-        }
+        mp.createCarte(mapX,mapY,mapLine);
         //****************
         this.symTable.define(mp);
     }

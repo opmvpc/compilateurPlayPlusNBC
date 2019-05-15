@@ -178,13 +178,7 @@ public class RefPhase extends PlayPlusBaseListener {
         Optional<Symbol> maps = resolveSymbolRec(mapName, this.symTable.getGlobals()); // soucis avec le resolve
         if (! maps.isPresent()) {
             this.errors.mapError.add("Map is null ");
-        } else {
-            String typeErrors = ((MapSymbol) maps.get()).isMapConfigCorrect();
-            if (typeErrors != null) {
-                this.errors.mapError.add(typeErrors);
-            }
         }
-
         return resolveSymbolRec(mapName, this.symTable.getGlobals());
     }
 
