@@ -157,7 +157,6 @@ naturel
     : NATUREL;
 
  exprBool:
-  	| NOT exprBool
  	| LPAREN exprBool RPAREN
     | boolVal
     | boolVal (EQUAL |  NOTEQUAL  | SMALLER | GREATER | EGREATER | ESMALLER ) boolVal
@@ -184,6 +183,7 @@ naturel
 	| exprBool EQUAL exprBool
 	| exprBool NOTEQUAL exprBool
     | exprBool OR exprBool
+    | NOT exprBool
 	;
 
 boolVal
