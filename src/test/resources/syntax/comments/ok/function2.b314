@@ -1,6 +1,6 @@
 /* Test fonction  playPlus */
 
- #import "world.map"
+ #import "no.map"
 
 
  bool f1;

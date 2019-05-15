@@ -1,0 +1,11 @@
+#import "world4.map"
+
+
+void main(){
+
+    right(2);
+
+    dig();
+
+    return void;
+}

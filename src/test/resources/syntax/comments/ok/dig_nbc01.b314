@@ -1,31 +1,30 @@
+/* Test */
 
-#import "world.map"
+#import "world4.map"
 
-  int x;
-  int y;
-  bool b;
-  char z;
+ int i;
+ bool b;
+
+void execute()
+   {
+    left(1);
+    down(1);
+    right(3);
+    up(7);
+    left();
+
+   return void;
+   }
 
 void main()
 {
-  x = 0;
-  y = 0;
-  b = true;
-  z = 'm';
- if(!b && (x > 42))
- {
-    x = x + 2;
-    left(x);
- }
- else{
-    y = 1;
-    down(y);
-    y = y + 2;
-    right(y);
-    up(5);
- }
+right();
+right();
+down();
+up();
+up();
+dig();
 
- dig();
+return void;
 
- return void;
 }

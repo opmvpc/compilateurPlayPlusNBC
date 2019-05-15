@@ -107,14 +107,14 @@ public class MapSymbol extends Symbol {
             typeError = "La configuration de la carte est incorrect : Carte non construite ";
         } else {
             // 1 - Check Un seul cody et un seul tresor
-            for (int i = 0; i < carte.length; i++) {
+            for (int i = carte.length - 1; i >= 0 ; i--) {
                 for (int j = 0; j < carte[0].length; j++) {
                     if (carte[i][j] == '@') {
                         nbCody++;
                         initX = j;
                         initY = i;
                         if (nbCody != 1) {
-                            typeError = typeError + "La configuration de la carte est incorrect : Plusieurs Tresor ";
+                            typeError = typeError + "La configuration de la carte est incorrect : Plusieurs Cody ";
                         }
                     }
                     if (carte[i][j] == 'X') {

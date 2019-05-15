@@ -1,6 +1,6 @@
 /* Test */
 
-#import "world.map"
+#import "no.map"
 
     bool v1;
     int i;

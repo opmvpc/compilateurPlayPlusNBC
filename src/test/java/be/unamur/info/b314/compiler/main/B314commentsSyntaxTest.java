@@ -80,6 +80,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_world4_win_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/world4_win.b314", testFolder.newFile(), true, "comments: world4_win");
+    }
+
+    @Test
     public void testcomments_naming1_mainSameVarAsGlobal_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/naming1_mainSameVarAsGlobal.b314", testFolder.newFile(), true, "comments: naming1_mainSameVarAsGlobal");
     }
@@ -102,6 +107,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_j_testfunctions_one_int_function_no_local_var_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testfunctions_one_int_function_no_local_var.b314", testFolder.newFile(), true, "comments: j_testfunctions_one_int_function_no_local_var");
+    }
+
+    @Test
+    public void testcomments_naming9_LocalVarSameNameAsGlobalVar_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/naming9_LocalVarSameNameAsGlobalVar.b314", testFolder.newFile(), true, "comments: naming9_LocalVarSameNameAsGlobalVar");
     }
 
     @Test
@@ -277,11 +287,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_function2_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/function2.b314", testFolder.newFile(), true, "comments: function2");
-    }
-
-    @Test
-    public void testcomments_testcarte3_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcarte3.b314", testFolder.newFile(), true, "comments: testcarte3");
     }
 
     @Test
@@ -470,11 +475,6 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_testcarte4_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/testcarte4.b314", testFolder.newFile(), true, "comments: testcarte4");
-    }
-
-    @Test
     public void testcomments_function9_affectReturnType_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/function9_affectReturnType.b314", testFolder.newFile(), true, "comments: function9_affectReturnType");
     }
@@ -590,11 +590,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_import4_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/import4.b314", testFolder.newFile(), false, "comments: import4");
-    }
-
-    @Test
-    public void testcomments_naming9_LocalVarSameNameAsGlobalVar_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/naming9_LocalVarSameNameAsGlobalVar.b314", testFolder.newFile(), false, "comments: naming9_LocalVarSameNameAsGlobalVar");
     }
 
     @Test

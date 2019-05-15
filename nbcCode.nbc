@@ -14,7 +14,7 @@
     wait time"
 
 thread main
-	left(100,0)
+	right(100,1000)
 	 PlayTone(TONE_C5,500)
 	exit
 endt
