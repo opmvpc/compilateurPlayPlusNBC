@@ -13,11 +13,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Optional;
 
+/**
+ * @overview Classe utilisé pour les checks des noms des variables globales , locales de fonction,..
+ * @specfiled symTable : SymbolTable la table des symboles
+ * @specfiled errors: Errors
+ */
 public class CheckNamingConventions {
     private SymbolTable symTable;
     private Errors errors;
 
-    public CheckNamingConventions(SymbolTable symTable, Errors errors ) {
+    public CheckNamingConventions(SymbolTable symTable, Errors errors) {
         this.symTable = symTable;
         this.errors = errors;
 
@@ -38,9 +43,8 @@ public class CheckNamingConventions {
      * Vérifie si le nom de la variable local(d'une fonction) n'est pas déjà utilisé par une variable globale
      */
     private void checkLocalVarNotGlobalVarName() {
-        ArrayList<Symbol> globalScope =  this.symTable.getGlobals().getSymbols();
-      //  System.out.println(globalScope.toString());
-        Iterator vars =  globalScope.listIterator();
+        ArrayList<Symbol> globalScope = this.symTable.getGlobals().getSymbols();
+        Iterator vars = globalScope.listIterator();
 
         while (vars.hasNext()) {
             Symbol globalVar = (Symbol) vars.next();
@@ -55,9 +59,9 @@ public class CheckNamingConventions {
                             Optional<Symbol> localVar = ((FunctionSymbol) funct).resolveByName(globalVarName);
                             if (localVar.isPresent()) {
                                 if (localVar.get().getType().getName().equals(((VariableSymbol) globalVar).getType().getName())) {
-                                       //this.errors.badNameError.add("Le nom de la variable locale:" +
-                                       //     globalVar.getName() +
-                                        //    " est déjà utilisé par une variable globale");
+                                    this.errors.badNameError.add("Le nom de la variable locale:" +
+                                         globalVar.getName() +
+                                       " est déjà utilisé par une variable globale");
                                 }
                             }
                         }
@@ -71,14 +75,14 @@ public class CheckNamingConventions {
      * Vérifie si le nom de la variable n'est pas déjà utilisé par une fonction ou par une autre variable globale
      */
     private void checkGlobalVarNames() {
-        ArrayList<Symbol> globalScope =  this.symTable.getGlobals().getSymbols();
+        ArrayList<Symbol> globalScope = this.symTable.getGlobals().getSymbols();
 
-        Iterator vars =  globalScope.listIterator();
+        Iterator vars = globalScope.listIterator();
 
         while (vars.hasNext()) {
             Symbol globalVar = (Symbol) vars.next();
-            if(globalVar instanceof VariableSymbol){
-                Iterator varsLocal =  globalScope.listIterator();
+            if (globalVar instanceof VariableSymbol) {
+                Iterator varsLocal = globalScope.listIterator();
                 while (varsLocal.hasNext()) {
                     Symbol localVar = (Symbol) varsLocal.next();
                     if (localVar instanceof FunctionSymbol) {
@@ -102,17 +106,17 @@ public class CheckNamingConventions {
 
 
     /**
-     *  Vérifie si le nom de la constante n'est pas déjà utilisé par une variable
+     * Vérifie si le nom de la constante n'est pas déjà utilisé par une variable
      */
     private void checkLocalVarNamesNotInArgs() {
         ArrayList<Symbol> globalScope = this.symTable.getGlobals().getSymbols();
 
-        Iterator vars =  globalScope.listIterator();
+        Iterator vars = globalScope.listIterator();
 
         while (vars.hasNext()) {
             Symbol var = (Symbol) vars.next();
 
-            Iterator vars2 =  globalScope.listIterator();
+            Iterator vars2 = globalScope.listIterator();
             while (vars2.hasNext()) {
                 Symbol var2 = (Symbol) vars2.next();
                 if (var instanceof VariableSymbol) {
@@ -132,12 +136,12 @@ public class CheckNamingConventions {
     private void checkConstNames() {
         ArrayList<Symbol> globalScope = this.symTable.getGlobals().getSymbols();
 
-        Iterator vars =  globalScope.listIterator();
+        Iterator vars = globalScope.listIterator();
 
         while (vars.hasNext()) {
             Symbol var = (Symbol) vars.next();
 
-            Iterator vars2 =  globalScope.listIterator();
+            Iterator vars2 = globalScope.listIterator();
 
             while (vars2.hasNext()) {
                 Symbol var2 = (Symbol) vars2.next();
@@ -148,9 +152,9 @@ public class CheckNamingConventions {
                         }
                     }
                 }
-                if (var instanceof ConstanteSymbol && var2 instanceof ConstanteSymbol  && var != var2  ) {
-                    if (var.getName().equals( var2.getName())) {
-                        this.errors.badNameError.add("Le nom de la constante:" + var.getName() + " est déjà utilisé par une autre constante" +  var2.getName());
+                if (var instanceof ConstanteSymbol && var2 instanceof ConstanteSymbol && var != var2) {
+                    if (var.getName().equals(var2.getName())) {
+                        this.errors.badNameError.add("Le nom de la constante:" + var.getName() + " est déjà utilisé par une autre constante" + var2.getName());
                     }
                 }
             }
@@ -161,9 +165,9 @@ public class CheckNamingConventions {
      * Vérifie si le nom de la variable dans une fonction n'est pas déjà utilisé par un des paramètres de la fonction
      */
     private void checkLocalVarNames() {
-        ArrayList<Symbol> globalScope =  this.symTable.getGlobals().getSymbols();
+        ArrayList<Symbol> globalScope = this.symTable.getGlobals().getSymbols();
 
-        Iterator vars =  globalScope.listIterator();
+        Iterator vars = globalScope.listIterator();
 
         while (vars.hasNext()) {
             Symbol funct = (Symbol) vars.next();
@@ -173,13 +177,13 @@ public class CheckNamingConventions {
                 while (args.hasNext()) {
                     Symbol arg = (Symbol) args.next();
 
-                    Symbol localVar = resolveArgsByName( arg.getName(), ((FunctionSymbol) funct));
+                    Symbol localVar = resolveArgsByName(arg.getName(), ((FunctionSymbol) funct));
 
-                    if (localVar != null &&  localVar !=funct ) {
+                    if (localVar != null && localVar != funct) {
                         this.errors.badNameError.add("La variable locale : " +
-                                 arg.getName() +
-                                " de la fonction : "+
-                                 funct.getName() +
+                                arg.getName() +
+                                " de la fonction : " +
+                                funct.getName() +
                                 " ne peut avoir le même nom que l'un des paramètres");
                     }
                 }
@@ -188,15 +192,14 @@ public class CheckNamingConventions {
     }
 
     /**
-     *
      * @param name le nom de l'argument
-     * @param fun le Symbole de la fonction
+     * @param fun  le Symbole de la fonction
      * @return le symbole correspondant au nom name ou null si pas trouvé
      */
     public Symbol resolveArgsByName(String name, FunctionSymbol fun) {
-        ArrayList<Symbol> listArgs =   fun.getArgs();
+        ArrayList<Symbol> listArgs = fun.getArgs();
 
-        Iterator vars =  listArgs.listIterator();
+        Iterator vars = listArgs.listIterator();
 
         while (vars.hasNext()) {
             Symbol arg = (Symbol) vars.next();
@@ -210,17 +213,17 @@ public class CheckNamingConventions {
     }
 
     /**
-     *  Vérifie si la variable locale à le même nom que la fonction dans laquelle elle est déclarée
+     * Vérifie si la variable locale à le même nom que la fonction dans laquelle elle est déclarée
      */
     private void checkLocalVarNameNotFunctName() {
-        ArrayList<Symbol> globalScope =  this.symTable.getGlobals().getSymbols();
+        ArrayList<Symbol> globalScope = this.symTable.getGlobals().getSymbols();
 
-        Iterator vars =  globalScope.listIterator();
+        Iterator vars = globalScope.listIterator();
 
         while (vars.hasNext()) {
             Symbol funct = (Symbol) vars.next();
             if (funct instanceof FunctionSymbol) {
-                String functName =  funct.getName();
+                String functName = funct.getName();
                 Optional<Symbol> var = ((FunctionSymbol) funct).getBody().resolveByName(functName);
                 if (var.isPresent()) {
                     this.errors.badNameError.add("La variable locale : " +
@@ -235,14 +238,14 @@ public class CheckNamingConventions {
      * Vérifie que les arguments d'une fonction n'ont pas le meme nom que la même fonction
      */
     private void checkArgNameNotFunctName() {
-        ArrayList<Symbol> globalScope =  this.symTable.getGlobals().getSymbols();
-        Iterator vars =  globalScope.listIterator();
+        ArrayList<Symbol> globalScope = this.symTable.getGlobals().getSymbols();
+        Iterator vars = globalScope.listIterator();
 
         while (vars.hasNext()) {
             Symbol funct = (Symbol) vars.next();
             if (funct instanceof FunctionSymbol) {
-                String funName =  funct.getName();
-                Symbol arg = resolveArgsByName(funName,((FunctionSymbol) funct));
+                String funName = funct.getName();
+                Symbol arg = resolveArgsByName(funName, ((FunctionSymbol) funct));
                 if (arg != null) {
                     this.errors.badNameError.add("L'argument : " +
                             arg.getName() +

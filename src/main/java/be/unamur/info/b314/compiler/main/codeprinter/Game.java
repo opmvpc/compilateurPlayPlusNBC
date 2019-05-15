@@ -9,6 +9,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 
+/**
+ * @overview Represente le jeu
+ * @specfield map:char[][]
+ * @specfield codyX:int
+ * @specfield codyY:int
+ * @specfield initialDirection:String
+ * @specfield errors:Errors
+ */
 public class Game {
     private char[][] map;
     //private Coordinate codyPos;
@@ -17,7 +25,11 @@ public class Game {
     private String initialDirection = "";
     private Errors errors;
 
-
+    /**
+     * @effects initialise le jeu avec la table des symboles et le stockage des erreurs
+     * @param symbolTable
+     * @param errors
+     */
     public Game(SymbolTable symbolTable, Errors errors) {
         this.errors = errors;
         Optional<Symbol> mapSymbol = symbolTable
@@ -35,6 +47,11 @@ public class Game {
         }
     }
 
+    /**
+     * Les mouvements de Cody
+     * @param actionword
+     * @param value
+     */
     public void moveCody(String actionword,int value){
         // for autour pour un mouvement à la fois?
         System.out.println("moveCody - actionword : "+ actionword + " value : " + value);
@@ -77,6 +94,11 @@ public class Game {
         }
     }
 
+    /**
+     * Verification de la position de Cody
+     * @param tempX
+     * @param tempY
+     */
     private void checkPositionCody(int tempX,int tempY){
         // init to ascii 0
         System.out.println("CheckPositionCody : (" + codyX + "," + codyY+")");

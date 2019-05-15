@@ -5,7 +5,10 @@ import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 
 /**
- * Class Symbol
+ *  @overview Symbol
+ *  @specfiled  name: String
+ *  @specfiled type : Type
+ *  @specfiled value: Integer
  */
 public abstract class Symbol {
 
@@ -17,11 +20,22 @@ public abstract class Symbol {
         setName(name);
     }
 
+    /**
+     * @effects Initialise le symbol avec un nom et un type
+     * @param name
+     * @param type
+     */
     public Symbol(String name, Type type) {
         setName(name);
         this.type = type;
     }
 
+    /**
+     * @effects Initialise de Symbol avec un nom, un type et un scope
+     * @param name
+     * @param type
+     * @param scope
+     */
     public Symbol(String name, Type type, Scope scope) {
         setName(name);
         this.type = type;
@@ -37,16 +51,8 @@ public abstract class Symbol {
     }
 
     /**
-     *
-     * @return le nom du symbol sans la concaténation avec le type du symbol
-     */
-    public String getNiceName(){
-        return SymbolNamesHelper.generateNiceName(name);
-    }
-
-    /**
-     *
-     * @param name
+     * @modifies this.name
+     * @param name le nom du symbol
      */
     public void setName(String name) {
         this.name = name;
@@ -61,10 +67,18 @@ public abstract class Symbol {
         return type;
     }
 
+    /**
+     *
+     * @return value du symbol
+     */
     public Integer getValue() {
         return value;
     }
 
+    /**
+     * @modifies this.value
+     * @param value
+     */
     public void setValue(Integer value) {
         this.value = value;
     }

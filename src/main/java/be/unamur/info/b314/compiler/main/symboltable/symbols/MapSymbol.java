@@ -3,7 +3,16 @@ package be.unamur.info.b314.compiler.main.symboltable.symbols;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 
-
+/**
+ * @overview  La classe MapSymbol represente le symbole de la Map de jeu
+ * constitué d'un tableau à deux dimensions representant la carte de jeu
+ * ainsi que les coordonnées initial de Cody
+ *
+ *  @specfiled carte: char[][]
+ *  @specfiled initX: int
+ *  @specfiled initY: int
+ *  @specfiled errors: Errors
+ */
 public class MapSymbol extends Symbol {
     private char[][] carte;
     private int initX;
@@ -12,11 +21,11 @@ public class MapSymbol extends Symbol {
 
     /**
      * Constructeur
-     *
-     * @param name   le name
+     * @effects initialise une MapSymbol avec le name, un type et un errors     *
+     * @param name  le nom de la map (map:)
      * @param type   de la map
-     * @param errors represente les erreurs qu'on peut avoir
-     * @effects initialise une MapSymbol avec un name, un type et un errors
+     * @param errors represente les erreurs mapErrors qu'on peut avoir
+
      */
     public MapSymbol(String name, Type type, Errors errors) {
         super(name, type);
@@ -76,34 +85,36 @@ public class MapSymbol extends Symbol {
 
     /**
      * Création d'un tableau à deux dimensions représentant  la carte de jeu
-     *
+     * @effects initialise carte
+     * @modifies carte
      * @param mapX Coordonnées X du tableau
      * @param mapY Coordonnées Y du tableau
      * @param line tous les éléments à mettre dans le tableau
-     * @return true si la carte a été créer sinon retourne false
-     * @effects initialise la carte de jeu en fonction des coordonnées et de la line recu
+     * @return true si la carte a été créer et qu'elle est correct sinon retourne false
      */
     public boolean createCarte(String mapX, String mapY, String line) {
         boolean isValid = isvalidParamMap(mapX, mapY, line);
         if (isValid) {
             int x = Integer.parseInt(mapX);
             int y = Integer.parseInt(mapY);
-            carte = new char[x][y];
+          //  carte = new char[x][y]; ok
+            carte = new char[y][x];
             int z = 0;
-            for (int i = 0; i < x; i++) {
-                for (int j = 0; j < y; j++) {
+            for (int i = 0; i < y; i++) { // original x
+                for (int j = 0; j < x; j++) { // original y
                     carte[i][j] = line.charAt(z);
                     z++;
                 }
                 System.out.println("");
             }
+            isValid=  isMapConfigCorrect();
         }
-        return isMapConfigCorrect();
+        return isValid;
     }
 
     /**
      * Vérifie si la configuration de la carte est correct,
-     * si il y a 0 ou plusieurs Cody ou 0 ou plusieurs trésors  on renvoi false
+     * si il y a 0 ou plusieurs Cody et 0 ou plusieurs trésors  on renvoi false
      *
      * @return true si la Config est correct
      */

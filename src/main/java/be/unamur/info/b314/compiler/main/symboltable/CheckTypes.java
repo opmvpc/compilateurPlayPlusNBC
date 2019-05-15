@@ -18,6 +18,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
 
+/**
+ * @overview Vérififcation des types
+ * @specfiled  symTable : SymbolTable la table des symboles
+ * @specfiled  errors:Errors
+ *
+ */
 public class CheckTypes extends PlayPlusBaseListener {
     private SymbolTable symTable;
     private Errors errors;
