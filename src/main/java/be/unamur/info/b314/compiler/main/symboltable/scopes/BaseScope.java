@@ -7,13 +7,22 @@ import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
-
+/**
+ * @overview Représentation de LocalScope
+ * @specfiled name:String
+ * @specfiled enclosingScope:Scope
+ * @specfiled symbols:ArrayList<Symbol>
+ */
 public abstract class BaseScope implements Scope {
 
     private String name;
     private Scope enclosingScope;
     private ArrayList<Symbol> symbols;
 
+    /**
+     * @effects Initialisation
+     * @param enclosingScope
+     */
     public BaseScope(Scope enclosingScope) {
         this.name = "global";
         this.enclosingScope = enclosingScope;

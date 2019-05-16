@@ -4,8 +4,8 @@ import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 
 /**
- * @overview  La classe MapSymbol represente le symbole de la Map de jeu
- * constitué d'un tableau à deux dimensions representant la carte de jeu
+ * @overview  La classe MapSymbol représente le symbole de la Map de jeu
+ * constitué d'un tableau à deux dimensions représentant la carte de jeu
  * ainsi que les coordonnées initial de Cody
  *
  *  @specfiled carte: char[][]

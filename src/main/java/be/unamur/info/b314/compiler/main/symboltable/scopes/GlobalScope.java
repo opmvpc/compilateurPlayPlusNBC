@@ -5,9 +5,14 @@ import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.BuiltInTypeSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.ExpressionSymbol;
-
+/**
+ * @overview Représentation de Global Scope
+ */
 public class GlobalScope extends BaseScope {
-
+    /**
+     * @effects Initialisation 
+     * @param enclosingScope
+     */
     public GlobalScope(Scope enclosingScope) {
         super(enclosingScope);
         initTypeSystem();
