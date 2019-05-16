@@ -21,8 +21,6 @@ void main(){
        j = j + 1;
      }
 
-
-
  dig();
 
  return void;

@@ -95,8 +95,8 @@ public class MapSymbol extends Symbol {
     public boolean createCarte(String mapX, String mapY, String line) {
         boolean isValid = isvalidParamMap(mapX, mapY, line);
         if (isValid) {
-            int x = Integer.parseInt(mapX);
-            int y = Integer.parseInt(mapY);
+            int y = Integer.parseInt(mapX);
+            int x = Integer.parseInt(mapY);
           //  carte = new char[x][y]; ok
             carte = new char[y][x];
             int z = 0;

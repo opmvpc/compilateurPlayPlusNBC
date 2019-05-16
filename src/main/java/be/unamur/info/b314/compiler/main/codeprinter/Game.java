@@ -19,7 +19,6 @@ import java.util.Optional;
  */
 public class Game {
     private char[][] map;
-    //private Coordinate codyPos;
     private int codyX;
     private int codyY;
     private String initialDirection = "";
@@ -137,16 +136,3 @@ public class Game {
                 '}';
     }
 }
-
-/*
-— Le symbole “@” (robot) représente le robot qui prend une position de départ sur la carte,
-— Le symbole “X” (trésor) représente le trésor que le robot veut déterrer,
-— Le symbole “G” (pelouse) représente la pelouse (ou gazon),
-— Le symbole “P” (palmiers) représente les palmiers,
-— Le symbole “A” (pons) représente les ponts,
-— Le symbole “B” (buissons) représente les buissons,
-— Le symbole “T” (tonneau) représente les tonneaux,
-— Le symbole “S” (puits) représente les puits,
-— Le symbole “ ” (vide) représente de l’eau dans la carte,
-— Le symbole “ Q” (squelette) représente les squellettes dans la carte,
- */
