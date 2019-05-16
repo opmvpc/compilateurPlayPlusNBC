@@ -7,6 +7,11 @@ import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * @overview representation du ScopedSymbol
+ * @specfiled enclosingScope: Scope
+ * @specfiled symbols: ArrayList<Symbol>
+ */
 public abstract class ScopedSymbol extends Symbol implements Scope {
     private Scope enclosingScope;
     private ArrayList<Symbol> symbols;
@@ -35,7 +40,6 @@ public abstract class ScopedSymbol extends Symbol implements Scope {
     }
 
     /**
-     *
      * @return enclosingScope , le Scope Parent
      */
     @Override
@@ -44,7 +48,6 @@ public abstract class ScopedSymbol extends Symbol implements Scope {
     }
 
     /**
-     *
      * @return le nom du Scope
      */
     @Override
@@ -64,7 +67,6 @@ public abstract class ScopedSymbol extends Symbol implements Scope {
     }
 
     /**
-     *
      * @param name le nom du scope à chercher
      * @return  Optional<Symbol> tq symbol E this
      */

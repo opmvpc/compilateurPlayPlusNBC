@@ -3,21 +3,25 @@ package be.unamur.info.b314.compiler.main.symboltable.scoped_symbols;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
-import be.unamur.info.b314.compiler.main.symboltable.scopes.LocalScope;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
+/**
+ * @overview Représente les conditions (If)
+ * @specfiled condition : String
+ * @specfiled  ifContext : PlayPlusParser.ConditionalStmtContext
+ */
 public class ConditionalSymbol extends ScopedSymbol {
 
     private String condition;
     private PlayPlusParser.ConditionalStmtContext ifContext;
 
-    public ConditionalSymbol(String name, Type type, Scope enclosingScope) {
-        super(name, type, enclosingScope);
-    }
-
+    /**
+     * @effects Initialise un symbole de condition
+     * @param name
+     * @param type
+     * @param scope
+     * @param ifContext
+     * @param condition
+     */
 
     public ConditionalSymbol(String name, Type type, Scope scope, PlayPlusParser.ConditionalStmtContext ifContext, String condition ){
         super(name, type, scope);
