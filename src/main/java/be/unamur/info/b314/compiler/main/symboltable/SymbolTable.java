@@ -30,7 +30,7 @@ public class SymbolTable {
     }
 
     /**
-     * Renvoie la tables des scopes
+     * Renvoie la table des scopes
      * @return this.scopes
      */
     public ParseTreeProperty getScopes() {
