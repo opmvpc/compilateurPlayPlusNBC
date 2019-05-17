@@ -32,39 +32,6 @@ public class CheckNamingConventions {
         checkArgNameNotFunctName();
         checkConstNames();
         checkLocalVarNames();
-        //checkLocalVarNotGlobalVarName();
-    }
-
-    /**
-     * Vérifie si le nom de la variable local(d'une fonction) n'est pas déjà utilisé par une variable globale
-     */
-    private void checkLocalVarNotGlobalVarName() {
-        ArrayList<Symbol> globalScope = this.symTable.getGlobals().getSymbols();
-        Iterator vars = globalScope.listIterator();
-
-        while (vars.hasNext()) {
-            Symbol globalVar = (Symbol) vars.next();
-            if (globalVar instanceof VariableSymbol) {
-                String globalVarName = ((VariableSymbol) globalVar).getName();
-                Iterator varsCheck = globalScope.listIterator();
-
-                while (varsCheck.hasNext()) {
-                    Symbol funct = (Symbol) varsCheck.next();
-                    if (funct instanceof FunctionSymbol) {
-                        if (!((FunctionSymbol) funct).getScopeName().equals("main")) {
-                            Optional<Symbol> localVar = ((FunctionSymbol) funct).resolveByName(globalVarName);
-                            if (localVar.isPresent()) {
-                                if (localVar.get().getType().getName()
-                                        .equals(((VariableSymbol) globalVar).getType().getName())) {
-                                    this.errors.badNameError.add("Le nom de la variable locale:" + globalVar.getName()
-                                            + " est déjà utilisé par une variable globale");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     /**
