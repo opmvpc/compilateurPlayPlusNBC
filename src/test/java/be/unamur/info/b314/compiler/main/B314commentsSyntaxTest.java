@@ -80,11 +80,6 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_failed_testaffectinstruction_affect_constant_wrong_var_type_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/failed_testaffectinstruction_affect_constant_wrong_var_type.b314", testFolder.newFile(), true, "comments: failed_testaffectinstruction_affect_constant_wrong_var_type");
-    }
-
-    @Test
     public void testcomments_function13_returnvalues_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/function13_returnvalues.b314", testFolder.newFile(), true, "comments: function13_returnvalues");
     }
@@ -122,6 +117,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_j_testfunctions_one_int_function_no_local_var_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/j_testfunctions_one_int_function_no_local_var.b314", testFolder.newFile(), true, "comments: j_testfunctions_one_int_function_no_local_var");
+    }
+
+    @Test
+    public void testcomments_naming9_LocalVarSameNameAsGlobalVar_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/naming9_LocalVarSameNameAsGlobalVar.b314", testFolder.newFile(), true, "comments: naming9_LocalVarSameNameAsGlobalVar");
     }
 
     @Test
@@ -450,6 +450,11 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_corbutura_code_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/corbutura_code.b314", testFolder.newFile(), true, "comments: corbutura_code");
+    }
+
+    @Test
     public void testcomments_repeat1_goodIntCondition_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/repeat1_goodIntCondition.b314", testFolder.newFile(), true, "comments: repeat1_goodIntCondition");
     }
@@ -578,11 +583,6 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_j_testaffectinstruction_affects_constant_wrong_var_type_ko_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ko/j_testaffectinstruction_affects_constant_wrong_var_type_ko.b314", testFolder.newFile(), false, "comments: j_testaffectinstruction_affects_constant_wrong_var_type_ko");
-    }
-
-    @Test
     public void testcomments_function3_arg_type_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/function3_arg_type.b314", testFolder.newFile(), false, "comments: function3_arg_type");
     }
@@ -620,11 +620,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_import4_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/import4.b314", testFolder.newFile(), false, "comments: import4");
-    }
-
-    @Test
-    public void testcomments_naming9_LocalVarSameNameAsGlobalVar_ko() throws Exception {
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/naming9_LocalVarSameNameAsGlobalVar.b314", testFolder.newFile(), false, "comments: naming9_LocalVarSameNameAsGlobalVar");
     }
 
     @Test
