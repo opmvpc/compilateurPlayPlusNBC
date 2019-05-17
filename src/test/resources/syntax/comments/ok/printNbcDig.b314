@@ -1,0 +1,31 @@
+/* Test */
+
+#import "dig.map"
+
+ int i;
+ bool b;
+
+void execute()
+   {
+    left(1);
+    down(1);
+    right(2);
+    up(5);
+    left();
+
+   return void;
+   }
+
+void main()
+{
+ i = 5;
+ i = i + 5;
+ b = false;
+execute();
+b = true;
+
+dig();
+
+return void;
+
+}

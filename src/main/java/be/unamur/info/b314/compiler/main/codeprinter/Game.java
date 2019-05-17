@@ -41,6 +41,7 @@ public class Game {
             this.codyX = mapSymGet.getInitX();
             this.codyY = mapSymGet.getInitY();
         }
+        System.out.println("INIT GAME CLASS : codyX = "+codyX+" codyY = "+codyY);
     }
 
     /**

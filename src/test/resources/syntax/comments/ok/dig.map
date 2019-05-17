@@ -1,0 +1,9 @@
+/* Map  */
+// Fichier map
+
+map: 5 5
+ _ P G G _
+ G G G G G
+ G @ G X G
+ G G G G G
+ _ G G G _

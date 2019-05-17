@@ -375,13 +375,13 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_naming9_LocalVarSameNameAsGlobalVar_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/naming9_LocalVarSameNameAsGlobalVar.b314", testFolder.newFile(), true, "comments: naming9_LocalVarSameNameAsGlobalVar");
+    public void testcomments_null_pointer_functions_one_void_function_no_local_var_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/null_pointer_functions_one_void_function_no_local_var.b314", testFolder.newFile(), true, "comments: null_pointer_functions_one_void_function_no_local_var");
     }
 
     @Test
-    public void testcomments_null_pointer_functions_one_void_function_no_local_var_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/null_pointer_functions_one_void_function_no_local_var.b314", testFolder.newFile(), true, "comments: null_pointer_functions_one_void_function_no_local_var");
+    public void testcomments_printNbcDig_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/printNbcDig.b314", testFolder.newFile(), true, "comments: printNbcDig");
     }
 
     @Test
@@ -835,6 +835,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_naming8_GlobalVarSameName_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/naming8_GlobalVarSameName.b314", testFolder.newFile(), false, "comments: naming8_GlobalVarSameName");
+    }
+
+    @Test
+    public void testcomments_naming9_LocalVarSameNameAsGlobalVar_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/naming9_LocalVarSameNameAsGlobalVar.b314", testFolder.newFile(), false, "comments: naming9_LocalVarSameNameAsGlobalVar");
     }
 
     @Test
