@@ -291,9 +291,6 @@ public class Main {
         System.out.println("Visit errors? :" + errors.gameError.toString());
         if (!errors.gameError.isEmpty()) {
             exitCode = 1;
-            FileWriter fileWriter = new FileWriter(this.outputFile);
-            fileWriter.write("! Invalid program !");
-            fileWriter.close();
             System.out.println("Visit errors? :" + errors.gameError.toString());
             throw new GameException(errors.gameError.toString());
         }

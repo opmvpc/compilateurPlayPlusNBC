@@ -80,23 +80,31 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         // visit du code du main
         visitChildren(ctx);
 
+
+
+        // ajoute le code au fichier .nbc
 //        Check if cody won
         if (this.game.isWin()) {
             this.code.append("\t PlayTone(TONE_C5,500)\n");
+            // fin du code nbc
+            this.code.append("\texit\n");
+            this.code.append("endt\n");
+            try {
+                printFile();
+            } catch (Exception e) {
+                System.out.println("Error Writing NBC code to File");
+            }
         } else {
-            this.errors.gameError.add("You loose :(");
+            System.out.println("You loose :(");
+            try {
+                FileWriter fileWriter = new FileWriter(this.outputFile);
+                fileWriter.write("! Invalid program !");
+                fileWriter.close();
+            } catch (IOException e) {
+                System.out.println("Error Writing NBC code to File");
+            }
         }
 
-        // fin du code nbc
-        this.code.append("\texit\n");
-        this.code.append("endt\n");
-
-        // ajoute le code au fichier .nbc
-        try {
-            printFile();
-        } catch (Exception e) {
-            System.out.println("Error Writing NBC code to File");
-        }
 
         System.out.println("CODE NBC :");
         System.out.println(this.code);
