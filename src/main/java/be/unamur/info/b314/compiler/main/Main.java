@@ -294,7 +294,7 @@ public class Main {
             throw new MapConfigException(errors.mapError.toString());
         }
         if (!errors.functionError.isEmpty()) {
-            throw new FunctionException(errors.mapError.toString());
+            throw new FunctionException(errors.functionError.toString());
         }
 
         return symbolTable;

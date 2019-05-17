@@ -81,21 +81,6 @@ public abstract class ScopedSymbol extends Symbol implements Scope {
 
     /**
      *
-     * @param name le nom du scope à chercher
-     * @param type le type du scope à chercher
-     * @return Optional<Symbol>
-     */
-    @Override
-    public Optional<Symbol> resolveByNameAndType(String name, String type) {
-        Optional<Symbol> symbol = this.symbols.stream()
-                .filter(s -> s.getName().equals(name) && s.getType().getName().equals(type))
-                .findFirst();
-
-        return symbol;
-    }
-
-    /**
-     *
      * @return une liste de symbols
      */
     @Override

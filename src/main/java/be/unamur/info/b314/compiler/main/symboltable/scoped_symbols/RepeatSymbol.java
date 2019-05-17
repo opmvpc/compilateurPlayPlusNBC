@@ -36,7 +36,6 @@ public class RepeatSymbol extends ScopedSymbol {
     public String toString() {
         return "RepeatSymbol" + " {" +
                 "\n\t\tname = '" + super.getName() + '\'' +
-                (super.getType() != null ? ", \n\t\ttype = " + super.getType().getName() : "") +
                 ", \n\t\tbody = " + super.getSymbols()+
                 ", \n\t\tcondition = " + this.condition+
                 "\n\t}";

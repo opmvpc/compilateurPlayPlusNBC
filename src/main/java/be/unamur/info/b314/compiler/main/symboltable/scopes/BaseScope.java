@@ -57,15 +57,6 @@ public abstract class BaseScope implements Scope {
         return symbol;
     }
 
-    @Override
-    public Optional<Symbol> resolveByNameAndType(String name, String type) {
-        Optional<Symbol> symbol = this.symbols.stream()
-                .filter(s -> s.getName().equals(name) && s.getType().getName().equals(type))
-                .findFirst();
-
-        return symbol;
-    }
-
     public ArrayList<Symbol> getSymbols() {
         return symbols;
     }

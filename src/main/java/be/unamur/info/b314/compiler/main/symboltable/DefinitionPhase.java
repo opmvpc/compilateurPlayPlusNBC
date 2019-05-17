@@ -31,12 +31,9 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         Type varType = (BuiltInTypeSymbol) resolveType(varTypeName);
 
         Scope currentScope = symTable.getCurrentScope();
-        if (currentScope.getEnclosingScope() == null) {
-        } else {
-            if (currentScope instanceof FunctionSymbol) {
-                if (((FunctionSymbol) currentScope).getBody().resolveByNameAndType(varName, varTypeName).isPresent()) {
-                    errors.badNameError.add("Deux variables ne peuvent pas porter le même nom dans une même fonction " + varName);
-                }
+        if (currentScope.getEnclosingScope() != null && currentScope instanceof FunctionSymbol) {
+            if (((FunctionSymbol) currentScope).getBody().resolveByName(varName).isPresent()) {
+                errors.badNameError.add("Deux variables ne peuvent pas porter le même nom dans une même fonction " + varName);
             }
         }
 
@@ -47,12 +44,9 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         Type varType = (BuiltInTypeSymbol) resolveType(varTypeName);
 
         Scope currentScope = symTable.getCurrentScope();
-        if (currentScope.getEnclosingScope() == null) {
-        } else {
-            if (currentScope instanceof FunctionSymbol) {
-                if (((FunctionSymbol) currentScope).getBody().resolveByName(varName).isPresent()) {
-                    errors.badNameError.add("Deux tableaux ne peuvent pas porter le même nom dans une même fonction");
-                }
+        if (currentScope.getEnclosingScope() != null && currentScope instanceof FunctionSymbol) {
+            if (((FunctionSymbol) currentScope).getBody().resolveByName(varName).isPresent()) {
+                errors.badNameError.add("Deux tableaux ne peuvent pas porter le même nom dans une même fonction");
             }
         }
 

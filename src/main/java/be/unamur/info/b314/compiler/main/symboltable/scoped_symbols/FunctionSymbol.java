@@ -74,23 +74,6 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
 
     /**
      *
-     * @param name le nom de la fonction
-     * @param type le type de la fonction
-     * @return Optional<Symbol> representant la fonction
-     */
-    @Override
-    public Optional<Symbol> resolveByNameAndType(String name, String type) {
-        Optional<Symbol> symbol = super.resolveByNameAndType(name, type);
-
-        if (! symbol.isPresent()){
-            symbol = body.resolveByNameAndType(name, type);
-        }
-
-        return symbol;
-    }
-
-    /**
-     *
      * @return  Les arguments de la fonction sous la forme d'une ArrayList de Symbol
      */
     @Override
@@ -122,7 +105,7 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
     public String toString() {
         return "FunctionSymbol" + " {" +
                 "\n\t\tname = '" + super.getName() + '\'' +
-                (super.getType() != null ? ", \n\t\ttype = " + super.getType().getName() : "") +
+                "\n\t\ttype = " + super.getType().getName() +
                 ", \n\t\targuments = " + super.getSymbols()+
                 ", \n\t\tbody = " + this.body.getSymbols() +
                 "\n\t}";

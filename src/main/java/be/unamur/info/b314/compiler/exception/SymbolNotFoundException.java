@@ -13,8 +13,4 @@ public class SymbolNotFoundException extends Exception{
         super(message);
     }
 
-    public SymbolNotFoundException(String message, Exception cause) {
-        super(message, cause);
-    }
-    
 }

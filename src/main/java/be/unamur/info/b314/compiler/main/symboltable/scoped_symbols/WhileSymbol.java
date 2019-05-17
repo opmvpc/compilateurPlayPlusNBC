@@ -37,7 +37,6 @@ public class WhileSymbol extends ScopedSymbol {
         return "WhileSymbol" + " {" +
                 "\n\t\tname = '" + super.getName() + '\'' +
                 "\n\t\tEnclosingScope = '" + super.getEnclosingScope().getScopeName() + '\'' +
-                (super.getType() != null ? ", \n\t\ttype = " + super.getType().getName() : "") +
                 ", \n\t\tbody = " + super.getSymbols() +
                 ", \n\t\tcondition = " + this.condition +
                 "\n\t}";

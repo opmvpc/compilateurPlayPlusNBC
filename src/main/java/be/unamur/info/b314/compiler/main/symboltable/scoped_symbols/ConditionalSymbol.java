@@ -38,7 +38,6 @@ public class ConditionalSymbol extends ScopedSymbol {
     public String toString() {
         return "ConditionalSymbol" + " {" +
                 "\n\t\tname = '" + super.getName() + '\'' +
-                (super.getType() != null ? ", \n\t\ttype = " + super.getType().getName() : "") +
                 ", \n\t\tbody = " + super.getSymbols()+
                 ", \n\t\tcondition = " + this.condition+
                 "\n\t}";
