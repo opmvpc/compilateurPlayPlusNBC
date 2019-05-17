@@ -12,6 +12,7 @@ import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,15 +21,15 @@ import java.util.Iterator;
 import java.util.Optional;
 
 public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
-    private String fileName;
+    private File outputFile;
     private SymbolTable symbolTable;
     private StringBuilder code;
     private HashMap<String, STGroup> templates;
     private ArrayList<FunctionDecl> functionDecls;
     private Game game;
 
-    public NbcPrinterVisitor(String fileName, SymbolTable symtable, Errors errors) {
-        this.fileName = fileName;
+    public NbcPrinterVisitor(File outputFile, SymbolTable symtable, Errors errors) {
+        this.outputFile = outputFile;
         this.symbolTable = symtable;
         initTemplates();
         this.code = new StringBuilder();
@@ -676,7 +677,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     }
 
     public void printFile() throws IOException {
-        FileWriter fileWriter = new FileWriter(this.fileName);
+        FileWriter fileWriter = new FileWriter(this.outputFile);
         fileWriter.write(this.code.toString());
         fileWriter.close();
     }

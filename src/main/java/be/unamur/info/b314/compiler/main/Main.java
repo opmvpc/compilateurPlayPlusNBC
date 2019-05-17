@@ -286,12 +286,12 @@ public class Main {
             throws IOException, GameException {
         printTitle("Printing NBC code...");
         System.out.println("outputfile : " + this.outputFile.getName());
-        NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable, errors);
+        NbcPrinterVisitor printer = new NbcPrinterVisitor(this.outputFile, symTable, errors);
         printer.visitRoot(tree);
         System.out.println("Visit errors? :" + errors.gameError.toString());
         if (!errors.gameError.isEmpty()) {
             exitCode = 1;
-            FileWriter fileWriter = new FileWriter(this.outputFile.getName());
+            FileWriter fileWriter = new FileWriter(this.outputFile);
             fileWriter.write("! Invalid program !");
             fileWriter.close();
             System.out.println("Visit errors? :" + errors.gameError.toString());
