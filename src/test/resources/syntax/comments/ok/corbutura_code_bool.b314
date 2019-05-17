@@ -1,0 +1,44 @@
+/*
+
+    Salut
+
+*/
+
+        // Coucou
+
+#import "corbertura.map"
+
+bool y = true;
+int x = 0;
+int z = 5;
+int k;
+int r;
+char p = 'c';
+
+int f(int i){
+    return 2;
+}
+
+void main(){
+    int a = 2;
+
+if( f(x) != a){
+ right(1);
+}
+
+if( a <= z ){
+ down(1);
+}
+
+if( p == 'c'){
+up();
+}
+y =  a > z;
+
+y= x >= (a+z);
+
+    dig();
+
+    return void;
+
+}
