@@ -535,11 +535,13 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     @Override
     public Integer visitFuncCall(PlayPlusParser.FuncCallContext ctx) {
         int value = 0;
+        int exprdvalue = 0;
         System.out.println("VisitFuncCall : " + ctx.getText());
         String funcName = ctx.ID().getText();
 
         Optional<Symbol> result = symbolTable.getGlobals().resolveByName(funcName);
         Scope currentScope = symbolTable.getCurrentScope();
+        System.out.println("Out Current Scope Last Error : " + currentScope);
         if (result.isPresent()) {
 
 
@@ -549,7 +551,14 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
                 PlayPlusParser.ExprDContext exprDContext = ((PlayPlusParser.FuncCallArgContext) callargs.next())
                         .exprD();
                 if (exprDContext.getText().length() > 0) {
-                    ((FunctionSymbol) result.get()).getArgs().get(i).setValue(visitExprD(exprDContext));
+                    if ( exprDContext.exprG() != null && exprDContext.exprG().ID() != null){
+                        exprdvalue = resolveSymbolRec(exprDContext.exprG().ID().getText(),currentScope).get().getValue();
+                    } else {
+                        exprdvalue = visitExprD(exprDContext);
+                    }
+
+                    System.out.println(exprdvalue);
+                    ((FunctionSymbol) result.get()).getArgs().get(i).setValue(exprdvalue);
                     i++;
                 }
 
