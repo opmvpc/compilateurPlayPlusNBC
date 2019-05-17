@@ -223,11 +223,12 @@ arrayRef
     ;
 
 conditionalStmt : IF LPAREN boolCondition RPAREN LBRACE ifStmt RBRACE (ELSE LBRACE elseStmt RBRACE)? ;
-repeatStmt : REPEAT LPAREN repeatCondition RPAREN LBRACE labelloop=statement* RBRACE ;
+repeatStmt : REPEAT LPAREN repeatCondition RPAREN LBRACE loops RBRACE ;
 whileStmt : WHILE LPAREN boolCondition RPAREN LBRACE labelloop=statement* RBRACE ;
 
 ifStmt : statement*;
 elseStmt : statement*;
+loops : statement*;
 
 boolCondition : exprBool;
 repeatCondition : exprEnt;
