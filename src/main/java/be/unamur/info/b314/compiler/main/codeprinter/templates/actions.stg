@@ -1,12 +1,12 @@
 defright()::=<<
-#define turn_right(pwr,time) \
+#define right(pwr,time) \
     OnRev(OUT_C,pwr) \
     wait time \
     OnFwd(OUT_B,pwr)
 >>
 
 defleft()::=<<
-#define turn_left(pwr,time) \
+#define left(pwr,time) \
     OnRev(OUT_B,pwr) \
     wait time \
     OnFwd(OUT_C,pwr)
