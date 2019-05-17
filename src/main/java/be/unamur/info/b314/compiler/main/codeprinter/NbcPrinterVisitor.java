@@ -269,14 +269,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
         }
 
-        try {
-            boolean val = Boolean.valueOf(ctx.getText());
-            value = val == true ? 1 : 0;
 
-        } catch (Exception e) {
-            System.out.println("Erreur bool : " + ctx.getText());
-        }
-        System.out.println("");
         return value; // super.visitExprBool(ctx);
     }
 

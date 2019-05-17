@@ -65,6 +65,16 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
+    public void testcomments_corbutura_code_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/corbutura_code.b314", testFolder.newFile(), true, "comments: corbutura_code");
+    }
+
+    @Test
+    public void testcomments_corbutura_code_bool_ok() throws Exception{
+        CompilerTestHelper.launchCompilation("/syntax/comments/ok/corbutura_code_bool.b314", testFolder.newFile(), true, "comments: corbutura_code_bool");
+    }
+
+    @Test
     public void testcomments_dig_nbc01_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/dig_nbc01.b314", testFolder.newFile(), true, "comments: dig_nbc01");
     }
@@ -112,11 +122,6 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_exprEntiere5_Main_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/exprEntiere5_Main.b314", testFolder.newFile(), true, "comments: exprEntiere5_Main");
-    }
-
-    @Test
-    public void testcomments_failed_testaffectinstruction_affect_constant_wrong_var_type_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/failed_testaffectinstruction_affect_constant_wrong_var_type.b314", testFolder.newFile(), true, "comments: failed_testaffectinstruction_affect_constant_wrong_var_type");
     }
 
     @Test
