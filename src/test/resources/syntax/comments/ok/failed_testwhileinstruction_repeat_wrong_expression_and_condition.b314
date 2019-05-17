@@ -1,0 +1,32 @@
+/* Test while playPlus */
+
+ #import "worldfailed2.map"
+
+     int i;
+     int j;
+     int x;
+     char s;
+     bool t1[5];
+     int t2[42];
+     int t3[10, 10];
+
+void main(){
+
+     i = 3;
+     j = 2;
+     x = 1;
+
+     repeat(i){
+        up(j);
+        right(j);
+        down(j + 1);
+        right(j);
+        up(j);
+        right(2);
+       x = x + 1;
+      }
+
+ dig();
+
+ return void;
+ }

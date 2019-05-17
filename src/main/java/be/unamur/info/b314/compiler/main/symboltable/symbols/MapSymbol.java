@@ -108,10 +108,10 @@ public class MapSymbol extends Symbol {
             int x = Integer.parseInt(mapX);
             int y = Integer.parseInt(mapY);
             // carte = new char[x][y]; ok
-            carte = new char[y][x];
+            carte = new char[x][y];
             int z = 0;
-            for (int i = 0; i < y; i++) { // original x
-                for (int j = 0; j < x; j++) { // original y
+            for (int i = 0; i < x; i++) { // original x
+                for (int j = 0; j < y; j++) { // original y
                     carte[i][j] = line.charAt(z);
                     z++;
                 }

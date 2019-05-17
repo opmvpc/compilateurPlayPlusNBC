@@ -1,0 +1,15 @@
+/* Map  */
+// Fichier map
+
+map: 11 13
+ G P G _ _ A A A A G G G X
+ G P G T G G G G G G G _ _
+ G G G G G G G G G G G G G
+ A G G G G G G G G G G S G
+ A G G G G G G G S G G G G
+ A G G G G P G P G G G S G
+ A G G S G P G G G G G G G
+ G G G G S G G G G G G G G
+ G _ G G G G G B G G G P G
+ @ _ G G G B G G G G G S G
+ _ G G G G P G G G A A G G
