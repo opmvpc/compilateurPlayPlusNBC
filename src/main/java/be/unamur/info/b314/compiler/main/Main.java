@@ -9,10 +9,7 @@ import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -30,8 +27,6 @@ import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
@@ -77,7 +72,6 @@ public class Main {
                     System.out.println("EXIT : " + exitCode);
                     if (exitCode != 2) {
                         System.out.println(exitCode);
-                        System.err.println(exitCode);
                         // Print OK on stderr
                     } else {
                         System.err.println("OK");
@@ -297,6 +291,9 @@ public class Main {
         System.out.println("Visit errors? :" + errors.gameError.toString());
         if (!errors.gameError.isEmpty()) {
             exitCode = 1;
+            FileWriter fileWriter = new FileWriter(this.outputFile.getName());
+            fileWriter.write("! Invalid program !");
+            fileWriter.close();
             System.out.println("Visit errors? :" + errors.gameError.toString());
             throw new GameException(errors.gameError.toString());
         }
