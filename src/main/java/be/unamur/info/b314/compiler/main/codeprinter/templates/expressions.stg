@@ -1,2 +1,0 @@
-varDecl(type, name, value) ::= "set <name><init(value)>"
-init(v) ::= "<if(v)>, <v><endif>"

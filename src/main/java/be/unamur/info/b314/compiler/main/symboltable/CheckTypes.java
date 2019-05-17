@@ -3,18 +3,10 @@ package be.unamur.info.b314.compiler.main.symboltable;
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
-import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
-import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
-import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.ConditionalSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.WhileSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.BuiltInTypeSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
-import org.antlr.v4.runtime.RuleContext;
-import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
 

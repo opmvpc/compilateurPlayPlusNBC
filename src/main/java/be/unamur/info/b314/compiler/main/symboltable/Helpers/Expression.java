@@ -95,26 +95,10 @@ public class Expression {
 
     /**
      *
-     * @return isAssigned true si le symbole à été assigné
-     */
-    public Boolean getIsAssigned() {
-        return isAssigned;
-    }
-
-    /**
-     *
      * @return l'expression parent
      */
     public Expression getParent() {
         return parent;
-    }
-
-    /**
-     *
-     * @return la position de l'argument dans une déclaration de fonction
-     */
-    public int getPosition() {
-        return position;
     }
 
     /**

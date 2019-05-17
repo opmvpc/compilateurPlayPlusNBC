@@ -1,4 +1,0 @@
-condibranch(operation,value)::=<<brtst <operation>, Then, <value>
-Then :
->>
-

@@ -23,7 +23,7 @@ public class GlobalScope extends BaseScope {
      */
     protected void initTypeSystem() {
         for (Types type : Types.values()) {
-            define(new BuiltInTypeSymbol((String) type.toString().toLowerCase()));
+            define(new BuiltInTypeSymbol(type.toString().toLowerCase()));
         }
         define(new ExpressionSymbol("true", (Type) super.resolveByName("bool").get()));
         define(new ExpressionSymbol("false", (Type) super.resolveByName("bool").get()));

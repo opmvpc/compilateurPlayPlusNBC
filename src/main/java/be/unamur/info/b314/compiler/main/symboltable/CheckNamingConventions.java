@@ -1,15 +1,11 @@
 package be.unamur.info.b314.compiler.main.symboltable;
 
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
-import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.ConstanteSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
-
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Optional;
 

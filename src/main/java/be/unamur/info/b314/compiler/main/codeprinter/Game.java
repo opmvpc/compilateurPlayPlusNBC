@@ -4,9 +4,6 @@ import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.SymbolTable;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.MapSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
-
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Optional;
 
 /**

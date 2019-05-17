@@ -34,9 +34,6 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 /**
@@ -51,7 +48,6 @@ public class Main {
     private static final String INPUT = "i";
     private static final String OUTPUT = "o";
     private static int exitCode;
-    private static boolean mapFileExists = false;
 
     /**
      * Main method launched when starting compiler jar file.
@@ -174,9 +170,6 @@ public class Main {
      * Compiler Methods, this is where the MAGIC happens !!! \o/
      */
     private void compile() throws IOException, SymbolNotFoundException, BadNamingException, MapConfigException, BadTypeException, FunctionException, GameException {
-
-        // Put your code here !
-
         // Get abstract syntax tree
         LOG.debug("Parsing input");
         printSourceFile(inputFile);
@@ -239,17 +232,13 @@ public class Main {
 
         printTitle("Def Phase");
         Errors errors = new Errors();
-
         SymbolTable symbolTable = new SymbolTable();
         DefinitionPhase def = new DefinitionPhase(symbolTable, errors);
         walker.walk(def, tree);
 
-//        DefPhase def = new DefPhase(errors);
-//        walker.walk(def, tree);
-//
         printTitle("Check Naming conventions Phase");
         new CheckNamingConventions(def.getSymTable(), errors);
-//
+
         printTitle("Ref Phase");
         RefPhase ref = new RefPhase(def.getSymTable(), errors);
         walker.walk(ref, tree);
@@ -280,7 +269,6 @@ public class Main {
 
                     symbolTable.setCurrentScope(symbolTable.getGlobals());
                     walker.walk(def, mapTree);
-                    mapFileExists = true;
                 } catch (IOException | IllegalArgumentException e) {
 
                     System.out.println("ERREUR : Map "+ mapFile +" introuvable");
@@ -314,10 +302,8 @@ public class Main {
 
     private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable, Errors errors) throws IOException, GameException {
         printTitle("Printing NBC code...");
-//        ParseTreeWalker walker = new ParseTreeWalker();
         System.out.println("outputfile : " +  this.outputFile.getName());
         NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable,errors);
-       // NbcVisitor printer = new NbcVisitor("nbcCode.nbc", symTable);
         printer.visitRoot(tree);
         System.out.println("Visit errors? :" + errors.gameError.toString());
         if (!errors.gameError.isEmpty()) {
@@ -326,7 +312,6 @@ public class Main {
             throw new GameException(errors.gameError.toString());
         }
         System.out.println(printer.toString());
-       // printer.printFile();
     }
 
     private static void printSourceFile(File file) {

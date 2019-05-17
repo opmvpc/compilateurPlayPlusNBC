@@ -1,26 +1,19 @@
 package be.unamur.info.b314.compiler.main.codeprinter;
 
-import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusBaseVisitor;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
-import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.FunctionDecl;
 import be.unamur.info.b314.compiler.main.symboltable.SymbolTable;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
-import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.StructRefSymbol;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.apache.commons.jexl3.*;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,7 +26,6 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     private HashMap<String, STGroup> templates;
     private ArrayList<FunctionDecl> functionDecls;
     private Game game;
-    private Errors errors;
 
     public NbcPrinterVisitor(String fileName, SymbolTable symtable,Errors errors) {
         this.fileName = fileName;
@@ -42,7 +34,6 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         this.code = new StringBuilder();
         this.functionDecls = new ArrayList<>();
         this.game = new Game(symbolTable,errors);
-        this.errors = errors;
     }
 
     private void initTemplates() {
@@ -229,46 +220,6 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
             leftPart = (Integer) visit(ctx.getChild(0));
             rightPart = (Integer) visit(ctx.getChild(2));
-
-
-//            if (ctx.boolVal(0) != null && ctx.boolVal(1) != null){
-//                System.out.println(" boolVal & boolVal" );
-//                leftPart = visitBoolVal(ctx.boolVal(0));
-//                rightPart = visitBoolVal(ctx.boolVal(1));
-//            }
-//
-//            if (ctx.boolVal(0) != null && ctx.exprEnt(0) != null){
-//                System.out.println(" boolVal & exprEnt" );
-//                leftPart = visitBoolVal(ctx.boolVal(0));
-//                rightPart = visitExprEnt(ctx.exprEnt(0));
-//            }
-//
-//            try {
-//                PlayPlusParser.ExprEntContext e = (PlayPlusParser.ExprEntContext) ctx.getChild(0);
-//            }catch (ClassCastException exception){
-//
-//            }
-
-//            if (ctx.exprEnt(0) != null && ctx.boolVal(0) != null){
-//                System.out.println(" exprEnt & boolVal " );
-//                leftPart = visitExprEnt(ctx.exprEnt(0));
-//                rightPart   = visitBoolVal(ctx.boolVal(0));
-//            }
-//            if(ctx.exprEnt(0) != null && ctx.exprEnt(1) != null ) {
-//                System.out.println(" exprEnt & exprEnt " );
-//                leftPart = visitExprEnt(ctx.exprEnt(0));
-//                rightPart = visitExprEnt(ctx.exprEnt(1));
-//            }
-//            if(ctx.charVal(0) != null && ctx.charVal(1) != null ) {
-//                System.out.println(" charVal & charVal " );
-//                leftPart = visitCharVal(ctx.charVal(0));
-//                rightPart = visitCharVal(ctx.charVal(1));
-//            }
-//            if(ctx.exprBool(0) != null && ctx.exprBool(1) != null ) {
-//                System.out.println(" exprBool & exprBool " );
-//                leftPart = visitExprBool(ctx.exprBool(0));
-//                rightPart = visitExprBool(ctx.exprBool(1));
-//            }
 
             System.out.println("ExprBool : leftPart: " + leftPart + "operateur: "+ operator + " rightPart: "+  rightPart);
                 boolean boolVal = false;
@@ -667,17 +618,6 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
                 .filter(x -> x.getText().equals(functText))
                 .findFirst();
         return functionDecl;
-    }
-
-    private Optional<Symbol> resolveFunc(String funName) {
-        Scope currentScope = this.symbolTable.getCurrentScope();
-        System.out.println("currentscope : "+ currentScope.getScopeName());
-        Optional<Symbol> func = resolveSymbolRec(funName, currentScope);
-        if (! func.isPresent()) {
-            System.out.println("Function "+ funName +" do not exist");
-        }
-        return func;
-
     }
 
     private Optional<Symbol> resolveSymbolRec(String name, Scope currentScope) {

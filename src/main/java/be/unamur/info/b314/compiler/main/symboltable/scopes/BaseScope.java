@@ -1,11 +1,9 @@
 package be.unamur.info.b314.compiler.main.symboltable.scopes;
 
-import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Optional;
 /**
  * @overview Représentation de LocalScope
@@ -75,7 +73,7 @@ public abstract class BaseScope implements Scope {
     @Override
     public String toString() {
         return this.getClass().getSimpleName() +" {" +
-                "name='" + SymbolNamesHelper.generateNiceName(name) + '\'' +
+                "name='" + name + '\'' +
                 ", enclosingScope=" + enclosingScope +
                 ", symbols=" + symbols +
                 '}';

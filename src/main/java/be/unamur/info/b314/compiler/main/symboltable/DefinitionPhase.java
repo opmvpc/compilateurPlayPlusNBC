@@ -3,7 +3,6 @@ package be.unamur.info.b314.compiler.main.symboltable;
 import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
-import be.unamur.info.b314.compiler.main.symboltable.Helpers.Expression;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Filler;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
@@ -286,12 +285,6 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
             evalExpBool(ctx);
             return;
         }
-
-//        try {
-//            Boolean.valueOf(text);
-//        } catch (Exception e) {
-//            System.out.println("Erreur bool : "+ctx.getText());
-//        }
 
         Type type = (BuiltInTypeSymbol) resolveType("bool");
 
@@ -678,11 +671,8 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
     public void exitCharVal(PlayPlusParser.CharValContext ctx) {
         String text = ctx.getText();
         Type varType = (BuiltInTypeSymbol) resolveType("char");
-        String symbolType = "expr";
 
         ExpressionSymbol expr = new ExpressionSymbol(text, varType);
         symTable.define(expr);
-//        int value = ctx.getText().charAt(1);
-//        expr.setValue(value);
     }
 }

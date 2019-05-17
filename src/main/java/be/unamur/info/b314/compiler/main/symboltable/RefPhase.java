@@ -4,16 +4,12 @@ import be.unamur.info.b314.compiler.PlayPlusBaseListener;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.exception.SymbolNotFoundException;
 import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
-import be.unamur.info.b314.compiler.main.symboltable.Helpers.SymbolNamesHelper;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
-import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
-import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.FunctionSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.scoped_symbols.StructSymbol;
-import be.unamur.info.b314.compiler.main.symboltable.symbols.*;
-
-import java.util.*;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
+import be.unamur.info.b314.compiler.main.symboltable.symbols.VariableSymbol;
 
 import java.util.Iterator;
+import java.util.Optional;
 
 public class RefPhase extends PlayPlusBaseListener {
     private SymbolTable symTable;
@@ -54,30 +50,12 @@ public class RefPhase extends PlayPlusBaseListener {
 
         String varName = ctx.ID().getText();
 
-//        si le scope est un LocalScope (body d'une fonction) on regarde dans le scope local
-//        Scope currentScope = this.symTable.getCurrentScope();
-//        if (currentScope instanceof FunctionSymbol) {
-//            System.out.println(currentScope.getScopeName());
-//            Symbol var = resolveLocalSymbol(varName, (FunctionSymbol) currentScope);
-//            if (var == null) {
-//                this.errors.symbolNotFound.add("Variable "+ varName +" do not exist");
-//            }
-//        }
-
         try {
             resolveVar(varName);
         } catch (SymbolNotFoundException e) {
             this.errors.symbolNotFound.add(e.getMessage());
         }
     }
-
-//    @Override
-//    public void enterStructRef(PlayPlusParser.StructDeclContext ctx) {
-//        String structName = SymbolNamesHelper.generateName("StructSymbol", ctx.structures().ID().getText());
-//        StructSymbol structSymbol = (StructSymbol) this.symTable.getGlobals().resolve(structName);
-//        this.symTable.setCurrentScope(structSymbol);
-//    }
-
 
     @Override
     public void enterStructRef(PlayPlusParser.StructRefContext ctx) {
@@ -131,22 +109,10 @@ public class RefPhase extends PlayPlusBaseListener {
         this.symTable.setCurrentScope(structScope);
     }
 
-    //    Attention, on dirait que les arguments de fonctions matchent expGauche
     private void resolveVar(String varName) throws SymbolNotFoundException {
-//        System.out.println("current Scope = "+ this.symTable.getCurrentScope().getScopeName() +"\t varName = "+ varName);
-//        Symbol var = this.symTable.getCurrentScope().resolve(varName);
-//        Pas encore bien test donc je garde l'ancienne
         Optional<Symbol> var = resolveSymbolRec(varName, this.symTable.getCurrentScope());
         if (! var.isPresent()) {
             throw new SymbolNotFoundException("Variable "+ varName +" do not exist");
-        }
-    }
-
-    private void resolveFunc(String funName) throws SymbolNotFoundException {
-        Scope currentScope = this.symTable.getCurrentScope();
-        Optional<Symbol> func = resolveSymbolRec(funName, currentScope);
-        if (! func.isPresent()) {
-            throw new SymbolNotFoundException("Function "+ funName +" do not exist");
         }
     }
 
@@ -160,12 +126,6 @@ public class RefPhase extends PlayPlusBaseListener {
             return symbol;
         }
         return resolveSymbolRec(name, currentScope.getEnclosingScope());
-    }
-
-    private Optional<Symbol> resolveLocalSymbol(String name, FunctionSymbol localScope) {
-        Optional<Symbol> symbol = localScope.resolveByName(name);
-
-        return symbol;
     }
 
     /**
@@ -213,13 +173,6 @@ public class RefPhase extends PlayPlusBaseListener {
         } catch (SymbolNotFoundException e) {
             this.errors.symbolNotFound.add(e.getMessage());
         }
-    }
-
-
-
-    @Override
-    public void exitProgram(PlayPlusParser.ProgramContext ctx) {
-//        System.out.println(errors.toString());
     }
 
 }
