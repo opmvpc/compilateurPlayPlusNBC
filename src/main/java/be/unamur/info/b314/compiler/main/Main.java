@@ -265,6 +265,9 @@ public class Main {
 //                Si on trouve pas la map, on pourrait checker si elle est dans ko, ou alors on trouve comment récup le nom du dossier qui contient le fichier .b314 du test
                 try {
                     checkArgument(mapFile.exists() && mapFile.isFile(), "File %s not found!", mapFile.getName());
+
+                    printSourceFile(mapFile);
+
                     PlayPlusParser.RootContext mapTree = parse(new ANTLRInputStream(new FileInputStream(mapFile)));
 
                     symbolTable.setCurrentScope(symbolTable.getGlobals());
