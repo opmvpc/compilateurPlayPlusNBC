@@ -124,7 +124,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             value = visitExprEnt(ctx.repeatCondition().exprEnt());
             System.out.println("visitRepeatStmt = value" + value);
             for (int i = 0; i < value; i++) {
-                visit(ctx.labelloop);
+                visitChildren(ctx);
             }
 
         }

@@ -130,11 +130,6 @@ public class B314commentsSyntaxTest {
     }
 
     @Test
-    public void testcomments_failed_testwhileinstruction_repeat_wrong_expression_and_condition_ok() throws Exception{
-        CompilerTestHelper.launchCompilation("/syntax/comments/ok/failed_testwhileinstruction_repeat_wrong_expression_and_condition.b314", testFolder.newFile(), true, "comments: failed_testwhileinstruction_repeat_wrong_expression_and_condition");
-    }
-
-    @Test
     public void testcomments_function1_ok() throws Exception{
         CompilerTestHelper.launchCompilation("/syntax/comments/ok/function1.b314", testFolder.newFile(), true, "comments: function1");
     }
@@ -660,6 +655,11 @@ public class B314commentsSyntaxTest {
     @Test
     public void testcomments_exprEntiere4_Main_ko() throws Exception {
         CompilerTestHelper.launchCompilation("/syntax/comments/ko/exprEntiere4_Main.b314", testFolder.newFile(), false, "comments: exprEntiere4_Main");
+    }
+
+    @Test
+    public void testcomments_failed_testwhileinstruction_repeat_wrong_expression_and_condition_ko() throws Exception {
+        CompilerTestHelper.launchCompilation("/syntax/comments/ko/failed_testwhileinstruction_repeat_wrong_expression_and_condition.b314", testFolder.newFile(), false, "comments: failed_testwhileinstruction_repeat_wrong_expression_and_condition");
     }
 
     @Test

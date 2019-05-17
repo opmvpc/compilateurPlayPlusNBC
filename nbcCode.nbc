@@ -14,14 +14,10 @@
     wait time"
 
 thread main
-	right(100,500)
 	up(100,500)
-	right(100,1000)
-	up(100,500)
-	right(100,1500)
-	up(100,500)
-	right(100,2000)
-	up(100,500)
+	left(100,500)
+	down(100,500)
+	right(100,3500)
 	 PlayTone(TONE_C5,500)
 	exit
 endt
