@@ -96,13 +96,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             }
         } else {
             System.out.println("You loose :(");
-            try {
-                FileWriter fileWriter = new FileWriter(this.outputFile);
-                fileWriter.write("! Invalid program !");
-                fileWriter.close();
-            } catch (IOException e) {
-                System.out.println("Error Writing NBC code to File");
-            }
+
         }
 
 
