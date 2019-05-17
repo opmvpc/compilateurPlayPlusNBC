@@ -28,7 +28,7 @@ actiondeclaration()::=<<
 <defright()>
 <defleft()>
 <defdown()>
-<defup()>"
+<defup()>
 >>
 
 
