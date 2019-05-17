@@ -541,7 +541,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         Optional<Symbol> result = symbolTable.getGlobals().resolveByName(funcName);
         Scope currentScope = symbolTable.getCurrentScope();
         if (result.isPresent()) {
-            this.symbolTable.setCurrentScope(((FunctionSymbol) result.get()));
+
 
             Iterator callargs = ctx.funcCallArgs().funcCallArg().listIterator();
             int i = 0;
@@ -554,7 +554,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
                 }
 
             }
-
+            this.symbolTable.setCurrentScope(((FunctionSymbol) result.get()));
             PlayPlusParser.FuncDeclContext funcDeclContext = findFunctionDeclByText(funcName).get().getCtx();
             // value = visitFuncDecl(funcDeclContext);
             visitChildren(funcDeclContext);
