@@ -91,7 +91,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             this.code.append("endt\n");
 
         } else {
-            this.code = new StringBuilder();
+            this.code.append('"');
 
         }
 
