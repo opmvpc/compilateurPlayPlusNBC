@@ -15,14 +15,13 @@ public class Errors {
         this.mapError = new ArrayList<>();
         this.badNameError = new ArrayList<>();
         this.badTypeError = new ArrayList<>();
-        this.functionError = new ArrayList<>();
         this.gameError = new ArrayList<>();
     }
 
     @Override
     public String toString() {
         return "Errors{" + "symbolNotFound=" + symbolNotFound + ", mapError=" + mapError + ", badNameError="
-                + badNameError + ", badTypeError=" + badTypeError + ", functionError=" + functionError + ", gameError="
+                + badNameError + ", badTypeError=" + badTypeError + ", gameError="
                 + gameError + '}';
     }
 }

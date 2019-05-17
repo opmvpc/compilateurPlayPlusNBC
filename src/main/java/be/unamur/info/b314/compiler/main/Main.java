@@ -155,7 +155,7 @@ public class Main {
      * Compiler Methods, this is where the MAGIC happens !!! \o/
      */
     private void compile() throws IOException, SymbolNotFoundException, BadNamingException, MapConfigException,
-            BadTypeException, FunctionException, GameException {
+            BadTypeException, GameException {
         // Get abstract syntax tree
         LOG.debug("Parsing input");
         printSourceFile(inputFile);
@@ -210,7 +210,7 @@ public class Main {
      * Builds symbol table from AST.
      */
     private SymbolTable fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException,
-            BadNamingException, MapConfigException, BadTypeException, FunctionException, IOException {
+            BadNamingException, MapConfigException, BadTypeException{
         ParseTreeWalker walker = new ParseTreeWalker();
 
         printTitle("Def Phase");
@@ -274,9 +274,6 @@ public class Main {
         }
         if (!errors.mapError.isEmpty()) {
             throw new MapConfigException(errors.mapError.toString());
-        }
-        if (!errors.functionError.isEmpty()) {
-            throw new FunctionException(errors.functionError.toString());
         }
 
         return symbolTable;
