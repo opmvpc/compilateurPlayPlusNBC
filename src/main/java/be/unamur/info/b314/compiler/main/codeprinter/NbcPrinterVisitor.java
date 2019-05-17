@@ -27,6 +27,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     private HashMap<String, STGroup> templates;
     private ArrayList<FunctionDecl> functionDecls;
     private Game game;
+    private Errors errors;
 
     public NbcPrinterVisitor(File outputFile, SymbolTable symtable, Errors errors) {
         this.outputFile = outputFile;
@@ -35,6 +36,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         this.code = new StringBuilder();
         this.functionDecls = new ArrayList<>();
         this.game = new Game(symbolTable, errors);
+        this.errors = errors;
     }
 
     private void initTemplates() {
@@ -77,6 +79,13 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
         // visit du code du main
         visitChildren(ctx);
+
+//        Check if cody won
+        if (this.game.isWin()) {
+            this.code.append("\t PlayTone(TONE_C5,500)\n");
+        } else {
+            this.errors.gameError.add("You loose :(");
+        }
 
         // fin du code nbc
         this.code.append("\texit\n");
@@ -653,7 +662,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         if (actionkeyword.equals("dig()")) {
 
             // System.out.println("If robot on treasure play tone");
-            this.code.append("\t PlayTone(TONE_C5,500)\n");
+            this.game.dig();
 
         } else if (actionkeyword.equals("fight")) {
             this.code.append("\t // I AM A PACIFIST \n");

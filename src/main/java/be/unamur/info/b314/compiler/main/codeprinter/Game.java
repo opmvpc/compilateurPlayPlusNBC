@@ -20,6 +20,7 @@ public class Game {
     private int codyY;
     private String initialDirection = "";
     private Errors errors;
+    private boolean isWin;
 
     /**
      * @effects initialise le jeu avec la table des symboles et le stockage des erreurs
@@ -121,6 +122,20 @@ public class Game {
         if ((currentPosition == 'Q')) {
             System.out.println("Q");
         }
+    }
+
+    public void dig() {
+        try {
+            if (map[codyY][codyX] == 'X') {
+                isWin = true;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            this.errors.gameError.add("Cody est déjà mort :(");
+        }
+    }
+
+    public boolean isWin() {
+        return isWin;
     }
 
     @Override
