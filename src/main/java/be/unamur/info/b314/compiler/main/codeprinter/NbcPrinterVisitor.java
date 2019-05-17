@@ -87,7 +87,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         if (this.game.isWin()) {
 //            this.code.append("\t PlayTone(TONE_C5,500)\n");
             // fin du code nbc
-
+            this.code.append("exit\n");
             this.code.append("endt\n");
             try {
                 printFile();
