@@ -21,11 +21,7 @@ public class FunctionDecl {
 
     @Override
     public String toString() {
-        return "FunctionDecl{" +
-                "text='" + text + '\'' +
-                "ctx ='" + ctx.getText() + '\'' +
-                '}';
+        return "FunctionDecl{" + "text='" + text + '\'' + "ctx ='" + ctx.getText() + '\'' + '}';
     }
-
 
 }

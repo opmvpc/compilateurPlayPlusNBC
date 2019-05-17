@@ -42,9 +42,9 @@ public class RefPhase extends PlayPlusBaseListener {
 
     @Override
     public void exitExprG(PlayPlusParser.ExprGContext ctx) {
-//        match aussi les références de tableau et structs donc on stop là si c'est la cas
+        // match aussi les références de tableau et structs donc on stop là si c'est la cas
         if (ctx.arrayRef() != null || ctx.structRef() != null) {
-//            System.out.println(ctx.getText());
+            // System.out.println(ctx.getText());
             return;
         }
 
@@ -75,12 +75,9 @@ public class RefPhase extends PlayPlusBaseListener {
     /**
      * Check si une variable existe dans une structure
      *
-     * on part du scope de la structure référencée
-     * pour chaque membre
-     * si le membre est final, on resolve une variable
-     * si le membre est une autre structure, on change de scope
-     * si on trouve rien on revoie une erreur
-     * à la fin on revient au scope de base
+     * on part du scope de la structure référencée pour chaque membre si le membre est final, on resolve une variable si
+     * le membre est une autre structure, on change de scope si on trouve rien on revoie une erreur à la fin on revient
+     * au scope de base
      *
      * @param members
      * @param structScope
@@ -92,8 +89,8 @@ public class RefPhase extends PlayPlusBaseListener {
             if (members.hasNext()) {
                 String structName = member.ID().getText();
                 Optional<Symbol> struct = structScope.resolveByName(structName);
-                if (! struct.isPresent()) {
-                    this.errors.symbolNotFound.add("Structure "+ structName +" do not exist");
+                if (!struct.isPresent()) {
+                    this.errors.symbolNotFound.add("Structure " + structName + " do not exist");
                 } else {
                     this.symTable.setCurrentScope((Scope) struct.get());
                 }
@@ -101,8 +98,8 @@ public class RefPhase extends PlayPlusBaseListener {
                 String varName = member.ID().getText();
                 System.out.println(structScope.getScopeName());
                 Optional<Symbol> var = structScope.resolveByName(varName);
-                if (! var.isPresent()) {
-                    this.errors.symbolNotFound.add("Variable "+ varName +" do not exist in structure");
+                if (!var.isPresent()) {
+                    this.errors.symbolNotFound.add("Variable " + varName + " do not exist in structure");
                 }
             }
         }
@@ -111,15 +108,15 @@ public class RefPhase extends PlayPlusBaseListener {
 
     private void resolveVar(String varName) throws SymbolNotFoundException {
         Optional<Symbol> var = resolveSymbolRec(varName, this.symTable.getCurrentScope());
-        if (! var.isPresent()) {
-            throw new SymbolNotFoundException("Variable "+ varName +" do not exist");
+        if (!var.isPresent()) {
+            throw new SymbolNotFoundException("Variable " + varName + " do not exist");
         }
     }
 
     private Optional<Symbol> resolveSymbolRec(String name, Scope currentScope) {
-        System.out.println("resolveSymbolRec : "+ currentScope.getScopeName());
+        System.out.println("resolveSymbolRec : " + currentScope.getScopeName());
         Optional<Symbol> symbol = currentScope.resolveByName(name);
-        if (! symbol.isPresent() && currentScope.getEnclosingScope() == null) {
+        if (!symbol.isPresent() && currentScope.getEnclosingScope() == null) {
             return Optional.empty();
         }
         if (symbol.isPresent()) {
@@ -129,14 +126,15 @@ public class RefPhase extends PlayPlusBaseListener {
     }
 
     /**
-     *  Vérifie si la Map existe dans la table des symboles
+     * Vérifie si la Map existe dans la table des symboles
+     * 
      * @param mapName
      * @return un MapSymbol representant la Map
      */
 
-    private Optional<Symbol> resolveMap(String mapName){
+    private Optional<Symbol> resolveMap(String mapName) {
         Optional<Symbol> maps = resolveSymbolRec(mapName, this.symTable.getGlobals()); // soucis avec le resolve
-        if (! maps.isPresent()) {
+        if (!maps.isPresent()) {
             this.errors.mapError.add("Map is null ");
         }
         return resolveSymbolRec(mapName, this.symTable.getGlobals());
@@ -152,16 +150,18 @@ public class RefPhase extends PlayPlusBaseListener {
 
     /**
      * Vérifife si le nom de la constante existe dans la table des symboles
-     * @param constName le nom de la constante
+     * 
+     * @param constName
+     *            le nom de la constante
      * @throws SymbolNotFoundException
      */
     private void resolveConst(String constName) throws SymbolNotFoundException {
         Optional<Symbol> consts = resolveSymbolRec(constName, this.symTable.getCurrentScope());
         if (!consts.isPresent()) {
-            throw new SymbolNotFoundException("Constante "+ constName +" do not exist");
+            throw new SymbolNotFoundException("Constante " + constName + " do not exist");
         }
         if (consts.get() instanceof VariableSymbol) {
-            throw new SymbolNotFoundException(constName +" is not a constante");
+            throw new SymbolNotFoundException(constName + " is not a constante");
         }
     }
 
@@ -176,4 +176,3 @@ public class RefPhase extends PlayPlusBaseListener {
     }
 
 }
-

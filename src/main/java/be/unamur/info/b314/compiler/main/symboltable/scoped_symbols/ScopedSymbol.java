@@ -18,8 +18,10 @@ public abstract class ScopedSymbol extends Symbol implements Scope {
 
     /**
      * @effects Initialise un ScopedSymbol avec un nom et un scope
-     * @param name le nom du ScopedSymbol
-     * @param enclosingScope le Scope
+     * @param name
+     *            le nom du ScopedSymbol
+     * @param enclosingScope
+     *            le Scope
      */
     public ScopedSymbol(String name, Scope enclosingScope) {
         super(name);
@@ -29,9 +31,12 @@ public abstract class ScopedSymbol extends Symbol implements Scope {
 
     /**
      * @effects Initialise un ScopedSymbol avec un nom , un type et un scope
-     * @param name le nom du ScopedSymbol
-     * @param type le type du ScopedSymbol
-     * @param enclosingScope le Scope
+     * @param name
+     *            le nom du ScopedSymbol
+     * @param type
+     *            le type du ScopedSymbol
+     * @param enclosingScope
+     *            le Scope
      */
     public ScopedSymbol(String name, Type type, Scope enclosingScope) {
         super(name, type);
@@ -57,9 +62,11 @@ public abstract class ScopedSymbol extends Symbol implements Scope {
 
     /**
      * Ajout d'un symbole
+     * 
      * @modifies this.symbols
      * @effects this.symbols_post = this.symbols U {symbol}
-     * @param symbol à ajouter
+     * @param symbol
+     *            à ajouter
      */
     @Override
     public void define(Symbol symbol) {
@@ -67,14 +74,13 @@ public abstract class ScopedSymbol extends Symbol implements Scope {
     }
 
     /**
-     * @param name le nom du scope à chercher
-     * @return  Optional<Symbol> tq symbol E this
+     * @param name
+     *            le nom du scope à chercher
+     * @return Optional<Symbol> tq symbol E this
      */
     @Override
     public Optional<Symbol> resolveByName(String name) {
-        Optional<Symbol> symbol = this.symbols.stream()
-                .filter(s -> s.getName().equals(name))
-                .findFirst();
+        Optional<Symbol> symbol = this.symbols.stream().filter(s -> s.getName().equals(name)).findFirst();
 
         return symbol;
     }

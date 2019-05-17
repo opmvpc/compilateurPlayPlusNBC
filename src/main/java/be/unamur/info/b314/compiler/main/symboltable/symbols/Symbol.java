@@ -4,10 +4,10 @@ import be.unamur.info.b314.compiler.main.symboltable.contracts.Scope;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 
 /**
- *  @overview Symbol
- *  @specfiled  name: String
- *  @specfiled type : Type
- *  @specfiled value: Integer
+ * @overview Symbol
+ * @specfiled name: String
+ * @specfiled type : Type
+ * @specfiled value: Integer
  */
 public abstract class Symbol {
 
@@ -51,7 +51,8 @@ public abstract class Symbol {
 
     /**
      * @modifies this.name
-     * @param name le nom du symbol
+     * @param name
+     *            le nom du symbol
      */
     public void setName(String name) {
         this.name = name;
@@ -89,10 +90,8 @@ public abstract class Symbol {
      */
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + " {" +
-                "\n\t\tname = '" + name + '\'' +
-                (type != null ? ", \n\t\ttype = " + type.getName() : "") +
-                (value != null ? ", \n\t\tvalue = " + value : "") +
-                "\n\t}";
+        return this.getClass().getSimpleName() + " {" + "\n\t\tname = '" + name + '\''
+                + (type != null ? ", \n\t\ttype = " + type.getName() : "")
+                + (value != null ? ", \n\t\tvalue = " + value : "") + "\n\t}";
     }
 }

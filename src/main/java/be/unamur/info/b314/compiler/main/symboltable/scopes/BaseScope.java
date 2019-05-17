@@ -5,6 +5,7 @@ import be.unamur.info.b314.compiler.main.symboltable.symbols.Symbol;
 
 import java.util.ArrayList;
 import java.util.Optional;
+
 /**
  * @overview Représentation de LocalScope
  * @specfiled name:String
@@ -50,9 +51,7 @@ public abstract class BaseScope implements Scope {
 
     @Override
     public Optional<Symbol> resolveByName(String name) {
-        Optional<Symbol> symbol = this.symbols.stream()
-                .filter(s -> s.getName().equals(name))
-                .findFirst();
+        Optional<Symbol> symbol = this.symbols.stream().filter(s -> s.getName().equals(name)).findFirst();
 
         return symbol;
     }
@@ -63,10 +62,7 @@ public abstract class BaseScope implements Scope {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() +" {" +
-                "name='" + name + '\'' +
-                ", enclosingScope=" + enclosingScope +
-                ", symbols=" + symbols +
-                '}';
+        return this.getClass().getSimpleName() + " {" + "name='" + name + '\'' + ", enclosingScope=" + enclosingScope
+                + ", symbols=" + symbols + '}';
     }
 }

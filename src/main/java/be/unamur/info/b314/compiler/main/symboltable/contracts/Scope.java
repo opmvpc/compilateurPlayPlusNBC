@@ -8,8 +8,11 @@ import java.util.Optional;
 public interface Scope {
 
     String getScopeName();
+
     Scope getEnclosingScope();
+
     void define(Symbol symbol);
+
     Optional<Symbol> resolveByName(String name);
 
     ArrayList<Symbol> getSymbols();

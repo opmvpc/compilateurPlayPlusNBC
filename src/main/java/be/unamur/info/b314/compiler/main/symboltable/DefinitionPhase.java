@@ -27,13 +27,14 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         System.out.println(symTable.toString());
     }
 
-    private void defineVar(String varName, String varTypeName)  {
+    private void defineVar(String varName, String varTypeName) {
         Type varType = (BuiltInTypeSymbol) resolveType(varTypeName);
 
         Scope currentScope = symTable.getCurrentScope();
         if (currentScope.getEnclosingScope() != null && currentScope instanceof FunctionSymbol) {
             if (((FunctionSymbol) currentScope).getBody().resolveByName(varName).isPresent()) {
-                errors.badNameError.add("Deux variables ne peuvent pas porter le même nom dans une même fonction " + varName);
+                errors.badNameError
+                        .add("Deux variables ne peuvent pas porter le même nom dans une même fonction " + varName);
             }
         }
 
@@ -78,7 +79,7 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         Scope currentScope = this.symTable.getCurrentScope();
 
         if (currentScope.resolveByName(name).isPresent()) {
-            if (currentScope.resolveByName(name).get().getClass().getSimpleName().equals("FunctionSymbol") ) {
+            if (currentScope.resolveByName(name).get().getClass().getSimpleName().equals("FunctionSymbol")) {
                 errors.badNameError.add("Deux fonctions ne peuvent pas porter le même nom");
             }
         }
@@ -89,7 +90,6 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
         return function;
     }
-
 
     private StructSymbol defineStruct(String name) {
         Scope currentScope = this.symTable.getCurrentScope();
@@ -117,7 +117,7 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
     }
 
     /**
-     *  Ajoute un symbole lors de la déclaration d'une variable à la table des symboles
+     * Ajoute un symbole lors de la déclaration d'une variable à la table des symboles
      *
      * @param ctx
      */
@@ -129,7 +129,7 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         while (vars.hasNext()) {
             PlayPlusParser.SubVarDeclContext var = (PlayPlusParser.SubVarDeclContext) vars.next();
             String varName = var.ID().getText();
-            if (var.initVariable() != null && var.initVariable().initArrays() != null){
+            if (var.initVariable() != null && var.initVariable().initArrays() != null) {
                 Iterator values = var.initVariable().initArrays().initVariable().listIterator();
                 int i = 0;
                 while (values.hasNext()) {
@@ -138,7 +138,7 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
                     String cellText = cellValue.getText();
                     System.out.println(cellText);
 
-                    String cellName = varName + "["+ String.valueOf(i) + "]";
+                    String cellName = varName + "[" + String.valueOf(i) + "]";
                     defineCell(cellName, varTypeName);
 
                     i++;
@@ -146,12 +146,11 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
                 }
             }
 
-            if (var.arrays()!= null){
-//                instancier les vars des tableaux
+            if (var.arrays() != null) {
+                // instancier les vars des tableaux
                 defineArray(varName, varTypeName);
                 continue;
             }
-
 
             defineVar(varName, varTypeName);
 
@@ -181,7 +180,7 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
     @Override
     public void exitFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
-//        System.out.println(this.symTable.getCurrentScope());
+        // System.out.println(this.symTable.getCurrentScope());
         this.symTable.setCurrentScopeToEnclosingOne();
     }
 
@@ -214,28 +213,28 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
     }
 
     private MapSymbol defineMap(String name, String mapTypeName) {
-        Type mtype= new BuiltInTypeSymbol("map");
-        MapSymbol map = new MapSymbol(name, mtype,errors);
+        Type mtype = new BuiltInTypeSymbol("map");
+        MapSymbol map = new MapSymbol(name, mtype, errors);
         return map;
     }
 
     @Override
     public void enterMapfile(PlayPlusParser.MapfileContext ctx) {
         String name = ctx.getChild(0).getText();
-        String funcTypeName =ctx.getChild(1).getText();
+        String funcTypeName = ctx.getChild(1).getText();
         MapSymbol mp = defineMap(name, funcTypeName);
-        //****************
+        // ****************
         String mapX = ctx.mapsize().coordX().getText();
         String mapY = ctx.mapsize().coordY().getText();
-        System.out.println("Map x : "+ mapX + " Map y : " + mapY);
+        System.out.println("Map x : " + mapX + " Map y : " + mapY);
         String mapLine = ctx.world().getText();
-        System.out.println("Map Line :"+ mapLine);
-        mp.createCarte(mapX,mapY,mapLine);
-        //****************
+        System.out.println("Map Line :" + mapLine);
+        mp.createCarte(mapX, mapY, mapLine);
+        // ****************
         this.symTable.define(mp);
     }
 
-    private void defineConstante(String constName, String constTypeName)  {
+    private void defineConstante(String constName, String constTypeName) {
         Type varType = (BuiltInTypeSymbol) this.symTable.getGlobals().resolveByName(constTypeName).get();
         this.symTable.define(new ConstanteSymbol(constName, varType));
     }
@@ -267,23 +266,24 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
         String text = ctx.getText();
 
-//        négation (ex: !x)
+        // négation (ex: !x)
         if (ctx.getChildCount() == 2) {
-//            System.out.println("Neg Exp bool : "+ctx.getText());
+            // System.out.println("Neg Exp bool : "+ctx.getText());
             evalNegBool(ctx);
             return;
         }
 
         if (ctx.getChildCount() >= 3) {
-//            System.out.println("Exp bool 3 termes : "+ctx.getText());
+            // System.out.println("Exp bool 3 termes : "+ctx.getText());
             evalExpBool(ctx);
             return;
         }
 
         Type type = (BuiltInTypeSymbol) resolveType("bool");
 
-        if (ctx.boolVal() != null && ctx.boolVal().size() == 1 && ctx.boolVal().get(0).exprG() != null && ctx.boolVal().get(0).exprG().ID() != null){
-            System.out.println("BOOL PAS ID = "+ctx.getText());
+        if (ctx.boolVal() != null && ctx.boolVal().size() == 1 && ctx.boolVal().get(0).exprG() != null
+                && ctx.boolVal().get(0).exprG().ID() != null) {
+            System.out.println("BOOL PAS ID = " + ctx.getText());
             return;
         }
         ExpressionSymbol expr = new ExpressionSymbol(text, type);
@@ -296,7 +296,7 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
         Optional<Symbol> rightPart = symTable.getCurrentScope().resolveByName(rightPartName);
 
-        if (! rightPart.isPresent()) {
+        if (!rightPart.isPresent()) {
             return;
         }
         if (rightPart.get().getType().getName().equals("bool")) {
@@ -305,7 +305,8 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
             ExpressionSymbol expr = new ExpressionSymbol(ctx.getText(), type);
             symTable.define(expr);
         } else {
-            errors.badTypeError.add("BOOL EXPRESSION TYPE ERROR in "+ ctx.getText() +" : Le type de la variable suivante est imcompatible : "+rightPart.get().getName());
+            errors.badTypeError.add("BOOL EXPRESSION TYPE ERROR in " + ctx.getText()
+                    + " : Le type de la variable suivante est imcompatible : " + rightPart.get().getName());
         }
     }
 
@@ -318,9 +319,9 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
             return;
         }
 
-//        ExpressionSymbol parenthesée
+        // ExpressionSymbol parenthesée
         if (ctx.getChild(0).getText().equals("(")) {
-//            System.out.println("parent bool :"+ ctx.getText());
+            // System.out.println("parent bool :"+ ctx.getText());
             addParentheseExpr(ctx);
             return;
         }
@@ -330,13 +331,13 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
         Optional<Symbol> leftPart = resolveSymbolRec(leftPartName, symTable.getCurrentScope());
         Optional<Symbol> rightPart = resolveSymbolRec(rightPartName, symTable.getCurrentScope());
-        if (! leftPart.isPresent()) {
+        if (!leftPart.isPresent()) {
             System.out.println("LEFT = " + leftPartName);
         }
-        if (! rightPart.isPresent()) {
+        if (!rightPart.isPresent()) {
             System.out.println("RIGHT = " + rightPartName);
         }
-        if (! leftPart.isPresent() || ! rightPart.isPresent()) {
+        if (!leftPart.isPresent() || !rightPart.isPresent()) {
             System.out.println("Error , left or right part not in expressions");
             return;
         }
@@ -347,17 +348,18 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
             ExpressionSymbol expr = new ExpressionSymbol(ctx.getText(), type);
             symTable.define(expr);
         } else {
-            errors.badTypeError.add("BOOL EXPRESSION TYPE ERROR in "+ ctx.getText() +" : Les types des variables suivantes sont imcompatibles : "+leftPart.get().getName()+" "+rightPart.get().getName());
+            errors.badTypeError.add("BOOL EXPRESSION TYPE ERROR in " + ctx.getText()
+                    + " : Les types des variables suivantes sont imcompatibles : " + leftPart.get().getName() + " "
+                    + rightPart.get().getName());
         }
     }
 
     @Override
     /**
-     * Evalue le type d'une expression entières
-     * Ajoute une expression entiere si elle est simple (Ex: 34, -1)
+     * Evalue le type d'une expression entières Ajoute une expression entiere si elle est simple (Ex: 34, -1)
      */
     public void exitExprEnt(PlayPlusParser.ExprEntContext ctx) {
-        System.out.println("exitExprEnt :"+ctx.getText());
+        System.out.println("exitExprEnt :" + ctx.getText());
 
         String text = ctx.getText();
         int value = 0;
@@ -369,11 +371,11 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
         Type type = (BuiltInTypeSymbol) resolveType("int");
 
-        if (ctx.exprG() != null && ctx.exprG().ID() != null){
+        if (ctx.exprG() != null && ctx.exprG().ID() != null) {
             return;
         }
 
-        if (!symTable.getCurrentScope().resolveByName(text).isPresent()){
+        if (!symTable.getCurrentScope().resolveByName(text).isPresent()) {
 
             ExpressionSymbol expr = new ExpressionSymbol(text, type);
             symTable.define(expr);
@@ -383,17 +385,18 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
     /**
      * Ajoute une expression parenthésée
+     * 
      * @param ctx
      */
     private void addParentheseExpr(RuleContext ctx) {
-//        System.out.println("add parentExp "+ctx.getText());
+        // System.out.println("add parentExp "+ctx.getText());
         String exprText = ctx.getChild(1).getText();
-//        System.out.println(exprText);
+        // System.out.println(exprText);
 
         Optional<Symbol> expression = symTable.getCurrentScope().resolveByName(exprText);
-//        System.out.println("exp : " +expression);
+        // System.out.println("exp : " +expression);
 
-        if (! expression.isPresent()) {
+        if (!expression.isPresent()) {
             return;
         }
 
@@ -404,17 +407,18 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
     /**
      * Expressions entières à trois termes
+     * 
      * @param ctx
      */
     private void evalExprEnt(PlayPlusParser.ExprEntContext ctx) {
-//        On ne veut que des expressions à trois termes
+        // On ne veut que des expressions à trois termes
         if (ctx.getChildCount() < 3) {
             return;
         }
 
-//        System.out.println(ctx.getText());
+        // System.out.println(ctx.getText());
 
-//        ExpressionSymbol parenthesée
+        // ExpressionSymbol parenthesée
         if (ctx.getChild(0).getText().equals("(")) {
             addParentheseExpr(ctx);
             return;
@@ -425,6 +429,7 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
     /**
      * Ajoute une expression entière à trois termes et check les types
+     * 
      * @param ctx
      */
     private void addExprEntiere(PlayPlusParser.ExprEntContext ctx) {
@@ -434,17 +439,18 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         Optional<Symbol> leftPart = symTable.getCurrentScope().resolveByName(leftPartName);
         Optional<Symbol> rightPart = symTable.getCurrentScope().resolveByName(rightPartName);
 
-
-        if (! leftPart.isPresent() || ! rightPart.isPresent()) {
+        if (!leftPart.isPresent() || !rightPart.isPresent()) {
             return;
         }
-//      Les types sont égaux
+        // Les types sont égaux
         if (leftPart.get().getType().getName().equals(rightPart.get().getType().getName())) {
-//            System.out.println("types Ok");
+            // System.out.println("types Ok");
             ExpressionSymbol expr = new ExpressionSymbol(ctx.getText(), leftPart.get().getType());
             symTable.define(expr);
         } else {
-            errors.badTypeError.add("INT EXPRESSION TYPE ERROR in "+ ctx.getText() +" : Les types des variables suivantes sont imcompatibles : "+leftPart.get().getName()+" "+rightPart.get().getName());
+            errors.badTypeError.add("INT EXPRESSION TYPE ERROR in " + ctx.getText()
+                    + " : Les types des variables suivantes sont imcompatibles : " + leftPart.get().getName() + " "
+                    + rightPart.get().getName());
         }
     }
 
@@ -453,8 +459,8 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
      * Affectation d'une variable de structure ou tableau
      */
     public void exitAffectInstr(PlayPlusParser.AffectInstrContext ctx) {
-        System.out.println("exitAffectInstr : "+ ctx.getText());
-        if (ctx.exprG().arrayRef() != null){
+        System.out.println("exitAffectInstr : " + ctx.getText());
+        if (ctx.exprG().arrayRef() != null) {
             arrayAffectSymbol(ctx);
             return;
         }
@@ -464,47 +470,45 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
             return;
         }
 
-
     }
-
-
 
     private void arrayAffectSymbol(PlayPlusParser.AffectInstrContext ctx) {
         String varName = ctx.exprG().getText();
         String arrayName = ctx.exprG().arrayRef().ID().getText();
-        System.out.println("arrayAffect name "+arrayName);
+        System.out.println("arrayAffect name " + arrayName);
 
-        Optional<Symbol> result = resolveSymbolRec(arrayName,symTable.getCurrentScope());
+        Optional<Symbol> result = resolveSymbolRec(arrayName, symTable.getCurrentScope());
 
-        if (! result.isPresent()) {
+        if (!result.isPresent()) {
             return;
         }
 
         if (!result.get().getClass().getSimpleName().equals("ArraySymbol")) {
-            errors.badTypeError.add("La variable "+ varName +" n'est pas un array");
+            errors.badTypeError.add("La variable " + varName + " n'est pas un array");
         }
 
         Type type = result.get().getType();
 
-        CellSymbol cell = new CellSymbol(varName,type);
+        CellSymbol cell = new CellSymbol(varName, type);
         symTable.define(cell);
 
     }
 
     /**
      * Ajoute une symbole d'acces à une variable de structure
+     * 
      * @param ctx
      */
     private void structAffectExpression(PlayPlusParser.AffectInstrContext ctx) {
         String varName = ctx.exprG().getText();
-       System.out.println("structAffect "+varName);
+        System.out.println("structAffect " + varName);
 
-        Optional<Symbol> result = resolveSymbolRec(varName,symTable.getCurrentScope());
+        Optional<Symbol> result = resolveSymbolRec(varName, symTable.getCurrentScope());
 
-        if (! result.isPresent()) {
+        if (!result.isPresent()) {
             Type type = result.get().getType();
 
-            StructRefSymbol structRef = new StructRefSymbol(varName,type);
+            StructRefSymbol structRef = new StructRefSymbol(varName, type);
             symTable.define(structRef);
         }
 
@@ -518,41 +522,39 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
         String structCall = ctx.getText();
         String structName = ctx.ID().getText();
-//        System.out.println("structName "+structName);
-        Optional<Symbol> struct =  this.symTable.getGlobals().resolveByName(structName);
-//        System.out.println("struct " + struct.getName());
+        // System.out.println("structName "+structName);
+        Optional<Symbol> struct = this.symTable.getGlobals().resolveByName(structName);
+        // System.out.println("struct " + struct.getName());
         Iterator members = ctx.members().member().listIterator();
         while (members.hasNext()) {
             PlayPlusParser.MemberContext member = (PlayPlusParser.MemberContext) members.next();
-//            System.out.println("member " + member.ID().getText());
+            // System.out.println("member " + member.ID().getText());
             if (members.hasNext()) {
                 structName = member.ID().getText();
                 struct = ((StructSymbol) struct.get()).resolveByName(structName);
             } else {
                 String varName = member.ID().getText();
-//                System.out.println(struct.resolve(varName));
+                // System.out.println(struct.resolve(varName));
                 Optional<Symbol> var = ((StructSymbol) struct.get()).resolveByName(varName);
 
                 Type type = var.get().getType();
 
-                StructRefSymbol structRef = new StructRefSymbol(structCall,type);
+                StructRefSymbol structRef = new StructRefSymbol(structCall, type);
                 symTable.define(structRef);
 
             }
         }
     }
 
-
     @Override
     public void enterFuncCall(PlayPlusParser.FuncCallContext ctx) {
-
 
         System.out.println("enterFuncCall : " + ctx.getText());
         String funcName = ctx.ID().getText();
 
         Optional<Symbol> function = this.resolveFunc(funcName);
 
-        if (! function.isPresent()) {
+        if (!function.isPresent()) {
             return;
         }
 
@@ -560,18 +562,15 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
 
         FuncCallSymbol expr = new FuncCallSymbol(ctx.getText(), type, (FunctionSymbol) function.get());
 
-
         String funcCallName = ctx.getText();
 
         Optional<Symbol> funcCall = symTable.getCurrentScope().resolveByName(funcCallName);
 
-        if (funcCall.isPresent()){
+        if (funcCall.isPresent()) {
             symTable.getCurrentScope().getSymbols().remove(funcCall.get());
         }
 
-
         symTable.define(expr);
-
 
     }
 
@@ -583,10 +582,10 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         String condition = ctx.boolCondition().getText();
         Type type = new BuiltInTypeSymbol("conditionalStmt");
 
-        ConditionalSymbol expr = new ConditionalSymbol(name,type,currentScope,ctx,condition);
+        ConditionalSymbol expr = new ConditionalSymbol(name, type, currentScope, ctx, condition);
         this.symTable.define(expr);
         this.symTable.setCurrentScope(expr);
-        this.symTable.saveScope(ctx,expr);
+        this.symTable.saveScope(ctx, expr);
 
     }
 
@@ -603,10 +602,10 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         String condition = ctx.boolCondition().getText();
         Type type = new BuiltInTypeSymbol("whileStmt");
 
-        WhileSymbol expr = new WhileSymbol(name,type,currentScope,ctx,condition);
+        WhileSymbol expr = new WhileSymbol(name, type, currentScope, ctx, condition);
         this.symTable.define(expr);
         this.symTable.setCurrentScope(expr);
-        this.symTable.saveScope(ctx,expr);
+        this.symTable.saveScope(ctx, expr);
 
     }
 
@@ -614,7 +613,6 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
     public void exitWhileStmt(PlayPlusParser.WhileStmtContext ctx) {
         symTable.setCurrentScopeToEnclosingOne();
     }
-
 
     @Override
     public void enterRepeatStmt(PlayPlusParser.RepeatStmtContext ctx) {
@@ -624,32 +622,32 @@ public class DefinitionPhase extends PlayPlusBaseListener implements Filler {
         String condition = ctx.repeatCondition().getText();
         Type type = new BuiltInTypeSymbol("RepeatStmt");
 
-        RepeatSymbol expr = new RepeatSymbol(name,type,currentScope,ctx,condition);
+        RepeatSymbol expr = new RepeatSymbol(name, type, currentScope, ctx, condition);
         this.symTable.define(expr);
         this.symTable.setCurrentScope(expr);
-        this.symTable.saveScope(ctx,expr);
+        this.symTable.saveScope(ctx, expr);
     }
 
     @Override
-    public void exitRepeatStmt(PlayPlusParser.RepeatStmtContext ctx){
+    public void exitRepeatStmt(PlayPlusParser.RepeatStmtContext ctx) {
         symTable.setCurrentScopeToEnclosingOne();
     }
 
     private Optional<Symbol> resolveFunc(String funName) {
         Scope currentScope = this.symTable.getCurrentScope();
-        System.out.println("currentscope : "+ currentScope.getScopeName());
+        System.out.println("currentscope : " + currentScope.getScopeName());
         Optional<Symbol> func = resolveSymbolRec(funName, currentScope);
-        if (! func.isPresent()) {
-            this.errors.symbolNotFound.add("Function "+ funName +" do not exist");
+        if (!func.isPresent()) {
+            this.errors.symbolNotFound.add("Function " + funName + " do not exist");
         }
         return func;
 
     }
 
     private Optional<Symbol> resolveSymbolRec(String name, Scope currentScope) {
-        System.out.println("resolveSymbolRec : "+ currentScope.getScopeName());
+        System.out.println("resolveSymbolRec : " + currentScope.getScopeName());
         Optional<Symbol> symbol = currentScope.resolveByName(name);
-        if (! symbol.isPresent() && currentScope.getEnclosingScope() == null) {
+        if (!symbol.isPresent() && currentScope.getEnclosingScope() == null) {
             return Optional.empty();
         }
         if (symbol.isPresent()) {

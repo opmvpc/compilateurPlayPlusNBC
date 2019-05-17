@@ -28,58 +28,55 @@ public class Game {
      */
     public Game(SymbolTable symbolTable, Errors errors) {
         this.errors = errors;
-        Optional<Symbol> mapSymbol = symbolTable
-                .getGlobals()
-                .getSymbols()
-                .stream()
-                .filter(x -> x.getClass().getSimpleName().equals("MapSymbol"))
-                .findFirst();
+        Optional<Symbol> mapSymbol = symbolTable.getGlobals().getSymbols().stream()
+                .filter(x -> x.getClass().getSimpleName().equals("MapSymbol")).findFirst();
 
         if (mapSymbol.isPresent()) {
-            MapSymbol mapSymGet =(MapSymbol) mapSymbol.get();
+            MapSymbol mapSymGet = (MapSymbol) mapSymbol.get();
             this.map = mapSymGet.getCarte();
             this.codyX = mapSymGet.getInitX();
             this.codyY = mapSymGet.getInitY();
         }
-        System.out.println("INIT GAME CLASS : codyX = "+codyX+" codyY = "+codyY);
+        System.out.println("INIT GAME CLASS : codyX = " + codyX + " codyY = " + codyY);
     }
 
     /**
      * Les mouvements de Cody
+     * 
      * @param actionword
      * @param value
      */
-    public void moveCody(String actionword,int value){
+    public void moveCody(String actionword, int value) {
         // for autour pour un mouvement à la fois?
-        System.out.println("moveCody - actionword : "+ actionword + " value : " + value);
+        System.out.println("moveCody - actionword : " + actionword + " value : " + value);
         int tempX = codyX;
         int tempY = codyY;
-        System.out.println("x ; "+tempX + " y: " + tempY);
-        for (int i = 0; i < value ; i++) {
-            if (actionword.equals("left")){
+        System.out.println("x ; " + tempX + " y: " + tempY);
+        for (int i = 0; i < value; i++) {
+            if (actionword.equals("left")) {
                 codyX -= 1;
             }
-            if (actionword.equals("right")){
+            if (actionword.equals("right")) {
                 codyX += 1;
             }
-            if (actionword.equals("down")){
+            if (actionword.equals("down")) {
                 codyY += 1;
             }
-            if (actionword.equals("up")){
+            if (actionword.equals("up")) {
                 codyY -= 1;
             }
 
-            if (actionword.equals("jump")){
-                if (initialDirection.equals("left")){
+            if (actionword.equals("jump")) {
+                if (initialDirection.equals("left")) {
                     codyX -= 2;
                 }
-                if (initialDirection.equals("right")){
+                if (initialDirection.equals("right")) {
                     codyX += 2;
                 }
-                if (initialDirection.equals("down")){
+                if (initialDirection.equals("down")) {
                     codyY += 2;
                 }
-                if (initialDirection.equals("up")){
+                if (initialDirection.equals("up")) {
                     codyY -= 2;
                 }
 
@@ -87,50 +84,47 @@ public class Game {
                 initialDirection = actionword;
             }
 
-            checkPositionCody(tempX,tempY);
+            checkPositionCody(tempX, tempY);
         }
     }
 
     /**
      * Verification de la position de Cody
+     * 
      * @param tempX
      * @param tempY
      */
-    private void checkPositionCody(int tempX,int tempY){
+    private void checkPositionCody(int tempX, int tempY) {
         // init to ascii 0
-        System.out.println("CheckPositionCody : (" + codyX + "," + codyY+")");
+        System.out.println("CheckPositionCody : (" + codyX + "," + codyY + ")");
         System.out.println("Y max :" + map.length);
         System.out.println("X max :" + map[0].length);
         char currentPosition = 0;
         try {
             currentPosition = map[codyY][codyX];
-            System.out.println("current position : "+currentPosition);
-        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("current position : " + currentPosition);
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("cody out");
             errors.gameError.add("Cody plonge de le néant (out of bound)");
         }
         // si on est tombé dans l'eau ou dans un puits.
-        if ((currentPosition== '_') || (currentPosition== 'S')) {
+        if ((currentPosition == '_') || (currentPosition == 'S')) {
             this.errors.gameError.add("I will die if I execute this...");
         }
         // si obstacles
-        if ((currentPosition == 'P') || (currentPosition == 'B') || (currentPosition == 'T')){
+        if ((currentPosition == 'P') || (currentPosition == 'B') || (currentPosition == 'T')) {
             // reset position can't go further
             codyX = tempX;
             codyY = tempY;
         }
         // si squelettes
-        if ((currentPosition == 'Q')){
+        if ((currentPosition == 'Q')) {
             System.out.println("Q");
         }
     }
 
     @Override
     public String toString() {
-        return "Game{" +
-                "map=" + map +
-                ",\n\t codyX: " + codyX +
-                ",\n\t codyY: " + codyY +
-                '}';
+        return "Game{" + "map=" + map + ",\n\t codyX: " + codyX + ",\n\t codyY: " + codyY + '}';
     }
 }

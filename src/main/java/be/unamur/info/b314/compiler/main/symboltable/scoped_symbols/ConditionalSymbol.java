@@ -7,7 +7,7 @@ import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 /**
  * @overview Représente les conditions (If)
  * @specfiled condition : String
- * @specfiled  ifContext : PlayPlusParser.ConditionalStmtContext
+ * @specfiled ifContext : PlayPlusParser.ConditionalStmtContext
  */
 public class ConditionalSymbol extends ScopedSymbol {
 
@@ -23,7 +23,8 @@ public class ConditionalSymbol extends ScopedSymbol {
      * @param condition
      */
 
-    public ConditionalSymbol(String name, Type type, Scope scope, PlayPlusParser.ConditionalStmtContext ifContext, String condition ){
+    public ConditionalSymbol(String name, Type type, Scope scope, PlayPlusParser.ConditionalStmtContext ifContext,
+            String condition) {
         super(name, type, scope);
         this.condition = condition;
         this.ifContext = ifContext;
@@ -36,10 +37,7 @@ public class ConditionalSymbol extends ScopedSymbol {
      */
     @Override
     public String toString() {
-        return "ConditionalSymbol" + " {" +
-                "\n\t\tname = '" + super.getName() + '\'' +
-                ", \n\t\tbody = " + super.getSymbols()+
-                ", \n\t\tcondition = " + this.condition+
-                "\n\t}";
+        return "ConditionalSymbol" + " {" + "\n\t\tname = '" + super.getName() + '\'' + ", \n\t\tbody = "
+                + super.getSymbols() + ", \n\t\tcondition = " + this.condition + "\n\t}";
     }
 }

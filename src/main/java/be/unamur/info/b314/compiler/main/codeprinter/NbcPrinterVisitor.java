@@ -27,19 +27,20 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     private ArrayList<FunctionDecl> functionDecls;
     private Game game;
 
-    public NbcPrinterVisitor(String fileName, SymbolTable symtable,Errors errors) {
+    public NbcPrinterVisitor(String fileName, SymbolTable symtable, Errors errors) {
         this.fileName = fileName;
         this.symbolTable = symtable;
         initTemplates();
         this.code = new StringBuilder();
         this.functionDecls = new ArrayList<>();
-        this.game = new Game(symbolTable,errors);
+        this.game = new Game(symbolTable, errors);
     }
 
     private void initTemplates() {
 
         this.templates = new HashMap<>();
-        this.templates.put("actions", new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/actions.stg"));
+        this.templates.put("actions",
+                new STGroupFile("src/main/java/be/unamur/info/b314/compiler/main/codeprinter/templates/actions.stg"));
 
     }
 
@@ -60,19 +61,18 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     @Override
     public Object visitMainProgram(PlayPlusParser.MainProgramContext ctx) {
 
-        //ajout des macros actions dans le code nbc
+        // ajout des macros actions dans le code nbc
         ST st = this.templates.get("actions").getInstanceOf("actiondeclaration");
         String result = st.render();
         this.code.append(result + "\n\n");
         this.code.append("thread main\n");
 
-
-        //setting main scope and visiting children
+        // setting main scope and visiting children
 
         FunctionSymbol mainscope = (FunctionSymbol) symbolTable.getScopes().get(ctx);
-        System.out.println("BEFORE SET SCOPE :" +symbolTable.getCurrentScope().getScopeName());
+        System.out.println("BEFORE SET SCOPE :" + symbolTable.getCurrentScope().getScopeName());
         this.symbolTable.setCurrentScope(mainscope);
-        System.out.println("AFTER SET SCOPE : "  + symbolTable.getCurrentScope().getScopeName());
+        System.out.println("AFTER SET SCOPE : " + symbolTable.getCurrentScope().getScopeName());
 
         // visit du code du main
         visitChildren(ctx);
@@ -84,7 +84,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
         // ajoute le code au fichier .nbc
         try {
             printFile();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Error Writing NBC code to File");
         }
 
@@ -97,17 +97,17 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     @Override
     public Object visitWhileStmt(PlayPlusParser.WhileStmtContext ctx) {
         System.out.println("visitWhileStmt");
-        System.out.println("avant set While Scope "+ symbolTable.getCurrentScope().getScopeName());
+        System.out.println("avant set While Scope " + symbolTable.getCurrentScope().getScopeName());
         symbolTable.setCurrentScope((Scope) symbolTable.getScopes().get(ctx));
-        System.out.println("debut apres set  While Scope "+ symbolTable.getCurrentScope().getScopeName());
+        System.out.println("debut apres set  While Scope " + symbolTable.getCurrentScope().getScopeName());
         int value = 0;
-        if(ctx.boolCondition() != null){
-            value =  visitBoolCondition(ctx.boolCondition());
-            System.out.println("visitWhileStmt = value" + value );
-            if(value == 1){
+        if (ctx.boolCondition() != null) {
+            value = visitBoolCondition(ctx.boolCondition());
+            System.out.println("visitWhileStmt = value" + value);
+            if (value == 1) {
                 visitChildren(ctx);
                 visitWhileStmt(ctx);
-            }else{
+            } else {
                 symbolTable.setCurrentScopeToEnclosingOne();
             }
         }
@@ -119,9 +119,9 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     public Object visitRepeatStmt(PlayPlusParser.RepeatStmtContext ctx) {
         System.out.println("visitRepeatStmt");
         int value = 0;
-        if(ctx.repeatCondition()!= null){
-            value =  visitExprEnt(ctx.repeatCondition().exprEnt());
-            System.out.println("visitRepeatStmt = value" + value );
+        if (ctx.repeatCondition() != null) {
+            value = visitExprEnt(ctx.repeatCondition().exprEnt());
+            System.out.println("visitRepeatStmt = value" + value);
             for (int i = 0; i < value; i++) {
                 visit(ctx.labelloop);
             }
@@ -134,27 +134,27 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     @Override
     public Object visitConditionalStmt(PlayPlusParser.ConditionalStmtContext ctx) {
         System.out.println("visitConditionalStmt " + ctx.getText());
-       int value = 0;
+        int value = 0;
         symbolTable.setCurrentScope((Scope) symbolTable.getScopes().get(ctx));
-        if(ctx.boolCondition() != null){
-           value =  visitBoolCondition(ctx.boolCondition());
-            System.out.println("visitConditionalStmt = value" + value );
-            if(value == 1){
-                if (ctx.ifStmt() != null){
+        if (ctx.boolCondition() != null) {
+            value = visitBoolCondition(ctx.boolCondition());
+            System.out.println("visitConditionalStmt = value" + value);
+            if (value == 1) {
+                if (ctx.ifStmt() != null) {
                     visitChildren(ctx.ifStmt());
                 }
 
-            }else{
-                if(ctx.elseStmt() != null) {
-                    visitChildren(ctx.elseStmt());;
+            } else {
+                if (ctx.elseStmt() != null) {
+                    visitChildren(ctx.elseStmt());
+                    ;
                 }
             }
         }
-        //visitChildren(ctx);
+        // visitChildren(ctx);
         symbolTable.setCurrentScopeToEnclosingOne();
         return 0;
     }
-
 
     @Override
     public Integer visitBoolCondition(PlayPlusParser.BoolConditionContext ctx) {
@@ -167,92 +167,93 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     public Integer visitExprBool(PlayPlusParser.ExprBoolContext ctx) {
         int value = 0;
         String debugString = ctx.getText();
-        System.out.println("VisitExprBool :" + debugString );
+        System.out.println("VisitExprBool :" + debugString);
 
-        if (ctx.getChild(0).getText().charAt(0) == '(' ){
-            System.out.println("Parenthese : "+ctx.getChild(0).getText());
+        if (ctx.getChild(0).getText().charAt(0) == '(') {
+            System.out.println("Parenthese : " + ctx.getChild(0).getText());
             value = visitExprBool(ctx.exprBool(0));
             return value;
         }
 
-
-        if (ctx.getChildCount() == 1){ // soucis lorsque c'est un funcCall , la valeur n'est pas presente dan sla table des symboles
-            if (ctx.boolVal(0).boolLiteral()!= null ) {
+        if (ctx.getChildCount() == 1) { // soucis lorsque c'est un funcCall , la valeur n'est pas presente dan sla table
+                                        // des symboles
+            if (ctx.boolVal(0).boolLiteral() != null) {
                 value = visitBoolLiteral(ctx.boolVal(0).boolLiteral());
                 return value;
             }
-            if(ctx.boolVal(0).funcCall() != null){
-                 value = visitFuncCall(ctx.boolVal(0).funcCall());
-                 return value;
+            if (ctx.boolVal(0).funcCall() != null) {
+                value = visitFuncCall(ctx.boolVal(0).funcCall());
+                return value;
             }
             System.out.println("Expr Bool search expression ");
-            Optional<Symbol> result =  resolveSymbolRec(ctx.getText(), symbolTable.getCurrentScope());
+            Optional<Symbol> result = resolveSymbolRec(ctx.getText(), symbolTable.getCurrentScope());
 
             if (result.isPresent()) {
-                System.out.println("result get"+result.get());
-                System.out.println("valueof "+ctx.getText() + " value :"+result.get().getValue());
-                if (result.get().getValue() != null){
+                System.out.println("result get" + result.get());
+                System.out.println("valueof " + ctx.getText() + " value :" + result.get().getValue());
+                if (result.get().getValue() != null) {
                     value = result.get().getValue();
                 }
             } else {
-                System.out.println("Scope ExprBool : "+ symbolTable.getCurrentScope().getScopeName());
-                System.out.println("ERROR : valueof "+ctx.getText() +"");
+                System.out.println("Scope ExprBool : " + symbolTable.getCurrentScope().getScopeName());
+                System.out.println("ERROR : valueof " + ctx.getText() + "");
             }
             return value;
         }
         if (ctx.getChildCount() == 2) {
-            System.out.println("Neg Exp bool : "+ctx.getText());
-            //evalNegBool(ctx);
-            if( ctx.exprBool(0) != null) {
+            System.out.println("Neg Exp bool : " + ctx.getText());
+            // evalNegBool(ctx);
+            if (ctx.exprBool(0) != null) {
                 value = visitExprBool(ctx.exprBool(0));
-                return  value == 1 ? 0 : 1;
+                return value == 1 ? 0 : 1;
             }
         }
 
         if (ctx.getChildCount() >= 3) {
-            System.out.println("Exp bool 3 termes : "+ctx.getText());
-            //Check sur les parenthese
+            System.out.println("Exp bool 3 termes : " + ctx.getText());
+            // Check sur les parenthese
             System.out.println("ctx.getChild(0).getText() = " + ctx.getChild(0).getText());
             System.out.println("ctx.getChild(2).getText() = " + ctx.getChild(2).getText());
             int leftPart = 0;
-            int rightPart = 0 ;
+            int rightPart = 0;
             String operator = ctx.getChild(1).getText();
 
             leftPart = (Integer) visit(ctx.getChild(0));
             rightPart = (Integer) visit(ctx.getChild(2));
 
-            System.out.println("ExprBool : leftPart: " + leftPart + "operateur: "+ operator + " rightPart: "+  rightPart);
-                boolean boolVal = false;
-                switch (operator) {
-                    case "==" :
-                        boolVal = leftPart == rightPart;
-                        break;
-                    case "!=" :
-                        boolVal = leftPart != rightPart;
-                        break;
-                    case "<" :
-                        boolVal = leftPart < rightPart;
-                        break;
-                    case ">" :
-                        boolVal = leftPart > rightPart;
-                        break;
-                    case "<=" :
-                        boolVal = leftPart <= rightPart;
-                        break;
-                    case ">=" :
-                        boolVal = leftPart >= rightPart;
-                        break;
-                    case "&&" :
-                        boolVal = Boolean.logicalAnd(intToBoolean(leftPart), intToBoolean(rightPart));
-                        break;
-                    case "||" :
-                        boolVal = Boolean.logicalOr(intToBoolean(leftPart), intToBoolean(rightPart));
-                        break;
-                }
+            System.out.println(
+                    "ExprBool : leftPart: " + leftPart + "operateur: " + operator + " rightPart: " + rightPart);
+            boolean boolVal = false;
+            switch (operator) {
+            case "==":
+                boolVal = leftPart == rightPart;
+                break;
+            case "!=":
+                boolVal = leftPart != rightPart;
+                break;
+            case "<":
+                boolVal = leftPart < rightPart;
+                break;
+            case ">":
+                boolVal = leftPart > rightPart;
+                break;
+            case "<=":
+                boolVal = leftPart <= rightPart;
+                break;
+            case ">=":
+                boolVal = leftPart >= rightPart;
+                break;
+            case "&&":
+                boolVal = Boolean.logicalAnd(intToBoolean(leftPart), intToBoolean(rightPart));
+                break;
+            case "||":
+                boolVal = Boolean.logicalOr(intToBoolean(leftPart), intToBoolean(rightPart));
+                break;
+            }
 
-                value = (boolVal == true) ? 1 : 0;
-                System.out.println("Bool calculated value in boolean : " + boolVal);
-                return value;
+            value = (boolVal == true) ? 1 : 0;
+            System.out.println("Bool calculated value in boolean : " + boolVal);
+            return value;
 
         }
 
@@ -261,11 +262,12 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             value = val == true ? 1 : 0;
 
         } catch (Exception e) {
-            System.out.println("Erreur bool : "+ctx.getText());
+            System.out.println("Erreur bool : " + ctx.getText());
         }
         System.out.println("");
-        return value; //super.visitExprBool(ctx);
+        return value; // super.visitExprBool(ctx);
     }
+
     private boolean intToBoolean(int value) {
         return value == 0 ? false : true;
     }
@@ -273,15 +275,15 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     @Override
     public Integer visitBoolVal(PlayPlusParser.BoolValContext ctx) {
         String debugString = ctx.getText();
-        System.out.println("VisitBoolVal :" + debugString );
-        int value = 0 ;
-        if(ctx.funcCall() != null){
+        System.out.println("VisitBoolVal :" + debugString);
+        int value = 0;
+        if (ctx.funcCall() != null) {
             value = visitFuncCall(ctx.funcCall());
         }
-        if(ctx.exprG() != null){
+        if (ctx.exprG() != null) {
             value = visitExprG(ctx.exprG());
         }
-        if(ctx.boolLiteral() != null){
+        if (ctx.boolLiteral() != null) {
             value = visitBoolLiteral(ctx.boolLiteral());
         }
         return value;
@@ -290,10 +292,10 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     @Override
     public Integer visitBoolLiteral(PlayPlusParser.BoolLiteralContext ctx) {
         String debugString = ctx.getText();
-        System.out.println("VisitBoolLoteral :" + debugString );
-        boolean boolval  = Boolean.valueOf(ctx.getText());
+        System.out.println("VisitBoolLoteral :" + debugString);
+        boolean boolval = Boolean.valueOf(ctx.getText());
         int value = (boolval == true) ? 1 : 0;
-        return value ;
+        return value;
     }
 
     @Override
@@ -322,41 +324,38 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     @Override
     public Integer visitExprEnt(PlayPlusParser.ExprEntContext ctx) {
         String debugString = ctx.getText();
-        System.out.println("VisitExprEnt :" + debugString );
+        System.out.println("VisitExprEnt :" + debugString);
         String op = "";
         int value = 0;
 
-        if (ctx.operateurEntier() != null){
+        if (ctx.operateurEntier() != null) {
             op = ctx.operateurEntier().getText();
             PlayPlusParser.ExprEntContext left = ctx.exprEnt(0);
             PlayPlusParser.ExprEntContext right = ctx.exprEnt(1);
             int valueleft = this.visitExprEnt(left);
-            int valueright  = this.visitExprEnt(right);
-           // System.out.println("valueleft : " + valueleft);
-            //System.out.println("valuerigth : " + valueright);
+            int valueright = this.visitExprEnt(right);
+            // System.out.println("valueleft : " + valueleft);
+            // System.out.println("valuerigth : " + valueright);
             value = evaluateExprEnt(valueleft, valueright, op);
             System.out.println("calculated value : " + value);
             return value;
         }
 
-        if (ctx.MINUS() != null){
+        if (ctx.MINUS() != null) {
 
             value = -1 * this.visitExprEnt(ctx.exprEnt(0));
             return value;
         }
 
-        if (ctx.getText().charAt(0) == '(' ){
-            System.out.println("Parenthese : "+ctx.exprEnt(0));
+        if (ctx.getText().charAt(0) == '(') {
+            System.out.println("Parenthese : " + ctx.exprEnt(0));
             value = this.visitExprEnt(ctx.exprEnt(0));
             return value;
         }
 
-        if(ctx.funcCall() != null){
-
+        if (ctx.funcCall() != null) {
 
             value = visitFuncCall(ctx.funcCall());// value of execution.
-
-
 
             return value;
         }
@@ -366,23 +365,22 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             value = Integer.valueOf(ctx.getText());
             System.out.println("casted value : " + value);
 
-        } catch (Exception exception){
+        } catch (Exception exception) {
 
-
-            Optional<Symbol> result = resolveSymbolRec(ctx.getText(),symbolTable.getCurrentScope());
+            Optional<Symbol> result = resolveSymbolRec(ctx.getText(), symbolTable.getCurrentScope());
 
             if (result.isPresent()) {
-                System.out.println("result get"+result.get());
-                System.out.println("valueof "+ctx.getText() + " value :"+result.get().getValue());
+                System.out.println("result get" + result.get());
+                System.out.println("valueof " + ctx.getText() + " value :" + result.get().getValue());
 
-                if (result.get().getValue() != null){
+                if (result.get().getValue() != null) {
 
                     value = result.get().getValue();
                 }
 
             } else {
-                System.out.println("Scope ExprEnt : "+ symbolTable.getCurrentScope().getScopeName());
-                System.out.println("ERROR : valueof "+ctx.getText() +"");
+                System.out.println("Scope ExprEnt : " + symbolTable.getCurrentScope().getScopeName());
+                System.out.println("ERROR : valueof " + ctx.getText() + "");
 
             }
 
@@ -402,43 +400,44 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     public Integer visitVarDecl(PlayPlusParser.VarDeclContext ctx) {
 
         int value = 0;
-        System.out.println("visitVarDecl :"+ctx.getText());
-       Iterator subVarDecls = ctx.subVarDecl().listIterator();
-       while (subVarDecls.hasNext()){
-           PlayPlusParser.SubVarDeclContext subVarDecl = (PlayPlusParser.SubVarDeclContext) subVarDecls.next();
-           value = this.visitSubVarDecl(subVarDecl);
-           symbolTable.getCurrentScope().resolveByName(subVarDecl.ID().getText()).get().setValue(value);
-       }
+        System.out.println("visitVarDecl :" + ctx.getText());
+        Iterator subVarDecls = ctx.subVarDecl().listIterator();
+        while (subVarDecls.hasNext()) {
+            PlayPlusParser.SubVarDeclContext subVarDecl = (PlayPlusParser.SubVarDeclContext) subVarDecls.next();
+            value = this.visitSubVarDecl(subVarDecl);
+            symbolTable.getCurrentScope().resolveByName(subVarDecl.ID().getText()).get().setValue(value);
+        }
 
-       return value;
+        return value;
     }
 
     @Override
     public Integer visitSubVarDecl(PlayPlusParser.SubVarDeclContext ctx) {
         int value = 0;
-        System.out.println("visitSubVarDecl :"+ctx.getText());
-        //System.out.println(symbolTable.getCurrentScope());
+        System.out.println("visitSubVarDecl :" + ctx.getText());
+        // System.out.println(symbolTable.getCurrentScope());
         String varName = ctx.ID().getText();
 
         if (ctx.initVariable() != null) {
             value = this.visitInitVariable(ctx.initVariable());
-            Optional<Symbol> result = resolveSymbolRec(varName,symbolTable.getCurrentScope());
-            if (result.isPresent()){
+            Optional<Symbol> result = resolveSymbolRec(varName, symbolTable.getCurrentScope());
+            if (result.isPresent()) {
 
                 result.get().setValue(value);
 
             }
         }
 
-            return value;
+        return value;
     }
 
     @Override
     public Integer visitInitVariable(PlayPlusParser.InitVariableContext ctx) {
         int value = 0;
-        if (ctx.exprEnt() != null)
-        { value = visitExprEnt(ctx.exprEnt());}
-        if(ctx.exprBool() != null){
+        if (ctx.exprEnt() != null) {
+            value = visitExprEnt(ctx.exprEnt());
+        }
+        if (ctx.exprBool() != null) {
             value = visitExprBool(ctx.exprBool());
         }
         return value;
@@ -448,27 +447,25 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     @Override
     public Integer visitAffectInstr(PlayPlusParser.AffectInstrContext ctx) {
         int value = 0;
-        System.out.println("VisitAffectInstr :"+ctx.getText());
-        if (ctx.exprG().ID() != null){
+        System.out.println("VisitAffectInstr :" + ctx.getText());
+        if (ctx.exprG().ID() != null) {
             String varName = ctx.exprG().ID().getText();
 
-
-            System.out.println("Scope Affect : "+ symbolTable.getCurrentScope().getScopeName());
+            System.out.println("Scope Affect : " + symbolTable.getCurrentScope().getScopeName());
             Optional<Symbol> result = resolveSymbolRec(varName, symbolTable.getCurrentScope());
 
-                value = this.visitExprD(ctx.exprD());
+            value = this.visitExprD(ctx.exprD());
 
             if (result.isPresent()) {
-                System.out.println("setting value of  "+ varName + " in " + ctx.getText() + "value : "+ value);
+                System.out.println("setting value of  " + varName + " in " + ctx.getText() + "value : " + value);
 
                 result.get().setValue(value);
 
             } else {
-                System.out.println("ERROR : valueof "+ctx.getText() +"");
+                System.out.println("ERROR : valueof " + ctx.getText() + "");
             }
 
         }
-
 
         return value;
     }
@@ -476,17 +473,18 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     @Override
     public Integer visitExprD(PlayPlusParser.ExprDContext ctx) {
         int value = 0;
-        if (ctx.exprEnt() != null)
-        { value = visitExprEnt(ctx.exprEnt());}
-        if (ctx.funcCall() != null){
+        if (ctx.exprEnt() != null) {
+            value = visitExprEnt(ctx.exprEnt());
+        }
+        if (ctx.funcCall() != null) {
             value = visitFuncCall(ctx.funcCall());
 
         }
-        if (ctx.exprBool() != null){
+        if (ctx.exprBool() != null) {
             value = visitExprBool(ctx.exprBool());
 
         }
-        if (ctx.charVal()  != null){
+        if (ctx.charVal() != null) {
             value = visitCharVal(ctx.charVal());
         }
         return value;
@@ -494,33 +492,30 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
     @Override
     public Integer visitFuncDecl(PlayPlusParser.FuncDeclContext ctx) {
-        System.out.println("VisitFuncDecl : "+ ctx.getText());
+        System.out.println("VisitFuncDecl : " + ctx.getText());
         int value = 0;
         String funcName = ctx.ID().getText();
-        FunctionDecl fct = new FunctionDecl(funcName ,ctx);
+        FunctionDecl fct = new FunctionDecl(funcName, ctx);
         addFunctionDecl(fct);
-
-
 
         if (ctx.returnInstr().exprD() != null) {
             value = visitExprD(ctx.returnInstr().exprD());
             System.out.println("TEst = " + value);
         }
 
-        if (ctx.returnInstr().exprG() != null && ctx.returnInstr().exprG().ID() != null){
-            System.out.println("rtrninst ID :" + ctx.returnInstr().exprG().ID() );
-            //System.out.println("current scope : "+ symbolTable.getCurrentScope().getScopeName());
-            //System.out.println("current scope : "+ symbolTable.getCurrentScope());
+        if (ctx.returnInstr().exprG() != null && ctx.returnInstr().exprG().ID() != null) {
+            System.out.println("rtrninst ID :" + ctx.returnInstr().exprG().ID());
+            // System.out.println("current scope : "+ symbolTable.getCurrentScope().getScopeName());
+            // System.out.println("current scope : "+ symbolTable.getCurrentScope());
             String varName = ctx.returnInstr().exprG().ID().getText();
             Optional<Symbol> result = symbolTable.getCurrentScope().resolveByName(varName);
-            if (result.isPresent()){
-                //value = result.get().setValue();
-                //value = result.get().getValue();
+            if (result.isPresent()) {
+                // value = result.get().setValue();
+                // value = result.get().getValue();
             }
         }
 
         System.out.println("out");
-
 
         return value;
     }
@@ -528,43 +523,46 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
     @Override
     public Integer visitFuncCall(PlayPlusParser.FuncCallContext ctx) {
         int value = 0;
-        System.out.println("VisitFuncCall : "+ ctx.getText());
+        System.out.println("VisitFuncCall : " + ctx.getText());
         String funcName = ctx.ID().getText();
 
         Optional<Symbol> result = symbolTable.getGlobals().resolveByName(funcName);
         Scope currentScope = symbolTable.getCurrentScope();
-        if (result.isPresent()){
+        if (result.isPresent()) {
             this.symbolTable.setCurrentScope(((FunctionSymbol) result.get()));
 
             Iterator callargs = ctx.funcCallArgs().funcCallArg().listIterator();
             int i = 0;
-                while (callargs.hasNext()) {
-                    PlayPlusParser.ExprDContext exprDContext = ((PlayPlusParser.FuncCallArgContext) callargs.next()).exprD();
-                    if (exprDContext.getText().length() > 0){
-                        ((FunctionSymbol) result.get()).getArgs().get(i).setValue(visitExprD(exprDContext));
-                        i++;
-                    }
-
+            while (callargs.hasNext()) {
+                PlayPlusParser.ExprDContext exprDContext = ((PlayPlusParser.FuncCallArgContext) callargs.next())
+                        .exprD();
+                if (exprDContext.getText().length() > 0) {
+                    ((FunctionSymbol) result.get()).getArgs().get(i).setValue(visitExprD(exprDContext));
+                    i++;
                 }
 
+            }
+
             PlayPlusParser.FuncDeclContext funcDeclContext = findFunctionDeclByText(funcName).get().getCtx();
-            //value  = visitFuncDecl(funcDeclContext);
+            // value = visitFuncDecl(funcDeclContext);
             visitChildren(funcDeclContext);
 
             if (!(funcDeclContext.returnInstr().getChild(1).getText().equals("void"))) {
 
-                    //value = ((FunctionSymbol) result.get()).resolveByName(funcDeclContext.returnInstr().getChild(1).getText()).get().getValue();
-                System.out.println("return expr :"+funcDeclContext.returnInstr().getChild(1).getText());
-                if (funcDeclContext.returnInstr().exprD() != null){
-                    value =visitExprD(funcDeclContext.returnInstr().exprD());
+                // value = ((FunctionSymbol)
+                // result.get()).resolveByName(funcDeclContext.returnInstr().getChild(1).getText()).get().getValue();
+                System.out.println("return expr :" + funcDeclContext.returnInstr().getChild(1).getText());
+                if (funcDeclContext.returnInstr().exprD() != null) {
+                    value = visitExprD(funcDeclContext.returnInstr().exprD());
                 } else {
-                    value = resolveSymbolRec(funcDeclContext.returnInstr().getChild(1).getText(), symbolTable.getCurrentScope()).get().getValue();
+                    value = resolveSymbolRec(funcDeclContext.returnInstr().getChild(1).getText(),
+                            symbolTable.getCurrentScope()).get().getValue();
 
                 }
             }
             System.out.println("TEst = " + value);
-            //super.visitFuncDecl(funcDeclContext);
-            //visitChildren(ctx);
+            // super.visitFuncDecl(funcDeclContext);
+            // visitChildren(ctx);
             System.out.println("SETTING SCOPE TO :" + currentScope.getScopeName());
             this.symbolTable.setCurrentScope(currentScope);
             symbolTable.getCurrentScope().resolveByName(ctx.getText()).get().setValue(value);
@@ -575,32 +573,32 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
     private int evaluateExprEnt(int left, int right, String operateur) {
         int result = 0;
-        switch(operateur) {
-            case "+":
-                // code block
-                result = left + right;
-                break;
-            case "-":
-                // code block
-                result = left - right;
-                break;
-            case "*":
-                result = left  * right;
-                break;
-            case "/":
-                result = left / right;
-                //
-                break;
-            case "^":
-                result = (int)Math.pow(left, right);
-                //
-                break;
-            case "%":
-                result = left % right;
-                break;
+        switch (operateur) {
+        case "+":
+            // code block
+            result = left + right;
+            break;
+        case "-":
+            // code block
+            result = left - right;
+            break;
+        case "*":
+            result = left * right;
+            break;
+        case "/":
+            result = left / right;
+            //
+            break;
+        case "^":
+            result = (int) Math.pow(left, right);
+            //
+            break;
+        case "%":
+            result = left % right;
+            break;
 
-            default:
-                // code block
+        default:
+            // code block
 
         }
 
@@ -610,20 +608,20 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
     /**
      * Trouve une functionDecl qui match le text dans la table des functiondecls
+     * 
      * @param functText
      * @return
      */
     private Optional<FunctionDecl> findFunctionDeclByText(String functText) {
-        Optional<FunctionDecl> functionDecl = this.functionDecls.stream()
-                .filter(x -> x.getText().equals(functText))
+        Optional<FunctionDecl> functionDecl = this.functionDecls.stream().filter(x -> x.getText().equals(functText))
                 .findFirst();
         return functionDecl;
     }
 
     private Optional<Symbol> resolveSymbolRec(String name, Scope currentScope) {
-        System.out.println("resolveSymbolRec : "+ currentScope.getScopeName());
+        System.out.println("resolveSymbolRec : " + currentScope.getScopeName());
         Optional<Symbol> symbol = currentScope.resolveByName(name);
-        if (! symbol.isPresent() && currentScope.getEnclosingScope() == null) {
+        if (!symbol.isPresent() && currentScope.getEnclosingScope() == null) {
             return Optional.empty();
         }
         if (symbol.isPresent()) {
@@ -634,7 +632,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
     @Override
     public Object visitActionType(PlayPlusParser.ActionTypeContext ctx) {
-        System.out.println("VisitActionType : "+ ctx.getText());
+        System.out.println("VisitActionType : " + ctx.getText());
         int time = 500;
         int multiplicateur = 1;
         String pwr = "100";
@@ -653,14 +651,14 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
         if (actionkeyword.equals("dig()")) {
 
-            //System.out.println("If robot on treasure play tone");
+            // System.out.println("If robot on treasure play tone");
             this.code.append("\t PlayTone(TONE_C5,500)\n");
 
         } else if (actionkeyword.equals("fight")) {
             this.code.append("\t // I AM A PACIFIST \n");
         } else {
             // movement de cody sur la carte : Il faudra ajouter une erreur
-            this.game.moveCody(actionkeyword,multiplicateur);
+            this.game.moveCody(actionkeyword, multiplicateur);
             ST st = this.templates.get("actions").getInstanceOf(actionkeyword);
             st.add("time", time);
             st.add("pwr", pwr);
@@ -673,10 +671,9 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
     @Override
     public Object visitDig(PlayPlusParser.DigContext ctx) {
-       // System.out.println(symbolTable.toString());
+        // System.out.println(symbolTable.toString());
         return 0;
     }
-
 
     public void printFile() throws IOException {
         FileWriter fileWriter = new FileWriter(this.fileName);

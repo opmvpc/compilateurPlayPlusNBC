@@ -1,7 +1,7 @@
 package be.unamur.info.b314.compiler.exception;
 
 /**
- * @overview Classe utilisé pour les erreurs lié au nom des variables locales , globales et des  fonctions
+ * @overview Classe utilisé pour les erreurs lié au nom des variables locales , globales et des fonctions
  */
 public class BadNamingException extends Exception {
 
@@ -12,6 +12,5 @@ public class BadNamingException extends Exception {
     public BadNamingException(String message) {
         super(message);
     }
-
 
 }

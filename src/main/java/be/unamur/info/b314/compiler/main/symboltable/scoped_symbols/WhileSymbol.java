@@ -21,7 +21,8 @@ public class WhileSymbol extends ScopedSymbol {
      * @param condition
      * @effects Initialise un While
      */
-    public WhileSymbol(String name, Type type, Scope scope, PlayPlusParser.WhileStmtContext whileContext, String condition) {
+    public WhileSymbol(String name, Type type, Scope scope, PlayPlusParser.WhileStmtContext whileContext,
+            String condition) {
         super(name, type, scope);
         this.condition = condition;
         this.whileContext = whileContext;
@@ -34,11 +35,8 @@ public class WhileSymbol extends ScopedSymbol {
      */
     @Override
     public String toString() {
-        return "WhileSymbol" + " {" +
-                "\n\t\tname = '" + super.getName() + '\'' +
-                "\n\t\tEnclosingScope = '" + super.getEnclosingScope().getScopeName() + '\'' +
-                ", \n\t\tbody = " + super.getSymbols() +
-                ", \n\t\tcondition = " + this.condition +
-                "\n\t}";
+        return "WhileSymbol" + " {" + "\n\t\tname = '" + super.getName() + '\'' + "\n\t\tEnclosingScope = '"
+                + super.getEnclosingScope().getScopeName() + '\'' + ", \n\t\tbody = " + super.getSymbols()
+                + ", \n\t\tcondition = " + this.condition + "\n\t}";
     }
 }

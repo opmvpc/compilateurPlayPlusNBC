@@ -18,25 +18,24 @@ public class B314variablesSemanticsTest {
     private static final Logger LOG = LoggerFactory.getLogger(B314variablesSemanticsTest.class);
 
     @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder(); // Create a temporary folder for outputs deleted after tests
+    public TemporaryFolder testFolder = new TemporaryFolder(); // Create a temporary folder for outputs deleted after
+                                                               // tests
 
     @Rule
     public TestRule watcher = new TestWatcher() { // Prints message on logger before each test
         @Override
         protected void starting(Description description) {
-            LOG.info(String.format("Starting test: %s()...",
-                    description.getMethodName()));
-        }
-    ;
+            LOG.info(String.format("Starting test: %s()...", description.getMethodName()));
+        };
     };
 
-//    @Test
-//    public void testvariables_ko() throws Exception {
-//        File pcodeFile = testFolder.newFile();
-//        CompilerTestHelper.launchCompilation("/semantics/variables/ko", pcodeFile, true, "variables: ko");
-//        LOG.debug("PCode is: {{}", FileUtils.readFileToString(pcodeFile));
-//        InterpreterResult result;
-//        // Turns: 1
-//        LOG.debug("Starting interpretation with 1 turn");
-//    }
+    // @Test
+    // public void testvariables_ko() throws Exception {
+    // File pcodeFile = testFolder.newFile();
+    // CompilerTestHelper.launchCompilation("/semantics/variables/ko", pcodeFile, true, "variables: ko");
+    // LOG.debug("PCode is: {{}", FileUtils.readFileToString(pcodeFile));
+    // InterpreterResult result;
+    // // Turns: 1
+    // LOG.debug("Starting interpretation with 1 turn");
+    // }
 }

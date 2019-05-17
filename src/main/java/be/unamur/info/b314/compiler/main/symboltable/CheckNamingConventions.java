@@ -54,10 +54,10 @@ public class CheckNamingConventions {
                         if (!((FunctionSymbol) funct).getScopeName().equals("main")) {
                             Optional<Symbol> localVar = ((FunctionSymbol) funct).resolveByName(globalVarName);
                             if (localVar.isPresent()) {
-                                if (localVar.get().getType().getName().equals(((VariableSymbol) globalVar).getType().getName())) {
-                                    this.errors.badNameError.add("Le nom de la variable locale:" +
-                                         globalVar.getName() +
-                                       " est déjà utilisé par une variable globale");
+                                if (localVar.get().getType().getName()
+                                        .equals(((VariableSymbol) globalVar).getType().getName())) {
+                                    this.errors.badNameError.add("Le nom de la variable locale:" + globalVar.getName()
+                                            + " est déjà utilisé par une variable globale");
                                 }
                             }
                         }
@@ -83,23 +83,20 @@ public class CheckNamingConventions {
                     Symbol localVar = (Symbol) varsLocal.next();
                     if (localVar instanceof FunctionSymbol) {
                         if (globalVar.getName().equals(localVar.getName())) {
-                            this.errors.badNameError.add("Le nom de la variable:" +
-                                    globalVar.getName() +
-                                    " est déjà utilisé par une fonction");
+                            this.errors.badNameError.add("Le nom de la variable:" + globalVar.getName()
+                                    + " est déjà utilisé par une fonction");
                         }
                     }
                     if (localVar instanceof VariableSymbol && globalVar != localVar) {
                         if (globalVar.getName().equals(localVar.getName())) {
-                            this.errors.badNameError.add(" Le nom de la variable:" +
-                                    globalVar.getName() +
-                                    " est déjà utilisé par une variable globale");
+                            this.errors.badNameError.add(" Le nom de la variable:" + globalVar.getName()
+                                    + " est déjà utilisé par une variable globale");
                         }
                     }
                 }
             }
         }
     }
-
 
     /**
      * Vérifie si le nom de la constante n'est pas déjà utilisé par une variable
@@ -118,7 +115,8 @@ public class CheckNamingConventions {
                 if (var instanceof VariableSymbol) {
                     if (var2 instanceof ConstanteSymbol) {
                         if (var.getName().equals(var2.getName()) && var != var2) {
-                            this.errors.badNameError.add("Le nom de la constante:" + var.getName() + " est déjà utilisé par une variable");
+                            this.errors.badNameError.add(
+                                    "Le nom de la constante:" + var.getName() + " est déjà utilisé par une variable");
                         }
                     }
                 }
@@ -144,13 +142,15 @@ public class CheckNamingConventions {
                 if (var instanceof VariableSymbol) {
                     if (var2 instanceof ConstanteSymbol) {
                         if (var.getName().equals(var2.getName())) {
-                            this.errors.badNameError.add("Le nom de la constante:" + var.getName() + " est déjà utilisé par une variable");
+                            this.errors.badNameError.add(
+                                    "Le nom de la constante:" + var.getName() + " est déjà utilisé par une variable");
                         }
                     }
                 }
                 if (var instanceof ConstanteSymbol && var2 instanceof ConstanteSymbol && var != var2) {
                     if (var.getName().equals(var2.getName())) {
-                        this.errors.badNameError.add("Le nom de la constante:" + var.getName() + " est déjà utilisé par une autre constante" + var2.getName());
+                        this.errors.badNameError.add("Le nom de la constante:" + var.getName()
+                                + " est déjà utilisé par une autre constante" + var2.getName());
                     }
                 }
             }
@@ -176,11 +176,8 @@ public class CheckNamingConventions {
                     Symbol localVar = resolveArgsByName(arg.getName(), ((FunctionSymbol) funct));
 
                     if (localVar != null && localVar != funct) {
-                        this.errors.badNameError.add("La variable locale : " +
-                                arg.getName() +
-                                " de la fonction : " +
-                                funct.getName() +
-                                " ne peut avoir le même nom que l'un des paramètres");
+                        this.errors.badNameError.add("La variable locale : " + arg.getName() + " de la fonction : "
+                                + funct.getName() + " ne peut avoir le même nom que l'un des paramètres");
                     }
                 }
             }
@@ -188,8 +185,10 @@ public class CheckNamingConventions {
     }
 
     /**
-     * @param name le nom de l'argument
-     * @param fun  le Symbole de la fonction
+     * @param name
+     *            le nom de l'argument
+     * @param fun
+     *            le Symbole de la fonction
      * @return le symbole correspondant au nom name ou null si pas trouvé
      */
     public Symbol resolveArgsByName(String name, FunctionSymbol fun) {
@@ -222,9 +221,8 @@ public class CheckNamingConventions {
                 String functName = funct.getName();
                 Optional<Symbol> var = ((FunctionSymbol) funct).getBody().resolveByName(functName);
                 if (var.isPresent()) {
-                    this.errors.badNameError.add("La variable locale : " +
-                            var.get().getName() +
-                            " ne peut pas avoir le même nom que la fonction dans laquelle elle est déclarée");
+                    this.errors.badNameError.add("La variable locale : " + var.get().getName()
+                            + " ne peut pas avoir le même nom que la fonction dans laquelle elle est déclarée");
                 }
             }
         }
@@ -243,9 +241,8 @@ public class CheckNamingConventions {
                 String funName = funct.getName();
                 Symbol arg = resolveArgsByName(funName, ((FunctionSymbol) funct));
                 if (arg != null) {
-                    this.errors.badNameError.add("L'argument : " +
-                            arg.getName() +
-                            " ne peut pas avoir le même nom que la fonction dans lequel il est déclaré");
+                    this.errors.badNameError.add("L'argument : " + arg.getName()
+                            + " ne peut pas avoir le même nom que la fonction dans lequel il est déclaré");
                 }
             }
         }

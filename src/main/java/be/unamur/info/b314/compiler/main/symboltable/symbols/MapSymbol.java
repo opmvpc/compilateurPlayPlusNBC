@@ -4,14 +4,13 @@ import be.unamur.info.b314.compiler.main.symboltable.Helpers.Errors;
 import be.unamur.info.b314.compiler.main.symboltable.contracts.Type;
 
 /**
- * @overview  La classe MapSymbol représente le symbole de la Map de jeu
- * constitué d'un tableau à deux dimensions représentant la carte de jeu
- * ainsi que les coordonnées initial de Cody
+ * @overview La classe MapSymbol représente le symbole de la Map de jeu constitué d'un tableau à deux dimensions
+ *           représentant la carte de jeu ainsi que les coordonnées initial de Cody
  *
- *  @specfiled carte: char[][]
- *  @specfiled initX: int
- *  @specfiled initY: int
- *  @specfiled errors: Errors
+ * @specfiled carte: char[][]
+ * @specfiled initX: int
+ * @specfiled initY: int
+ * @specfiled errors: Errors
  */
 public class MapSymbol extends Symbol {
     private char[][] carte;
@@ -21,11 +20,15 @@ public class MapSymbol extends Symbol {
 
     /**
      * Constructeur
-     * @effects initialise une MapSymbol avec le name, un type et un errors     *
-     * @param name  le nom de la map (map:)
-     * @param type   de la map
-     * @param errors represente les erreurs mapErrors qu'on peut avoir
-
+     * 
+     * @effects initialise une MapSymbol avec le name, un type et un errors *
+     * @param name
+     *            le nom de la map (map:)
+     * @param type
+     *            de la map
+     * @param errors
+     *            represente les erreurs mapErrors qu'on peut avoir
+     * 
      */
     public MapSymbol(String name, Type type, Errors errors) {
         super(name, type);
@@ -54,9 +57,12 @@ public class MapSymbol extends Symbol {
     }
 
     /**
-     * @param mapX Coordonnée X du tableau
-     * @param mapY Coordonnée Y du tableau
-     * @param line tous les elements à mettre dans le tableau
+     * @param mapX
+     *            Coordonnée X du tableau
+     * @param mapY
+     *            Coordonnée Y du tableau
+     * @param line
+     *            tous les elements à mettre dans le tableau
      * @return un boolean un true si les coordonnées de la Map sont valides
      */
     private boolean isvalidParamMap(String mapX, String mapY, String line) {
@@ -84,12 +90,16 @@ public class MapSymbol extends Symbol {
     }
 
     /**
-     * Création d'un tableau à deux dimensions représentant  la carte de jeu
+     * Création d'un tableau à deux dimensions représentant la carte de jeu
+     * 
      * @effects initialise carte
      * @modifies carte
-     * @param mapX Coordonnées X du tableau
-     * @param mapY Coordonnées Y du tableau
-     * @param line tous les éléments à mettre dans le tableau
+     * @param mapX
+     *            Coordonnées X du tableau
+     * @param mapY
+     *            Coordonnées Y du tableau
+     * @param line
+     *            tous les éléments à mettre dans le tableau
      * @return true si la carte a été créer et qu'elle est correct sinon retourne false
      */
     public boolean createCarte(String mapX, String mapY, String line) {
@@ -97,7 +107,7 @@ public class MapSymbol extends Symbol {
         if (isValid) {
             int x = Integer.parseInt(mapX);
             int y = Integer.parseInt(mapY);
-          //  carte = new char[x][y]; ok
+            // carte = new char[x][y]; ok
             carte = new char[y][x];
             int z = 0;
             for (int i = 0; i < y; i++) { // original x
@@ -107,14 +117,14 @@ public class MapSymbol extends Symbol {
                 }
                 System.out.println("");
             }
-            isValid=  isMapConfigCorrect();
+            isValid = isMapConfigCorrect();
         }
         return isValid;
     }
 
     /**
-     * Vérifie si la configuration de la carte est correct,
-     * si il y a 0 ou plusieurs Cody et 0 ou plusieurs trésors  on renvoi false
+     * Vérifie si la configuration de la carte est correct, si il y a 0 ou plusieurs Cody et 0 ou plusieurs trésors on
+     * renvoi false
      *
      * @return true si la Config est correct
      */
@@ -169,12 +179,8 @@ public class MapSymbol extends Symbol {
 
     @Override
     public String toString() {
-        return "MapSymbol" + " {" +
-                "\n\t\tname = '" + super.getName() + '\'' +
-                ", \n\t\tcarte = " + afficheCarte() +
-                ", \n\t\tinitX = " + initX +
-                ", \n\t\tinitY = " + initX +
-                "\n\t}";
+        return "MapSymbol" + " {" + "\n\t\tname = '" + super.getName() + '\'' + ", \n\t\tcarte = " + afficheCarte()
+                + ", \n\t\tinitX = " + initX + ", \n\t\tinitY = " + initX + "\n\t}";
     }
 
 }

@@ -34,9 +34,7 @@ public class StructSymbol extends ScopedSymbol implements Scope, Type {
 
     @Override
     public String toString() {
-        return "StructSymbol" + " {" +
-                "\n\t\tname = '" + super.getName() + '\'' +
-                ", \n\t\tfields = " + super.getSymbols() +
-                "\n\t}";
+        return "StructSymbol" + " {" + "\n\t\tname = '" + super.getName() + '\'' + ", \n\t\tfields = "
+                + super.getSymbols() + "\n\t}";
     }
 }

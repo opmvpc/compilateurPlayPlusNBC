@@ -12,8 +12,8 @@ import java.util.Optional;
 
 /**
  * @overview Vérififcation des types
- * @specfiled  symTable : SymbolTable la table des symboles
- * @specfiled  errors:Errors
+ * @specfiled symTable : SymbolTable la table des symboles
+ * @specfiled errors:Errors
  *
  */
 public class CheckTypes extends PlayPlusBaseListener {
@@ -22,8 +22,11 @@ public class CheckTypes extends PlayPlusBaseListener {
 
     /**
      * Constructeur
-     * @param symTable la table des symboles
-     * @param errors les erreurs
+     * 
+     * @param symTable
+     *            la table des symboles
+     * @param errors
+     *            les erreurs
      */
     public CheckTypes(SymbolTable symTable, Errors errors) {
         this.symTable = symTable;
@@ -58,20 +61,20 @@ public class CheckTypes extends PlayPlusBaseListener {
 
     private Optional<Symbol> resolveFunc(String funName) {
         Scope currentScope = this.symTable.getCurrentScope();
-        System.out.println("currentscope : "+ currentScope.getScopeName());
+        System.out.println("currentscope : " + currentScope.getScopeName());
         Optional<Symbol> func = resolveSymbolRec(funName, currentScope);
-        if (! func.isPresent()) {
-            this.errors.symbolNotFound.add("Function "+ funName +" do not exist");
+        if (!func.isPresent()) {
+            this.errors.symbolNotFound.add("Function " + funName + " do not exist");
         }
         return func;
 
     }
 
     private Optional<Symbol> resolveSymbolRec(String name, Scope currentScope) {
-        System.out.println("resolveSymbolRec : scope = "+ currentScope.getScopeName());
-        System.out.println("resolveSymbolRec : expr = "+ name);
+        System.out.println("resolveSymbolRec : scope = " + currentScope.getScopeName());
+        System.out.println("resolveSymbolRec : expr = " + name);
         Optional<Symbol> symbol = currentScope.resolveByName(name);
-        if (! symbol.isPresent() && currentScope.getEnclosingScope() == null) {
+        if (!symbol.isPresent() && currentScope.getEnclosingScope() == null) {
             return Optional.empty();
         }
         if (symbol.isPresent()) {
@@ -87,10 +90,12 @@ public class CheckTypes extends PlayPlusBaseListener {
 
     /**
      * Vérifie s'il n'y a pas d'erreur de type dans une affectation
-     * @param ctx AffectInstrContext
+     * 
+     * @param ctx
+     *            AffectInstrContext
      */
     private void evalAFFECT(PlayPlusParser.AffectInstrContext ctx) {
-//        System.out.println("AFFECT : "+ctx.getText());
+        // System.out.println("AFFECT : "+ctx.getText());
         if (ctx.getChildCount() < 3) {
             return;
         }
@@ -101,16 +106,18 @@ public class CheckTypes extends PlayPlusBaseListener {
         Optional<Symbol> leftPart = resolveSymbolRec(leftPartName, symTable.getCurrentScope());
         Optional<Symbol> rightPart = resolveSymbolRec(rightPartName, symTable.getCurrentScope());
 
-//        System.out.println(leftPartName + " : leftPart " + leftPart.toString());
-//        System.out.println(rightPartName + " : rightPart " + rightPart.toString());
+        // System.out.println(leftPartName + " : leftPart " + leftPart.toString());
+        // System.out.println(rightPartName + " : rightPart " + rightPart.toString());
 
-        if (! leftPart.isPresent() || ! rightPart.isPresent()) {
+        if (!leftPart.isPresent() || !rightPart.isPresent()) {
             return;
         }
         if (leftPart.get().getType().getName().equals(rightPart.get().getType().getName())) {
-//            System.out.println("types Ok");
+            // System.out.println("types Ok");
         } else {
-            errors.badTypeError.add("Error Types Affectation in"+ ctx.getText() +" : Les types des variables suivantes sont imcompatibles : "+leftPart.get().getName()+" et "+rightPart.get().getName());
+            errors.badTypeError.add("Error Types Affectation in" + ctx.getText()
+                    + " : Les types des variables suivantes sont imcompatibles : " + leftPart.get().getName() + " et "
+                    + rightPart.get().getName());
         }
     }
 
@@ -119,22 +126,21 @@ public class CheckTypes extends PlayPlusBaseListener {
         String text = ctx.ID().getText();
         FunctionSymbol functExpr = (FunctionSymbol) this.symTable.getScopes().get(ctx);
 
-        String typeRet= ctx.returnInstr().getChild(1).getText();
+        String typeRet = ctx.returnInstr().getChild(1).getText();
 
-      //  System.out.println("Return instruction " + typeRet);// Erreur lorsque  void
-        if (typeRet.equals("void") && functExpr.getType().getName().equals(typeRet)){
-               // errors.badTypeError.add("Error avec le type de retour de la fonction " + text + " recu " + typeRet);
-                return;
+        // System.out.println("Return instruction " + typeRet);// Erreur lorsque void
+        if (typeRet.equals("void") && functExpr.getType().getName().equals(typeRet)) {
+            // errors.badTypeError.add("Error avec le type de retour de la fonction " + text + " recu " + typeRet);
+            return;
         }
 
-//        Optional<Symbol> exprRet = functExpr.resolveByNameAndType(text, typeRet);
+        // Optional<Symbol> exprRet = functExpr.resolveByNameAndType(text, typeRet);
 
         Optional<Symbol> exprRet = resolveSymbolRec(typeRet, symTable.getCurrentScope());
 
         if (!functExpr.getType().getName().equals(exprRet.get().getType().getName())) {
-            errors.badTypeError.add("Error avec le type de retour de la fonction " +
-                    text + " type attendu " +functExpr.getType().getName() +
-                    " recu " + exprRet.get().getType().getName() );
+            errors.badTypeError.add("Error avec le type de retour de la fonction " + text + " type attendu "
+                    + functExpr.getType().getName() + " recu " + exprRet.get().getType().getName());
         }
 
         this.symTable.setCurrentScopeToEnclosingOne();
@@ -147,10 +153,12 @@ public class CheckTypes extends PlayPlusBaseListener {
 
     /**
      * Verifie que le nombre d'arguments recu est correct et decompose ces arguments pour vérifier qu'il sont corrects
-     * @param ctx FuncCallContext
+     * 
+     * @param ctx
+     *            FuncCallContext
      */
     private void checknbArgsFunctCall(PlayPlusParser.FuncCallContext ctx) {
-        String funName =ctx.ID().getText();// SymbolNamesHelper.generateName("FunctionSymbol", ctx.ID().getText());
+        String funName = ctx.ID().getText();// SymbolNamesHelper.generateName("FunctionSymbol", ctx.ID().getText());
         int nbArgs = 0;
 
         Optional<Symbol> funExpr = resolveFunc(funName);
@@ -164,89 +172,91 @@ public class CheckTypes extends PlayPlusBaseListener {
             while (vars.hasNext()) {
                 Object var = vars.next();
                 String varName = ((PlayPlusParser.FuncCallArgContext) var).exprD().getText();
-//                System.out.println("ARGNAME = "+varName);
-                if (varName.length() != 0) { // Si la chaine au bout est vide, car il crée l'arborescence meme s'il n'y a pas de parametre
+                // System.out.println("ARGNAME = "+varName);
+                if (varName.length() != 0) { // Si la chaine au bout est vide, car il crée l'arborescence meme s'il n'y
+                                             // a pas de parametre
                     nbArgs++;
-//                    trouver l'argument déclaré
-                    Symbol funcDeclArg = function.getArgs().get(nbArgs-1);
-//                    trouvé l'expression utilisée comme argument dans l'appel de la fonction
+                    // trouver l'argument déclaré
+                    Symbol funcDeclArg = function.getArgs().get(nbArgs - 1);
+                    // trouvé l'expression utilisée comme argument dans l'appel de la fonction
                     Optional<Symbol> funcCallArg = resolveSymbolRec(varName, symTable.getCurrentScope());
-//                    comparer les types
+                    // comparer les types
 
                     if (!funcDeclArg.getType().getName().equals(funcCallArg.get().getType().getName())) {
-                        this.errors.badTypeError.add("APPEL DE FONCTION "+ funName +
-                                " pour ( "+ funcCallArg.get().getName() +
-                                " ) : types incompatibles : attendu " + funcDeclArg.getType().getName() +
-                                " recu " + funcCallArg.get().getType().getName());
+                        this.errors.badTypeError.add("APPEL DE FONCTION " + funName + " pour ( "
+                                + funcCallArg.get().getName() + " ) : types incompatibles : attendu "
+                                + funcDeclArg.getType().getName() + " recu " + funcCallArg.get().getType().getName());
                     }
 
                 }
             }
 
             if (size != nbArgs) {
-                this.errors.functionError.add("Le nombre de paramètres " +
-                        nbArgs + " de la fonction  "+  funName +
-                        " ne corresponde pas à ceux de la déclaration (" + size + ")");
+                this.errors.functionError.add("Le nombre de paramètres " + nbArgs + " de la fonction  " + funName
+                        + " ne corresponde pas à ceux de la déclaration (" + size + ")");
                 return;
             }
 
-        }
-        else{
-            this.errors.functionError.add("La fonction "  + funName +" n'a pas été déclaré ");
+        } else {
+            this.errors.functionError.add("La fonction " + funName + " n'a pas été déclaré ");
 
         }
     }
 
-//    /**
-//     *
-//     * @param parent nom de la fonction
-//     * @return le nombre d'argument de la fonction parent
-//     */
-//    private long countArgumentFonct(String parent) {
-//        long args = this.expressions.stream()
-//                .filter(x ->  x.getSymbolTypeName().equals("argument") && x.getParent().getText().equals(parent))
-//                .count();
-//        return args;
-//    }
+    // /**
+    // *
+    // * @param parent nom de la fonction
+    // * @return le nombre d'argument de la fonction parent
+    // */
+    // private long countArgumentFonct(String parent) {
+    // long args = this.expressions.stream()
+    // .filter(x -> x.getSymbolTypeName().equals("argument") && x.getParent().getText().equals(parent))
+    // .count();
+    // return args;
+    // }
 
-//    /**
-//     * Comparaison entre un argument reçu en paramètre et l'argument correspondant dans la déclaration de la fonction
-//     * @param argNameCall  nom de l'argument de l'appel de fonction
-//     * @param pos position dans l'appel
-//     * @param funName nom de la fonction parent
-//     */
-//    private void checkArgsFunctCall(String argNameCall, int pos , String funName) {
-//        // essayer de faire un getType sur la valeur qu'on recoit
-//        //System.out.println("argNameCall " + argNameCall + "funName" + funName);
-//
-//        Optional<Expression> resultArgsCall = findExprByTextParent(argNameCall,funName);
-//        if (!resultArgsCall.isPresent()) {
-//            this.errors.badTypeError.add("APPEL DE FONCTION (def): not find arguments");
-//            return;
-//        }
-//
-//        Optional<Expression> argFuncDecl = findExprByTextAndSymbolType("argument", pos , funName);
-//        if (!argFuncDecl.isPresent()) {
-//            this.errors.badTypeError.add("APPEL DE FONCTION : pas d'argument dans la déclaration de la fonction " + funName+ " à cette position ");
-//            return;
-//        }
-//
-//      //  System.out.println("Argument " + argFuncDecl.toString());
-//       // System.out.println("Argument call  " + resultArgsCall.toString());
-//
-//        // Reste a checker que les types correspondent bien
-//        if (!argFuncDecl.get().getBuiltInTypeName().equals(resultArgsCall.get().getBuiltInTypeName())) {
-//            this.errors.badTypeError.add("APPEL DE FONCTION "+ funName +" pour ( "+ resultArgsCall.get().getText() +" ) : types incompatibles : attendu " + argFuncDecl.get().getBuiltInTypeName() + " recu " + resultArgsCall.get().getBuiltInTypeName());
-//        }
-//
-//    }
+    // /**
+    // * Comparaison entre un argument reçu en paramètre et l'argument correspondant dans la déclaration de la fonction
+    // * @param argNameCall nom de l'argument de l'appel de fonction
+    // * @param pos position dans l'appel
+    // * @param funName nom de la fonction parent
+    // */
+    // private void checkArgsFunctCall(String argNameCall, int pos , String funName) {
+    // // essayer de faire un getType sur la valeur qu'on recoit
+    // //System.out.println("argNameCall " + argNameCall + "funName" + funName);
+    //
+    // Optional<Expression> resultArgsCall = findExprByTextParent(argNameCall,funName);
+    // if (!resultArgsCall.isPresent()) {
+    // this.errors.badTypeError.add("APPEL DE FONCTION (def): not find arguments");
+    // return;
+    // }
+    //
+    // Optional<Expression> argFuncDecl = findExprByTextAndSymbolType("argument", pos , funName);
+    // if (!argFuncDecl.isPresent()) {
+    // this.errors.badTypeError.add("APPEL DE FONCTION : pas d'argument dans la déclaration de la fonction " + funName+
+    // " à cette position ");
+    // return;
+    // }
+    //
+    // // System.out.println("Argument " + argFuncDecl.toString());
+    // // System.out.println("Argument call " + resultArgsCall.toString());
+    //
+    // // Reste a checker que les types correspondent bien
+    // if (!argFuncDecl.get().getBuiltInTypeName().equals(resultArgsCall.get().getBuiltInTypeName())) {
+    // this.errors.badTypeError.add("APPEL DE FONCTION "+ funName +" pour ( "+ resultArgsCall.get().getText() +" ) :
+    // types incompatibles : attendu " + argFuncDecl.get().getBuiltInTypeName() + " recu " +
+    // resultArgsCall.get().getBuiltInTypeName());
+    // }
+    //
+    // }
 
     @Override
     public void exitWhileStmt(PlayPlusParser.WhileStmtContext ctx) {
-//        System.out.println(ctx.getText());
+        // System.out.println(ctx.getText());
         String conditionText = ctx.boolCondition().getText();
         if (isBoolCondition(conditionText)) {
-            errors.badTypeError.add("ERROR WHILE condition in "+conditionText+" n'est pas une expression booléenne");
+            errors.badTypeError
+                    .add("ERROR WHILE condition in " + conditionText + " n'est pas une expression booléenne");
         }
 
         symTable.setCurrentScopeToEnclosingOne();
@@ -254,10 +264,10 @@ public class CheckTypes extends PlayPlusBaseListener {
 
     @Override
     public void exitConditionalStmt(PlayPlusParser.ConditionalStmtContext ctx) {
-//        System.out.println(ctx.getText());
+        // System.out.println(ctx.getText());
         String conditionText = ctx.boolCondition().getText();
         if (isBoolCondition(conditionText)) {
-            errors.badTypeError.add("ERROR IF condition in "+conditionText+" n'est pas une expression booléenne");
+            errors.badTypeError.add("ERROR IF condition in " + conditionText + " n'est pas une expression booléenne");
         }
 
         symTable.setCurrentScopeToEnclosingOne();
@@ -268,7 +278,7 @@ public class CheckTypes extends PlayPlusBaseListener {
         System.out.println(ctx.getText());
         String conditionText = ctx.repeatCondition().getText();
         checkIntConditionType(conditionText);
-        //symTable.setCurrentScopeToEnclosingOne();
+        // symTable.setCurrentScopeToEnclosingOne();
     }
 
     /**
@@ -277,16 +287,16 @@ public class CheckTypes extends PlayPlusBaseListener {
      * @return true si c'est une expression booléenne
      */
     private boolean isBoolCondition(String conditionText) {
-//        System.out.println("Condition Bool = "+conditionText);
+        // System.out.println("Condition Bool = "+conditionText);
         Optional<Symbol> condition = resolveSymbolRec(conditionText, symTable.getCurrentScope());
 
-        if (! condition.isPresent()) {
+        if (!condition.isPresent()) {
             return false;
         }
 
         System.out.println(condition.get().getType().getName());
 
-        if (! condition.get().getType().getName().equals("bool")) {
+        if (!condition.get().getType().getName().equals("bool")) {
             return true;
         }
 
@@ -295,17 +305,18 @@ public class CheckTypes extends PlayPlusBaseListener {
 
     /**
      * Vérifie si la condition est une expression entière
+     * 
      * @param conditionText
      */
     private void checkIntConditionType(String conditionText) {
         Optional<Symbol> condition = resolveSymbolRec(conditionText, symTable.getCurrentScope());
 
-        if (! condition.isPresent()) {
+        if (!condition.isPresent()) {
             return;
         }
 
-        if (! condition.get().getType().getName().equals("int")) {
-            errors.badTypeError.add("ERROR Repeat condition in "+conditionText+" n'est pas une expression entière");
+        if (!condition.get().getType().getName().equals("int")) {
+            errors.badTypeError.add("ERROR Repeat condition in " + conditionText + " n'est pas une expression entière");
         }
     }
 }

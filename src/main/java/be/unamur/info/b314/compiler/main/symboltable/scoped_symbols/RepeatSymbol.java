@@ -21,7 +21,8 @@ public class RepeatSymbol extends ScopedSymbol {
      * @param repeatContext
      * @param condition
      */
-    public RepeatSymbol(String name, Type type, Scope scope, PlayPlusParser.RepeatStmtContext repeatContext, String condition ){
+    public RepeatSymbol(String name, Type type, Scope scope, PlayPlusParser.RepeatStmtContext repeatContext,
+            String condition) {
         super(name, type, scope);
         this.condition = condition;
         this.repeatContext = repeatContext;
@@ -34,10 +35,7 @@ public class RepeatSymbol extends ScopedSymbol {
      */
     @Override
     public String toString() {
-        return "RepeatSymbol" + " {" +
-                "\n\t\tname = '" + super.getName() + '\'' +
-                ", \n\t\tbody = " + super.getSymbols()+
-                ", \n\t\tcondition = " + this.condition+
-                "\n\t}";
+        return "RepeatSymbol" + " {" + "\n\t\tname = '" + super.getName() + '\'' + ", \n\t\tbody = "
+                + super.getSymbols() + ", \n\t\tcondition = " + this.condition + "\n\t}";
     }
 }

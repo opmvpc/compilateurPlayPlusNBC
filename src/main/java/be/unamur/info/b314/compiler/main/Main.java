@@ -1,6 +1,5 @@
 package be.unamur.info.b314.compiler.main;
 
-
 import be.unamur.info.b314.compiler.PlayPlusLexer;
 import be.unamur.info.b314.compiler.PlayPlusParser;
 import be.unamur.info.b314.compiler.exception.*;
@@ -52,7 +51,8 @@ public class Main {
     /**
      * Main method launched when starting compiler jar file.
      *
-     * @param args Command line arguments.
+     * @param args
+     *            Command line arguments.
      */
     public static void main(String[] args) {
 
@@ -74,11 +74,11 @@ public class Main {
                 try {
                     main.initialise(line);
                     main.compile(); // Call compile method (to be completed)
-                    System.out.println("EXIT : "+exitCode);
-                    if (exitCode != 2){
+                    System.out.println("EXIT : " + exitCode);
+                    if (exitCode != 2) {
                         System.out.println(exitCode);
                         System.err.println(exitCode);
-                         // Print OK on stderr
+                        // Print OK on stderr
                     } else {
                         System.err.println("OK");
                     }
@@ -111,19 +111,11 @@ public class Main {
     private Main() {
         // Create command line options
         options = new Options();
-        options.addOption(Option.builder(HELP)
-                .desc("Prints this help message.")
-                .build());
+        options.addOption(Option.builder(HELP).desc("Prints this help message.").build());
 
-        options.addOption(Option.builder(INPUT)
-                .desc("The B314 input file.")
-                .hasArg()
-                .build());
+        options.addOption(Option.builder(INPUT).desc("The B314 input file.").hasArg().build());
 
-        options.addOption(Option.builder(OUTPUT)
-                .desc("The PCOde output file.")
-                .hasArg()
-                .build());
+        options.addOption(Option.builder(OUTPUT).desc("The PCOde output file.").hasArg().build());
         this.exitCode = 2;
     }
 
@@ -133,14 +125,14 @@ public class Main {
     private void printHelpMessage() {
         HelpFormatter formatter = new HelpFormatter();
         formatter.setWidth(128);
-        formatter.printHelp(String.format("java -jar %s.jar -%s | %s %s",
-                NAME, HELP, INPUT, OUTPUT), options);
+        formatter.printHelp(String.format("java -jar %s.jar -%s | %s %s", NAME, HELP, INPUT, OUTPUT), options);
     }
 
     /**
      * Initialise the input compiler using the given input line.
      *
-     * @throws Exception If one of the three required arguments is not provided.
+     * @throws Exception
+     *             If one of the three required arguments is not provided.
      */
     private void initialise(CommandLine line) throws Exception {
         LOG.debug("Initialisation");
@@ -165,11 +157,11 @@ public class Main {
         LOG.debug("Initialisation: done");
     }
 
-
     /**
      * Compiler Methods, this is where the MAGIC happens !!! \o/
      */
-    private void compile() throws IOException, SymbolNotFoundException, BadNamingException, MapConfigException, BadTypeException, FunctionException, GameException {
+    private void compile() throws IOException, SymbolNotFoundException, BadNamingException, MapConfigException,
+            BadTypeException, FunctionException, GameException {
         // Get abstract syntax tree
         LOG.debug("Parsing input");
         printSourceFile(inputFile);
@@ -184,12 +176,8 @@ public class Main {
         // Print NBC Code
         LOG.debug("Printing NBC Code");
         Errors errors = new Errors();
-        Optional<Symbol> mapSymbol = symTable
-                .getGlobals()
-                .getSymbols()
-                .stream()
-                .filter(x -> x.getClass().getSimpleName().equals("MapSymbol"))
-                .findFirst();
+        Optional<Symbol> mapSymbol = symTable.getGlobals().getSymbols().stream()
+                .filter(x -> x.getClass().getSimpleName().equals("MapSymbol")).findFirst();
         if (mapSymbol.isPresent()) {
             printNBCCode(tree, symTable, errors);
             LOG.debug("Printing NBC Code: done");
@@ -227,7 +215,8 @@ public class Main {
     /**
      * Builds symbol table from AST.
      */
-    private SymbolTable fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException, BadNamingException, MapConfigException, BadTypeException, FunctionException, IOException {
+    private SymbolTable fillSymTable(PlayPlusParser.RootContext tree) throws SymbolNotFoundException,
+            BadNamingException, MapConfigException, BadTypeException, FunctionException, IOException {
         ParseTreeWalker walker = new ParseTreeWalker();
 
         printTitle("Def Phase");
@@ -243,26 +232,22 @@ public class Main {
         RefPhase ref = new RefPhase(def.getSymTable(), errors);
         walker.walk(ref, tree);
 
-        if (errors.symbolNotFound.isEmpty() && errors.badNameError.isEmpty()){
+        if (errors.symbolNotFound.isEmpty() && errors.badNameError.isEmpty()) {
 
             printTitle("Check Types Phase");
             CheckTypes checkTypes = new CheckTypes(symbolTable, errors);
             walker.walk(checkTypes, tree);
 
-            Optional<Symbol> fileName = symbolTable
-                    .getGlobals()
-                    .getSymbols()
-                    .stream()
-                    .filter(x -> x.getClass().getSimpleName().equals("MapFileSymbol"))
-                    .findFirst();
-
+            Optional<Symbol> fileName = symbolTable.getGlobals().getSymbols().stream()
+                    .filter(x -> x.getClass().getSimpleName().equals("MapFileSymbol")).findFirst();
 
             if (fileName.isPresent()) {
                 printTitle("Map def Phase");
                 String testFolder = inputFile.getParent();
-                File mapFile  = new File(testFolder  + "/" + fileName.get().getName());
+                File mapFile = new File(testFolder + "/" + fileName.get().getName());
 
-//                Si on trouve pas la map, on pourrait checker si elle est dans ko, ou alors on trouve comment récup le nom du dossier qui contient le fichier .b314 du test
+                // Si on trouve pas la map, on pourrait checker si elle est dans ko, ou alors on trouve comment récup le
+                // nom du dossier qui contient le fichier .b314 du test
                 try {
                     checkArgument(mapFile.exists() && mapFile.isFile(), "File %s not found!", mapFile.getName());
 
@@ -274,7 +259,7 @@ public class Main {
                     walker.walk(def, mapTree);
                 } catch (IOException | IllegalArgumentException e) {
 
-                    System.out.println("ERREUR : Map "+ mapFile +" introuvable");
+                    System.out.println("ERREUR : Map " + mapFile + " introuvable");
                 }
             }
         }
@@ -303,10 +288,11 @@ public class Main {
         return symbolTable;
     }
 
-    private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable, Errors errors) throws IOException, GameException {
+    private void printNBCCode(PlayPlusParser.RootContext tree, SymbolTable symTable, Errors errors)
+            throws IOException, GameException {
         printTitle("Printing NBC code...");
-        System.out.println("outputfile : " +  this.outputFile.getName());
-        NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable,errors);
+        System.out.println("outputfile : " + this.outputFile.getName());
+        NbcPrinterVisitor printer = new NbcPrinterVisitor("nbcCode.nbc", symTable, errors);
         printer.visitRoot(tree);
         System.out.println("Visit errors? :" + errors.gameError.toString());
         if (!errors.gameError.isEmpty()) {
@@ -320,8 +306,8 @@ public class Main {
     private static void printSourceFile(File file) {
         printSeparator();
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                new FileInputStream(file), StandardCharsets.UTF_8));) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));) {
 
             String line;
 

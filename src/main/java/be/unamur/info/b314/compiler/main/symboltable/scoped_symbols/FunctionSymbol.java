@@ -17,9 +17,12 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
 
     /**
      * @effects initialise une FunctionSymbol avec un name, un type et un scope
-     * @param name le nom de la fonction
-     * @param type le type de retour de la fonction
-     * @param scope son scope
+     * @param name
+     *            le nom de la fonction
+     * @param type
+     *            le type de retour de la fonction
+     * @param scope
+     *            son scope
      */
     public FunctionSymbol(String name, Type type, Scope scope) {
         super(name, type, scope);
@@ -37,9 +40,11 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
 
     /**
      * Définition des arguments de la fonction
+     * 
      * @modifies this
      * @effects this._post = this U {symbol}
-     * @param symbol représente un argument
+     * @param symbol
+     *            représente un argument
      */
     public void defineArg(Symbol symbol) {
         super.getSymbols().add(symbol);
@@ -47,9 +52,11 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
 
     /**
      * Définition du body de la fonction
+     * 
      * @modifies this
      * @effects this.body_post = this.body U {symbol}
-     * @param symbol le body
+     * @param symbol
+     *            le body
      */
     @Override
     public void define(Symbol symbol) {
@@ -58,14 +65,16 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
 
     /**
      * Cherche le symbol à partir d'un nom
-     * @param name le nom de la fonction qu'on cherche
+     * 
+     * @param name
+     *            le nom de la fonction qu'on cherche
      * @return un Optional<Symbol>
      */
     @Override
     public Optional<Symbol> resolveByName(String name) {
         Optional<Symbol> symbol = super.resolveByName(name);
 
-        if (! symbol.isPresent()){
+        if (!symbol.isPresent()) {
             symbol = body.resolveByName(name);
         }
 
@@ -74,7 +83,7 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
 
     /**
      *
-     * @return  Les arguments de la fonction sous la forme d'une ArrayList de Symbol
+     * @return Les arguments de la fonction sous la forme d'une ArrayList de Symbol
      */
     @Override
     public ArrayList<Symbol> getSymbols() {
@@ -85,8 +94,10 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
      *
      * @return la liste des arguments sous la forme d'une ArrayList<Symbol>
      */
-//    Alias, obligé d'avoir une fonction getSymbols() et une propriété symbols
-    public  ArrayList<Symbol> getArgs() { return getSymbols();}
+    // Alias, obligé d'avoir une fonction getSymbols() et une propriété symbols
+    public ArrayList<Symbol> getArgs() {
+        return getSymbols();
+    }
 
     /**
      *
@@ -103,11 +114,8 @@ public class FunctionSymbol extends ScopedSymbol implements Scope {
      */
     @Override
     public String toString() {
-        return "FunctionSymbol" + " {" +
-                "\n\t\tname = '" + super.getName() + '\'' +
-                "\n\t\ttype = " + super.getType().getName() +
-                ", \n\t\targuments = " + super.getSymbols()+
-                ", \n\t\tbody = " + this.body.getSymbols() +
-                "\n\t}";
+        return "FunctionSymbol" + " {" + "\n\t\tname = '" + super.getName() + '\'' + "\n\t\ttype = "
+                + super.getType().getName() + ", \n\t\targuments = " + super.getSymbols() + ", \n\t\tbody = "
+                + this.body.getSymbols() + "\n\t}";
     }
 }

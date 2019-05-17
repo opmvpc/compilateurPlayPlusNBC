@@ -21,6 +21,7 @@ public class SymbolTable {
 
     /**
      * Constructeur de la table des symboles
+     * 
      * @effects Initialise la table des symboles
      */
     public SymbolTable() {
@@ -31,6 +32,7 @@ public class SymbolTable {
 
     /**
      * Renvoie la table des scopes
+     * 
      * @return this.scopes
      */
     public ParseTreeProperty getScopes() {
@@ -59,7 +61,7 @@ public class SymbolTable {
     }
 
     /**
-     * @modifies  this.currentScope
+     * @modifies this.currentScope
      * @param currentScope
      */
     public void setCurrentScope(Scope currentScope) {
@@ -85,6 +87,7 @@ public class SymbolTable {
 
     /**
      * Sauvegarde le scope dans la table des symboles
+     * 
      * @modifies this.scope
      * @param ctx
      * @param scope
@@ -95,9 +98,6 @@ public class SymbolTable {
 
     @Override
     public String toString() {
-        return "SymbolTable{" +
-                "scopes=" + scopes +
-                ", globals=" + globals +
-                '}';
+        return "SymbolTable{" + "scopes=" + scopes + ", globals=" + globals + '}';
     }
 }
