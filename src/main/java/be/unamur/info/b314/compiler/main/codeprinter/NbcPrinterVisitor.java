@@ -84,7 +84,7 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
 
         // ajoute le code au fichier .nbc
 //        Check if cody won
-        if (this.game.isWin()) {
+        if (this.errors.gameError.isEmpty()) { // this.game.isWin()
 //            this.code.append("\t PlayTone(TONE_C5,500)\n");
             // fin du code nbc
             this.code.append("exit\n");
