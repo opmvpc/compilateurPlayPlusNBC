@@ -1,3 +1,6 @@
+# final tmp files
+*.tmp
+
 # Compiled class file
 *.class
 
