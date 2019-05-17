@@ -32,7 +32,7 @@ public class CheckNamingConventions {
         checkArgNameNotFunctName();
         checkConstNames();
         checkLocalVarNames();
-        //checkLocalVarNotGlobalVarName();
+        checkLocalVarNotGlobalVarName();
     }
 
     /**
