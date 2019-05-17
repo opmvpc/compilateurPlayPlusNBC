@@ -89,17 +89,17 @@ public class NbcPrinterVisitor extends PlayPlusBaseVisitor {
             // fin du code nbc
             this.code.append("exit\n");
             this.code.append("endt\n");
-            try {
-                printFile();
-            } catch (Exception e) {
-                System.out.println("Error Writing NBC code to File");
-            }
+
         } else {
-            System.out.println("You loose :(");
+            this.code = new StringBuilder();
 
         }
 
-
+        try {
+            printFile();
+        } catch (Exception e) {
+            System.out.println("Error Writing NBC code to File");
+        }
         System.out.println("CODE NBC :");
         System.out.println(this.code);
         return 0;
