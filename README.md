@@ -1,4 +1,4 @@
-# Compilateur Play Plus vers NBC
+# Compilateur Play+ vers NBC
 
 ## Informations
 Projet réalisé par:
@@ -8,7 +8,7 @@ Projet réalisé par:
 
 Dans le cadre du cours de *Théorie des langages, syntaxe et sémantique* de l'université *UNamur*.
 
-## Play Plus
+## Play+
 Langage simple inspiré du C.
 
 ## NBC
